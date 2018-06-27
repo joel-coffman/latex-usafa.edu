@@ -1,0 +1,55 @@
+%%
+%% This is file `beamercolorthemebluejay.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamercolorthemebluejay.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2015 by Joel Coffman
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.2 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%   http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of
+%% LaTeX version 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemebluejay}
+  [2016/12/31 v0.0.1 Beamer color theme for Johns Hopkins University]
+  \usecolortheme{bluejay}
+\newif\if@beamercolorthemebluejay@gray\relax
+\DeclareOption{gray}{
+  \@beamercolorthemebluejay@graytrue
+}
+\ProcessOptions\relax
+\definecolor{PMS Gray 1}{RGB}{229,226,224}
+\definecolor{PMS Gray 4}{RGB}{74,72,76}
+\definecolor{PMS Gray 5}{RGB}{44,44,51}
+\definecolor{PMS 173C}{RGB}{207,69,32}
+\definecolor{PMS 179C}{RGB}{224,60,49}
+\definecolor{PMS 284C}{RGB}{114,172,229}
+\definecolor{PMS 300C}{RGB}{0,94,184}
+\definecolor{PMS 341C}{RGB}{0,122,82}
+\setbeamercolor{normal text}{
+  bg=\if@beamercolorthemebluejay@gray PMS Gray 1!50\else white\fi,
+  fg=PMS Gray 5,
+}
+\setbeamercolor{alerted text}{
+  fg=PMS 173C,
+}
+\setbeamercolor{example text}{
+  fg=PMS 341C,
+}
+\setbeamercolor{structure}{
+  fg=PMS 300C,
+}
+\endinput
+%%
+%% End of file `beamercolorthemebluejay.sty'.
