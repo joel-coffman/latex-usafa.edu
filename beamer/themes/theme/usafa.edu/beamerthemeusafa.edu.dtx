@@ -1,0 +1,466 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2014 by Joel Coffman
+% -----------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{beamerthemeusafa.edu}
+%<package>  [2018/06/27 v0.1.0 Beamer theme for the US Air Force Academy]
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{beamerarticle}
+
+\usepackage{graphicx}
+\usepackage{minted}
+
+\usepackage{email}
+\usepackage{theme-doc}
+
+\usepackage{beamerthemeusafa.edu}
+
+
+\input{.version}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{beamerthemeusafa.edu.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2015/02/16}{%
+%   Initial version
+% }
+%
+% \GetFileInfo{beamerthemeusafa.edu.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{
+%   The \textsf{beamerthemeusafa.edu} package\thanks{%
+%     This document corresponds to \protect\textsf{beamerthemeusafa.edu}~\fileversion-\version, dated \filedate.
+%   }
+% }
+% \author{Joel Coffman\\\email{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% A Beamer theme for the US Air Force Academy
+% \end{abstract}
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \section{Usage}
+% Per Beamer's documentation, this color theme should be loaded via the following command:
+% \begin{VerbatimOut}[
+%     gobble=1,
+% ]{minted/useroutertheme.out}
+% \usetheme{usafa.edu}
+% \end{VerbatimOut}
+% \inputminted[
+%     gobble=1,
+% ]{latex}{minted/useroutertheme.out}
+%
+% The following images illustrate the theme's style.
+%
+% \begin{figure}[!h]
+%    \includegraphics[
+%        page=1,
+%        width=0.49\linewidth,
+%    ]{example}
+%    \hfill
+%    \includegraphics[
+%        page=2,
+%        width=0.49\linewidth,
+%    ]{example}
+% \end{figure}
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% See Beamer's documentation and the implementation of various themes for more information about the color palettes and color commands.
+%
+% Themes are only used in \textsc{beamer}'s presentation mode.
+%    \begin{macrocode}
+\mode<presentation>
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Require the \textsf{pgfopts} package to parse package options.
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+% \subsection{Required Packages}
+% Use the \textsf{calc} package to compute the size of the logo.
+%    \begin{macrocode}
+\usepackage{calc}
+%    \end{macrocode}
+%
+% Use predefined themes as basic style.
+%    \begin{macrocode}
+\usecolortheme{bluejay}
+\useoutertheme{logo}
+%    \end{macrocode}
+%
+% \subsection{Options}
+%    \begin{macrocode}
+\pgfkeys{
+  /beamer/themes/theme/usafa.edu/.cd,
+  .search also={
+    /beamer/themes/outer/logo,
+  },
+  /beamer/themes/outer/logo/.cd,
+  base/split/.add code={}{
+    \setbeamercolor*{palette quaternary}{
+      bg=structure.bg,
+      fg=PMS 300C,
+      use=structure,
+    }
+    \setbeamercolor*{title in head/foot}{
+      bg=PMS Gray 4,
+      fg=white,
+    }
+    \setbeamercolor*{author in head/foot}{
+      bg=PMS Gray 4,
+      fg=white,
+    }
+    \setbeamercolor*{palette primary}{
+      bg=structure.bg,
+      fg=PMS 300C,
+      use=structure,
+    }
+    \setbeamercolor*{logo in head/foot}{
+      bg=structure.bg,
+      fg=PMS 300C,
+      use=structure,
+    }
+  },
+  base/tree/.add code={}{
+    \setbeamercolor*{palette quaternary}{
+      bg=PMS Gray 4,
+      fg=white,
+    }
+    \setbeamercolor*{author in head/foot}{
+      parent=palette quaternary,
+    }
+    \setbeamercolor*{section in head/foot}{
+      bg=structure.bg,
+      fg=PMS 284C,
+      use=structure,
+    }
+    \setbeamercolor*{subsection in head/foot}{
+      bg=structure.bg,
+      fg=PMS 284C,
+      use=structure,
+    }
+    \setbeamercolor*{title in head/foot}{
+      bg=structure.bg,
+      fg=PMS 300C,
+      use=structure,
+    }
+    \setbeamercolor*{logo in head/foot}{
+      bg=structure.bg,
+      fg=white,
+      use=structure,
+    }
+  },
+}
+%    \end{macrocode}
+%
+% \subsection{Configuration}
+%
+% \begin{macro}{logo}
+% Use the academy's logo.
+%    \begin{macrocode}
+\logo{
+  \includegraphics[
+      height=\headheight - 2pt,
+      keepaspectratio,
+      width=0.34\paperwidth - 2pt,
+  ]{usafa.eps}
+  \hspace{1pt}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Set background color for header and footer.
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+%
+%
+% Set the default values for the options.
+%    \begin{macrocode}
+\pgfkeys{
+  /beamer/themes/theme/usafa.edu/.cd,
+  base=split,
+  position=right,
+}
+%    \end{macrocode}
+% Process options.
+%    \begin{macrocode}
+\ProcessPgfOptions{/beamer/themes/theme/usafa.edu}
+%    \end{macrocode}
+%
+%
+% End presentation mode.
+%    \begin{macrocode}
+\mode
+<all>
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+%\iffalse
+%<*usafa.eps>
+%
+%<<usafa.eps
+%!PS-Adobe-3.0 EPSF-3.0
+%%Creator: cairo 1.14.0 (http://cairographics.org)
+%%CreationDate: Wed Jun 27 10:58:31 2018
+%%Pages: 1
+%%DocumentData: Clean7Bit
+%%LanguageLevel: 2
+%%BoundingBox: 0 -1 131 43
+%%EndComments
+%%BeginProlog
+save
+50 dict begin
+/q { gsave } bind def
+/Q { grestore } bind def
+/cm { 6 array astore concat } bind def
+/w { setlinewidth } bind def
+/J { setlinecap } bind def
+/j { setlinejoin } bind def
+/M { setmiterlimit } bind def
+/d { setdash } bind def
+/m { moveto } bind def
+/l { lineto } bind def
+/c { curveto } bind def
+/h { closepath } bind def
+/re { exch dup neg 3 1 roll 5 3 roll moveto 0 rlineto
+      0 exch rlineto 0 rlineto closepath } bind def
+/S { stroke } bind def
+/f { fill } bind def
+/f* { eofill } bind def
+/n { newpath } bind def
+/W { clip } bind def
+/W* { eoclip } bind def
+/BT { } bind def
+/ET { } bind def
+/pdfmark where { pop globaldict /?pdfmark /exec load put }
+    { globaldict begin /?pdfmark /pop load def /pdfmark
+    /cleartomark load def end } ifelse
+/BDC { mark 3 1 roll /BDC pdfmark } bind def
+/EMC { mark /EMC pdfmark } bind def
+/cairo_store_point { /cairo_point_y exch def /cairo_point_x exch def } def
+/Tj { show currentpoint cairo_store_point } bind def
+/TJ {
+  {
+    dup
+    type /stringtype eq
+    { show } { -0.001 mul 0 cairo_font_matrix dtransform rmoveto } ifelse
+  } forall
+  currentpoint cairo_store_point
+} bind def
+/cairo_selectfont { cairo_font_matrix aload pop pop pop 0 0 6 array astore
+    cairo_font exch selectfont cairo_point_x cairo_point_y moveto } bind def
+/Tf { pop /cairo_font exch def /cairo_font_matrix where
+      { pop cairo_selectfont } if } bind def
+/Td { matrix translate cairo_font_matrix matrix concatmatrix dup
+      /cairo_font_matrix exch def dup 4 get exch 5 get cairo_store_point
+      /cairo_font where { pop cairo_selectfont } if } bind def
+/Tm { 2 copy 8 2 roll 6 array astore /cairo_font_matrix exch def
+      cairo_store_point /cairo_font where { pop cairo_selectfont } if } bind def
+/g { setgray } bind def
+/rg { setrgbcolor } bind def
+/d1 { setcachedevice } bind def
+%%EndProlog
+%%BeginSetup
+%%EndSetup
+%%Page: 1 1
+%%BeginPageSetup
+%%PageBoundingBox: 0 -1 131 43
+%%EndPageSetup
+q 0 -1 131 44 rectclip q
+0 0.254902 0.521569 rg
+13.543 34.24 m 16.43 25.466 l 11.023 25.466 l h
+11.27 42.252 m 4.059 18.099 l 0.969 18.099 l 0.969 13.974 l 11.309 13.974
+ l 11.309 18.099 l 9.039 18.099 l 10.004 21.338 l 17.449 21.338 l 18.359
+ 18.099 l 15.789 18.099 l 15.789 13.974 l 26.82 13.974 l 26.82 4.142 l 23.934
+ 4.142 l 23.934 0.017 l 34.328 0.017 l 34.328 4.142 l 31.441 4.142 l 31.441
+ 13.974 l 37.43 13.974 l 37.43 12.322 l 41.184 12.322 l 41.184 19.752 l 
+37.43 19.752 l 37.43 18.099 l 31.441 18.099 l 31.441 25.466 l 40.895 25.466
+ l 40.895 22.716 l 45.227 22.716 l 45.227 29.595 l 23.934 29.595 l 23.934
+ 25.466 l 26.82 25.466 l 26.82 18.099 l 23.398 18.099 l 15.906 42.252 l 
+h
+11.27 42.252 m f
+63.867 31.791 m 63.867 30.341 62.863 29.502 61.531 29.502 c 60.176 29.502
+ 59.184 30.341 59.184 31.791 c 59.184 35.029 l 60.098 35.029 l 60.098 31.736
+ l 60.098 30.779 60.73 30.302 61.531 30.302 c 62.328 30.302 62.949 30.779
+ 62.949 31.736 c 62.949 35.029 l 63.867 35.029 l h
+70.371 35.029 m 70.371 29.502 l 70.062 29.502 l 66.586 33.267 l 66.586 
+29.591 l 65.672 29.591 l 65.672 35.119 l 65.992 35.119 l 69.457 31.365 l
+ 69.457 35.029 l h
+73.164 29.591 m 72.246 29.591 l 72.246 35.029 l 73.164 35.029 l h
+79.211 34.248 m 77.285 34.248 l 77.285 29.591 l 76.367 29.591 l 76.367 
+34.248 l 74.449 34.248 l 74.449 35.029 l 79.211 35.029 l h
+84.25 34.248 m 81.414 34.248 l 81.414 32.853 l 83.551 32.853 l 83.551 32.095
+ l 81.414 32.095 l 81.414 30.377 l 84.355 30.377 l 84.355 29.591 l 80.5 
+29.591 l 80.5 35.029 l 84.25 35.029 l h
+90.738 32.318 m 90.738 30.74 89.52 29.591 87.637 29.591 c 85.848 29.591
+ l 85.848 35.029 l 87.637 35.029 l 89.52 35.029 90.738 33.923 90.738 32.318
+ c h
+86.762 34.236 m 86.762 30.377 l 87.629 30.377 l 88.969 30.377 89.797 31.189
+ 89.797 32.318 c 89.797 33.478 88.969 34.236 87.629 34.236 c h
+98.672 34.146 m 98.031 33.677 l 97.738 34.095 97.324 34.338 96.832 34.338
+ c 96.371 34.338 95.965 34.123 95.965 33.677 c 95.965 33.267 96.297 33.119
+ 96.762 32.904 c 97.402 32.623 l 98.266 32.244 98.766 31.826 98.766 31.076
+ c 98.766 30.111 97.945 29.502 96.855 29.502 c 95.906 29.502 95.137 29.963
+ 94.703 30.681 c 95.352 31.15 l 95.68 30.697 96.141 30.287 96.848 30.287
+ c 97.438 30.287 97.832 30.572 97.832 31.045 c 97.832 31.47 97.496 31.634
+ 96.996 31.857 c 96.363 32.138 l 95.629 32.459 95.031 32.88 95.031 33.646
+ c 95.031 34.541 95.844 35.119 96.832 35.119 c 97.668 35.119 98.324 34.709
+ 98.672 34.146 c h
+104.555 34.248 m 102.629 34.248 l 102.629 29.591 l 101.715 29.591 l 101.715
+ 34.248 l 99.793 34.248 l 99.793 35.029 l 104.555 35.029 l h
+108.617 30.498 m 106.051 30.498 l 105.645 29.591 l 104.668 29.591 l 107.184
+ 35.119 l 107.492 35.119 l 110.008 29.591 l 109.023 29.591 l h
+107.336 33.505 m 106.387 31.248 l 108.281 31.248 l h
+114.883 34.248 m 112.953 34.248 l 112.953 29.591 l 112.039 29.591 l 112.039
+ 34.248 l 110.121 34.248 l 110.121 35.029 l 114.883 35.029 l h
+119.918 34.248 m 117.086 34.248 l 117.086 32.853 l 119.219 32.853 l 119.219
+ 32.095 l 117.086 32.095 l 117.086 30.377 l 120.023 30.377 l 120.023 29.591
+ l 116.168 29.591 l 116.168 35.029 l 119.918 35.029 l h
+125.078 34.146 m 124.438 33.677 l 124.145 34.095 123.73 34.338 123.238 
+34.338 c 122.777 34.338 122.371 34.123 122.371 33.677 c 122.371 33.267 122.703
+ 33.119 123.168 32.904 c 123.809 32.623 l 124.672 32.244 125.172 31.826 
+125.172 31.076 c 125.172 30.111 124.352 29.502 123.262 29.502 c 122.312 
+29.502 121.543 29.963 121.109 30.681 c 121.758 31.15 l 122.086 30.697 122.547
+ 30.287 123.254 30.287 c 123.84 30.287 124.238 30.572 124.238 31.045 c 124.238
+ 31.47 123.902 31.634 123.402 31.857 c 122.77 32.138 l 122.035 32.459 121.438
+ 32.88 121.438 33.646 c 121.438 34.541 122.25 35.119 123.238 35.119 c 124.074
+ 35.119 124.73 34.709 125.078 34.146 c h
+125.078 34.146 m f
+0.109804 0.184314 0.356863 rg
+60.168 15.619 m 55.5 15.619 l 54.762 13.974 l 52.988 13.974 l 57.559 24.017
+ l 58.125 24.017 l 62.695 13.974 l 60.906 13.974 l h
+57.844 21.084 m 56.113 16.982 l 59.555 16.982 l h
+66.012 13.974 m 64.348 13.974 l 64.348 23.853 l 66.012 23.853 l h
+75.141 13.974 m 72.188 17.791 l 70.285 17.791 l 70.285 13.974 l 68.621 
+13.974 l 68.621 23.853 l 72.406 23.853 l 74.512 23.853 75.926 22.627 75.926
+ 20.83 c 75.926 19.525 75.172 18.509 73.93 18.045 c 77.039 13.974 l h
+70.285 19.197 m 72.375 19.197 l 73.551 19.197 74.211 19.869 74.211 20.814
+ c 74.211 21.771 73.551 22.443 72.375 22.443 c 70.285 22.443 l h
+89.594 22.431 m 84.598 22.431 l 84.598 19.482 l 88.715 19.482 l 88.715 
+18.045 l 84.598 18.045 l 84.598 13.97 l 82.934 13.97 l 82.934 23.853 l 89.594
+ 23.853 l h
+101.422 18.912 m 101.422 16.009 98.973 13.806 95.973 13.806 c 92.941 13.806
+ 90.535 16.025 90.535 18.912 c 90.535 21.802 92.957 24.017 95.973 24.017
+ c 98.973 24.017 101.422 21.802 101.422 18.912 c h
+92.266 18.927 m 92.266 16.802 93.836 15.259 95.988 15.259 c 98.109 15.259
+ 99.711 16.802 99.711 18.927 c 99.711 21.009 98.109 22.564 95.988 22.564
+ c 93.836 22.564 92.266 21.025 92.266 18.927 c h
+109.938 13.974 m 106.984 17.791 l 105.086 17.791 l 105.086 13.974 l 103.418
+ 13.974 l 103.418 23.853 l 107.207 23.853 l 109.312 23.853 110.727 22.627
+ 110.727 20.83 c 110.727 19.525 109.973 18.509 108.73 18.045 c 111.84 13.974
+ l h
+105.086 19.197 m 107.176 19.197 l 108.352 19.197 109.012 19.869 109.012
+ 20.814 c 109.012 21.771 108.352 22.443 107.176 22.443 c 105.086 22.443 
+l h
+122.367 21.74 m 121.109 20.857 l 120.387 21.92 119.32 22.564 117.938 22.564
+ c 115.801 22.564 114.195 21.021 114.195 18.912 c 114.195 16.802 115.801
+ 15.259 117.938 15.259 c 119.316 15.259 120.387 15.904 121.109 16.966 c 
+122.367 16.084 l 121.504 14.705 119.867 13.806 117.922 13.806 c 114.887 
+13.806 112.469 16.009 112.469 18.912 c 112.469 21.802 114.887 24.017 117.922
+ 24.017 c 119.867 24.017 121.484 23.119 122.367 21.74 c h
+131.18 22.431 m 126.027 22.431 l 126.027 19.9 l 129.906 19.9 l 129.906 
+18.521 l 126.027 18.521 l 126.027 15.392 l 131.367 15.392 l 131.367 13.97
+ l 124.363 13.97 l 124.363 23.853 l 131.18 23.853 l h
+62.934 1.662 m 58.266 1.662 l 57.527 0.017 l 55.754 0.017 l 60.324 10.06
+ l 60.891 10.06 l 65.461 0.017 l 63.672 0.017 l h
+60.605 7.127 m 58.879 3.025 l 62.32 3.025 l h
+76.113 7.783 m 74.855 6.9 l 74.133 7.963 73.066 8.607 71.684 8.607 c 69.547
+ 8.607 67.941 7.064 67.941 4.955 c 67.941 2.845 69.547 1.302 71.684 1.302
+ c 73.066 1.302 74.133 1.947 74.855 3.009 c 76.113 2.127 l 75.25 0.748 73.617
+ -0.151 71.668 -0.151 c 68.637 -0.151 66.215 2.052 66.215 4.955 c 66.215
+ 7.845 68.633 10.06 71.668 10.06 c 73.613 10.06 75.234 9.162 76.113 7.783
+ c h
+84.172 1.662 m 79.508 1.662 l 78.77 0.017 l 76.992 0.017 l 81.566 10.06
+ l 82.129 10.06 l 86.703 0.017 l 84.91 0.017 l h
+81.848 7.127 m 80.121 3.025 l 83.559 3.025 l h
+97.242 4.97 m 97.242 2.095 95.027 0.017 91.605 0.017 c 88.352 0.017 l 88.352
+ 9.896 l 91.605 9.896 l 95.027 9.896 97.242 7.888 97.242 4.97 c h
+90.016 8.459 m 90.016 1.439 l 91.59 1.439 l 94.023 1.439 95.531 2.92 95.531
+ 4.97 c 95.531 7.08 94.023 8.459 91.59 8.459 c h
+106.043 8.474 m 100.891 8.474 l 100.891 5.943 l 104.77 5.943 l 104.77 4.564
+ l 100.891 4.564 l 100.891 1.439 l 106.23 1.439 l 106.23 0.013 l 99.223 
+0.013 l 99.223 9.896 l 106.043 9.896 l h
+118.012 10.06 m 118.012 0.017 l 116.348 0.017 l 116.348 6.213 l 113.379
+ 2.502 l 112.812 2.502 l 109.828 6.213 l 109.828 0.017 l 108.164 0.017 l
+ 108.164 10.06 l 108.746 10.06 l 113.098 4.537 l 117.449 10.06 l h
+125.02 4.013 m 125.02 0.017 l 123.355 0.017 l 123.355 3.998 l 119.773 9.896
+ l 121.629 9.896 l 124.188 5.599 l 126.766 9.896 l 128.602 9.896 l h
+125.02 4.013 m f
+Q Q
+showpage
+%%Trailer
+end restore
+%%EOF
+%usafa.eps
+%
+%</usafa.eps>
+%\fi
+\endinput

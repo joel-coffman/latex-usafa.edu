@@ -32,3 +32,7 @@ _minted-*
 
 
 /unversioned/
+
+# derivative files generated via .ins and .dtx
+/beamer/themes/theme/usafa.edu/beamerthemeusafa.edu.sty
+/beamer/themes/theme/usafa.edu/usafa.eps
