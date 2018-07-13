@@ -165,14 +165,6 @@
       fg=PMS 300C,
       use=structure,
     }
-    \setbeamercolor*{title in head/foot}{
-      bg=PMS Gray 4,
-      fg=white,
-    }
-    \setbeamercolor*{author in head/foot}{
-      bg=PMS Gray 4,
-      fg=white,
-    }
     \setbeamercolor*{palette primary}{
       bg=structure.bg,
       fg=PMS 300C,
@@ -232,6 +224,37 @@
 %    \end{macrocode}
 % \end{macro}
 %
+% Define the footline template.
+%    \begin{macrocode}
+\defbeamertemplate{footline}{usafa.edu}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[
+        dp=1.125ex,%
+        ht=2.5ex,%
+        leftskip=1em,%
+        rightskip=1em,%
+        wd=\paperwidth,%
+    ]{palette quaternary}%
+      \hfil\rule{\paperwidth - 7em}{0.5pt}\hfil\par%
+      \hfill%
+      \smash{%
+        \usebeamerfont{page number in head/foot}%
+        Integrity $\boldsymbol{\cdot}$ Service $\boldsymbol{\cdot}$ Excellence%
+      }%
+      \hfill%
+      \llap{%
+        \usebeamerfont{page number in head/foot}%
+        \insertframenumber%
+      }%
+    \end{beamercolorbox}%
+  }%
+%    \end{macrocode}
+%    \begin{macrocode}
+  \vskip0pt%
+}
+%    \end{macrocode}
+%
 % Set background color for header and footer.
 %    \begin{macrocode}
 %    \end{macrocode}
@@ -249,6 +272,11 @@
 % Process options.
 %    \begin{macrocode}
 \ProcessPgfOptions{/beamer/themes/theme/usafa.edu}
+%    \end{macrocode}
+%
+% Install the theme-specific footline.
+%    \begin{macrocode}
+\setbeamertemplate{footline}[usafa.edu]
 %    \end{macrocode}
 %
 %
