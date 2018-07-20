@@ -1,0 +1,253 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2014 by Joel Coffman
+% -----------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{beamercolorthemefalcon}
+%<package>  [2018/07/20 v0.1.0 Beamer color theme for the US Air Force Academy]
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{beamerarticle}
+
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{glossaries}
+\usepackage{graphicx}
+\usepackage{minted}
+
+\usepackage{email}
+\usepackage{theme-doc}
+
+\usepackage{beamercolorthemefalcon}
+
+
+% glossaries
+\newacronym{USAFA}{USAFA}{US Air Force Academy}
+
+% url
+\urlstyle{same}  % do not use monospace font in URLs
+
+
+\input{.version}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{beamercolorthemefalcon.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2018/07/20}{%
+%   Initial version
+% }
+%
+% \GetFileInfo{beamercolorthemefalcon.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{
+%   The \textsf{beamercolorthemefalcon} package\thanks{%
+%     This document corresponds to \protect\textsf{beamerouterthemefalcon}~\fileversion-\version, dated \filedate.
+%   }
+% }
+% \author{Joel Coffman\\\email{joel.coffman@jhu.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% A Beamer color theme for the \gls{USAFA}.
+% The ``falcon'' color theme defines and uses colors from the official color palette.
+% \end{abstract}
+% \glsresetall  ^^A reset all acronyms
+%
+% \section{Usage}
+% Per Beamer's documentation, this color theme should be loaded using the following command:
+% \begin{minted}[
+%   gobble=2,
+% ]{latex}
+  \usecolortheme{falcon}
+% \end{minted}
+%
+% The following images illustrate the theme's style.
+%
+% \begin{figure}[!h]
+%    \includegraphics[
+%        page=1,
+%        width=0.49\linewidth,
+%    ]{example}
+%    \hfill
+%    \includegraphics[
+%        page=2,
+%        width=0.49\linewidth,
+%    ]{example}
+% \end{figure}
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% See Beamer's documentation and the implementation of various themes for more information about the color palettes and color commands.
+% The \mintinline{latex}{default} color theme\footnote{^^A
+%   \url{http://mirrors.ctan.org/macros/latex/contrib/beamer/base/themes/color/beamercolorthemedefault.sty}
+% } is a particularly good resource for the available color commands.
+%
+% Process options.
+% \mintinline{latex}{\relax} prevents unnecessary lookahead.
+%    \begin{macrocode}
+\ProcessOptions\relax
+%    \end{macrocode}
+%
+% \subsection{Colors}
+% Define colors from the \gls{USAFA} color palette.\footnote{\url{https://en.wikipedia.org/wiki/Air_Force_blue}}  ^^A https://goo.gl/p8u8v7
+%
+% Define the Patone colors\footnote{\url{https://www.pantone.com/}} used by \gls{USAFA}.
+%    \begin{macrocode}
+\definecolor{Pantone 123}{cmyk/RGB}{0.00,0.19,0.89,0.00/255,199,44}
+\definecolor{Pantone 286}{cmyk/RGB}{1.00,0.75,0.00,0.00/0,51,160}
+\definecolor{Pantone 287}{cmyk/RGB}{1.00,0.75,0.02,0.18/0,48,135}
+\definecolor{Pantone 429}{cmyk/RGB}{0.21,0.11,0.09,0.23/162,170,173}
+\definecolor{Pantone 485}{cmyk/RGB}{0.00,0.95,1.00,0.00/218,41,28}
+\definecolor{Pantone 877}{cmyk/RGB}{0.45,0.34,0.34,0.00/138,141,143}
+
+\definecolor{Pantone Cool Gray 5}{cmyk/RGB}{0.13,0.09,0.10,0.27/177,179,179}
+\definecolor{Pantone Process Black}{cmyk/RGB}{0.00,0.00,0.00,1.00/39,37,31}
+%    \end{macrocode}
+%
+% Define the \gls{USAFA} colors using the previously-defined Pantone colors.
+%    \begin{macrocode}
+\colorlet{USAFA Blue}{Pantone 286}
+\colorlet{USAFA Metallic Silver}{Pantone 877}
+\colorlet{USAFA Alternate Silver}{Pantone 429}
+
+\colorlet{Falcon 2000 Blue}{Pantone 287}
+\colorlet{Falcon 2000 Metallic Silver}{Pantone 877}
+\colorlet{Falcon 2000 Alternate Silver}{Pantone Cool Gray 5}
+\colorlet{Falcon 2000 Gold}{Pantone 123}
+\colorlet{Falcon 2000 Black}{Pantone Process Black}
+
+\colorlet{Class Gold}{Pantone 123}
+\colorlet{Class Royal}{Pantone 286}
+\colorlet{Class Silver}{Pantone 877}
+\colorlet{Class Red}{Pantone 485}
+%    \end{macrocode}
+%
+% Table~\ref{table:colors} lists the color names and samples of those colors defined by this theme.
+%
+% \begin{table}[tbh]
+%   \centering
+%   \caption{%
+%     Color names and samples of colors defined by this theme.
+%   }
+%   \label{table:colors}
+%   \begin{tabular}{lc}
+%     \toprule
+%     Color & Sample\\
+%     \midrule
+%     USAFA Blue & \testcolor{USAFA Blue}\\
+%     USAFA Metallic Silver & \testcolor{USAFA Metallic Silver}\\
+%     USAFA Alternate Silver & \testcolor{USAFA Alternate Silver}\\
+%     \addlinespace
+%     Falcon 2000 Blue & \testcolor{Falcon 2000 Blue}\\
+%     Falcon 2000 Metallic Silver & \testcolor{Falcon 2000 Metallic Silver}\\
+%     Falcon 2000 Alternate Silver & \testcolor{Falcon 2000 Alternate Silver}\\
+%     Falcon 2000 Gold & \testcolor{Falcon 2000 Gold}\\
+%     Falcon 2000 Black & \testcolor{Falcon 2000 Black}\\
+%     \addlinespace
+%     Class Gold & \testcolor{Class Gold}\\
+%     Class Royal & \testcolor{Class Royal}\\
+%     Class Silver & \testcolor{Class Silver}\\
+%     Class Red & \testcolor{Class Red}\\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% \subsection{Theme}
+% Override colors used by Beamer's color palettes.
+%
+% \mintinline{latex}{normal text} defines the most basic style for a presentation when another color palette does not apply.
+%    \begin{macrocode}
+\setbeamercolor{normal text}{
+%    \end{macrocode}
+% Use black foreground. \testcolor{Falcon 2000 Black}
+% \mintinline{latex}{black} could be used instead, but
+% \mintinline{latex}{Falcon 2000 Black} appears in the official color palette.
+%    \begin{macrocode}
+  fg=Falcon 2000 Black,
+}
+%    \end{macrocode}
+%
+% \mintinline{latex}{alerted text} is red. \testcolor{Class Red}
+%    \begin{macrocode}
+\setbeamercolor{alerted text}{
+  fg=Class Red,
+}
+%    \end{macrocode}
+%
+% \mintinline{latex}{example text} is royal blue. \testcolor{Class Royal}
+%    \begin{macrocode}
+\setbeamercolor{example text}{
+  fg=Class Royal,
+}
+%    \end{macrocode}
+%
+% The \mintinline{latex}{structure} color palette is derived from a medium blue. \testcolor{Falcon 2000 Blue}
+% Shades of this color are used for most elements in the presentation.
+%    \begin{macrocode}
+\setbeamercolor{structure}{
+  fg=Falcon 2000 Blue,
+}
+%    \end{macrocode}
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale

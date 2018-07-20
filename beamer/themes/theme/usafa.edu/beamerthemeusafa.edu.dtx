@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2018/06/27 v0.1.0 Beamer theme for the US Air Force Academy]
+%<package>  [2018/07/20 v0.1.1 Beamer theme for the US Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -147,9 +147,12 @@
 %
 % Use predefined themes as basic style.
 %    \begin{macrocode}
-\usecolortheme{bluejay}
+\usecolortheme{falcon}
 \useoutertheme{logo}
 %    \end{macrocode}
+% \changes{0.1.1}{2018/07/20}{%
+%   Use falcon color theme
+% }
 %
 % \subsection{Options}
 %    \begin{macrocode}
@@ -161,46 +164,39 @@
   /beamer/themes/outer/logo/.cd,
   base/split/.add code={}{
     \setbeamercolor*{palette quaternary}{
-      bg=structure.bg,
-      fg=PMS 300C,
+      fg=Falcon 2000 Blue,
       use=structure,
     }
     \setbeamercolor*{palette primary}{
-      bg=structure.bg,
-      fg=PMS 300C,
+      fg=Falcon 2000 Blue,
       use=structure,
     }
     \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
-      fg=PMS 300C,
+      fg=Falcon 2000 Blue,
       use=structure,
     }
   },
   base/tree/.add code={}{
     \setbeamercolor*{palette quaternary}{
-      bg=PMS Gray 4,
+      bg=Falcon 2000 Black,
       fg=white,
     }
     \setbeamercolor*{author in head/foot}{
       parent=palette quaternary,
     }
     \setbeamercolor*{section in head/foot}{
-      bg=structure.bg,
-      fg=PMS 284C,
+      fg=Falcon 2000 Blue!25,
       use=structure,
     }
     \setbeamercolor*{subsection in head/foot}{
-      bg=structure.bg,
-      fg=PMS 284C,
+      fg=Falcon 2000 Blue!25,
       use=structure,
     }
     \setbeamercolor*{title in head/foot}{
-      bg=structure.bg,
-      fg=PMS 300C,
+      fg=Falcon 2000 BLue,
       use=structure,
     }
     \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
       fg=white,
       use=structure,
     }
