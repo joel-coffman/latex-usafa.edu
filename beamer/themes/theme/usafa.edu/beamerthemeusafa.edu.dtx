@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2018/07/20 v0.1.1 Beamer theme for the US Air Force Academy]
+%<package>  [2018/08/10 v0.1.2 Beamer theme for the US Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -212,6 +212,16 @@
 %    \end{macrocode}
 %
 % \subsection{Configuration}
+%
+% \begin{macro}{institute}
+% Set the institute.
+%    \begin{macrocode}
+\institute[usafa.edu]{US Air Force Academy}
+%    \end{macrocode}
+% \changes{0.1.2}{2018/08/10}{%
+%   Set the institute automatically
+% }
+% \end{macro}
 %
 % \begin{macro}{logo}
 % Use the academy's logo.
