@@ -1,0 +1,34 @@
+# OS metadata
+.DS_Store
+
+# temporary and backup files
+.*.swp
+*~
+
+# LaTeX derivatives
+*.aux
+*.bbl
+*.blg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.pdf
+*.pyg
+*.snm
+*.svt
+*.toc
+
+*.synctex.gz
+_minted-*
+
+.version.tex
+
+
+/unversioned/
