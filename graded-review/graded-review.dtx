@@ -282,17 +282,6 @@
   }
 %    \end{macrocode}
 %
-% Ensure that the required arguments have been provided.
-%    \begin{macrocode}
-  \foreach \key in {} {
-    \expandafter\ifx\csname gr@coverpage@\key\endcsname\relax
-      \PackageError{graded-review}
-        {coverpage missing required argument: \key}
-        {The \key key is required for the coverpage macro}
-    \fi
-  }
-%    \end{macrocode}
-%
 % Change the geometry of the current page. The cover page always has 1-inch
 % margins.
 %    \begin{macrocode}
