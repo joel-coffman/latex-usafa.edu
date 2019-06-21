@@ -249,23 +249,7 @@
       military. Do not compromise your integrity by violating academic security
       or by taking unfair advantage of your classmates.
     },
-    authorized resources={%
-      \def\gr@islist{\in@{,}}%
-      \expandafter\gr@islist\expandafter{\gr@coverpage@resources}%
-      \ifin@% multiple resources -> display as itemized list
-        \hspace{\fill}%
-        \begin{itemize}[
-            nosep,
-        ]
-          \foreach \resource in \gr@coverpage@resources {%
-            \item \resource%
-          }
-        \end{itemize}
-      \else% single resource -> display inline (i.e., no itemize environment)
-        \gr@coverpage@resources%
-      \fi%
-    },
-    resources={None},
+    authorized resources={None},
   }
   \ltx@ifpackageloaded{course}{
     \pgfkeys{course={\course{name}: \course{title}}}
