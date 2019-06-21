@@ -1,0 +1,449 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2016 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{minted}
+
+\usepackage{minted-doc}
+
+\usepackage{graded-review}
+
+% enumitem
+\setlist{
+  noitemsep,
+}
+
+\input{.version}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{graded-review.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.0.1}{2019/06/19}{Initial version}
+%
+% \GetFileInfo{graded-review.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{graded-review} package\thanks{This
+% document corresponds to \textsf{graded-review~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% A package for graded reviews (GRs) at the US Air Force Academy. This package
+% manages a number of formatting details automatically, including the cover
+% page that identifies the contents as academic testing material, academic
+% security policy, authorized resources, and version identifier.
+% \end{abstract}
+%
+% \section{Usage}\label{section:usage}
+%
+% \begin{macro}{coverpage}
+% Use the |coverpage| macro to insert a generic cover page that identifies what
+% follows as academic testing material. The |coverpage| macro accepts an
+% optional argument to customize what information is included. A list of the
+% key-value pairs follows with the default value listed in parentheses (when
+% applicable):
+% \begin{description}
+%   \item[institute] The name of the institution (United States Air Force Academy)
+%   \item[department]
+%   \item[course] Course information such as the number and title (when the \textsf{course} package is loaded, the course name and title in concatenated)
+%   \item[type] The type of assessment (Graded Review)
+%   \item[points] The number of points for the assessment (calculated automatically when the \textsf{exam} package is loaded)
+%   \item[academic security] The academic security policy. Defining the following subkeys customize the default policy:
+%   \begin{description}
+%     \item[academic security/date] The date of release from academic security
+%     \item[academic security/time] The time of release from academic security; ignored if \textsf{academic security/date} is not also specified
+%   \end{description}
+%   \item[integrity] A reminder of the importance of integrity
+%   \item[authorized resources] Any policy regarding authorized resources (None)
+%   \item[version] A version identifier
+% \end{description}
+% The following code snippet illustrates the |coverpage| macro and the result:
+% \begin{VerbatimOut}[
+%     gobble=1,
+% ]{minted/coverpage.out}
+% \coverpage[
+%   institute={University of Rome},
+%   department={Department of Classics},
+%   course={Latin 101: Introductory Latin},
+%   type={Final Exam},
+%   points={100 Points},
+%   academic security/date={AD 72},
+%   version={\textbf{Unus}},
+% ]
+% \end{VerbatimOut}
+% \inputminted[
+%     gobble=1,
+% ]{latex}{minted/coverpage.out}
+% \input{minted/coverpage.out}
+% \end{macro}
+%
+% \begin{macro}{nameblock}
+% The student information area that appears in the upper right corner of the
+% cover page can also be customized courtesy of the |nameblock| macro. Simply
+% redefine this macro (using |\renewcommand|) and the information will be
+% automatically inserted. (If you do not want student information to appear on
+% the cover page, then you can set this macro to |\relax|.)
+% \end{macro}
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{graded-review}[%
+    2019/06/19 %
+    v0.0.1 %
+    A package for graded reviews (GRs) at the US Air Force Academy%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%
+%    \begin{macrocode}
+\RequirePackage{array}
+\RequirePackage{emptypage}
+\RequirePackage{enumitem}
+\RequirePackage{etoolbox}
+\RequirePackage{geometry}
+\RequirePackage{ltxcmds}
+\RequirePackage{pgffor}
+\RequirePackage{pgfkeys}
+\RequirePackage{ragged2e}
+\RequirePackage{xpatch}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{graded-review} package.
+%
+% \begin{macro}{coverpage}
+% The |coverpage| macro formats the cover page that identifies the rest of the
+% material for academic testing.
+%
+% Create a new counter to save and restore the page number.
+%    \begin{macrocode}
+\newcounter{gr@page}
+%    \end{macrocode}
+%
+% Define the |coverpage| macro with an optional argument (for key-value
+% parameters).
+%    \begin{macrocode}
+\newcommand*{\coverpage}[1][]{%
+%    \end{macrocode}
+%
+% Define the key-value parameters using \textsf{pgfkeys}.
+%    \begin{macrocode}
+  \pgfkeys{%
+    /coverpage/.is family,
+    institute/.store in=\gr@coverpage@institute,
+    institute/.value required,
+    department/.store in=\gr@coverpage@department,
+    department/.value required,
+    course/.store in=\gr@coverpage@course,
+    course/.value required,
+    type/.store in=\gr@coverpage@type,
+    type/.value required,
+    points/.store in=\gr@coverpage@points,
+    points/.value required,
+    academic security/.store in=\gr@coverpage@academicsecurity,
+    academic security/.value required,
+    academic security/date/.store in=\gr@coverpage@security@date,
+    academic security/date/.value required,
+    academic security/time/.store in=\gr@coverpage@security@time,
+    academic security/time/.value required,
+    integrity/.store in=\gr@coverpage@integrity,
+    integrity/.value required,
+    authorized resources/.store in=\gr@coverpage@authorizedresources,
+    authorized resources/.value required,
+    resources/.store in=\gr@coverpage@resources,
+    resources/.value required,
+    version/.store in=\gr@coverpage@version,
+    version/.value required,
+  }
+%    \end{macrocode}
+% Set default values for parameters.
+%    \begin{macrocode}
+  \pgfkeys{
+    institute={United States Air Force Academy},
+    type={Graded Review},
+    academic security={%
+      This examination is not released from academic security%
+      \ifdef{\gr@coverpage@security@date}{ until %
+        \ifdef{\gr@coverpage@security@time}{%
+          \textbf{\gr@coverpage@security@time} on %
+        }{} %
+        \textbf{\gr@coverpage@security@date}.
+        Until that time, you may not discuss the examination contents or the
+        course material with anyone other than your instructor%
+      }{}.
+    },
+    integrity={%
+      Your honor is extremely important. This academic security policy is
+      designed to help you succeed in meeting academic requirements while
+      practicing the honorable behavior our country rightfully demands of its
+      military. Do not compromise your integrity by violating academic security
+      or by taking unfair advantage of your classmates.
+    },
+    authorized resources={%
+      \def\gr@islist{\in@{,}}%
+      \expandafter\gr@islist\expandafter{\gr@coverpage@resources}%
+      \ifin@% multiple resources -> display as itemized list
+        \hspace{\fill}%
+        \begin{itemize}[
+            nosep,
+        ]
+          \foreach \resource in \gr@coverpage@resources {%
+            \item \resource%
+          }
+        \end{itemize}
+      \else% single resource -> display inline (i.e., no itemize environment)
+        \gr@coverpage@resources%
+      \fi%
+    },
+    resources={None},
+  }
+  \ltx@ifpackageloaded{course}{
+    \pgfkeys{course={\course{name}: \course{title}}}
+  }{}
+  \ltx@ifpackageloaded{exam}{
+    \pgfkeys{points={\total{points}\ Points}}
+  }{}
+%    \end{macrocode}
+% Process the key-value pairs specified in the optional argument. These keys
+% overwrite the previous defaults (when both are specified).
+%    \begin{macrocode}
+  \pgfkeys{%
+    #1,%
+  }
+%    \end{macrocode}
+%
+% Ensure that the required arguments have been provided.
+%    \begin{macrocode}
+  \foreach \key in {} {
+    \expandafter\ifx\csname gr@coverpage@\key\endcsname\relax
+      \PackageError{graded-review}
+        {coverpage missing required argument: \key}
+        {The \key key is required for the coverpage macro}
+    \fi
+  }
+%    \end{macrocode}
+%
+% Change the geometry of the current page. The cover page always has 1-inch
+% margins.
+%    \begin{macrocode}
+  \newgeometry{
+    margin=1in,
+  }
+%    \end{macrocode}
+%
+% Save the current page number (so it can be restored later).
+%    \begin{macrocode}
+  \setcounter{gr@page}{\value{page}}
+%    \end{macrocode}
+%
+% The cover page uses |titlepage| environment.
+%    \begin{macrocode}
+  \begin{titlepage}
+%    \end{macrocode}
+%
+% Embed the name block as a zero-height element so it takes no space on the
+% page. It is assumed that it won't overlap with other elements.
+%    \begin{macrocode}
+    \hfill%
+    \raisebox{-\height}[0pt][0pt]{%
+      \nameblock%
+    }\par
+%    \end{macrocode}
+%
+% Insert the name of the institution and department (if provided).
+%    \begin{macrocode}
+    \centering
+    \vspace{0.15\textheight}
+    {\huge\bfseries
+      \ifdef{\gr@coverpage@institute}{%
+        \gr@coverpage@institute\\%
+      }{}
+      \ifdef{\gr@coverpage@department}{%
+        \gr@coverpage@department\\%
+      }{}
+      \par
+    }
+%    \end{macrocode}
+%
+% Insert the course information (if provided).
+%    \begin{macrocode}
+    \vspace{0.1\textheight}
+    \ifdef{\gr@coverpage@course}{%
+      {\LARGE\gr@coverpage@course\par}%
+    }{}
+%    \end{macrocode}
+%
+% Insert the type of graded review.
+%    \begin{macrocode}
+    \vspace{0.1\textheight}
+    \ifdef{\gr@coverpage@type}{%
+      {\LARGE\bfseries \gr@coverpage@type\par}%
+    }{}
+%    \end{macrocode}
+%
+% Insert the number of points.
+%    \begin{macrocode}
+    \ifdef{\gr@coverpage@points}{%
+      {\LARGE\gr@coverpage@points\par}%
+    }{}
+%    \end{macrocode}
+%
+% Insert the warnings about academic testing material.
+%    \begin{macrocode}
+    \vfill  % FORMATTING
+    {\Large Academic Testing Material\par}%
+    \bigskip  % FORMATTING
+    \justifying
+    \begin{description}[
+        noitemsep,
+    ]
+      \item[Academic Security] \gr@coverpage@academicsecurity
+      \item[Integrity] \gr@coverpage@integrity
+      \item[Authorized Resources] \gr@coverpage@authorizedresources
+    \end{description}
+%    \end{macrocode}
+%
+% Define a custom style for the coverpage's header and footer.
+%    \begin{macrocode}
+    \def\ps@coverpage{
+%    \end{macrocode}
+% Include version information (if provided) in the footer.
+%    \begin{macrocode}
+      \def\@oddfoot{%
+        \ifdef{\gr@coverpage@version}{%
+          \hfil Version: \gr@coverpage@version%
+        }{}%
+      }
+%    \end{macrocode}
+% End the definition of the coverpage style.
+%    \begin{macrocode}
+    }  % END: ps@coverpage
+%    \end{macrocode}
+% Use the coverpage style for the current page.
+%    \begin{macrocode}
+    \thispagestyle{coverpage}
+%    \end{macrocode}
+%
+% End the |titlepage| environment.
+%    \begin{macrocode}
+  \end{titlepage}
+%    \end{macrocode}
+%
+% Restore the original geometry for subsequent pages.
+%    \begin{macrocode}
+  \restoregeometry
+%    \end{macrocode}
+%
+% End the current page and skip to the next recto.
+%    \begin{macrocode}
+  \cleardoublepage
+%    \end{macrocode}
+%
+% Restore the correct page number.
+%    \begin{macrocode}
+  \setcounter{page}{\value{gr@page}}
+%    \end{macrocode}
+%
+% End the |coverpage| macro.
+%    \begin{macrocode}
+}  % END: coverpage
+%    \end{macrocode}
+% \end{macro}  ^^A coverpage
+%
+% \begin{macro}{nameblock}
+% The |nameblock| allows customization of student information.
+%
+% Define the |nameblock| macro.
+%    \begin{macrocode}
+\newcommand*{\nameblock}{%
+%    \end{macrocode}
+%
+% Provide space for students to write their name and section.
+%    \begin{macrocode}
+  \begin{tabular}{>{\bfseries}l p{.35\linewidth}@{}}
+    Name & \hrulefill\\[0.4in]
+    Section & \hrulefill\\[0.4in]
+  \end{tabular}%
+%    \end{macrocode}
+% End the |nameblock| macro.
+%    \begin{macrocode}
+}  % END: nameblock
+%    \end{macrocode}
+% \end{macro}  ^^A nameblock
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
