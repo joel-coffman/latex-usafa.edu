@@ -156,7 +156,7 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{graded-review}[%
-    2019/06/19 %
+    2020/03/03 %
     v0.0.1 %
     A package for graded reviews (GRs) at the US Air Force Academy%
 ]
@@ -236,7 +236,7 @@
       \ifdef{\gr@coverpage@security@date}{ until %
         \ifdef{\gr@coverpage@security@time}{%
           \textbf{\gr@coverpage@security@time} on %
-        }{} %
+        }{}%
         \textbf{\gr@coverpage@security@date}.
         Until that time, you may not discuss the examination contents or the
         course material with anyone other than your instructor%
