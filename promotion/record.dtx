@@ -318,6 +318,14 @@
 }
 
 
+\newcommand*{\record@getvalue}[1]{%
+  \ifcsname record@#1\endcsname%
+    \csname record@#1\endcsname%
+  \else%
+    \errmessage{Missing required argument `#1' for record}%
+  \fi%
+}%
+
 \NewEnviron{record@record}[4][]{%
   \let\itemize=\record@itemize\relax
   \let\enditemize=\endrecord@itemize\relax
@@ -374,7 +382,7 @@
       c
       c
   }{%
-    \multicolumn{8}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
     \multicolumn{8}{c}{\bfseries\larger[3] Scholarship Record: Publications\par}\\\addlinespace
     \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
@@ -488,7 +496,7 @@
       c  % Teaching
       c  % Service
   }{%
-    \multicolumn{7}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
+    \multicolumn{7}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
     \multicolumn{7}{c}{\bfseries\larger[3] Scholarship Record: Presentations / Workshops\par}\\\addlinespace
     \multicolumn{7}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
@@ -582,7 +590,7 @@
     c  % Teaching
     c  % Service
   }{
-    \multicolumn{8}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
     \multicolumn{8}{c}{\bfseries\larger[3] Academic Service Record\par}\\\addlinespace
     \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
