@@ -273,6 +273,7 @@
 \RequirePackage{ltablex}
 \RequirePackage{pdflscape}
 \RequirePackage{pgfkeys}
+\RequirePackage{pgfopts}
 \RequirePackage{relsize}
 \RequirePackage{stackengine}
 \RequirePackage{xpatch}
@@ -281,8 +282,19 @@
 % \subsection{Macros}
 % This section describes the macros in the \textsf{record} package.
 %    \begin{macrocode}
+\pgfkeys{% definitions
+  record/.cd,
+  applicant/.store in=\record@applicant,
+  applicant/.value required,
+  rank/.store in=\record@rank,
+  rank/.value required,
+}
+\ProcessPgfOptions*
+
 \xapptocmd{\author}{%
-  \pdfstringdef{\record@author}{#1}%
+  \@ifundefined{record@applicant}{%
+    \pdfstringdef{\record@applicant}{#1}%
+  }{}%
 }{}{}
 
 
@@ -305,16 +317,6 @@
   \end{minipage}
 }
 
-\pgfkeys{% definitions
-  record/.cd,
-  applicant/.store in=\record@applicant,
-  applicant/.value required,
-  rank/.store in=\record@rank,
-  rank/.value required,
-}
-\pgfkeys{%
-  record/applicant=\record@author,
-}
 
 \NewEnviron{record@record}[4][]{%
   \let\itemize=\record@itemize\relax
