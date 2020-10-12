@@ -1,0 +1,472 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2020 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+\input{.version}
+\usepackage{record}
+\usepackage{hyperref}
+\usepackage{microtype}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{record.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.0.1}{2020/10/09}{Initial version}
+%
+% \GetFileInfo{record.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{record} package\thanks{This
+% document corresponds to \textsf{record~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% Package for scholarship and service records
+% \end{abstract}
+%
+% \section{Usage}\label{section:usage}
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{record}[%
+    2020/10/09 %
+    v0.0.1 %
+    Package for scholarship and service records%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%    \begin{macrocode}
+\RequirePackage{amssymb}
+\RequirePackage{enumitem}[2018-11-30]
+\RequirePackage{environ}
+\RequirePackage[pass]{geometry}
+\RequirePackage{ltablex}
+\RequirePackage{pdflscape}
+\RequirePackage{pgfkeys}
+\RequirePackage{stackengine}
+\RequirePackage{xpatch}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{record} package.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \edef\record@author{\@author}
+}
+
+
+\xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}
+    {}{}  % https://tex.stackexchange.com/q/196993/#197000
+
+\let\record@itemize@old=\itemize\relax
+\let\record@enditemize@old=\enditemize\relax
+\newenvironment{record@itemize}[1][]{%
+  \begin{minipage}[t]{\linewidth}%
+    \raggedright%
+    \record@itemize@old[
+        after=\strut,
+        left=0pt,
+        nosep,
+        #1,
+    ]
+}{%
+    \record@enditemize@old%
+  \end{minipage}
+}
+
+\NewEnviron{record@record}[3][]{%
+  \let\itemize=\record@itemize\relax
+  \let\enditemize=\endrecord@itemize\relax
+  \newgeometry{
+    margin=1in,
+  }%
+  \begin{landscape}%
+  \begin{tabularx}{\linewidth}{#2}
+    % header
+    #3\\
+    \if\relax\detokenize{#1}\relax\else\addlinespace#1\\\fi
+    \midrule
+    \endfirsthead
+    #3\\
+    \midrule
+    \endhead
+    % footer
+    \bottomrule
+    \endfoot
+    \BODY
+  \end{tabularx}%
+  \end{landscape}%
+  \restoregeometry%
+}
+
+\newenvironment{publications}{%
+  \record@record[{
+    & Date, all contributing authors, title, publication, publisher name, location, pages, and URL if accessible online
+    & Where did you do this work?\\[\baselineskip] Peer Reviewed?
+    & Scholarly book, textbook book chapter, research paper, review paper, article, blog, etc.
+    & \begin{itemize}
+        \item \emph{Describe your scholarly or intellectual contribution to the publication} such as senior author, editor, reviewer, etc.
+        \item \emph{What specific work did you do?} (e.g., designed research, performed research, contributed new analytic tools, analyzed data, wrote the paper / book / review)
+      \end{itemize}
+    & \begin{itemize}
+        \item \emph{How important is this publication in your field?} What value did it add to the field? If available, include the citation count for your pub, or number of books sold.
+        \item \emph{How prestigious or selective is the publication outlet?} If available, provide concrete evidence for this such as impact factor of the journal, acceptance rate, other quality indicators, and overall reputation within the field.
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g}
+    & \Longunderstack{S e r v i c e}
+  }]{%
+      r
+      >{\raggedright}p{1.5in}
+      >{\arraybackslash\centering}p{0.75in}
+      >{\raggedright}p{0.75in}
+      >{\raggedright}p{2in}
+      >{\raggedright}X
+      c
+      c
+  }{%
+    \multicolumn{8}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{8}{c}{\bfseries\larger[3] Scholarship Record: Publications\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Citation}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Institution / Peer Review}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }
+}{%
+  \endrecord@record
+}
+
+
+\newif\ifrecord@entry@peerreview%
+\newif\ifrecord@entry@service%
+\newif\ifrecord@entry@teaching%
+\pgfkeys{% definitions
+  record/entry/.cd,
+  peer review/.is if=record@entry@peerreview,
+  service/.is if=record@entry@service,
+  teaching/.is if=record@entry@teaching,
+  type/.store in=\record@entry@type,
+  type/.value required,
+}
+
+\newcommand*{\record@entry@getvalue}[2][entry]{
+  \ifcsname record@#1@#2\endcsname%
+    \csname record@#1@#2\endcsname%
+  \else%
+    \ifcsname record@entry@#2\endcsname%
+      \csname record@entry@#2\endcsname%
+    \else%
+      \errmessage{Missing required argument `#2' for #1}%
+    \fi%
+  \fi%
+}%
+
+\newcounter{record@publication}
+
+\pgfkeys{% definitions
+  record/publication/.cd,
+  .search also={/record/entry},
+  institution/.store in=\record@publication@institution,
+  institution/.value required,
+  number/.default={%
+    \stepcounter{record@publication}%
+    \arabic{record@publication}%
+  },
+  number/.store in=\record@publication@number,
+  % defaults
+  number,
+}
+\newcommand{\publication}[4][]{%
+    \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@entry@getvalue[publication]{number}
+  & \bibentry{#2}
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@publication@institution\\[\baselineskip]
+    \ifrecord@entry@peerreview Yes\else No\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@entry@type
+  & \parskip=1ex #3
+  & \parskip=1ex #4
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@service\checkmark\fi
+  \\
+}
+
+
+\newenvironment{presentations/workshops}{%
+  \record@record[
+    & \begin{itemize}
+        \item Date
+        \item Presenters
+        \item Title
+        \item Conference or venue, location
+      \end{itemize}
+    & conference oral presentation, faculty development workshop, poster at a conference, TED talk, etc.
+    & Describe your  workshop or presentation to the academic community:
+      \begin{itemize}
+        \item How long was it? (e.g., one hour, 4-hr, day, 2 days)
+        \item Who was the audience? How many attended?
+        \item Why were you there? What was your purpose? Strategy?
+        \item What specific work did you do? (e.g., designed the workshop, presented the workshop)
+      \end{itemize}
+    & \begin{itemize}
+        \item Was this an invited presentation or keynote?
+        \item How prestigious and/or selective is the conference/workshop? (i.e., what is the acceptance rate for conference submissions?)
+        \item What was the significance and/or impact of your presentation to the audience?
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g}
+    & \Longunderstack{S e r v i c e}
+  ]{%
+      r  % #
+      >{\raggedright}p{1.25in}  % Presentation / Workshop
+      >{\raggedright}p{1.25in}  % Type
+      >{\raggedright}p{2.5in}  % Contribution
+      >{\raggedright}p{2.5in}  % Significance and Impact
+      c  % Teaching
+      c  % Service
+  }{%
+    \multicolumn{7}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{7}{c}{\bfseries\larger[3] Scholarship Record: Presentations / Workshops\par}\\\addlinespace
+    \multicolumn{7}{c}{\larger (since last promotion)\par}\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Presentation / Workshop}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }%
+}{%
+  \endrecord@record%
+}
+
+
+\newcounter{record@presentation}
+
+\pgfkeys{% definitions
+  record/presentation/.cd,
+  .search also={/record/entry},
+  number/.default={%
+    \stepcounter{record@presentation}%
+    \arabic{record@presentation}%
+  },
+  number/.store in=\record@presentation@number,
+  % defaults
+  number,
+}
+\newcommand{\presentation}[4][]{%
+    \pgfkeys{record/presentation/.cd,#1}% arguments
+    \record@entry@getvalue[presentation]{number}
+  & \parskip=1ex #2
+  & \pgfkeys{record/presentation/.cd,#1}% arguments
+    \record@entry@type
+  & \parskip=1ex #3
+  & \parskip=1ex #4
+  & \pgfkeys{record/presentation/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@service\checkmark\fi
+  \\
+}
+\let\workshop=\presentation\relax
+
+
+\newenvironment{service}{%
+  \record@record[
+    & \begin{itemize}
+        \item Date(s) of service
+        \item The committee or organization your served
+        \item Your role such as organizer, chair, or member
+      \end{itemize}
+    & \begin{itemize}
+        \item Type -- institutional or disciplinary
+        \item Sphere -- \acrshort{USAFA}, regional, national, or international
+      \end{itemize}
+
+      \emph{Note: Do not include department-level additional duties or part of your job.}
+    & \begin{itemize}
+        \item Frequency -- one time event or recurring; annual, biannual, 1 year, etc.
+        \item Length -- $\approx$ number of hours to prepare / perform
+      \end{itemize}
+    & \begin{itemize}
+        \item Describe your service contribution
+        \item What specific work did you do?
+      \end{itemize}
+
+      \emph{Note: You can leave this and the significance column blank if the service activities are common knowledge such as AAOCA or Executive Officer}
+    & \begin{itemize}
+        \item How important was this service?
+        \item In what ways did you specifically impact the success of the committee's or organization's mission?
+        \item Who was positively impacted?
+        \item How many were impacted or potentially impacted?
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g\strut}
+    & \Longunderstack{S c h o l a r s h i p\strut}
+  ]{
+    r  % #
+    >{\raggedright\arraybackslash}p{1.5in}  % Service
+    >{\raggedright\arraybackslash}p{1.5in}  % Type & Sphere
+    >{\raggedright\arraybackslash}p{1in}  % Frequency & Length
+    >{\raggedright\arraybackslash}X  % Contribution
+    >{\raggedright\arraybackslash}X  % Significance and Impact
+    c  % Teaching
+    c  % Service
+  }{
+    \multicolumn{8}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{8}{c}{\bfseries\larger[3] Academic Service Record\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Service}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type \& Sphere}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Frequency\\\& Length}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }%
+}{%
+  \endrecord@record%
+}
+
+
+\newcounter{record@activity}
+
+\newif\ifrecord@activity@scholarship
+\pgfkeys{% definitions
+  record/activity/.cd,
+  .search also={/record/entry},
+  date/.store in=\record@activity@date,
+  date/.value required,
+  frequency/.store in=\record@activity@frequency,
+  frequency/.value required,
+  institution/.store in=\record@activity@institution,
+  institution/.value required,
+  length/.store in=\record@activity@length,
+  length/.value required,
+  number/.default={%
+    \stepcounter{record@activity}%
+    \arabic{record@activity}%
+  },
+  number/.store in=\record@activity@number,
+  organization/.store in=\record@activity@organization,
+  organization/.value required,
+  role/.store in=\record@activity@role,
+  role/.value required,
+  scholarship/.is if=record@activity@scholarship,
+  sphere/.store in=\record@activity@sphere,
+  sphere/.value required,
+  teaching/.is if=record@entry@teaching,
+  type/.store in=\record@activity@type,
+  type/.value required,
+  % defaults
+  number,
+}
+\newcommand{\activity}[3][]{%
+    \pgfkeys{record/activity/.cd,#1}% arguments
+    {\bfseries\record@entry@getvalue[activity]{number}}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{date}
+      \item \record@entry@getvalue[activity]{organization}
+      \item \record@entry@getvalue[activity]{role}
+    \end{itemize}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{type}
+      \item \record@entry@getvalue[activity]{sphere}
+    \end{itemize}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{frequency}
+      \item \record@entry@getvalue[activity]{length}
+    \end{itemize}
+  & \parskip=1ex #2
+  & \parskip=1ex #3
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \ifrecord@activity@scholarship\checkmark\fi
+  \\\addlinespace
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
