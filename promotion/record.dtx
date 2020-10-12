@@ -18,21 +18,17 @@
 %<*driver>
 \documentclass{ltxdoc}
 
+\usepackage{amssymb}
+\usepackage{array}
 \usepackage{bibentry}
+\usepackage{enumitem}
+\usepackage{glossaries}
 \usepackage{minted}
 \usepackage{microtype}
+\usepackage{tabularx}
 
 \usepackage{hyperfix}
-
-\usepackage{record}
-
-
-% bibentry
-\robustify{\bibentry}
-
-\usepackage{microtype}
-
-\usepackage{hyperfix}
+\usepackage{minted-doc}
 
 \usepackage{record}
 
@@ -45,16 +41,18 @@
   \nobibliography{references}
 }
 
+% enumitem
+\setlist{
+  noitemsep,
+}
+
+% glossaries
+\loadglsentries{../acronyms}
+
 % minted
 \setminted{
   autogobble,
   breaklines,
-}
-
-
-% macros / environments
-\providecommand*{\meta}[1]{%
-  \textlangle\,\emph{#1}\,\textrangle%
 }
 
 
@@ -107,14 +105,36 @@
 % \maketitle
 %
 % \begin{abstract}
-% Package for scholarship and service records
+% This package provides environments used to create the scholarship and service tables recommended by the \gls{FPC} to document publications, presentations, and service as part of an academic promotion package.
+% It reproduces the original Microsoft PowerPoint templates as faithfully as possible.
+% The major advantages of using \LaTeX{} are automatic citation formatting with \BibTeX{} and automatic page breaking, specifically the ability to insert entries (in reverse chronological order) without requiring the manual movement of existing entries to a new slide (i.e., page).
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
 %
-% \DescribeEnv{publications}
-% The |publications| environment\dots
+% Load this class in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-record-package.out}
+%   \usepackage{record}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-record-package.out}
+% The package accepts optional key-value arguments to specify the name of the applicant and academic rank.
 % For example,
+% \begin{VerbatimOut}[gobble=2]{minted/use-record-package-with-options.out}
+%   \usepackage[
+%       applicant={Applicant Name},
+%       rank={Associate Professor},
+%   ]{record}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-record-package-with-options.out}
+% uses ``Applicant Name'' and ``Associate Professor'' in the header for each table.
+% Specifying these options to the package avoids repeating them for each environment.
+%
+% \subsection{Environments}
+%
+% \DescribeEnv{publications}
+% The |publications| environment describes scholarly publications such as books, journal articles, conference papers, and software.
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and acdemic rank being sought; these options are required if not previously specified when loading the package.
+% An example is undoubtedly the best way to describe how to use this environment:
 % \begin{VerbatimOut}[gobble=2]{minted/publications.out}
 % \begin{publications}[
 %     applicant=\meta{Applicant},
@@ -139,7 +159,7 @@
 %     \begin{itemize}
 %       \item
 %       Our innovative book breaks new ground in the area of design college courses.
-%       Its novel workbox approach is used in faculty development workshops thorughout the country.
+%       Its novel workbox approach is used in faculty development workshops throughout the country.
 %
 %       \item
 %       Stylus Publishing is one of the top two educational publisters in the US and the UK (see URL or attached supplemental material for their extensive catalog).
@@ -148,11 +168,81 @@
 % \end{publications}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/publications.out}
-% produces\\
-% \input{minted/publications.out}\par
+% This code recreates the example publications table found in the \gls{FPC}['s] application instructions.
+% \input{minted/publications.out}
+%
+% \begin{table}
+%   \caption{
+%     List of options available for scholarship and service records.
+%     Unless otherwise specified, a value is required for each option.
+%   }
+%   \label{table:record entry options}
+%
+%   \small
+%   \centering
+%   \begin{tabular}{
+%       ccc
+%       >{\ttfamily}l
+%       >{\hangindent=1em}p{0.6\linewidth}
+%   }
+%     \toprule
+%     \rotatebox{45}{\rlap{\ttfamily publication}} &
+%     \rotatebox{45}{\rlap{\ttfamily presentation}} &
+%     \rotatebox{45}{\rlap{\ttfamily activity}} &
+%     \rule{0pt}{12ex}\\\cmidrule(r){1-4}
+%     \multicolumn{3}{c}{Command} & \multicolumn{1}{l}{Option} & Description\\
+%     \midrule
+%     & & \checkmark & date &
+%         The date(s) of the service activity.\\
+%     & & \checkmark & frequency &
+%         The frequency of service (e.g., once or recurring).\\
+%     \checkmark & & \checkmark & institution &
+%         The institution where the work was completed.\\
+%     & & \checkmark & length &
+%         The length of service (in hours).\\
+%     \checkmark & \checkmark & \checkmark & number &
+%         The number of the publication in the table.
+%         Use this option to override the automatic numbering should the default not be appropriate for some reason.\\
+%     & & \checkmark & organization &
+%         The organization being served.\\
+%     \checkmark & \checkmark & \checkmark & peer review &
+%         A boolean indicating if the work was peer-reviewed; |true| is assumed if no value is provided.\\
+%     & & \checkmark & role &
+%         The role (i.e., position) of the service activity (e.g., chair or member).\\
+%     \checkmark & \checkmark & \checkmark & service &
+%         A boolean indicating if the work is related to professional service; |true| is assumed if no value is provided.\\
+%     & & \checkmark & sphere &
+%         The ``sphere'' of the organization (e.g., institutional, regional, national, or international).\\
+%     \checkmark & \checkmark & \checkmark & teaching &
+%         A boolean indicating if the work is related to teaching; |true| is assumed if no value is provided.\\
+%     \checkmark & \checkmark & \checkmark & type &
+%         A short description of the type of work---see table header for examples.\\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% \DescribeMacro{publication}
+% The |publications| environment defines a single command, |publication|, for each entry in the table.
+% The general form of the |publication| command is as follows:
+%
+% \medskip
+% \noindent
+% |\publication|\oarg{options}\marg{key}\marg{contributions}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{key}, is a \BibTeX{} key.
+% The complete citation is inserted automatically using the specified bibliography style for the document (courtesy of \textsf{bibentry} package).
+% The second mandatory argument, \meta{contributions}, details your specific contributions to the work.
+% The third mandatory argument, \meta{significance \& impact}, details the work's importance (e.g., citation count) and prestige of the publication (e.g., impact factor or acceptance rate).
+% The latter two mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
 %
 % \DescribeEnv{presentations/workshops}
-% The |presentations/workshops| environment\dots
+% The |presentations/workshops| environment describes presentations of scholarly work such as keynotes and conference, workshop, and invited presentations.
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and academic rank being sought.
+% These options are required if not previously specified when loading the package.
+% An example illustrates how to use this environment:
 % \begin{VerbatimOut}[gobble=2]{minted/presentations--workshops.out}
 % \begin{presentations/workshops}[
 %     applicant=\meta{Applicant},
@@ -186,11 +276,29 @@
 % \end{presentations/workshops}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/presentations--workshops.out}
-% produces\\
+% This code recreates the example presentations and workshops table found in the \gls{FPC}['s] application instructions.
 % \input{minted/presentations--workshops.out}\par
 %
+% The |presentations/workshops| environment defines two commands, |presentation| and |workshop|, for each entry in the table.
+% The general form of the |presentation| command is as follows and the |workshop| command is similar:
+%
+% \medskip
+% \noindent
+% |\presentation|\oarg{options}\marg{description}\marg{contribution}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{description}, should provide the date, presenters, title, and venue.
+% The second mandatory argument, \meta{contribution}, describes the presentation or workshop details.
+% The third mandatory argument, \meta{significance \& impact}, details selectivity of the venue (e.g., acceptance rate) and impact of the presentation to the audience.
+% Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
+%
 % \DescribeEnv{service}
-% The |service| environment\dots
+% The |service| environment describes academic service.
+% Such service comprises institutional activities (e.g., serving as the \gls{OIC} for a cadet club) and professional activities (e.g., journal editor or member of a program committee).
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and academic rank being sought; these options are required if not previously specified when loading the package.
+% An example illustrates how to use this environment:
 % \begin{VerbatimOut}[gobble=2]{minted/service.out}
 % \begin{service}[
 %     applicant=\meta{Applicant},
@@ -223,7 +331,7 @@
 %     frequency={One week during July orientation; met with learning community (8 faculty) about every two weeks throughout the academic year},
 %     length={Each meeting took $\approx 2$ hours to prepare and facilitate},
 %   ]{
-%     I serve as a teaching mentor for new and returning faculty members durig faculty orientation.
+%     I serve as a teaching mentor for new and returning faculty members during faculty orientation.
 %     In this role I prompt and facilitate discussion, elicit suggestions, and give advice to incoming faculty.
 %     During the academic year I provide discussion prompts and help faculty gain the necessary teaching skills and resolve teaching-learning challenges.
 %   }{
@@ -232,8 +340,22 @@
 % \end{service}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/service.out}
-% produces\\
+% This code recreates the example service record found in the \gls{FPC}['s] application instructions.
 % \input{minted/service.out}\par
+%
+% The |service| environment defines a single command, |activity|, for each entry in the table.
+% The general form of the |activity| command is as follows:
+%
+% \medskip
+% \noindent
+% |\activity|\oarg{options}\marg{contribution}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}
+% The first mandatory argument, \meta{contribution}, describes the details of the service contribution.
+% The second mandatory argument, \meta{significance \& impact}, details the importance of the service, including how the work affected the organization's mission and who was positively impacted.
+% Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
 %
 % \StopEventually{
 %   \PrintChanges
