@@ -52,6 +52,12 @@
 }
 
 
+% macros / environments
+\providecommand*{\meta}[1]{%
+  \textlangle\,\emph{#1}\,\textrangle%
+}
+
+
 \input{.version}
 
 
@@ -110,7 +116,10 @@
 % The |publications| environment\dots
 % For example,
 % \begin{VerbatimOut}[gobble=2]{minted/publications.out}
-% \begin{publications}
+% \begin{publications}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
 %   \publication[
 %     institution=USAFA,
 %     peer review,
@@ -145,7 +154,10 @@
 % \DescribeEnv{presentations/workshops}
 % The |presentations/workshops| environment\dots
 % \begin{VerbatimOut}[gobble=2]{minted/presentations--workshops.out}
-% \begin{presentations/workshops}
+% \begin{presentations/workshops}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
 %   \presentation[
 %     type=Faculty Development Workshop,
 %     teaching,
@@ -180,7 +192,10 @@
 % \DescribeEnv{service}
 % The |service| environment\dots
 % \begin{VerbatimOut}[gobble=2]{minted/service.out}
-% \begin{service}
+% \begin{service}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
 %   \activity[
 %     date=2012--present,
 %     organization={Member, Editorial Board Peer Reviewer, College Teaching Journal},
@@ -266,9 +281,9 @@
 % \subsection{Macros}
 % This section describes the macros in the \textsf{record} package.
 %    \begin{macrocode}
-\AtBeginDocument{%
-  \edef\record@author{\@author}
-}
+\xapptocmd{\author}{%
+  \pdfstringdef{\record@author}{#1}%
+}{}{}
 
 
 \xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}
@@ -290,20 +305,31 @@
   \end{minipage}
 }
 
-\NewEnviron{record@record}[3][]{%
+\pgfkeys{% definitions
+  record/.cd,
+  applicant/.store in=\record@applicant,
+  applicant/.value required,
+  rank/.store in=\record@rank,
+  rank/.value required,
+}
+\pgfkeys{%
+  record/applicant=\record@author,
+}
+
+\NewEnviron{record@record}[4][]{%
   \let\itemize=\record@itemize\relax
   \let\enditemize=\endrecord@itemize\relax
   \newgeometry{
     margin=1in,
   }%
   \begin{landscape}%
-  \begin{tabularx}{\linewidth}{#2}
+  \begin{tabularx}{\linewidth}{#3}
     % header
-    #3\\
-    \if\relax\detokenize{#1}\relax\else\addlinespace#1\\\fi
+    #4\\
+    \if\relax\detokenize{#2}\relax\else\addlinespace#2\\\fi
     \midrule
     \endfirsthead
-    #3\\
+    #4\\
     \midrule
     \endhead
     % footer
@@ -315,8 +341,14 @@
   \restoregeometry%
 }
 
-\newenvironment{publications}{%
-  \record@record[{
+\pgfkeys{% default
+  record/publications/.cd,
+  .search also={/record},
+}
+
+\newenvironment{publications}[1][]{%
+  \pgfkeys{record/publications/.cd,#1}%
+  \record@record{
     & Date, all contributing authors, title, publication, publisher name, location, pages, and URL if accessible online
     & Where did you do this work?\\[\baselineskip] Peer Reviewed?
     & Scholarly book, textbook book chapter, research paper, review paper, article, blog, etc.
@@ -330,7 +362,7 @@
       \end{itemize}
     & \Longunderstack{T e a c h i n g}
     & \Longunderstack{S e r v i c e}
-  }]{%
+  }{%
       r
       >{\raggedright}p{1.5in}
       >{\arraybackslash\centering}p{0.75in}
@@ -340,7 +372,7 @@
       c
       c
   }{%
-    \multicolumn{8}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
     \multicolumn{8}{c}{\bfseries\larger[3] Scholarship Record: Publications\par}\\\addlinespace
     \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
@@ -416,8 +448,14 @@
 }
 
 
-\newenvironment{presentations/workshops}{%
-  \record@record[
+\pgfkeys{% default
+  record/presentations--workshops/.cd,
+  .search also={/record},
+}
+
+\newenvironment{presentations/workshops}[1][]{%
+  \pgfkeys{record/presentations--workshops/.cd,#1}%
+  \record@record[#1]{
     & \begin{itemize}
         \item Date
         \item Presenters
@@ -439,7 +477,7 @@
       \end{itemize}
     & \Longunderstack{T e a c h i n g}
     & \Longunderstack{S e r v i c e}
-  ]{%
+  }{%
       r  % #
       >{\raggedright}p{1.25in}  % Presentation / Workshop
       >{\raggedright}p{1.25in}  % Type
@@ -448,7 +486,7 @@
       c  % Teaching
       c  % Service
   }{%
-    \multicolumn{7}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{7}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
     \multicolumn{7}{c}{\bfseries\larger[3] Scholarship Record: Presentations / Workshops\par}\\\addlinespace
     \multicolumn{7}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
@@ -495,8 +533,14 @@
 \let\workshop=\presentation\relax
 
 
-\newenvironment{service}{%
-  \record@record[
+\pgfkeys{% default
+  record/service/.cd,
+  .search also={/record},
+}
+
+\newenvironment{service}[1][]{%
+  \pgfkeys{record/service/.cd,#1}%
+  \record@record{
     & \begin{itemize}
         \item Date(s) of service
         \item The committee or organization your served
@@ -526,7 +570,7 @@
       \end{itemize}
     & \Longunderstack{T e a c h i n g\strut}
     & \Longunderstack{S c h o l a r s h i p\strut}
-  ]{
+  }{
     r  % #
     >{\raggedright\arraybackslash}p{1.5in}  % Service
     >{\raggedright\arraybackslash}p{1.5in}  % Type & Sphere
@@ -536,7 +580,7 @@
     c  % Teaching
     c  % Service
   }{
-    \multicolumn{8}{c}{\larger[2]\record@author{} -- Applying for Associate Professor\par}\\\addlinespace
+    \multicolumn{8}{c}{\larger[2]\record@applicant{} -- Applying for \record@rank\par}\\\addlinespace
     \multicolumn{8}{c}{\bfseries\larger[3] Academic Service Record\par}\\\addlinespace
     \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
     \toprule
