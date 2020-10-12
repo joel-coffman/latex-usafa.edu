@@ -17,13 +17,48 @@
 % \iffalse
 %<*driver>
 \documentclass{ltxdoc}
-\input{.version}
-\usepackage{record}
-\usepackage{hyperref}
+
+\usepackage{bibentry}
+\usepackage{minted}
 \usepackage{microtype}
+
+\usepackage{hyperfix}
+
+\usepackage{record}
+
+
+% bibentry
+\robustify{\bibentry}
+
+\usepackage{microtype}
+
+\usepackage{hyperfix}
+
+\usepackage{record}
+
+
+% bibentry
+\robustify{\bibentry}
+
+\AtBeginDocument{
+  \bibliographystyle{plainurl}
+  \nobibliography{references}
+}
+
+% minted
+\setminted{
+  autogobble,
+  breaklines,
+}
+
+
+\input{.version}
+
+
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
+
 \begin{document}
   \DocInput{record.dtx}
 \end{document}
@@ -70,6 +105,120 @@
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
+%
+% \DescribeEnv{publications}
+% The |publications| environment\dots
+% For example,
+% \begin{VerbatimOut}[gobble=2]{minted/publications.out}
+% \begin{publications}
+%   \publication[
+%     institution=USAFA,
+%     peer review,
+%     teaching,
+%     type=book,
+%   ]{jones2014building}{
+%     \begin{itemize}
+%       \item
+%       This work is an outgrowth of the Course Design Retreats that I co-created and co-led during the sumemrs of 2008--2014.
+%
+%       \item
+%       I wrote 3 of the 10 chapters and worked closely with my co-authors on the entire publication.
+%       This involved editing, revising, referencing, and illustrating the book.
+%       The author team spent three years working closely together to bring this book from conception to bound book.
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item
+%       Our innovative book breaks new ground in the area of design college courses.
+%       Its novel workbox approach is used in faculty development workshops thorughout the country.
+%
+%       \item
+%       Stylus Publishing is one of the top two educational publisters in the US and the UK (see URL or attached supplemental material for their extensive catalog).
+%     \end{itemize}
+%   }
+% \end{publications}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/publications.out}
+% produces\\
+% \input{minted/publications.out}\par
+%
+% \DescribeEnv{presentations/workshops}
+% The |presentations/workshops| environment\dots
+% \begin{VerbatimOut}[gobble=2]{minted/presentations--workshops.out}
+% \begin{presentations/workshops}
+%   \presentation[
+%     type=Faculty Development Workshop,
+%     teaching,
+%     service,
+%   ]{
+%     \begin{itemize}
+%       \item 2 June 2017
+%       \item Co-presented with Dr.~Steve Jones (USAFA)
+%       \item \emph{Building a Pathway for Student Learning: How Flawed Course Design Leads to Learning Failures}
+%       \item Advanced Space Operations Schools (AFASOS), Peterson AFB, Colorado Springs, CO
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item A day-long workshop (0800--1630)
+%       \item We presented this workshop to 25 instructors in the Advanced Space Operations School.
+%       \item We supported the education and training mission of this AF schoolhouse. Our strategy tapped into their experiences with learning failures in their courses and then connected them to the six elements of our course design model. The afternoon was spent looking for solutions to these learning breakdowns and failures.
+%       \item I co-created and co-presented this workshop with Dr.~Steve Jones.
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item Steve and I were invited to provide expert support to the education and training mission of AFASOS.
+%       \item While AFASOS has a robust instructor training component, like most college instructors, they receive little training on how to design effective courses.
+%       \item In this way we helped fill a gap in their training and education. Helping instructors solve their teaching challenges is always rewarding and improves the training of airmen entering their programs.
+%     \end{itemize}
+%   }
+% \end{presentations/workshops}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/presentations--workshops.out}
+% produces\\
+% \input{minted/presentations--workshops.out}\par
+%
+% \DescribeEnv{service}
+% The |service| environment\dots
+% \begin{VerbatimOut}[gobble=2]{minted/service.out}
+% \begin{service}
+%   \activity[
+%     date=2012--present,
+%     organization={Member, Editorial Board Peer Reviewer, College Teaching Journal},
+%     role=Review manuscripts submitted for publication,
+%     type={Disciplinary service to the higher education community in the areas of teaching and learning},
+%     sphere=National,
+%     frequency={During the past 5 years, I have reviewed 24 manuscripts},
+%     length={Each manuscript took $\approx 6$ hours to read, anlyze, synthesize, and write},
+%     teaching,
+%   ]{
+%     I regularly receive an invitation to review manuscripts in my areas of expertise for one of the premier teaching journals.
+%     My reviews require me to read, evaluate, and write a response to accept or reject the manuscript.
+%   }{
+%     I serve as an important gatekeeper for publications.
+%     I have rejected 95\% of the manuscripts I have received.
+%     This required me to write an extensive response to justify my rejection, as well as provide feedback and constructive criticism to the authorsl
+%     My recommendations have been overridden by the Editor-in-Chief only one time.
+%   }
+%   \activity[
+%     date=2016--present,
+%     organization={USAFA Center for Educational Innovation (CEI)},
+%     role={Learning Community Mentor, Faculty Orientation},
+%     type=Institutional,
+%     sphere=USAFA,
+%     frequency={One week during July orientation; met with learning community (8 faculty) about every two weeks throughout the academic year},
+%     length={Each meeting took $\approx 2$ hours to prepare and facilitate},
+%   ]{
+%     I serve as a teaching mentor for new and returning faculty members durig faculty orientation.
+%     In this role I prompt and facilitate discussion, elicit suggestions, and give advice to incoming faculty.
+%     During the academic year I provide discussion prompts and help faculty gain the necessary teaching skills and resolve teaching-learning challenges.
+%   }{
+%     I serve an essential role in accelerating the development of new and returning instructors that will, in turn, potentially impact the development of $\approx 200$ cadets (8 faculty $\times$ 24 cadets) here at USAFA.
+%   }
+% \end{service}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/service.out}
+% produces\\
+% \input{minted/service.out}\par
 %
 % \StopEventually{
 %   \PrintChanges
@@ -355,7 +504,7 @@
       \end{itemize}
     & \begin{itemize}
         \item Type -- institutional or disciplinary
-        \item Sphere -- \acrshort{USAFA}, regional, national, or international
+        \item Sphere -- USAFA, regional, national, or international
       \end{itemize}
 
       \emph{Note: Do not include department-level additional duties or part of your job.}
