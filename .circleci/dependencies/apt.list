@@ -1,6 +1,7 @@
 ghostscript
 git
 python-pip
+texlive-bibtex-extra
 texlive-font-utils
 texlive-fonts-extra
 texlive-generic-extra
