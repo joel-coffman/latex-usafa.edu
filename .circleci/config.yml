@@ -19,3 +19,31 @@ jobs:
             for package in $(find . -name Makefile); do
               make --directory="$(dirname "$package")";
             done
+
+  spelling:
+    docker:
+      - image: circleci/golang
+
+    resource_class: small
+
+    steps:
+      - checkout
+
+      - run:
+          name: install
+          working_directory: /usr/local/
+          command: |
+            curl -L https://git.io/misspell | sudo bash
+
+      - run:
+          name: misspell
+          command: |
+            misspell --error \
+                $(git diff-tree --no-commit-id --name-only -r HEAD)
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - spelling
