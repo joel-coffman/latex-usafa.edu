@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: sunslayer/latex-docker
+      - image: sunslayer/latex-docker:buster
 
     steps:
       - checkout
@@ -11,7 +11,8 @@ jobs:
           name: install dependencies
           command: |
             apt update && apt install --no-install-recommends --yes \
-                    $(cat .circleci/dependencies.list)
+                    $(cat .circleci/dependencies/apt.list)
+            pip install --requirement .circleci/dependencies/python.list
 
       - run:
           name: build packages
@@ -19,3 +20,31 @@ jobs:
             for package in $(find . -name Makefile); do
               make --directory="$(dirname "$package")";
             done
+
+  spelling:
+    docker:
+      - image: circleci/golang
+
+    resource_class: small
+
+    steps:
+      - checkout
+
+      - run:
+          name: install
+          working_directory: /usr/local/
+          command: |
+            curl -L https://git.io/misspell | sudo bash
+
+      - run:
+          name: misspell
+          command: |
+            misspell --error \
+                $(git diff-tree --no-commit-id --name-only -r HEAD)
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - spelling
