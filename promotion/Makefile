@@ -5,6 +5,8 @@ default: $(patsubst %.dtx,%.sty,$(wildcard *.dtx)) \
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi
 
-%.pdf: %.sty | minted
+promotion.pdf: promotion.sty | minted
+record.pdf: record.sty | minted
+statement.pdf: statement.sty | minted
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk

@@ -17,13 +17,30 @@
 % \iffalse
 %<*driver>
 \documentclass{ltxdoc}
-\input{.version}
-\usepackage{statement}
+
 \usepackage{hyperref}
 \usepackage{microtype}
+\usepackage{minted}
+
+\usepackage{minted-doc}
+
+\usepackage{statement}
+
+
+% minted
+\setminted{
+  autogobble,
+  breaklines,
+}
+
+
+\input{.version}
+
+
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
+
 \begin{document}
   \DocInput{statement.dtx}
 \end{document}
@@ -49,7 +66,7 @@
 % Right brace   \}     Tilde         \~}
 %
 %
-% \changes{0.0.1}{2020/10/09}{Initial version}
+% \changes{0.1.0}{2020/10/14}{Initial version}
 %
 % \GetFileInfo{statement.sty}
 %
@@ -66,10 +83,28 @@
 % \maketitle
 %
 % \begin{abstract}
-% Package for personal statements
+% This package defines commands to format personal statements.
+% Thus, it ensures consistent formatting for elements common to multiple statements.
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
+%
+% Load this package in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-statement-package.out}
+%   \usepackage{statement}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-statement-package.out}
+%
+% \DescribeMacro{claim}
+% This package defines a single macro:
+%
+% \medskip
+% \noindent
+% |\claim|\marg{claim}\par
+% \medskip
+%
+% \noindent
+% The \meta{claim} will be inserted into the document to remind readers of the purpose of the personal statement.
 %
 % \StopEventually{
 %   \PrintChanges
@@ -92,8 +127,8 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{statement}[%
-    2020/10/09 %
-    v0.0.1 %
+    2020/10/14 %
+    v0.1.0 %
     Package for personal statements%
 ]
 %    \end{macrocode}
@@ -102,19 +137,30 @@
 % Load packages required by this one.
 %    \begin{macrocode}
 \RequirePackage{enumitem}
-\RequirePackage[ttscale=0.875]{libertine}
-\RequirePackage{microtype}
 %    \end{macrocode}
 %
 % \subsection{Macros}
 % This section describes the macros in the \textsf{statement} package.
+%
+% Define the |claim| macro.
 %    \begin{macrocode}
 \newcommand*{\claim}[1]{%
-  \vspace{3.25ex \@plus 1ex \@minus 0.2ex}% \paragraph for article class
+%    \end{macrocode}
+% Insert vertical space (equivalent to the space preceeding a paragraph in \LaTeX's article class).
+%    \begin{macrocode}
+  \vspace{3.25ex \@plus 1ex \@minus 0.2ex}%
+%    \end{macrocode}
+% Format the claim using a |description| list, but without any vertical space.
+%    \begin{macrocode}
   \begin{description}[
     nosep,
   ]
+%    \end{macrocode}
+% Insert the claim.
+%    \begin{macrocode}
     \item[Claim] #1
+%    \end{macrocode}
+%    \begin{macrocode}
   \end{description}
 }
 %    \end{macrocode}
