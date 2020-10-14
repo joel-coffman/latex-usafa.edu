@@ -1,6 +1,6 @@
 ghostscript
 git
-python-pygments
+python-pip
 texlive-font-utils
 texlive-fonts-extra
 texlive-generic-extra

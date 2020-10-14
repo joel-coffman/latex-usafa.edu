@@ -40,7 +40,7 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.cls) $(wildcard *.sty) \
+DEPENDENCIES = $(wildcard *.bib) $(wildcard *.cls) $(wildcard *.sty) \
                $(wildcard $(CWD)glossary.tex) $(wildcard $(CWD)references.bib)
 
 %.pdf: %.dtx $(DEPENDENCIES) .version.tex
