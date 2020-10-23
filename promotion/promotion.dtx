@@ -105,6 +105,7 @@
 
 \RequirePackage{record}
 \RequirePackage{statement}
+\RequirePackage{supplements}
 %    \end{macrocode}
 %
 % \subsection{Macros}
@@ -126,73 +127,6 @@
   \unskip\nobreak\hfil\penalty50
   \hskip1em\hbox{}\nobreak\hfil#1
   \parfillskip=0pt \finalhyphendemerits=0 \par%
-}
-
-\newenvironment{supplements}[1][]{%
-  \global\def\insertsupplements{}%
-  \newcommand*{\supplement}[3][]{%
-    \newif\iflist
-    \pgfkeys{
-      % definitions
-      supplement/.is family,
-      supplement,
-      list/.is if=list,
-      options/.store in=\options,
-      options/.value required,
-      tocentry/.store in=\tocentry,
-      tocentry/.value required,
-      % defaults
-      list,
-      options=,
-      tocentry=##3,
-    }%
-    \pgfkeys{supplement,##1}%
-    \edef\path{\directory/##2}%
-    \edef\title{##3}%
-    \global\edef\insertsupplements{%
-      \expandonce
-      \insertsupplements
-      \noexpand
-      \includepdf[
-          \iflist
-            addtotoc={
-              1,  % page number
-              subsubsection,  % section
-              3,  % level
-              \tocentry,  % title
-              \path  % label
-            },
-          \fi
-          link,
-          pages=-,
-          \options,
-      ]{\path}
-    }%
-    \iflist
-      \item \hyperlink{\path.1}{\title}
-    \fi
-  }%
-  \pgfkeys{
-    % definitions
-    supplements/.is family,
-    supplements,
-    directory/.store in=\directory,
-    directory/.value required,
-    structure/.store in=\structure,
-    structure/.value required,
-    type/.store in=\type,
-    type/.value required,
-    % defaults
-    directory=.,
-    structure=itemize,
-    type=supplementary materials,
-  }%
-  \pgfkeys{supplements,#1}
-  The following \type{} are included:
-  \csname \structure\endcsname
-}{%
-  \csname end\structure\endcsname
-  \insertsupplements
 }
 %    \end{macrocode}
 %
