@@ -1,0 +1,313 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2020 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{minted}
+\usepackage{tabularx}
+
+\usepackage{minted-doc}
+
+\usepackage{supplements}
+
+
+% enumitem
+\setlist{
+  noitemsep,
+}
+
+
+\input{.version}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\begin{document}
+  \DocInput{supplements.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2020/10/23}{Initial version}
+%
+% \GetFileInfo{supplements.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{supplements} package\thanks{This
+% document corresponds to \textsf{supplements~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% This package supports the inclusion of supplemental material into a larger document.
+% For example, copies of publications can be included as supplementary material in an academic promotion package.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{Usage}\label{section:usage}
+%
+% Load this class in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-supplements-package.out}
+%   \usepackage{supplements}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-supplements-package.out}
+%
+% \begin{table}[tb]
+%   \caption{
+%     Key-value options for the \texttt{supplements} environment
+%   }
+%   \label{table:supplements options}
+%
+%   \centering
+%   \begin{tabularx}{\linewidth}{
+%       >{\ttfamily}l
+%       >{\hangindent=1em}X
+%   }
+%     \toprule
+%     \multicolumn{1}{l}{Option} & Description\\
+%     \midrule
+%     directory &
+%       The directory that contains the supplements.
+%       Defaults to the current directory (\texttt{./}).\\
+%     structure &
+%       The type of list to use (e.g., \texttt{enumerate} or \texttt{itemize}).
+%       Defaults to \texttt{itemize}.\\
+%     type &
+%       A short description of the supplements to include before the list.
+%       Defaults to ``supplementary material.''\\
+%     \bottomrule
+%   \end{tabularx}
+% \end{table}
+%
+% \DescribeEnv{supplements}
+% The |supplements| environment effectively defines a list of the documents being included.
+% The environment accepts optional key-value arguments (see Table~\ref{table:supplements options}).
+%
+% \begin{table}[tb]
+%   \caption{
+%     Key-value options for the \texttt{supplement} macro
+%   }
+%   \label{table:supplement options}
+%
+%   \centering
+%   \begin{tabularx}{\linewidth}{
+%       >{\ttfamily}l
+%       >{\hangindent=1em}X
+%   }
+%     \toprule
+%     \multicolumn{1}{l}{Option} & Description\\
+%     \midrule
+%     list &
+%       List the supplement in the table of contents and list of supplements.
+%       Defaults to \texttt{true}.\\
+%     options &
+%       Additional options to pass to \texttt{\textbackslash includepdf}.\\
+%     pages &
+%       The pages of the document to include.
+%       Defaults to \texttt{-} for all pages in the document.\\
+%     tocentry &
+%       The text of the entry in the table of contents (e.g., the title of a publication).
+%       Defaults to the path of the included file.\\
+%     \bottomrule
+%   \end{tabularx}
+% \end{table}
+%
+% \DescribeMacro{supplement}
+% The |supplement| macro does the heavy lifting of including the specified document, specifically adding entries to the table of contents and hyperlinks from the list entry to the document.
+% The general form of the |supplement| command is as follows:
+%
+% \medskip
+% \noindent
+% |\supplement|\oarg{options}\marg{path}\marg{entry}\par
+% \medskip
+%
+% \noindent
+% Table~\ref{table:supplement options} describes the optional argument.
+% The \meta{path} argument specifies the path of the document.
+% The \meta{entry} argument specifies the text of the entry in the list of supplements.
+%
+% An example is undoubtedly informative:
+% \begin{VerbatimOut}[gobble=2]{minted/supplements.out}
+% \begin{supplements}[
+%     directory=./,
+%     type=\LaTeXe{} packages,
+% ]
+%   \supplement[pages=1]{record.pdf}{The record package}
+%   \supplement[pages=1]{statement.pdf}{The statement package}
+% \end{supplements}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/supplements.out}
+% produces the following:
+%
+% \bigskip
+% \noindent
+% \input{minted/supplements.out}
+%
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{supplements}[%
+    2020/10/23 %
+    v0.1.0 %
+    Package for supplemental material%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%
+% The \textsf{pdfpages} package supports the inclusion of PDF external documents into a \LaTeX{} document.
+%    \begin{macrocode}
+\RequirePackage{pdfpages}
+%    \end{macrocode}
+%
+% The \textsf{pgfkeys} package supports the key-value options for this package's macros and environments.
+%    \begin{macrocode}
+\RequirePackage{pgfkeys}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{supplements} package.
+%    \begin{macrocode}
+\newenvironment{supplements}[1][]{%
+  \global\def\insertsupplements{}%
+  \newcommand*{\supplement}[3][]{%
+    \newif\iflist
+    \pgfkeys{
+      % definitions
+      supplement/.is family,
+      supplement,
+      list/.is if=list,
+      options/.store in=\options,
+      options/.value required,
+      pages/.store in=\pages,
+      pages/.value required,
+      tocentry/.store in=\tocentry,
+      tocentry/.value required,
+      % defaults
+      list,
+      options=,
+      pages=-,
+      tocentry=##3,
+    }%
+    \pgfkeys{supplement,##1}%
+    \edef\path{\directory/##2}%
+    \edef\title{##3}%
+    \global\edef\insertsupplements{%
+      \expandonce
+      \insertsupplements
+      \noexpand
+      \includepdf[
+          \iflist
+            addtotoc={
+              1,  % page number
+              subsubsection,  % section
+              3,  % level
+              \tocentry,  % title
+              \path  % label
+            },
+          \fi
+          link,
+          pages=\pages,
+          \options,
+      ]{\path}
+    }%
+    \iflist
+      \item \hyperlink{\path.1}{\title}
+    \fi
+  }%
+  \pgfkeys{
+    % definitions
+    supplements/.is family,
+    supplements,
+    directory/.store in=\directory,
+    directory/.value required,
+    structure/.store in=\structure,
+    structure/.value required,
+    type/.store in=\type,
+    type/.value required,
+    % defaults
+    directory=.,
+    structure=itemize,
+    type=supplementary material,
+  }%
+  \pgfkeys{supplements,#1}%
+  The following \type{} are included:
+  \csname \structure\endcsname
+}{%
+  \csname end\structure\endcsname
+  \insertsupplements
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
