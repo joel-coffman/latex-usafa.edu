@@ -1,0 +1,237 @@
+\documentclass[11pt,titlepage]{article}
+
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{glossaries}
+\usepackage{hyperref}
+\usepackage[
+    ttscale=0.875,
+]{libertine}
+\usepackage{microtype}
+\usepackage[authoryear,round]{natbib}
+\usepackage{pdfpages}
+\usepackage{standalone}
+\usepackage{xpatch}
+
+\usepackage{promotion}
+
+\usepackage{application}
+
+
+% enumitem
+\setlist{
+  listparindent=\parindent,
+  noitemsep,
+}
+
+% natbib
+\setcitestyle{aysep={}}
+
+\renewcommand{\bibsection}{%
+  \part{\refname}%
+}
+\let\cite=\citep\relax
+
+% url
+\urlstyle{same}  % do not use monospace font for URLs
+
+
+% document-specific glossary entries
+\newacronym{CV}{CV}{curriculum vitae}
+\newacronym{FPC}{FPC}{Faculty Personnel Council}
+\newacronym{USAFA}{USAFA}{the United States Air Force Academy}
+
+
+% macros / environments
+\providecommand*{\meta}[1]{%
+  \textlangle\,\emph{#1}\,\textrangle%
+}
+
+\xpreto{\part}{\clearpage}{}{}
+
+
+\title{Application for\\Promotion to \meta{Academic Rank}}
+\author{\meta{Applicant Name}}
+\date{\meta{Semester of Application}}
+
+\begin{document}
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Introductory Materials}\label{section:introduction}  %-------------------
+
+%------------------------------------------------------------------------------
+\section{Statement of Eligibility}  %------------------------------------------
+
+I, \meta{name}, satisfy the criteria for promotion to \meta{associate or full professor} as described below:
+
+\paragraph{Terminal degree}
+I received a \meta{PhD, DA, etc.} in \dots from the \meta{university} \dots in \meta{discipline} on \meta{date}.
+
+\paragraph{Professional experience}
+I have been a \meta{uniformed or civilian faculty member} since \dots.
+I was promoted to \meta{assistant or associate professor} in \dots{} and will have \dots{} semesters of USAFA service as an \meta{assistant or associate professor} by the effective date of promotion.
+I will have \dots years professional experience \dots.
+
+\paragraph{Full-time faculty membership}
+I served as a member of the USAFA faculty from \dots{} to \dots.
+This will give me the required \meta{number} semesters teaching as a(n) \meta{academic rank} and \meta{number} years as a member of the USAFA faculty.
+
+\paragraph{USAFA experience}
+I will have \dots{} years as a member of the USAFA faculty by the effective date of the requested promotion.
+
+\paragraph{Regular Teaching and Course Directing Experience}
+I have been the course director for the following courses at USAFA:
+
+%------------------------------------------------------------------------------
+\section{Department Head's Letter of Support}  %-------------------------------
+
+%\includepdf[
+%    pages=-,
+%]{path-to-letter}
+
+%------------------------------------------------------------------------------
+\section{Curriculum Vitae}  %--------------------------------------------------
+
+%\includepdf[
+%    pages=-,
+%]{path-to-cv}
+
+%------------------------------------------------------------------------------
+\section{Accounting for Emphases and Omissions}  %-----------------------------
+
+I believe no special accounting of emphasis is necessary, and there are no omissions of any of the required items in USAFA Instruction 36-150, ``Appointment and Promotion to Academic Ranks.''
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Teaching Excellence}\label{part:teaching excellence}
+
+%------------------------------------------------------------------------------
+\section{Evidence-Based, Learning-Focused Practice}  %-------------------------
+\input{statements/teaching-practices}
+
+%------------------------------------------------------------------------------
+\section{Respectful, Engaging Learning Environments for Students}  %-----------
+\input{statements/learning-environment}
+
+%------------------------------------------------------------------------------
+\section{Commitment to Sustained Professional Development}  %------------------
+\input{statements/professional-development}
+
+%------------------------------------------------------------------------------
+\section{Supplementary Materials}  %-------------------------------------------
+
+%\begin{supplements}[
+%    directory=supplemental/teaching/CompSci350/,
+%    type=course materials,
+%]
+%  \supplement[
+%      options=landscape,
+%  ]{course-design-poster.pdf}{Course design poster}
+%  \supplement{syllabus.pdf}{Syllabus}
+%  \supplement{learning-objectives}{Sample learning objectives}
+%  \supplement{lesson-notes.pdf}{Sample lesson notes}
+%  \supplement{project/overview.pdf}{Project}
+%    \supplement[list=false]{project/management-plan.pdf}{Management Plan}
+%    \supplement[list=false]{project/sprint.pdf}{Sprint}
+%    \supplement[list=false]{project/specification.pdf}{Specification}
+%    \supplement[list=false]{project/implementation.pdf}{Implementation}
+%    \supplement[list=false]{project/retrospective.pdf}{Retrospective}
+%    \supplement[list=false]{project/security-assessment.pdf}{Security Assessment}
+%\end{supplements}
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Scholarship Productivity}\label{section:scholarship}
+
+%------------------------------------------------------------------------------
+\section{Self-Assessment of Scholarly Strengths}
+\input{statements/scholarly-strengths}
+
+%------------------------------------------------------------------------------
+\section{Scholarship Tables}
+The following scholarship tables list only those publications and presentations since my last promotion (i.e., since starting at \gls{USAFA}).
+Prior publications and presentations are listed in my curriculum vitae (Section~\ref{section:cv}).
+
+\input{records/scholarship}
+
+%------------------------------------------------------------------------------
+\section{Supplementary Materials}
+
+%\begin{supplements}[
+%    directory=supplemental/scholarship/publications/,
+%    structure=enumerate,
+%    type=publications,
+%]
+%  \supplement[
+%      tocentry={An Analysis of Automated Software Diversity using Unstructured Text Analytics},
+%  ]{gearhart2018analysis.pdf}{\bibentry{gearhart2018analysis}}
+%  \supplement[
+%      tocentry={Low-Cost Distributed Key Management},
+%  ]{gopal2018low-cost.pdf}{\bibentry{gopal2018low-cost}}
+%  \supplement[
+%      tocentry={Quantifying the Effectiveness of Near-Duplicate Detection Algorithms},
+%  ]{coffman2018quantifying.pdf}{\bibentry{coffman2018quantifying}}
+%  \supplement[
+%      tocentry={Streamlining Computer Science Curriculum Development and Assessment using the New ABET Student Outcomes},
+%  ]{hadfield2019streamlining.pdf}{\bibentry{hadfield2019streamlining}}
+%  \supplement[
+%      tocentry={Automatically Validating the Effectiveness of Software Diversity Schemes},
+%  ]{kelly2019automatically.pdf}{\bibentry{kelly2019automatically}}
+%  \supplement[
+%      tocentry={Diversity as an Enabler for Cyber Resilience},
+%  ]{coffman2019diversity.pdf}{\bibentry{coffman2019diversity}}
+%  \supplement[
+%      tocentry={Techniques for Mutual Auditability in a Cloud Environment},
+%  ]{ladouceur2019techniques.pdf}{\bibentry{ladouceur2019techniques}}
+%  \supplement[
+%      tocentry={Preventing Zero-Day Exploits of Memory Vulnerabilities with Guard Lines},
+%  ]{vinson2019preventing.pdf}{\bibentry{vinson2019preventing}}
+%  \clearpage  % FORMATTING
+%  \supplement[
+%      tocentry={Docker Container Security in Cloud Computing},
+%  ]{brady2020docker.pdf}{\bibentry{brady2020docker}}
+%  \supplement[
+%      tocentry={Cyber Probability of Kill: The Effectiveness of Malware in a Heterogeneous Software Environment},
+%  ]{webster2020cyber.pdf}{\bibentry{webster2020cyber}}
+%  \supplement[
+%      tocentry={The Cost of a Macaroon},
+%  ]{ayub2020cost.pdf}{\bibentry{ayub2020cost}}
+%  \supplement[
+%      tocentry={A Replication Study to Explore Co-Residency of Virtual Machines in the Cloud},
+%  ]{gupta2020replication.pdf}{\bibentry{gupta2020replication}}
+%\end{supplements}
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Service Activities and Impacts}\label{section:service}  %----------------
+
+%------------------------------------------------------------------------------
+\section{Academic Service Record Table}  %-------------------------------------
+The following table lists academic service since my last promotion (i.e., since starting at \gls{USAFA}).
+Prior academic service is listed in my curriculum vitae (Section~\ref{section:cv}).
+
+\input{records/service}
+
+%------------------------------------------------------------------------------
+\section{Supplementary Materials}  %-------------------------------------------
+
+None
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

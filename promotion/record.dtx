@@ -408,6 +408,8 @@
   applicant/.value required,
   rank/.store in=\record@rank,
   rank/.value required,
+  %\ifdefined\@author applicant=\@author,\fi
+  %\ifdefined\@rank rank=\@rank,\fi
 }
 \ProcessPgfOptions*
 
@@ -421,7 +423,18 @@
 
 \xapptocmd{\author}{%
   \@ifundefined{record@applicant}{%
-    \pdfstringdef{\record@applicant}{#1}%
+    \gdef\record@applicant{#1}%
+  }{}%
+}{}{}
+
+
+\providecommand{\rank}[1]{%
+  \gdef\@rank{#1}%
+}
+
+\xapptocmd{\rank}{%
+  \@ifundefined{record@rank}{%
+    \gdef\record@rank{#1}%
   }{}%
 }{}{}
 
