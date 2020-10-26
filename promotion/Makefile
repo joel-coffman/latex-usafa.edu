@@ -1,6 +1,7 @@
 .PHONY: default
 default: $(patsubst %.dtx,%.sty,$(wildcard *.dtx)) \
-         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx))
+         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
+         $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi

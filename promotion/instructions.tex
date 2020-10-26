@@ -1,0 +1,481 @@
+\documentclass[11pt,titlepage]{article}
+
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{glossaries}
+\usepackage{hyperref}
+\usepackage[
+    ttscale=0.875,
+]{libertine}
+\usepackage{microtype}
+\usepackage[authoryear,round]{natbib}
+\usepackage{pdfpages}
+\usepackage{xpatch}
+
+\usepackage{promotion}
+
+
+% enumitem
+\setlist{
+  listparindent=\parindent,
+  noitemsep,
+}
+
+% natbib
+\setcitestyle{aysep={}}
+
+\renewcommand{\bibsection}{%
+  \part{\refname}%
+}
+\let\cite=\citep\relax
+
+% url
+\urlstyle{same}  % do not use monospace font for URLs
+
+
+% document-specific glossary entries
+\newacronym{CV}{CV}{curriculum vitae}
+\newacronym{FPC}{FPC}{Faculty Personnel Council}
+
+
+% macros / environments
+\providecommand*{\meta}[1]{%
+  \textlangle\,\emph{#1}\,\textrangle%
+}
+
+\xpreto{\part}{\clearpage}{}{}
+
+
+\title{Instructions for Applying for Academic Promotion to Associate and Full Professor}
+\author{Faculty Personnel Council}
+\date{16 August 2018}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}\label{section:introduction}
+
+\subsection*{The Academic Promotion Process}
+Each fall and spring, the Dean puts out a call for teaching- and research-track faculty to apply for academic promotion.
+A USAFA-wide ``town hall'' meeting is held in October and March to assist potential applicants in writing and assembling their application packages and to answer any questions they may have.
+Applications are submitted electronically by the end of October in the fall and end of March in the spring.
+Applications for academic promotion are reviewed, evaluated and discussed by a committee called the \gls{FPC} that consists of one Permanent professor and one ad hoc full professor (per USAFA FOI 36-177, para.~1.1, 1.2.) from each of the four academic divisions for a total of eight members.
+Each member of the council evaluates every package and then the chair convenes a meeting to discuss and make recommendations to the Dean of Faculty.
+Department Heads may be invited to the council to answer questions, provide context and details to the application, and advocate on behalf of the applicant.
+Recommendations are then brought to the Dean, who has the sole authority, delegated by USAFA/CC, to promote, where they are discussed - the authority to promote rests solely with the Dean.
+The table below summarizes the timeline of the process.
+
+\begin{table}[!h]
+  \centering
+  \begin{tabular}{l cc}
+    \toprule
+    & \multicolumn{2}{c}{Semester}\\\cmidrule(r){2-3}
+    Step in the Process & Fall & Spring\\
+    \midrule
+    Call or Invitation for Applications & August & January\\
+    Town Hall Meeting & October & March\\
+    Deadline for submission & 30 October & 30 March\\
+    \Acrshort{FPC} evaluates packages and meets to discuss & November & April\\
+    Dean announces promotions & December & May\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Contents of Your Package}
+Your application package for promotion to the rank of Associate Professor or Full Professor consists of the following four sections:
+\begin{enumerate}
+  \item Introductory Materials
+  \item Teaching Excellence
+  \item Scholarship Productivity
+  \item Service Activities and Impacts
+\end{enumerate}
+
+\subsection*{Electronic Submission}
+After you create and build your application, \emph{please} create one PDF file and e-mail it to the \gls{FPC} Administrator by the appropriate deadline.
+Contact information for the current \gls{FPC} Administrator can always be found on the \gls{FPC} SharePoint site (\url{https://sharepoint.usafa.edu/communities/fpc/default.aspx}).
+
+% -----------------------------------------------------------------------------
+\section*{Summary}  %----------------------------------------------------------
+In summary, be sure to organize your package as shown in the checklist below:
+\begin{enumerate}
+  \item Introductory Materials
+  \begin{itemize}[label=$\square$]
+    \item Statement of Eligibility
+    \item Department Head's Letter of Support
+    \item Curriculum Vitae
+    \item Accounting for Emphases and Omissions
+  \end{itemize}
+
+  \item Teaching Excellence
+  \begin{enumerate}
+    \item Using Evidenced-based Teaching Practice
+    \begin{itemize}[label=$\square$]
+      \item Claim-based Narrative
+      \item Annotated Evidence File
+    \end{itemize}
+
+    \item Creating Respectful and Engaging Learning Environments
+    \begin{itemize}[label=$\square$]
+      \item Claim-based Narrative
+      \item Annotated Evidence File
+    \end{itemize}
+
+    \item Sustained Professional Development and Improvement
+    \begin{itemize}[label=$\square$]
+      \item Claim-based Narrative
+      \item Annotated Evidence File
+    \end{itemize}
+  \end{enumerate}
+
+  \item Scholarship Productivity
+  \begin{itemize}[label=$\square$]
+    \item Self-Assessment of Scholarly Strengths
+    \item Scholarly Record: Publications Tables
+    \item Scholarly Record: Presentation Tables
+    \item Supplementary Materials
+  \end{itemize}
+
+  \item Service Activities and Impact
+  \begin{itemize}[label=$\square$]
+    \item Academic Service Record Table
+    \item Supplementary Materials
+  \end{itemize}
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Introductory Materials}  %-----------------------------------------------
+
+This portion of your package introduces you as an applicant who is eligible for and worthy of promotion.
+This section requires the following items:
+\begin{enumerate}
+  \item Statement of Eligibility
+  \item Department Head's Letter of Support
+  \item Curriculum Vitae
+  \item Accounting for Emphases and Omissions
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\section{Statement of Eligibility}  %------------------------------------------
+Here you are stating that you meet the requirements for the academic promotion you are requesting.
+Eligibility requirements are stated in USAFAI 36-150~\cite{usafai36-150}.
+Applicants that were hired before that date may request grandfathering under Para.~7.
+
+By applying for promotion you are making a claim that the quality of your teaching, scholarship, and service has been consistently excellent since your last promotion and that you have at least:
+\begin{itemize}
+  \item five years of professional experience,
+  \item three years teaching full-time at a regionally accredited or comparable institution,
+  \item two years at USAFA at the rank of assistant professor (including the semester in which the application for promotion is being submitted)
+\end{itemize}
+
+Follow this format:
+
+I, \meta{name}, satisfy the criteria for promotion to \meta{associate or full professor} as described below:
+
+\paragraph{Terminal degree}
+I received a \meta{PhD, DA, etc.} in \dots from the \meta{university} \dots in \meta{discipline} on \meta{date}.
+
+\paragraph{Professional experience}
+I have been a \meta{uniformed or civilian faculty member} since \dots.
+I was promoted to \meta{assistant or associate professor} in \dots{} and will have \dots{} semesters of USAFA service as an \meta{assistant or associate professor} by the effective date of promotion.
+I will have \dots years professional experience \dots.
+
+\paragraph{Full-time faculty membership}
+I served as a member of the USAFA faculty from \dots{} to \dots.
+This will give me the required 4 semesters teaching as an Assistant Professor and four years as a member of the USAFA faculty.
+
+\paragraph{USAFA experience}
+I will have \dots{} years as a member of the USAFA faculty by the effective date of the requested promotion.
+
+\paragraph{Regular Teaching and Course Directing Experience}
+I have been the course director for the following courses at USAFA:
+
+%------------------------------------------------------------------------------
+\section{Department Head's Letter of Support}  %-------------------------------
+Place your department head's letter of support here.
+
+%\includepdf[pages=-]{path-to-letter}
+
+%------------------------------------------------------------------------------
+\section{Curriculum Vitae}  %--------------------------------------------------
+Place your most current curriculum vitae here.
+Note that most of the scholarship and service activities will be copied to a set of tables in the scholarship and service portions of your package.
+The tables will allow you to elaborate on each activity, which will provide the council with a richer picture of your scholarship and service activities than the traditional academic curriculum vitae.
+
+%\includepdf[pages=-]{path-to-cv}
+
+%------------------------------------------------------------------------------
+\section{Accounting for Emphases and Omissions}  %-----------------------------
+This space provides an opportunity to share any personal or professional experiences that marked your professional career.
+If you have no emphases or omissions, then simply state:
+
+\begin{quote}
+  I believe no special accounting of emphasis is necessary, and there are no omissions of any of the required items in USAFA Instruction 36-150, ``Appointment and Promotion to Academic Ranks.''
+\end{quote}
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Teaching Excellence}  %--------------------------------------------------
+
+This portion of the application package has changed recently.
+In the past, applicants mostly relied solely on the numbers and comments provided by the Cadet Feedback System to demonstrate their effectiveness.
+This evidence only portrays a single aspect of teaching and you can paint a more robust and convincing portrait of your teaching.
+How? A team of highly respected and skilled educators from around USAFA produced a set of three dimensions that characterize teaching excellence.
+
+Excellent teachers
+\begin{enumerate}
+  \item use evidence-based, learning-focused practices in their teaching
+  \item create respectful, engaging learning environments for students
+  \item commit to sustained professional development and improvement in their teaching and course design
+\end{enumerate}
+
+By applying for promotion you are making a claim that the quality of your teaching has been consistently excellent since your last promotion for each of the three dimensions.
+
+\textbf{Important:} Note that expectations of teaching excellence are different for associate professor and full professor.
+Briefly, applicants for associate professor must provide convincing evidence of teaching excellence.
+Candidates for full professor must offer evidence of teaching excellence plus leadership and mentorship of others helping them to become excellent teachers.
+Refer to ``A Guide for Teaching-Track Faculty Applying for Academic Promotion'' under the Resources tab on the \gls{FPC} SharePoint site.
+
+\paragraph{Associate Professor}
+For each of the three dimensions you will submit a\dots
+\begin{enumerate}
+  \item Claim-based Narrative
+  \begin{description}
+    \item[Purpose]
+    The narrative briefly explains how your teaching practice exhibits the qualities of the dimension.
+
+    \item[Format]
+    You will write a short (roughly 500-word) persuasive narrative in support of your claim for this dimension.
+    This narrative should explicitly reference the specific annotated artifacts that have been submitted in the evidence file in support of the claim, as well as descriptions of why those artifacts serve as an appropriate body of evidence.
+    See more details of organization and content in the tables below.
+  \end{description}
+
+  \item Annotated Evidence File
+  \begin{description}
+    \item[Purpose]
+    The evidence file supports your narrative and claim.
+
+    \item[Format]
+    You will create a personal evidence file that consists of representative artifacts that support your claim; you will refer to these artifacts in your narrative.
+    An \emph{artifact} is anything that provides evidence in support of your claim, such as course syllabi, student feedback, peer observation, student essays, projects, or presentations.
+    Each artifact will have an \emph{annotation}, which briefly describes why the artifact serves as an appropriate piece of evidence.
+    See more details of suggested artifacts to include in your annotated evidence file in the tables below.
+  \end{description}
+\end{enumerate}
+
+\paragraph{Full Professor}
+The USAFA Instruction clearly specifies that consistently excellent teaching is required for academic promotion to the ranks of both associate and full professor.
+So in terms of their teaching, what distinguishes an associate professor from a full professor at USAFA?
+In addition to teaching excellence, full professors at USAFA are expected to be institutional, regional, or national leaders of best teaching practices in their discipline.
+They are expected to \emph{lead and mentor other faculty} to 1) consistently apply evidence-based, learning-focused practice in their teaching, 2) create respectful, engaging learning environments for students, and 3) commit to sustained professional development and improvement of their teaching and course design.
+Continuing to excel in the classroom plus leading others to develop these three essential characteristics, or dimensions, form the basis of your qualifications for the rank of professor.
+Your leadership and/or mentorship within and beyond your department and the supporting evidence you present in the evidence file of the teaching portion of your promotion package will serve as the lens through which the Faculty Personnel Council evaluates your application for the academic rank of professor.
+An artifact is anything that
+ provides evidence in support of your claim, such as course syllabi, student feedback, peer
+ observations, student essays, projects, or presentations.
+
+By applying for promotion you are making a claim that your overall record reflects excellence in teaching and leadership since your promotion to associate professor.
+
+What you submit as part of the teaching excellence portion of your overall package: Promotion to Professor requires you to present a narrative and selected artifacts in support of the claim.
+
+For each of the three dimensions you will submit a\dots
+\begin{enumerate}
+  \item Claim-based Narrative
+  \begin{description}
+    \item[Purpose]
+    The narrative briefly explains how your teaching practice and leadership of others exhibit the qualities of the dimension.
+
+    \item[Format]
+    You will write a short (roughly 750-word) persuasive narrative in support of your claim for the dimension.
+    This narrative should reference any annotated artifacts that have been submitted in the evidence file in support of the claim, as well as descriptions of why those artifacts serve as an appropriate body of evidence.
+    See more details of organization and content in the tables below.
+  \end{description}
+
+  \item Annotated Evidence File
+  \begin{description}
+    \item[Purpose]
+    The evidence file supports your narrative and claim.
+
+    \item[Format]
+    You will create a personal evidence file that consists of representative artifacts that support your claim; you will likely have mentioned these artifacts in your narrative.
+    An \emph{artifact} is anything that provides evidence in support of your claim, such as course syllabi, student feedback, student essays, projects, or presentations.
+    Each artifact will have an \emph{annotation}, which briefly describes why the artifact serves as an appropriate piece of evidence.
+    Artifacts should reflect your \emph{teaching and leadership} since your promotion to associate professor.
+  \end{description}
+\end{enumerate}
+
+More specific instructions such as suggested artifacts to include in your annotated evidence file are given in ``A Guide for Teaching-Track Faculty Applying for Academic Promotion'' under the Resources tab on the \gls{FPC} SharePoint site.
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Scholarship Productivity}  %---------------------------------------------
+
+The Scholarship portion of your package involves preparing three parts:
+\begin{description}
+  \item[Self-Assessment of Scholarly Strengths]
+  A narrative of no more than two pages that evaluates your strengths, explains gaps, and describes your research focus, innovations, and impact of, and your vision for, your future scholarly activities.
+  Be concise, complete, and informative.
+
+  \item[Scholarship Table(s)]
+  Here, list and describe your productivity as a faculty member with separate tables for publications and presentations.
+
+  The tables on the \gls{FPC} SharePoint site are in a PowerPoint format.
+  Each table is shown as a single slide; simply duplicate the slide to build the number of tables needed to accommodate your personal record of publications and activities.
+  If you prefer, you can build these tables in Word or Excel table format.
+  These tables are designed to make it easier for you to make your case for promotion, make it easier for your endorsers to write strong letters of support, and make it easier for Faculty Personnel Council members to find the information needed to accurately evaluate your package.
+  Finally, if you have a significant activity that needs more space than afforded by this table format, then expand on this activity as an addendum.
+  Simply make a note in the table to see the supplementary materials section.
+
+  \item[Supplementary Materials]
+  This section includes supporting materials such as copies of your publications and letters of support from research collaborators or book editors.
+\end{description}
+
+%------------------------------------------------------------------------------
+\section{Completing the Scholarship Record: Publications Table}  %-------------
+Be sure to access and use the ``Scholarship Tables'' under the Resources tab on the \gls{FPC} SharePoint website.
+The table format illustrated below is the way you document your scholarship record for publications completed since your last USAFA academic promotion.
+In addition to completing this table, please include as evidence copies of the publications you have authored and other materials that support your application in a scholarship record supplement.
+
+Notes to Help You Complete the Scholarship Publications Table
+\begin{itemize}
+  \item
+  Do not include in this table works submitted but not yet accepted for publication or publications which have not undergone external (to USAFA) peer-review.
+  If the work has been accepted for publication, but not yet published, please include a copy of the letter of acceptance in your package.
+
+  \item
+  Example.
+  An example is provided to guide you to be brief, complete, and informative.
+
+  \item
+  Listing Your Pubs.
+  Organize and list your publications in reverse chronological order, with
+the most recent first, into the following groups: 1) peer-reviewed (e.g., books, book chapters, journal articles, essays, software); 2) non-peer reviewed publications, (e.g., original courseware, labs, original software, patents, book review, and other creative works), and 3) finish the listing with non-scholarly works (e.g., trade magazine articles, newsletter articles).
+
+  \item
+  Refer to each column heading and the example to help you complete each row for your publications.
+
+  \item
+  Citation.
+  Each publication citation must include the date of publication, all contributing authors, the title, publication name, publisher, location, and page references.
+  Please provide a URL if the pub is accessible online.
+
+  \item
+  Your Contribution and Its Significance \& Impact.
+  These two columns give you the opportunity to detail your scholarly contributions and their significance to their audience.
+  This provides the Council with important information that is generally not included in your \gls{CV}.
+  It's also important to provide evidence of the publication's selectivity (e.g., the acceptance rate for articles in the volume including your publication, impact factor or other metric if available) and reputation (e.g., circulation).
+  When possible, provide evidence of the weight of your work (e.g., citation count).
+
+  \item
+  Broader Impact.
+  Many scholarly publications have a broader impact beyond informing a particular audience in your discipline.
+  For example, a teaching-learning publication also supports the teaching excellence portion of your package.
+  In this case check the far right column under the ``Teaching'' heading.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\section{Completing the Scholarship Record: Scholarly Presentations Table}  %--
+Be sure to access and use the ``Scholarship Tables'' under the Resources tab on the \gls{FPC} SharePoint website.
+The table format illustrated below is the way you document your scholarly presentations and/or workshops completed since your last USAFA academic promotion.
+In addition to this table, please include as evidence copies of the abstract or conference proceedings you presented and other materials that support your application in a scholarship record supplement.
+
+Notes to Help You to Complete the Scholarship: Presentations/Workshops Table
+\begin{itemize}
+  \item
+  Include in this section your presentations of scholarly work such as conference presentations, workshop presentations, invited, or keynote presentations.
+
+  \item
+  Do not include in this section non-scholarly presentations such as: non-research project briefings, instructional presentations and tutorials.
+
+  \item
+  Keep your entries brief, complete, and informative.
+
+  \item
+  Refer to each column heading and the example to help you complete each row for each of
+your presentations/workshops.
+
+  \item
+  Citation.
+  Each presentation's citation must include: all presenters (if you were not the sole presenter), the presentation forum, and the presentation date.
+
+  \item
+  Your Contribution and Its Significance \& Impact.
+  These two columns give you the opportunity to detail your scholarly contributions and their significance to their audience.
+  This provides the Council with important information that is generally not included in your \gls{CV}.
+
+  \item
+  Broader Impact.
+  Many scholarly presentations have a broader impact beyond informing a particular audience in your discipline.
+  For example, an original innovative teaching-learning workshop/presentation also supports the teaching excellence portion of your package and may also be a service activity to the USAFA community.
+  In this case check the columns under the ``Teaching'' and ``Service'' headings.
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Service Activities and Impacts}  %---------------------------------------
+
+The Service portion of your package involves preparing two parts:
+\begin{description}
+  \item[Academic Service Record Table]
+  Here is list that describes your service impact as a faculty member.
+
+  The tables on the \gls{FPC} SharePoint site are in a PowerPoint format.
+  Each table is shown as a single slide; simply duplicate the slide to build the number of tables needed to accommodate your personal record of service activities.
+  If you prefer, you can build these tables in a Word or Excel table format.
+  These tables are designed to make it easier for you to make your case for promotion, make it easier for your endorsers to write strong letters of support, and make it easier for \gls{FPC} members to find the information needed to accurately evaluate your package.
+  If you have a significant activity that needs more space than afforded by this table format, then expand on this activity as an addendum.
+  Simply make a note in the table to see the supplementary materials section.
+
+  \item[Supplementary Materials]
+  This section includes supporting materials such as letters of support from committee members.
+  In your curriculum vitae these activities are simply a list.
+  Through the table format, you have the opportunity to describe your service role and impact on the mission.
+\end{description}
+
+%------------------------------------------------------------------------------
+\section{Completing the Academic Service Record Table}  %----------------------
+Be sure to access and use the ``Service Record Table'' under the Resources tab on the \gls{FPC} SharePoint website.
+The table format illustrated below is the way you document your service activities since your last USAFA academic promotion.
+In addition to this table, please include any materials that support your application in a service supplementary materials section.
+
+Notes to Help You to Complete the Academic Service Record Table
+\begin{itemize}
+  \item
+  Include in this table your service activities to your discipline such as service on scholarly conference committees, or service as a publication editor or reviewer.
+  Also include service to your academic division or USAFA such as serving as an OIC for a cadet club, or a member of important committees, outcome teams, or working groups.
+
+  \item
+  Do not include activities that are considered additional duties performed as part of your job serving your department (e.g., Trusted Agent, departmental search committees, or curriculum deputy).
+  If you think your departmental service is significant, then describe these duties in a separate table as part of your service record supplement section
+
+  \item
+  Keep your entries brief, complete, and informative.
+
+  \item
+  Refer to each column heading and the example to help you complete a row for each of your
+service activities.
+
+  \item
+  Cite Your Service Contributions.
+  Each activity citation must include: date(s) of service, the committee or organization you served, and your particular role (i.e., OIC, AAOCA, organizer, chair, or member) in the activity.
+
+  \item
+  Your Contribution and Its Significance \& Impact.
+  These two columns give you the opportunity to detail your service contributions and their significance.
+  This provides the Council with important information that is generally not included in your \gls{CV}.
+  However, if the service activity is common knowledge such as AAOCA, CAG, Dean's Executive officer, etc. then, in the name of efficiency, you do not need to complete this or the column to the left.
+
+  \item
+  Broader Impact.
+  Many service activities have a broader impact beyond serving a particular organization.
+  For example, serving as a learning community mentor also supports your teaching excellence portion of the package.
+  In this case check the far right hand column under the ``Teaching'' heading.
+\end{itemize}
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
