@@ -1,4 +1,4 @@
-\documentclass[11pt,titlepage]{article}
+\documentclass[11pt]{report}
 
 \usepackage{amssymb}
 \usepackage{booktabs}
@@ -53,8 +53,6 @@
   \textlangle\,\emph{#1}\,\textrangle%
 }
 
-\xpreto{\part}{\clearpage}{}{}
-
 
 \title{Application for\\Promotion to \meta{Academic Rank}}
 \author{\meta{Applicant Name}}
@@ -71,10 +69,10 @@
 
 % -----------------------------------------------------------------------------
 % -----------------------------------------------------------------------------
-\part{Introductory Materials}\label{section:introduction}  %-------------------
+\part{Introductory Materials}\label{part:introduction}  %----------------------
 
 %------------------------------------------------------------------------------
-\section{Statement of Eligibility}  %------------------------------------------
+\chapter{Statement of Eligibility}\label{section:eligibility}  %---------------
 
 I, \meta{name}, satisfy the criteria for promotion to \meta{associate or full professor} as described below:
 
@@ -97,21 +95,21 @@ I will have \dots{} years as a member of the USAFA faculty by the effective date
 I have been the course director for the following courses at USAFA:
 
 %------------------------------------------------------------------------------
-\section{Department Head's Letter of Support}  %-------------------------------
+\chapter{Department Head's Letter of Support}  %-------------------------------
 
 %\includepdf[
 %    pages=-,
 %]{path-to-letter}
 
 %------------------------------------------------------------------------------
-\section{Curriculum Vitae}  %--------------------------------------------------
+\chapter{Curriculum Vitae}\label{section:cv}  %--------------------------------
 
 %\includepdf[
 %    pages=-,
 %]{path-to-cv}
 
 %------------------------------------------------------------------------------
-\section{Accounting for Emphases and Omissions}  %-----------------------------
+\chapter{Accounting for Emphases and Omissions}  %-----------------------------
 
 I believe no special accounting of emphasis is necessary, and there are no omissions of any of the required items in USAFA Instruction 36-150, ``Appointment and Promotion to Academic Ranks.''
 
@@ -121,45 +119,47 @@ I believe no special accounting of emphasis is necessary, and there are no omiss
 \part{Teaching Excellence}\label{part:teaching excellence}
 
 %------------------------------------------------------------------------------
-\section{Evidence-Based, Learning-Focused Practice}  %-------------------------
+\chapter{Evidence-Based, Learning-Focused Practice}  %-------------------------
 \input{statements/teaching-practices}
 
 %------------------------------------------------------------------------------
-\section{Respectful, Engaging Learning Environments for Students}  %-----------
+\chapter{Respectful, Engaging Learning Environments for Students}  %-----------
 \input{statements/learning-environment}
 
 %------------------------------------------------------------------------------
-\section{Commitment to Sustained Professional Development}  %------------------
+\chapter{Commitment to Sustained Professional Development}  %------------------
 \input{statements/professional-development}
 
 %------------------------------------------------------------------------------
-\section{Supplementary Materials}  %-------------------------------------------
+\chapter{Supplementary Materials}  %-------------------------------------------
 
 \begin{supplements}[
     directory=../../,
     type=\LaTeXe{} packages,
 ]
-  \supplement{graded-review/graded-review.pdf}{The graded-review package}
+  \supplement[
+      section=section,
+  ]{graded-review/graded-review.pdf}{The graded-review package}
 \end{supplements}
 
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\part{Scholarship Productivity}\label{section:scholarship}
+\part{Scholarship Productivity}\label{part:scholarship}
 
 %------------------------------------------------------------------------------
-\section{Self-Assessment of Scholarly Strengths}
+\chapter{Self-Assessment of Scholarly Strengths}
 \input{statements/scholarly-strengths}
 
 %------------------------------------------------------------------------------
-\section{Scholarship Tables}
+\chapter{Scholarship Tables}  %------------------------------------------------
 The following scholarship tables list only those publications and presentations since my last promotion (i.e., since starting at \gls{USAFA}).
 Prior publications and presentations are listed in my curriculum vitae (Section~\ref{section:cv}).
 
 \input{records/scholarship}
 
 %------------------------------------------------------------------------------
-\section{Supplementary Materials}
+\chapter{Supplementary Materials}  %-------------------------------------------
 
 \begin{supplements}[
     directory=supplements/scholarship/,
@@ -167,6 +167,7 @@ Prior publications and presentations are listed in my curriculum vitae (Section~
     type=publications,
 ]
   \supplement[
+      section=section,
       tocentry={Building a Pathway for Student Learning: A How-To Guide to Course Design},
   ]{jones2014building.pdf}{\bibentry{jones2014building}}
 \end{supplements}
@@ -174,17 +175,17 @@ Prior publications and presentations are listed in my curriculum vitae (Section~
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-\part{Service Activities and Impacts}\label{section:service}  %----------------
+\part{Service Activities and Impacts}\label{part:service}  %-------------------
 
 %------------------------------------------------------------------------------
-\section{Academic Service Record Table}  %-------------------------------------
+\chapter{Academic Service Record Table}  %-------------------------------------
 The following table lists academic service since my last promotion (i.e., since starting at \gls{USAFA}).
 Prior academic service is listed in my curriculum vitae (Section~\ref{section:cv}).
 
 \input{records/service}
 
 %------------------------------------------------------------------------------
-\section{Supplementary Materials}  %-------------------------------------------
+\chapter{Supplementary Materials}  %-------------------------------------------
 
 None
 

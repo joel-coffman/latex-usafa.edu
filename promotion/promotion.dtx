@@ -118,17 +118,6 @@
 %    \end{macrocode}
 %
 %    \begin{macrocode}
-\newenvironment{demote}[0]{% change heading for context of complete document
-  % https://tex.stackexchange.com/q/61766/#61803
-  \let\section=\subsection\relax
-  \let\subsection=\subsubsection\relax
-  \let\subsubsection=\paragraph\relax
-  \let\paragraph=\subparagraph\relax
-  \let\subparagraph=\relax\relax
-}{}
-
-\xpreto{\part}{\clearpage}{}{}
-
 \newcommand{\semester}[1]{%
   % implementation courtesy of *The TeXbook* -- search for "Bourbaki"
   \unskip\nobreak\hfil\penalty50
