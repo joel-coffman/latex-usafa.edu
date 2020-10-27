@@ -1,0 +1,19 @@
+name: git diff --check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  git-diff--check:
+    name: git diff --check
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: git diff --check
+        uses: joel-coffman/action-git-diff-check@0.1.1
