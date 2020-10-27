@@ -1,3 +1,13 @@
+packages := $(sort $(dir $(shell find * -mindepth 1 -name Makefile)))
+
+.PHONY: default
+default: $(packages)
+
+.PHONY: $(packages)
+$(packages):
+	$(MAKE) -C $@
+
+
 # use Bash as the shell when interpreting the Makefile
 SHELL := /bin/bash
 
@@ -8,7 +18,6 @@ CWD := $(dir $(call where-am-i))
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
-$(CWD)Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
