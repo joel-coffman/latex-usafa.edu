@@ -247,12 +247,15 @@
       options/.value required,
       pages/.store in=\pages,
       pages/.value required,
+      section/.store in=\supplements@supplements@supplement@section,
+      section/.value required,
       tocentry/.store in=\tocentry,
       tocentry/.value required,
       % defaults
       list,
       options=,
       pages=-,
+      section=subsection,
       tocentry=##3,
     }%
     \pgfkeys{supplement,##1}%
@@ -266,8 +269,8 @@
           \iflist
             addtotoc={
               1,  % page number
-              subsubsection,  % section
-              3,  % level
+              \supplements@supplements@supplement@section,  % section
+              -1,  % level (ignored if lower than specified section level?)
               \tocentry,  % title
               \path  % label
             },
