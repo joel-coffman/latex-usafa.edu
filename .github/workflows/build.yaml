@@ -1,0 +1,19 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt update && sudo apt install --no-install-recommends --yes \
+              $(cat .github/workflows/make/apt.list)
+      - name: make
+        run: make
