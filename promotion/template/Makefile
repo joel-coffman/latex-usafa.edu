@@ -1,9 +1,16 @@
+SUBDIRS := $(wildcard */.) ../../graded-review/
+
 .PHONY: default
-default: packages $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+default: packages $(SUBDIRS) \
+         $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
 .PHONY: packages
 packages:
-	$(MAKE) -C ../
+	$(MAKE) -C ../ packages
+
+.PHONY: $(SUBDIRS)
+$(SUBDIRS):
+	$(MAKE) -C $@
 
 
 export TEXINPUTS := ../:${TEXINPUTS}

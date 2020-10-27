@@ -19,6 +19,11 @@
 \usepackage{application}
 
 
+% bibentry
+\AtBeginDocument{%
+  \nobibliography*
+}
+
 % enumitem
 \setlist{
   listparindent=\parindent,
@@ -130,24 +135,12 @@ I believe no special accounting of emphasis is necessary, and there are no omiss
 %------------------------------------------------------------------------------
 \section{Supplementary Materials}  %-------------------------------------------
 
-%\begin{supplements}[
-%    directory=supplemental/teaching/CompSci350/,
-%    type=course materials,
-%]
-%  \supplement[
-%      options=landscape,
-%  ]{course-design-poster.pdf}{Course design poster}
-%  \supplement{syllabus.pdf}{Syllabus}
-%  \supplement{learning-objectives}{Sample learning objectives}
-%  \supplement{lesson-notes.pdf}{Sample lesson notes}
-%  \supplement{project/overview.pdf}{Project}
-%    \supplement[list=false]{project/management-plan.pdf}{Management Plan}
-%    \supplement[list=false]{project/sprint.pdf}{Sprint}
-%    \supplement[list=false]{project/specification.pdf}{Specification}
-%    \supplement[list=false]{project/implementation.pdf}{Implementation}
-%    \supplement[list=false]{project/retrospective.pdf}{Retrospective}
-%    \supplement[list=false]{project/security-assessment.pdf}{Security Assessment}
-%\end{supplements}
+\begin{supplements}[
+    directory=../../,
+    type=\LaTeXe{} packages,
+]
+  \supplement{graded-review/graded-review.pdf}{The graded-review package}
+\end{supplements}
 
 
 %------------------------------------------------------------------------------
@@ -168,49 +161,16 @@ Prior publications and presentations are listed in my curriculum vitae (Section~
 %------------------------------------------------------------------------------
 \section{Supplementary Materials}
 
-%\begin{supplements}[
-%    directory=supplemental/scholarship/publications/,
-%    structure=enumerate,
-%    type=publications,
-%]
-%  \supplement[
-%      tocentry={An Analysis of Automated Software Diversity using Unstructured Text Analytics},
-%  ]{gearhart2018analysis.pdf}{\bibentry{gearhart2018analysis}}
-%  \supplement[
-%      tocentry={Low-Cost Distributed Key Management},
-%  ]{gopal2018low-cost.pdf}{\bibentry{gopal2018low-cost}}
-%  \supplement[
-%      tocentry={Quantifying the Effectiveness of Near-Duplicate Detection Algorithms},
-%  ]{coffman2018quantifying.pdf}{\bibentry{coffman2018quantifying}}
-%  \supplement[
-%      tocentry={Streamlining Computer Science Curriculum Development and Assessment using the New ABET Student Outcomes},
-%  ]{hadfield2019streamlining.pdf}{\bibentry{hadfield2019streamlining}}
-%  \supplement[
-%      tocentry={Automatically Validating the Effectiveness of Software Diversity Schemes},
-%  ]{kelly2019automatically.pdf}{\bibentry{kelly2019automatically}}
-%  \supplement[
-%      tocentry={Diversity as an Enabler for Cyber Resilience},
-%  ]{coffman2019diversity.pdf}{\bibentry{coffman2019diversity}}
-%  \supplement[
-%      tocentry={Techniques for Mutual Auditability in a Cloud Environment},
-%  ]{ladouceur2019techniques.pdf}{\bibentry{ladouceur2019techniques}}
-%  \supplement[
-%      tocentry={Preventing Zero-Day Exploits of Memory Vulnerabilities with Guard Lines},
-%  ]{vinson2019preventing.pdf}{\bibentry{vinson2019preventing}}
-%  \clearpage  % FORMATTING
-%  \supplement[
-%      tocentry={Docker Container Security in Cloud Computing},
-%  ]{brady2020docker.pdf}{\bibentry{brady2020docker}}
-%  \supplement[
-%      tocentry={Cyber Probability of Kill: The Effectiveness of Malware in a Heterogeneous Software Environment},
-%  ]{webster2020cyber.pdf}{\bibentry{webster2020cyber}}
-%  \supplement[
-%      tocentry={The Cost of a Macaroon},
-%  ]{ayub2020cost.pdf}{\bibentry{ayub2020cost}}
-%  \supplement[
-%      tocentry={A Replication Study to Explore Co-Residency of Virtual Machines in the Cloud},
-%  ]{gupta2020replication.pdf}{\bibentry{gupta2020replication}}
-%\end{supplements}
+\begin{supplements}[
+    directory=supplements/scholarship/,
+    structure=enumerate,
+    type=publications,
+]
+  \supplement[
+      tocentry={Building a Pathway for Student Learning: A How-To Guide to Course Design},
+  ]{jones2014building.pdf}{\bibentry{jones2014building}}
+\end{supplements}
+
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ default: packages $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
 .PHONY: packages
 packages:
-	$(MAKE) -C ../
+	$(MAKE) -C ../../ packages
 
 
 export TEXINPUTS := ../../:../:${TEXINPUTS}
