@@ -117,18 +117,14 @@
 %
 % \subsection{Macros}
 % This section describes the macros in the \textsf{promotion} package.
+%
 %    \begin{macrocode}
-\newenvironment{demote}[0]{% change heading for context of complete document
-  % https://tex.stackexchange.com/q/61766/#61803
-  \let\section=\subsection\relax
-  \let\subsection=\subsubsection\relax
-  \let\subsubsection=\paragraph\relax
-  \let\paragraph=\subparagraph\relax
-  \let\subparagraph=\relax\relax
-}{}
-
-\xpreto{\part}{\clearpage}{}{}
-
+\providecommand{\rank}[1]{%
+  \gdef\@rank{#1}%
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \newcommand{\semester}[1]{%
   % implementation courtesy of *The TeXbook* -- search for "Bourbaki"
   \unskip\nobreak\hfil\penalty50

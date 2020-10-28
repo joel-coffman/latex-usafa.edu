@@ -1,7 +1,11 @@
 .PHONY: default
-default: $(patsubst %.dtx,%.sty,$(wildcard *.dtx)) \
-         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
-         $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+default: packages documentation $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+
+.PHONY: packages
+packages: $(patsubst %.dtx,%.sty,$(wildcard *.dtx))
+
+.PHONY: documentation
+documentation: $(patsubst %.dtx,%.pdf,$(wildcard *.dtx))
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi

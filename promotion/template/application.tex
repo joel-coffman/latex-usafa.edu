@@ -1,0 +1,196 @@
+\documentclass[11pt]{report}
+
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{glossaries}
+\usepackage{hyperref}
+\usepackage[
+    ttscale=0.875,
+]{libertine}
+\usepackage{microtype}
+\usepackage[authoryear,round]{natbib}
+\usepackage{pdfpages}
+\usepackage{standalone}
+\usepackage{xpatch}
+
+\usepackage{application}
+
+
+% bibentry
+\AtBeginDocument{%
+  \nobibliography*
+}
+
+% enumitem
+\setlist{
+  listparindent=\parindent,
+  noitemsep,
+}
+
+% natbib
+\setcitestyle{aysep={}}
+
+\renewcommand{\bibsection}{%
+  \part{\refname}%
+}
+\let\cite=\citep\relax
+
+% url
+\urlstyle{same}  % do not use monospace font for URLs
+
+
+% document-specific glossary entries
+\newacronym{CV}{CV}{curriculum vitae}
+\newacronym{FPC}{FPC}{Faculty Personnel Council}
+\newacronym{USAFA}{USAFA}{the United States Air Force Academy}
+
+
+% macros / environments
+\providecommand*{\meta}[1]{%
+  \textlangle\,\emph{#1}\,\textrangle%
+}
+
+
+\title{Application for\\Promotion to \meta{Academic Rank}}
+\author{\meta{Applicant Name}}
+\date{\meta{Semester of Application}}
+
+\begin{document}
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+
+% -----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+\part{Introductory Materials}\label{part:introduction}  %----------------------
+
+%------------------------------------------------------------------------------
+\chapter{Statement of Eligibility}\label{section:eligibility}  %---------------
+
+I, \meta{name}, satisfy the criteria for promotion to \meta{associate or full professor} as described below:
+
+\paragraph{Terminal degree}
+I received a \meta{PhD, DA, etc.} in \dots{} from the \meta{university} \dots{} in \meta{discipline} on \meta{date}.
+
+\paragraph{Professional experience}
+I have been a \meta{uniformed or civilian faculty member} since \dots.
+I was promoted to \meta{assistant or associate professor} in \dots{} and will have \dots{} semesters of USAFA service as an \meta{assistant or associate professor} by the effective date of promotion.
+I will have \dots{} years professional experience \dots.
+
+\paragraph{Full-time faculty membership}
+I served as a member of the USAFA faculty from \dots{} to \dots.
+This will give me the required \meta{number} semesters teaching as a(n) \meta{academic rank} and \meta{number} years as a member of the USAFA faculty.
+
+\paragraph{USAFA experience}
+I will have \dots{} years as a member of the USAFA faculty by the effective date of the requested promotion.
+
+\paragraph{Regular Teaching and Course Directing Experience}
+I have been the course director for the following courses at USAFA:
+
+%------------------------------------------------------------------------------
+\chapter{Department Head's Letter of Support}  %-------------------------------
+
+%\includepdf[
+%    pages=-,
+%]{path-to-letter}
+
+%------------------------------------------------------------------------------
+\chapter{Curriculum Vitae}\label{section:cv}  %--------------------------------
+
+%\includepdf[
+%    pages=-,
+%]{path-to-cv}
+
+%------------------------------------------------------------------------------
+\chapter{Accounting for Emphases and Omissions}  %-----------------------------
+
+I believe no special accounting of emphasis is necessary, and there are no omissions of any of the required items in USAFA Instruction 36-150, ``Appointment and Promotion to Academic Ranks.''
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Teaching Excellence}\label{part:teaching excellence}
+
+%------------------------------------------------------------------------------
+\chapter{Evidence-Based, Learning-Focused Practice}  %-------------------------
+\input{statements/teaching-practices}
+
+%------------------------------------------------------------------------------
+\chapter{Respectful, Engaging Learning Environments for Students}  %-----------
+\input{statements/learning-environment}
+
+%------------------------------------------------------------------------------
+\chapter{Commitment to Sustained Professional Development}  %------------------
+\input{statements/professional-development}
+
+%------------------------------------------------------------------------------
+\chapter{Supplementary Materials}  %-------------------------------------------
+
+\begin{supplements}[
+    directory=../../,
+    type=\LaTeXe{} packages,
+]
+  \supplement[
+      section=section,
+  ]{graded-review/graded-review.pdf}{The graded-review package}
+\end{supplements}
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Scholarship Productivity}\label{part:scholarship}
+
+%------------------------------------------------------------------------------
+\chapter{Self-Assessment of Scholarly Strengths}
+\input{statements/scholarly-strengths}
+
+%------------------------------------------------------------------------------
+\chapter{Scholarship Tables}  %------------------------------------------------
+The following scholarship tables list only those publications and presentations since my last promotion.
+Prior publications and presentations are listed in my curriculum vitae (Section~\ref{section:cv}).
+
+\input{records/scholarship}
+
+%------------------------------------------------------------------------------
+\chapter{Supplementary Materials}  %-------------------------------------------
+
+\begin{supplements}[
+    directory=supplements/scholarship/,
+    structure=enumerate,
+    type=publications,
+]
+  \supplement[
+      section=section,
+      tocentry={Building a Pathway for Student Learning: A How-To Guide to Course Design},
+  ]{jones2014building.pdf}{\bibentry{jones2014building}}
+\end{supplements}
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\part{Service Activities and Impacts}\label{part:service}  %-------------------
+
+%------------------------------------------------------------------------------
+\chapter{Academic Service Record Table}  %-------------------------------------
+The following table lists academic service since my last promotion.
+Prior academic service is listed in my curriculum vitae (Section~\ref{section:cv}).
+
+\input{records/service}
+
+%------------------------------------------------------------------------------
+\chapter{Supplementary Materials}  %-------------------------------------------
+
+None
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
