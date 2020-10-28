@@ -9,11 +9,18 @@ on:
 jobs:
   make:
     runs-on: ubuntu-latest
+    container: sunslayer/latex-docker:buster
     steps:
+      - name: Install Git
+        run: |
+          apt update && apt install --no-install-recommends --yes \
+              ca-certificates \
+              git
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          sudo apt update && sudo apt install --no-install-recommends --yes \
+          apt update && apt install --no-install-recommends --yes \
               $(cat .github/workflows/make/apt.list)
+          pip install --requirement .github/workflows/make/python.list
       - name: make
         run: make
