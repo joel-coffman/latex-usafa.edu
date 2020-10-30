@@ -18,10 +18,24 @@
 %<*driver>
 \documentclass{ltxdoc}
 
+\usepackage{enumitem}
+\usepackage{glossaries}
 \usepackage{hyperref}
 \usepackage{microtype}
+\usepackage{minted}
+
+\usepackage{minted-doc}
 
 \usepackage{promotion}
+
+
+% enumitem
+\setlist{
+  noitemsep,
+}
+
+% glossaries
+\loadglsentries{../acronyms}
 
 
 \input{.version}
@@ -73,12 +87,61 @@
 % \maketitle
 %
 % \begin{abstract}
-% Package for academic promotion material
+% This package supports applications for academic promotion at \gls{USAFA}.
+% The package itself is effectively a ``metapackage'' to avoid the need to know which package actually provides the various commands used to typeset the application.
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
 %
+% Load this package in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-promotion-package.out}
+%   \usepackage{record}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-promotion-package.out}
+%
+% \subsection{Macros}\label{section:macros}
+%
+% \DescribeMacro{rank}
+% This package provides the |rank| macro to define the applicant's (prospective) academic rank.
+%
+% \medskip
+% \noindent
+% |\rank|\marg{academic rank}\par
+% \medskip
+%
+% \noindent
+% This macro should only be used in the document preamble.
+%
+% \DescribeMacro{semester}
+% The |semester| macro is handy for listing the semester in which courses have been taught:
+%
+% \medskip
+% \noindent
+% |\semester|\marg{season and year}\par
+% \medskip
+%
+% \noindent
+% The semester is typeset flush right on the same line if there is sufficient space and otherwise on the following line.
+% For example,
+% \begin{VerbatimOut}[gobble=2]{minted/semester.out}
+%   \begin{description}
+%     \item[Leadership 100]
+%         Foundations for Personal Leadership
+%         \semester{Fall 2020}
+%     \item[Learn Strat 101]
+%         Learning Strategies for Academic and Career Success
+%         \semester{Spring 2021}
+%   \end{description}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/semester.out}
+% is typeset as follows:
+% \input{minted/semester.out}
+% where the longer course title forces the semester information to appear on the following line.
+%
 % \StopEventually{
+%   \bibliographystyle{plainurl}
+%   \bibliography{references}
+%
 %   \PrintChanges
 %   \PrintIndex
 % }
@@ -114,20 +177,27 @@
 %    \end{macrocode}
 %
 % \subsection{Macros}
-% This section describes the macros in the \textsf{promotion} package.
+% This section describes the macros defined by this package.
 %
+% Define the |rank| macro, which stores the (prospective) academic rank in |\@rank| similar to how the title, author, and date are handled by document classes.
 %    \begin{macrocode}
 \providecommand{\rank}[1]{%
   \gdef\@rank{#1}%
 }
 %    \end{macrocode}
 %
+% Define the |semester| macro.
 %    \begin{macrocode}
 \newcommand{\semester}[1]{%
-  % implementation courtesy of *The TeXbook* -- search for "Bourbaki"
+%    \end{macrocode}
+% The implementation is courtesy of \emph{The TeXbook}~\cite[Chapter~14]{knuth1984texbook} (search for ``Bourbaki'') and typesets the semester flush right.
+% If there isn't sufficient space on the current line, then it appears on the following line.
+%    \begin{macrocode}
   \unskip\nobreak\hfil\penalty50
   \hskip1em\hbox{}\nobreak\hfil#1
   \parfillskip=0pt \finalhyphendemerits=0 \par%
+%    \end{macrocode}
+%    \begin{macrocode}
 }
 %    \end{macrocode}
 %
