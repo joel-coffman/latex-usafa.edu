@@ -36,8 +36,7 @@ jobs:
       - run:
           name: misspell
           command: |
-            misspell --error \
-                $(git diff-tree --no-commit-id --name-only -r HEAD)
+            .ci/spelling/check.sh
 
 workflows:
   version: 2
