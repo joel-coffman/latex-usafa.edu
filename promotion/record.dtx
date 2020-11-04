@@ -226,7 +226,7 @@
 % \medskip
 %
 % \noindent
-% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}.
+% Much of the content of each entry is specified using the key-value options described in Table~\ref{table:record entry options}.
 % The first mandatory argument, \meta{key}, is a \BibTeX{} key.
 % The complete citation is inserted automatically using the specified bibliography style for the document (courtesy of \textsf{bibentry} package).
 % The second mandatory argument, \meta{contributions}, details your specific contributions to the work.
@@ -399,8 +399,8 @@
 \RequirePackage{hyperfix}
 %    \end{macrocode}
 %
-% \subsection{Macros}
-% This section describes the macros in the \textsf{record} package.
+% \subsection{Options}
+% Define the package options.
 %    \begin{macrocode}
 \pgfkeys{% definitions
   record/.cd,
@@ -408,25 +408,36 @@
   applicant/.value required,
   rank/.store in=\record@rank,
   rank/.value required,
+  % FIXME: Use previously specified information (if available)
   %\ifdefined\@author applicant=\@author,\fi
   %\ifdefined\@rank rank=\@rank,\fi
 }
+%    \end{macrocode}
+% Process the options using the name of the package (i.e., \texttt{record}) as the path.
+%    \begin{macrocode}
 \ProcessPgfOptions*
-
-
-% bibentry
-\robustify{\bibentry}  % TODO: Must bibentry be robust?
-
-% url
-\urlstyle{same}  % do not use monospace font for URLs
-
-
+%    \end{macrocode}
+%
+% \subsection{Configuration}
+% This section describes the package configuration.
+%
+% Make |\bibentry| robust to avoid weird errors (e.g., incomplete |\iffalse|).
+%    \begin{macrocode}
+\robustify{\bibentry}
+%    \end{macrocode}
+%
+% Do not use monospace font for URLs.
+%    \begin{macrocode}
+\urlstyle{same}
+%    \end{macrocode}
+%
+% Hook |\author| and |\rank| so that they define the defaults for the applicant name and academic rank.
+%    \begin{macrocode}
 \xapptocmd{\author}{%
   \@ifundefined{record@applicant}{%
     \gdef\record@applicant{#1}%
   }{}%
 }{}{}
-
 
 \providecommand{\rank}[1]{%
   \gdef\@rank{#1}%
@@ -437,13 +448,26 @@
     \gdef\record@rank{#1}%
   }{}%
 }{}{}
-
-
-\xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}
-    {}{}  % https://tex.stackexchange.com/q/196993/#197000
-
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{record} package.
+%
+% Allow |tabularx| environment (provided by \textsf{ltablex}) to be used inside an environment.\footnote{%
+%   Implementation courtesy Stack Overflow: \href{https://tex.stackexchange.com/q/196993/\#197000}{ltablex inside environment throws \textbackslash end -error}.
+% }
+%    \begin{macrocode}
+\xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}{}{}
+%    \end{macrocode}
+%
+% Save macros for |itemize| environment.
+%    \begin{macrocode}
 \let\record@itemize@old=\itemize\relax
 \let\record@enditemize@old=\enditemize\relax
+%    \end{macrocode}
+%
+% Define a new |itemize| environment for use within the scholarship and service tables.
+%    \begin{macrocode}
 \newenvironment{record@itemize}[1][]{%
   \begin{minipage}[t]{\linewidth}%
     \raggedright%
@@ -457,8 +481,10 @@
     \record@enditemize@old%
   \end{minipage}
 }
-
-
+%    \end{macrocode}
+%
+% Define a command to retrieve values specified using |pgfkeys| and provide an error message if a required option (e.g., academic rank) has not been specified.
+%    \begin{macrocode}
 \newcommand*{\record@getvalue}[1]{%
   \ifcsname record@#1\endcsname%
     \csname record@#1\endcsname%
@@ -466,7 +492,10 @@
     \errmessage{Missing required argument `#1' for record}%
   \fi%
 }%
-
+%    \end{macrocode}
+%
+% Define the base environment for scholarship and service tables.
+%    \begin{macrocode}
 \NewEnviron{record@record}[4][]{%
   \let\itemize=\record@itemize\relax
   \let\enditemize=\endrecord@itemize\relax
@@ -493,55 +522,6 @@
   \restoregeometry%
 }
 
-\pgfkeys{% default
-  record/publications/.cd,
-  .search also={/record},
-}
-
-\newenvironment{publications}[1][]{%
-  \pgfkeys{record/publications/.cd,#1}%
-  \record@record{
-    & Date, all contributing authors, title, publication, publisher name, location, pages, and URL if accessible online
-    & Where did you do this work?\\[\baselineskip] Peer Reviewed?
-    & Scholarly book, textbook book chapter, research paper, review paper, article, blog, etc.
-    & \begin{itemize}
-        \item \emph{Describe your scholarly or intellectual contribution to the publication} such as senior author, editor, reviewer, etc.
-        \item \emph{What specific work did you do?} (e.g., designed research, performed research, contributed new analytic tools, analyzed data, wrote the paper / book / review)
-      \end{itemize}
-    & \begin{itemize}
-        \item \emph{How important is this publication in your field?} What value did it add to the field? If available, include the citation count for your pub, or number of books sold.
-        \item \emph{How prestigious or selective is the publication outlet?} If available, provide concrete evidence for this such as impact factor of the journal, acceptance rate, other quality indicators, and overall reputation within the field.
-      \end{itemize}
-    & \Longunderstack{T e a c h i n g}
-    & \Longunderstack{S e r v i c e}
-  }{%
-      r
-      >{\raggedright}p{1.5in}
-      >{\arraybackslash\centering}p{0.75in}
-      >{\raggedright}p{0.75in}
-      >{\raggedright}p{2in}
-      >{\raggedright}X
-      c
-      c
-  }{%
-    \multicolumn{8}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
-    \multicolumn{8}{c}{\bfseries\larger[3] Scholarship Record: Publications\par}\\\addlinespace
-    \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
-    \toprule
-      {\bfseries \#}
-    & {\bfseries\parbox[b]{\linewidth}{\centering Citation}}
-    & {\bfseries\parbox[b]{\linewidth}{\centering Institution / Peer Review}}
-    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
-    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
-    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
-    & {\bfseries T}
-    & {\bfseries S}
-  }
-}{%
-  \endrecord@record
-}
-
-
 \newif\ifrecord@entry@peerreview%
 \newif\ifrecord@entry@service%
 \newif\ifrecord@entry@teaching%
@@ -565,7 +545,89 @@
     \fi%
   \fi%
 }%
-
+%    \end{macrocode}
+%
+% \subsection{Environments}
+%
+% Define the options for the |publications| environment.
+%    \begin{macrocode}
+\pgfkeys{% default
+  record/publications/.cd,
+  .search also={/record},
+}
+%    \end{macrocode}
+%
+% Define the |publications| environment.
+%    \begin{macrocode}
+\newenvironment{publications}[1][]{%
+  \pgfkeys{record/publications/.cd,#1}%
+  \record@record{
+    & Date, all contributing authors, title, publication, publisher
+      name, location, pages, and URL if accessible online
+    & Where did you do this work?\\[\baselineskip] Peer Reviewed?
+    & Scholarly book, textbook book chapter, research paper, review
+      paper, article, blog, etc.
+    & \begin{itemize}
+        \item \emph{Describe your scholarly or intellectual
+            contribution to the publication} such as senior author,
+            editor, reviewer, etc.
+        \item \emph{What specific work did you do?} (e.g., designed
+            research, performed research, contributed new analytic
+            tools, analyzed data, wrote the paper / book / review)
+      \end{itemize}
+    & \begin{itemize}
+        \item \emph{How important is this publication in your field?}
+            What value did it add to the field? If available, include
+            the citation count for your pub, or number of books sold.
+        \item \emph{How prestigious or selective is the publication
+            outlet?} If available, provide concrete evidence for this
+            such as impact factor of the journal, acceptance rate,
+            other quality indicators, and overall reputation within
+            the field.
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g}
+    & \Longunderstack{S e r v i c e}
+  }{%
+      r
+      >{\raggedright}p{1.5in}
+      >{\arraybackslash\centering}p{0.75in}
+      >{\raggedright}p{0.75in}
+      >{\raggedright}p{2in}
+      >{\raggedright}X
+      c
+      c
+  }{%
+    \multicolumn{8}{c}{%
+      \larger[2]%
+      \record@getvalue{applicant} -- Applying for
+      \record@getvalue{rank}
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \bfseries\larger[3] Scholarship Record: Publications
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Citation}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Institution / Peer Review}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }
+}{%
+  \endrecord@record
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \newcounter{record@publication}
 
 \pgfkeys{% definitions
@@ -598,8 +660,9 @@
     \ifrecord@entry@service\checkmark\fi
   \\
 }
-
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \pgfkeys{% default
   record/presentations--workshops/.cd,
   .search also={/record},
@@ -614,18 +677,23 @@
         \item Title
         \item Conference or venue, location
       \end{itemize}
-    & conference oral presentation, faculty development workshop, poster at a conference, TED talk, etc.
+    & conference oral presentation, faculty development workshop,
+      poster at a conference, TED talk, etc.
     & Describe your  workshop or presentation to the academic community:
       \begin{itemize}
         \item How long was it? (e.g., one hour, 4-hr, day, 2 days)
         \item Who was the audience? How many attended?
         \item Why were you there? What was your purpose? Strategy?
-        \item What specific work did you do? (e.g., designed the workshop, presented the workshop)
+        \item What specific work did you do? (e.g., designed the
+            workshop, presented the workshop)
       \end{itemize}
     & \begin{itemize}
         \item Was this an invited presentation or keynote?
-        \item How prestigious and/or selective is the conference/workshop? (i.e., what is the acceptance rate for conference submissions?)
-        \item What was the significance and/or impact of your presentation to the audience?
+        \item How prestigious and/or selective is the
+            conference/workshop? (i.e., what is the acceptance rate
+            for conference submissions?)
+        \item What was the significance and/or impact of your
+            presentation to the audience?
       \end{itemize}
     & \Longunderstack{T e a c h i n g}
     & \Longunderstack{S e r v i c e}
@@ -638,9 +706,23 @@
       c  % Teaching
       c  % Service
   }{%
-    \multicolumn{7}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
-    \multicolumn{7}{c}{\bfseries\larger[3] Scholarship Record: Presentations / Workshops\par}\\\addlinespace
-    \multicolumn{7}{c}{\larger (since last promotion)\par}\\\addlinespace
+    \multicolumn{7}{c}{%
+      \larger[2]
+      \record@getvalue{applicant} -- Applying for
+      \record@getvalue{rank}
+      \par
+    }\\\addlinespace
+    \multicolumn{7}{c}{%
+      \bfseries
+      \larger[3]
+      Scholarship Record: Presentations / Workshops
+      \par
+    }\\\addlinespace
+    \multicolumn{7}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
     \toprule
       {\bfseries \#}
     & {\bfseries\parbox[b]{\linewidth}{\centering Presentation / Workshop}}
@@ -653,8 +735,9 @@
 }{%
   \endrecord@record%
 }
-
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \newcounter{record@presentation}
 
 \pgfkeys{% definitions
@@ -683,8 +766,9 @@
   \\
 }
 \let\workshop=\presentation\relax
-
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \pgfkeys{% default
   record/service/.cd,
   .search also={/record},
@@ -703,9 +787,11 @@
         \item Sphere -- USAFA, regional, national, or international
       \end{itemize}
 
-      \emph{Note: Do not include department-level additional duties or part of your job.}
+      \emph{Note: Do not include department-level additional duties
+      or part of your job.}
     & \begin{itemize}
-        \item Frequency -- one time event or recurring; annual, biannual, 1 year, etc.
+        \item Frequency -- one time event or recurring; annual,
+            biannual, 1 year, etc.
         \item Length -- $\approx$ number of hours to prepare / perform
       \end{itemize}
     & \begin{itemize}
@@ -713,10 +799,13 @@
         \item What specific work did you do?
       \end{itemize}
 
-      \emph{Note: You can leave this and the significance column blank if the service activities are common knowledge such as AAOCA or Executive Officer}
+      \emph{Note: You can leave this and the significance column
+          blank if the service activities are common knowledge such
+          as AAOCA or Executive Officer}
     & \begin{itemize}
         \item How important was this service?
-        \item In what ways did you specifically impact the success of the committee's or organization's mission?
+        \item In what ways did you specifically impact the success
+            of the committee's or organization's mission?
         \item Who was positively impacted?
         \item How many were impacted or potentially impacted?
       \end{itemize}
@@ -732,9 +821,23 @@
     c  % Teaching
     c  % Service
   }{
-    \multicolumn{8}{c}{\larger[2]\record@getvalue{applicant} -- Applying for \record@getvalue{rank}\par}\\\addlinespace
-    \multicolumn{8}{c}{\bfseries\larger[3] Academic Service Record\par}\\\addlinespace
-    \multicolumn{8}{c}{\larger (since last promotion)\par}\\\addlinespace
+    \multicolumn{8}{c}{%
+      \larger[2]
+      \record@getvalue{applicant} -- Applying for
+      \record@getvalue{rank}
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \bfseries
+      \larger[3]
+      Academic Service Record
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
     \toprule
       {\bfseries \#}
     & {\bfseries\parbox[b]{\linewidth}{\centering Service}}
@@ -748,8 +851,9 @@
 }{%
   \endrecord@record%
 }
-
-
+%    \end{macrocode}
+%
+%    \begin{macrocode}
 \newcounter{record@activity}
 
 \newif\ifrecord@activity@scholarship

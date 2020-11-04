@@ -99,65 +99,53 @@
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/use-supplements-package.out}
 %
-% \begin{table}[tb]
+% \begin{figure}[tb]
+%   \begin{description}
+%     \item[directory]
+%     The directory that contains the supplements; specifying this option avoids to need to repeat a common prefix in the path of each supplement.
+%     Defaults to the current directory (\texttt{./}).
+%
+%     \item[structure]
+%     The type of list to use (e.g., \texttt{enumerate} or \texttt{itemize}).
+%     Defaults to an unordered list (i.e., \texttt{itemize}).
+%
+%     \item[type]
+%     A short description of the supplements to include before the list.
+%     Defaults to ``supplementary material.''
+%   \end{description}
 %   \caption{
 %     Key-value options for the \texttt{supplements} environment
 %   }
-%   \label{table:supplements options}
-%
-%   \centering
-%   \begin{tabularx}{\linewidth}{
-%       >{\ttfamily}l
-%       >{\hangindent=1em}X
-%   }
-%     \toprule
-%     \multicolumn{1}{l}{Option} & Description\\
-%     \midrule
-%     directory &
-%       The directory that contains the supplements.
-%       Defaults to the current directory (\texttt{./}).\\
-%     structure &
-%       The type of list to use (e.g., \texttt{enumerate} or \texttt{itemize}).
-%       Defaults to \texttt{itemize}.\\
-%     type &
-%       A short description of the supplements to include before the list.
-%       Defaults to ``supplementary material.''\\
-%     \bottomrule
-%   \end{tabularx}
-% \end{table}
+%   \label{figure:supplements options}
+% \end{figure}
 %
 % \DescribeEnv{supplements}
 % The |supplements| environment effectively defines a list of the documents being included.
-% The environment accepts optional key-value arguments (see Table~\ref{table:supplements options}).
+% The environment accepts optional key-value arguments (see Figure~\ref{figure:supplements options}).
 %
-% \begin{table}[tb]
+% \begin{figure}[tb]
+%   \begin{description}
+%     \item[list]
+%     List the supplement in the table of contents and list of supplements.
+%     Defaults to \texttt{true}.
+%
+%     \item[options]
+%     Additional options to pass to \texttt{\textbackslash includepdf}.
+%
+%     \item[pages]
+%     The pages of the document to include.
+%     Defaults to \texttt{-} for all pages in the document.
+%
+%     \item[tocentry]
+%     The text of the entry in the table of contents (e.g., the title of a publication).
+%     Defaults to the path of the included file.
+%   \end{description}
 %   \caption{
 %     Key-value options for the \texttt{supplement} macro
 %   }
-%   \label{table:supplement options}
+%   \label{figure:supplement options}
 %
-%   \centering
-%   \begin{tabularx}{\linewidth}{
-%       >{\ttfamily}l
-%       >{\hangindent=1em}X
-%   }
-%     \toprule
-%     \multicolumn{1}{l}{Option} & Description\\
-%     \midrule
-%     list &
-%       List the supplement in the table of contents and list of supplements.
-%       Defaults to \texttt{true}.\\
-%     options &
-%       Additional options to pass to \texttt{\textbackslash includepdf}.\\
-%     pages &
-%       The pages of the document to include.
-%       Defaults to \texttt{-} for all pages in the document.\\
-%     tocentry &
-%       The text of the entry in the table of contents (e.g., the title of a publication).
-%       Defaults to the path of the included file.\\
-%     \bottomrule
-%   \end{tabularx}
-% \end{table}
+% \end{figure}
 %
 % \DescribeMacro{supplement}
 % The |supplement| macro does the heavy lifting of including the specified document, specifically adding entries to the table of contents and hyperlinks from the list entry to the document.
@@ -169,9 +157,9 @@
 % \medskip
 %
 % \noindent
-% Table~\ref{table:supplement options} describes the optional argument.
-% The \meta{path} argument specifies the path of the document.
-% The \meta{entry} argument specifies the text of the entry in the list of supplements.
+% Figure~\ref{figure:supplement options} describes the optional argument.
+% The \meta{path} argument specifies the path of the document to be included.
+% The \meta{entry} argument specifies the text of the entry to display in the table of contents and in the list of supplements.
 %
 % An example is undoubtedly informative:
 % \begin{VerbatimOut}[gobble=2]{minted/supplements.out}
@@ -184,7 +172,8 @@
 % \end{supplements}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/supplements.out}
-% produces the following:
+% For simplicity, only the first page of each supplement is included in this example (courtesy |pages=1|).
+% The prior example produces the following:
 %
 % \bigskip
 % \noindent
@@ -233,11 +222,22 @@
 %
 % \subsection{Macros}
 % This section describes the macros in the \textsf{supplements} package.
+%
+% Declare the |supplements| environment:
 %    \begin{macrocode}
 \newenvironment{supplements}[1][]{%
-  \global\def\insertsupplements{}%
+%    \end{macrocode}
+% Define a macro to insert the supplements.
+%    \begin{macrocode}
+  \global\def\supplments@insert{}%
+%    \end{macrocode}
+% Define the |supplement| macro (nested within the |supplements| environment to restrict its scope).
+%    \begin{macrocode}
   \newcommand*{\supplement}[3][]{%
     \newif\iflist
+%    \end{macrocode}
+% Declare the key-value options for the |supplement| macro.
+%    \begin{macrocode}
     \pgfkeys{
       % definitions
       supplement/.is family,
@@ -259,11 +259,17 @@
       tocentry=##3,
     }%
     \pgfkeys{supplement,##1}%
+%    \end{macrocode}
+% Store the arguments.
+%    \begin{macrocode}
     \edef\path{\directory/##2}%
     \edef\title{##3}%
-    \global\edef\insertsupplements{%
+%    \end{macrocode}
+% Add the supplement to the list to insert.
+%    \begin{macrocode}
+    \global\edef\supplments@insert{%
       \expandonce
-      \insertsupplements
+      \supplments@insert
       \noexpand
       \includepdf[
           \iflist
@@ -279,11 +285,14 @@
           pages=\pages,
           \options,
       ]{\path}
-    }%
+    }% end of \supplments@insert
     \iflist
       \item \hyperlink{\path.1}{\title}
     \fi
-  }%
+  }% end of \supplement
+%    \end{macrocode}
+% Define the key-value options for the |supplements| environment.
+%    \begin{macrocode}
   \pgfkeys{
     % definitions
     supplements/.is family,
@@ -299,13 +308,30 @@
     structure=itemize,
     type=supplementary material,
   }%
+%    \end{macrocode}
+% Process the options.
+%    \begin{macrocode}
   \pgfkeys{supplements,#1}%
+%    \end{macrocode}
+%    \begin{macrocode}
   The following \type{} are included:
+%    \end{macrocode}
+%    \begin{macrocode}
   \csname \structure\endcsname
+%    \end{macrocode}
+%    \begin{macrocode}
 }{%
+%    \end{macrocode}
+%    \begin{macrocode}
   \csname end\structure\endcsname
-  \insertsupplements
-}
+%    \end{macrocode}
+% Insert the supplements, first ejecting any content (e.g., floats) that have been deferred.
+%    \begin{macrocode}
+  \clearpage
+  \supplments@insert
+%    \end{macrocode}
+%    \begin{macrocode}
+}% end of supplements environment
 %    \end{macrocode}
 %
 % \iffalse
