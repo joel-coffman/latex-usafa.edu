@@ -220,6 +220,22 @@
 \RequirePackage{pgfkeys}
 %    \end{macrocode}
 %
+% \subsection{Configuration}
+%
+% Make |\bibentry| robust in case a citation is used as the title of a supplement.
+% Otherwise, compiling the document fails with the following unhelpful error message:
+% \begin{quote}
+%   Incomplete |\iffalse|; all text was ignored\dots
+% \end{quote}
+% Checking if the \textsf{bibentry} package is loaded is deferred in case it is loaded after this package.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \@ifpackageloaded{bibentry}{%
+    \robustify{\bibentry}%
+  }{}%
+}
+%    \end{macrocode}
+%
 % \subsection{Macros}
 % This section describes the macros in the \textsf{supplements} package.
 %
