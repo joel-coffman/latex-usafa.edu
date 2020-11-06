@@ -5,6 +5,14 @@ jobs:
       - image: sunslayer/latex-docker:buster
 
     steps:
+      # ensure that Git is installed
+      - run:
+          name: install Git
+          command: |
+            apt update && apt install --no-install-recommends --yes \
+                    git \
+                    openssh-client
+
       - checkout
 
       - run:
