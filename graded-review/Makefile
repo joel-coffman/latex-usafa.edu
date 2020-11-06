@@ -7,4 +7,4 @@ minted:
 graded-review.sty:
 graded-review.pdf: graded-review.sty | minted
 
-include ../Makefile.mk
+include $(shell git rev-parse --show-toplevel)/Makefile
