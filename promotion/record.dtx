@@ -350,6 +350,14 @@
 % The second mandatory argument, \meta{significance \& impact}, details the importance of the service, including how the work affected the organization's mission and who was positively impacted.
 % Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
 %
+% \section{Compatibility}
+% Using this package has the following compatibility issues:
+% \begin{description}
+%   \item[\textsf{longtable}]
+%   The |longtable| environment is patched to avoid numbering the scholarship and service records.
+%   This patching precludes numbering \emph{any} instance of a |longtable|.
+% \end{description}
+%
 % \StopEventually{
 %   \PrintChanges
 %   \PrintIndex
@@ -450,6 +458,15 @@
 \xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}{}{}
 %    \end{macrocode}
 %
+% Patch the |longtable| environment (provided by \textsf{ltablex}) to skip numbering.
+%    \begin{macrocode}
+\xpatchcmd{\LT@array}{\refstepcounter{table}}{}{}{%
+  \xpatchcmd{\LT@array}{\H@refstepcounter{table}}{}{}{%
+    \@latex@warning{Error patching longtable to avoid numbering!}%
+  }%
+}
+%    \end{macrocode}
+%
 % Save macros for |itemize| environment.
 %    \begin{macrocode}
 \let\record@itemize@old=\itemize\relax
@@ -507,7 +524,6 @@
     \endfoot
     \BODY
   \end{tabularx}%
-  \addtocounter{table}{-1}%
   \end{landscape}%
   \restoregeometry%
 }
