@@ -10,6 +10,10 @@ documentation: $(patsubst %.dtx,%.pdf,$(wildcard *.dtx))
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi
 
+record.sty: promotion.ins record.dtx
+statement.sty: promotion.ins statement.dtx
+supplements.sty: promotion.ins supplements.dtx
+
 promotion.pdf: promotion.sty | minted
 record.pdf: record.sty | minted
 statement.pdf: statement.sty | minted
