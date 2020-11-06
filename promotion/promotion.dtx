@@ -95,7 +95,7 @@
 %
 % Load this package in the document preamble:
 % \begin{VerbatimOut}[gobble=2]{minted/use-promotion-package.out}
-%   \usepackage{record}
+%   \usepackage{promotion}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/use-promotion-package.out}
 %
@@ -113,7 +113,7 @@
 % This macro should only be used in the document preamble.
 %
 % \DescribeMacro{semester}
-% The |semester| macro is handy for listing the semester in which courses have been taught:
+% The |semester| macro is handy for listing the semester in which a course has been taught:
 %
 % \medskip
 % \noindent
@@ -181,14 +181,14 @@
 %
 % Define the |rank| macro, which stores the (prospective) academic rank in |\@rank| similar to how the title, author, and date are handled by document classes.
 %    \begin{macrocode}
-\providecommand{\rank}[1]{%
+\providecommand*{\rank}[1]{%
   \gdef\@rank{#1}%
 }
 %    \end{macrocode}
 %
 % Define the |semester| macro.
 %    \begin{macrocode}
-\newcommand{\semester}[1]{%
+\newcommand*{\semester}[1]{%
 %    \end{macrocode}
 % The implementation is courtesy of \emph{The TeXbook}~\cite[Chapter~14]{knuth1984texbook} (search for ``Bourbaki'') and typesets the semester flush right.
 % If there isn't sufficient space on the current line, then it appears on the following line.

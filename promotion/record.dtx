@@ -21,6 +21,7 @@
 \usepackage{amssymb}
 \usepackage{array}
 \usepackage{bibentry}
+\usepackage{caption}  % improve space after table captions
 \usepackage{enumitem}
 \usepackage{glossaries}
 \usepackage{minted}
@@ -81,7 +82,7 @@
 % Right brace   \}     Tilde         \~}
 %
 %
-% \changes{0.0.1}{2020/10/09}{Initial version}
+% \changes{0.1.0}{2020/10/09}{Initial version}
 %
 % \GetFileInfo{record.sty}
 %
@@ -98,9 +99,9 @@
 % \maketitle
 %
 % \begin{abstract}
-% This package provides environments used to create the scholarship and service tables recommended by the \gls{FPC} to document publications, presentations, and service as part of an academic promotion package.
+% This package provides environments used to create the scholarship and service tables recommended by the \gls{FPC} to document publications, presentations, and service for academic promotion.
 % It reproduces the original Microsoft PowerPoint templates as faithfully as possible.
-% The major advantages of using \LaTeX{} are automatic citation formatting with \BibTeX{} and automatic page breaking, specifically the ability to insert entries (in reverse chronological order) without requiring the manual movement of existing entries to a new slide (i.e., page).
+% The major advantages of using \LaTeX{} are automatic citation formatting with \BibTeX{} and automatic page breaks, specifically the ability to insert entries in reverse chronological order without manual moving existing entries to a new slide (i.e., page).
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
@@ -161,7 +162,7 @@
 % \end{publications}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/publications.out}
-% This code recreates the example publications table found in the \gls{FPC}['s] application instructions.
+% This code recreates the example publications table found in the \gls{FPC}['s] application instructions:
 % \input{minted/publications.out}
 %
 % \begin{table}
@@ -174,49 +175,50 @@
 %   \small
 %   \centering
 %   \begin{tabular}{
-%       ccc
+%       cccc
 %       >{\ttfamily}l
-%       >{\hangindent=1em}p{0.6\linewidth}
+%       >{\hangindent=1em}p{0.55\linewidth}
 %   }
 %     \toprule
 %     \rotatebox{45}{\rlap{\ttfamily publication}} &
 %     \rotatebox{45}{\rlap{\ttfamily presentation}} &
+%     \rotatebox{45}{\rlap{\ttfamily workshop}} &
 %     \rotatebox{45}{\rlap{\ttfamily activity}} &
 %     \rule{0pt}{12ex}\\\cmidrule(r){1-4}
-%     \multicolumn{3}{c}{Command} & \multicolumn{1}{l}{Option} & Description\\
+%     \multicolumn{4}{c}{Command} & \multicolumn{1}{l}{Option} & Description\\
 %     \midrule
-%     & & \checkmark & date &
+%     & & & \checkmark & date &
 %         The date(s) of the service activity.\\
-%     & & \checkmark & frequency &
+%     & & & \checkmark & frequency &
 %         The frequency of service (e.g., once or recurring).\\
-%     \checkmark & & \checkmark & institution &
+%     \checkmark & & & \checkmark & institution &
 %         The institution where the work was completed.\\
-%     & & \checkmark & length &
+%     & & & \checkmark & length &
 %         The length of service (in hours).\\
-%     \checkmark & \checkmark & \checkmark & number &
+%     \checkmark & \checkmark & \checkmark & \checkmark & number &
 %         The number of the publication in the table.
 %         Use this option to override the automatic numbering should the default not be appropriate for some reason.\\
-%     & & \checkmark & organization &
+%     & & & \checkmark & organization &
 %         The organization being served.\\
-%     \checkmark & \checkmark & \checkmark & peer review &
+%     \checkmark & \checkmark & \checkmark & \checkmark & peer review &
 %         A boolean indicating if the work was peer-reviewed; |true| is assumed if no value is provided.\\
-%     & & \checkmark & role &
+%     & & & \checkmark & role &
 %         The role (i.e., position) of the service activity (e.g., chair or member).\\
-%     \checkmark & \checkmark & \checkmark & service &
+%     \checkmark & \checkmark & \checkmark & \checkmark & service &
 %         A boolean indicating if the work is related to professional service; |true| is assumed if no value is provided.\\
-%     & & \checkmark & sphere &
+%     & & & \checkmark & sphere &
 %         The ``sphere'' of the organization (e.g., institutional, regional, national, or international).\\
-%     \checkmark & \checkmark & \checkmark & teaching &
+%     \checkmark & \checkmark & \checkmark & \checkmark & teaching &
 %         A boolean indicating if the work is related to teaching; |true| is assumed if no value is provided.\\
-%     \checkmark & \checkmark & \checkmark & type &
-%         A short description of the type of work---see table header for examples.\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & type &
+%         A short description of the type of work---see the header of the example scholarship and service records.\\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
 %
 % \DescribeMacro{publication}
-% The |publications| environment defines a single command, |publication|, for each entry in the table.
-% The general form of the |publication| command is as follows:
+% The |publications| environment defines a single command, |\publication|, for each entry in the table.
+% The general form of this command is as follows:
 %
 % \medskip
 % \noindent
@@ -269,11 +271,11 @@
 % \end{presentations/workshops}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/presentations--workshops.out}
-% This code recreates the example presentations and workshops table found in the \gls{FPC}['s] application instructions.
+% This code recreates the example presentations and workshops table found in the \gls{FPC}['s] application instructions:
 % \input{minted/presentations--workshops.out}\par
 %
 % The |presentations/workshops| environment defines two commands, |presentation| and |workshop|, for each entry in the table.
-% The general form of the |presentation| command is as follows and the |workshop| command is similar:
+% The general form of the |presentation| command is as follows and the |workshop| command is identical:
 %
 % \medskip
 % \noindent
@@ -281,8 +283,8 @@
 % \medskip
 %
 % \noindent
-% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}.
-% The first mandatory argument, \meta{description}, should provide the date, presenters, title, and venue.
+% Much of the content of each entry is specified using the key-value options specified described in Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{description}, should provide the date, presenter(s), title, and venue.
 % The second mandatory argument, \meta{contribution}, describes the presentation or workshop details.
 % The third mandatory argument, \meta{significance \& impact}, details selectivity of the venue (e.g., acceptance rate) and impact of the presentation to the audience.
 % Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
@@ -333,7 +335,7 @@
 % \end{service}
 % \end{VerbatimOut}
 % \inputminted{latex}{minted/service.out}
-% This code recreates the example service record found in the \gls{FPC}['s] application instructions.
+% This code recreates the example service record found in the \gls{FPC}['s] application instructions:
 % \input{minted/service.out}\par
 %
 % The |service| environment defines a single command, |activity|, for each entry in the table.
@@ -345,7 +347,7 @@
 % \medskip
 %
 % \noindent
-% Much of the content of each entry is specified using the key-value options specified described Table~\ref{table:record entry options}
+% Much of the content of each entry is specified using the key-value options specified described in Table~\ref{table:record entry options}.
 % The first mandatory argument, \meta{contribution}, describes the details of the service contribution.
 % The second mandatory argument, \meta{significance \& impact}, details the importance of the service, including how the work affected the organization's mission and who was positively impacted.
 % Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
@@ -380,7 +382,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{record}[%
     2020/10/09 %
-    v0.0.1 %
+    v0.1.0 %
     Package for scholarship and service records%
 ]
 %    \end{macrocode}
@@ -451,7 +453,7 @@
 % \subsection{Macros}
 % This section describes the macros in the \textsf{record} package.
 %
-% Allow |tabularx| environment (provided by \textsf{ltablex}) to be used inside an environment.\footnote{%
+% Allow the |tabularx| environment (provided by \textsf{ltablex}) to be used inside an environment.\footnote{%
 %   Implementation courtesy Stack Overflow: \href{https://tex.stackexchange.com/q/196993/\#197000}{ltablex inside environment throws \textbackslash end -error}.
 % }
 %    \begin{macrocode}
@@ -610,7 +612,7 @@
       \par
     }\\\addlinespace
     \multicolumn{8}{c}{%
-      \bfseries\larger[3] Scholarship Record: Publications
+      \bfseries\larger[3] Scholarship Record:\ Publications
       \par
     }\\\addlinespace
     \multicolumn{8}{c}{%
@@ -721,7 +723,7 @@
     \multicolumn{7}{c}{%
       \bfseries
       \larger[3]
-      Scholarship Record: Presentations / Workshops
+      Scholarship Record:\ Presentations / Workshops
       \par
     }\\\addlinespace
     \multicolumn{7}{c}{%

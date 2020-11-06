@@ -121,7 +121,7 @@
 %
 % \DescribeEnv{supplements}
 % The |supplements| environment effectively defines a list of the documents being included.
-% The environment accepts optional key-value arguments (see Figure~\ref{figure:supplements options}).
+% The environment accepts an optional list of key-value arguments (see Figure~\ref{figure:supplements options}).
 %
 % \begin{figure}[tb]
 %   \begin{description}
@@ -130,7 +130,7 @@
 %     Defaults to \texttt{true}.
 %
 %     \item[options]
-%     Additional options to pass to \texttt{\textbackslash includepdf}.
+%     Additional options to pass verbatim to \texttt{\textbackslash includepdf}.
 %
 %     \item[pages]
 %     The pages of the document to include.
@@ -138,7 +138,7 @@
 %
 %     \item[tocentry]
 %     The text of the entry in the table of contents (e.g., the title of a publication).
-%     Defaults to the path of the included file.
+%     Defaults to the title of the document (specified as the second mandatory argument of the |supplement| macro).
 %   \end{description}
 %   \caption{
 %     Key-value options for the \texttt{supplement} macro
@@ -153,13 +153,13 @@
 %
 % \medskip
 % \noindent
-% |\supplement|\oarg{options}\marg{path}\marg{entry}\par
+% |\supplement|\oarg{options}\marg{path}\marg{title}\par
 % \medskip
 %
 % \noindent
-% Figure~\ref{figure:supplement options} describes the optional argument.
+% Figure~\ref{figure:supplement options} describes the optional key-value arguments.
 % The \meta{path} argument specifies the path of the document to be included.
-% The \meta{entry} argument specifies the text of the entry to display in the table of contents and in the list of supplements.
+% The \meta{title} argument specifies the text of the entry to display in the table of contents and in the list of supplements.
 %
 % An example is undoubtedly informative:
 % \begin{VerbatimOut}[gobble=2]{minted/supplements.out}
