@@ -503,6 +503,13 @@
 }%
 %    \end{macrocode}
 %
+% Define a convenience macro for the table header.
+%    \begin{macrocode}
+\newcommand*{\record@header}{%
+  \record@getvalue{applicant}\ --\ Applying for \record@getvalue{rank}
+}
+%    \end{macrocode}
+%
 % Define the base environment for scholarship and service tables.
 %    \begin{macrocode}
 \NewEnviron{record@record}[4][]{%
@@ -607,8 +614,7 @@
   }{%
     \multicolumn{8}{c}{%
       \larger[2]%
-      \record@getvalue{applicant} -- Applying for
-      \record@getvalue{rank}
+      \record@header
       \par
     }\\\addlinespace
     \multicolumn{8}{c}{%
@@ -716,8 +722,7 @@
   }{%
     \multicolumn{7}{c}{%
       \larger[2]
-      \record@getvalue{applicant} -- Applying for
-      \record@getvalue{rank}
+      \record@header
       \par
     }\\\addlinespace
     \multicolumn{7}{c}{%
@@ -831,8 +836,7 @@
   }{
     \multicolumn{8}{c}{%
       \larger[2]
-      \record@getvalue{applicant} -- Applying for
-      \record@getvalue{rank}
+      \record@header
       \par
     }\\\addlinespace
     \multicolumn{8}{c}{%
