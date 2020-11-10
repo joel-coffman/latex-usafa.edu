@@ -1,0 +1,209 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2020 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{enumitem}
+\usepackage{glossaries}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{minted}
+
+\usepackage{minted-doc}
+
+\usepackage{promotion}
+
+
+% enumitem
+\setlist{
+  noitemsep,
+}
+
+% glossaries
+\loadglsentries{../acronyms}
+
+
+\input{.version}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\begin{document}
+  \DocInput{promotion.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2020/10/09}{Initial version}
+%
+% \GetFileInfo{promotion.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{promotion} package\thanks{This
+% document corresponds to \textsf{promotion~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% This package supports applications for academic promotion at \gls{USAFA}.
+% The package itself is effectively a ``metapackage'' to avoid the need to know which package actually provides the various commands used to typeset the application.
+% \end{abstract}
+%
+% \section{Usage}\label{section:usage}
+%
+% Load this package in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-promotion-package.out}
+%   \usepackage{promotion}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-promotion-package.out}
+%
+% \subsection{Macros}\label{section:macros}
+%
+% \DescribeMacro{rank}
+% This package provides the |rank| macro to define the applicant's (prospective) academic rank.
+%
+% \medskip
+% \noindent
+% |\rank|\marg{academic rank}\par
+% \medskip
+%
+% \noindent
+% This macro should only be used in the document preamble.
+%
+% \DescribeMacro{semester}
+% The |semester| macro is handy for listing the semester in which a course has been taught:
+%
+% \medskip
+% \noindent
+% |\semester|\marg{season and year}\par
+% \medskip
+%
+% \noindent
+% The semester is typeset flush right on the same line if there is sufficient space and otherwise on the following line.
+% For example,
+% \begin{VerbatimOut}[gobble=2]{minted/semester.out}
+%   \begin{description}
+%     \item[Leadership 100]
+%         Foundations for Personal Leadership
+%         \semester{Fall 2020}
+%     \item[Learn Strat 101]
+%         Learning Strategies for Academic and Career Success
+%         \semester{Spring 2021}
+%   \end{description}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/semester.out}
+% is typeset as follows:
+% \input{minted/semester.out}
+% where the longer course title forces the semester information to appear on the following line.
+%
+% \StopEventually{
+%   \bibliographystyle{plainurl}
+%   \bibliography{references}
+%
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{promotion}[%
+    2020/10/09 %
+    v0.1.0 %
+    Package for academic promotion material%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%    \begin{macrocode}
+\RequirePackage{record}
+\RequirePackage{statement}
+\RequirePackage{supplements}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros defined by this package.
+%
+% Define the |rank| macro, which stores the (prospective) academic rank in |\@rank| similar to how the title, author, and date are handled by document classes.
+%    \begin{macrocode}
+\providecommand*{\rank}[1]{%
+  \gdef\@rank{#1}%
+}
+%    \end{macrocode}
+%
+% Define the |semester| macro.
+%    \begin{macrocode}
+\newcommand*{\semester}[1]{%
+%    \end{macrocode}
+% The implementation is courtesy of \emph{The TeXbook}~\cite[Chapter~14]{knuth1984texbook} (search for ``Bourbaki'') and typesets the semester flush right.
+% If there isn't sufficient space on the current line, then it appears on the following line.
+%    \begin{macrocode}
+  \unskip\nobreak\hfil\penalty50
+  \hskip1em\hbox{}\nobreak\hfil#1
+  \parfillskip=0pt \finalhyphendemerits=0 \par%
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
