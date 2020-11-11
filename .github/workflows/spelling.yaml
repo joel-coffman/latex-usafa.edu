@@ -1,0 +1,23 @@
+name: spelling
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  misspell:
+    name: misspell
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-go@v2
+      - name: install dependencies
+        run: curl -L https://git.io/misspell | sudo bash
+        working-directory: /usr/local/
+      - name: run misspell
+        run: |
+          .ci/spelling/check.sh
