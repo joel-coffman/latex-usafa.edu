@@ -9,7 +9,7 @@ beamerthemeusafa.edu.sty: | beamercolorthemefalcon.sty
 
 example.pdf: beamerthemeusafa.edu.sty
 
-include $(shell git rev-parse --show-toplevel)/Makefile
+include $(shell git rev-parse --show-toplevel)/Makefile.mk
 
 # fall-back for Beamer themes
 beamercolorthemefalcon.sty:

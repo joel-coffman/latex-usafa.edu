@@ -15,4 +15,4 @@ $(SUBDIRS):
 
 export TEXINPUTS := ../:${TEXINPUTS}
 
-include $(shell git rev-parse --show-toplevel)/Makefile
+include $(shell git rev-parse --show-toplevel)/Makefile.mk
