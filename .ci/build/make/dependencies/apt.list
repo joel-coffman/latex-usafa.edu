@@ -1,8 +1,11 @@
 curl
 ghostscript
 git
+make
 python-pip
+texlive
 texlive-bibtex-extra
 texlive-font-utils
 texlive-fonts-extra
 texlive-generic-extra
+texlive-latex-extra
