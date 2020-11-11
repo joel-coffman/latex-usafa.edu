@@ -1,0 +1,935 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2020 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{bibentry}
+\usepackage{caption}  % improve space after table captions
+\usepackage{enumitem}
+\usepackage{glossaries}
+\usepackage{minted}
+\usepackage{microtype}
+\usepackage{tabularx}
+
+\usepackage{hyperfix}
+\usepackage{minted-doc}
+
+\usepackage{record}
+
+
+% bibentry
+\AtBeginDocument{
+  \bibliographystyle{plainurl}
+  \nobibliography{references}
+}
+
+% glossaries
+\loadglsentries{../acronyms}
+
+% minted
+\setminted{
+  autogobble,
+  breaklines,
+}
+
+
+\input{.version}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\begin{document}
+  \DocInput{record.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2020/10/09}{Initial version}
+%
+% \GetFileInfo{record.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{record} package\thanks{This
+% document corresponds to \textsf{record~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% This package provides environments used to create the scholarship and service tables recommended by the \gls{FPC} to document publications, presentations, and service for academic promotion.
+% It reproduces the original Microsoft PowerPoint templates as faithfully as possible.
+% The major advantages of using \LaTeX{} are automatic citation formatting with \BibTeX{} and automatic page breaks, specifically the ability to insert entries in reverse chronological order without manual moving existing entries to a new slide (i.e., page).
+% \end{abstract}
+%
+% \section{Usage}\label{section:usage}
+%
+% Load this class in the document preamble:
+% \begin{VerbatimOut}[gobble=2]{minted/use-record-package.out}
+%   \usepackage{record}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-record-package.out}
+% The package accepts optional key-value arguments to specify the name of the applicant and academic rank.
+% For example,
+% \begin{VerbatimOut}[gobble=2]{minted/use-record-package-with-options.out}
+%   \usepackage[
+%       applicant={Applicant Name},
+%       rank={Associate Professor},
+%   ]{record}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/use-record-package-with-options.out}
+% uses ``Applicant Name'' and ``Associate Professor'' in the header for each table.
+% Specifying these options to the package avoids repeating them for each environment.
+%
+% \subsection{Environments}
+%
+% \DescribeEnv{publications}
+% The |publications| environment describes scholarly publications such as books, journal articles, conference papers, and software.
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and acdemic rank being sought; these options are required if not previously specified when loading the package.
+% An example is undoubtedly the best way to describe how to use this environment:
+% \begin{VerbatimOut}[gobble=2]{minted/publications.out}
+% \begin{publications}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
+%   \publication[
+%     institution=USAFA,
+%     peer review,
+%     teaching,
+%     type=book,
+%   ]{jones2014building}{
+%     \begin{itemize}
+%       \item
+%       This work is an outgrowth of the Course Design Retreats that I co-created and co-led during the sumemrs of 2008--2014.
+%
+%       \item
+%       I wrote 3 of the 10 chapters and worked closely with my co-authors on the entire publication.
+%       This involved editing, revising, referencing, and illustrating the book.
+%       The author team spent three years working closely together to bring this book from conception to bound book.
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item
+%       Our innovative book breaks new ground in the area of design college courses.
+%       Its novel workbox approach is used in faculty development workshops throughout the country.
+%
+%       \item
+%       Stylus Publishing is one of the top two educational publisters in the US and the UK (see URL or attached supplemental material for their extensive catalog).
+%     \end{itemize}
+%   }
+% \end{publications}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/publications.out}
+% This code recreates the example publications table found in the \gls{FPC}['s] application instructions:
+% \input{minted/publications.out}
+%
+% \begin{table}
+%   \caption{
+%     List of options available for scholarship and service records.
+%     Unless otherwise specified, a value is required for each option.
+%   }
+%   \label{table:record entry options}
+%
+%   \small
+%   \centering
+%   \begin{tabular}{
+%       cccc
+%       >{\ttfamily}l
+%       >{\hangindent=1em}p{0.55\linewidth}
+%   }
+%     \toprule
+%     \rotatebox{45}{\rlap{\ttfamily publication}} &
+%     \rotatebox{45}{\rlap{\ttfamily presentation}} &
+%     \rotatebox{45}{\rlap{\ttfamily workshop}} &
+%     \rotatebox{45}{\rlap{\ttfamily activity}} &
+%     \rule{0pt}{12ex}\\\cmidrule(r){1-4}
+%     \multicolumn{4}{c}{Command} & \multicolumn{1}{l}{Option} & Description\\
+%     \midrule
+%     & & & \checkmark & date &
+%         The date(s) of the service activity.\\
+%     & & & \checkmark & frequency &
+%         The frequency of service (e.g., once or recurring).\\
+%     \checkmark & & & \checkmark & institution &
+%         The institution where the work was completed.\\
+%     & & & \checkmark & length &
+%         The length of service (in hours).\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & number &
+%         The number of the publication in the table.
+%         Use this option to override the automatic numbering should the default not be appropriate for some reason.\\
+%     & & & \checkmark & organization &
+%         The organization being served.\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & peer review &
+%         A boolean indicating if the work was peer-reviewed; |true| is assumed if no value is provided.\\
+%     & & & \checkmark & role &
+%         The role (i.e., position) of the service activity (e.g., chair or member).\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & service &
+%         A boolean indicating if the work is related to professional service; |true| is assumed if no value is provided.\\
+%     & & & \checkmark & sphere &
+%         The ``sphere'' of the organization (e.g., institutional, regional, national, or international).\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & teaching &
+%         A boolean indicating if the work is related to teaching; |true| is assumed if no value is provided.\\
+%     \checkmark & \checkmark & \checkmark & \checkmark & type &
+%         A short description of the type of work---see the header of the example scholarship and service records.\\
+%     \bottomrule
+%   \end{tabular}
+% \end{table}
+%
+% \DescribeMacro{publication}
+% The |publications| environment defines a single command, |\publication|, for each entry in the table.
+% The general form of this command is as follows:
+%
+% \medskip
+% \noindent
+% |\publication|\oarg{options}\marg{key}\marg{contributions}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options described in Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{key}, is a \BibTeX{} key.
+% The complete citation is inserted automatically using the specified bibliography style for the document (courtesy of \textsf{bibentry} package).
+% The second mandatory argument, \meta{contributions}, details your specific contributions to the work.
+% The third mandatory argument, \meta{significance \& impact}, details the work's importance (e.g., citation count) and prestige of the publication (e.g., impact factor or acceptance rate).
+% The latter two mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
+%
+% \DescribeEnv{presentations/workshops}
+% The |presentations/workshops| environment describes presentations of scholarly work such as keynotes and conference, workshop, and invited presentations.
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and academic rank being sought.
+% These options are required if not previously specified when loading the package.
+% An example illustrates how to use this environment:
+% \begin{VerbatimOut}[gobble=2]{minted/presentations--workshops.out}
+% \begin{presentations/workshops}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
+%   \presentation[
+%     type=Faculty Development Workshop,
+%     teaching,
+%     service,
+%   ]{
+%     \begin{itemize}
+%       \item 2 June 2017
+%       \item Co-presented with Dr.~Steve Jones (USAFA)
+%       \item \emph{Building a Pathway for Student Learning: How Flawed Course Design Leads to Learning Failures}
+%       \item Advanced Space Operations Schools (AFASOS), Peterson AFB, Colorado Springs, CO
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item A day-long workshop (0800--1630)
+%       \item We presented this workshop to 25 instructors in the Advanced Space Operations School.
+%       \item We supported the education and training mission of this AF schoolhouse. Our strategy tapped into their experiences with learning failures in their courses and then connected them to the six elements of our course design model. The afternoon was spent looking for solutions to these learning breakdowns and failures.
+%       \item I co-created and co-presented this workshop with Dr.~Steve Jones.
+%     \end{itemize}
+%   }{
+%     \begin{itemize}
+%       \item Steve and I were invited to provide expert support to the education and training mission of AFASOS.
+%       \item While AFASOS has a robust instructor training component, like most college instructors, they receive little training on how to design effective courses.
+%       \item In this way we helped fill a gap in their training and education. Helping instructors solve their teaching challenges is always rewarding and improves the training of airmen entering their programs.
+%     \end{itemize}
+%   }
+% \end{presentations/workshops}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/presentations--workshops.out}
+% This code recreates the example presentations and workshops table found in the \gls{FPC}['s] application instructions:
+% \input{minted/presentations--workshops.out}\par
+%
+% The |presentations/workshops| environment defines two commands, |presentation| and |workshop|, for each entry in the table.
+% The general form of the |presentation| command is as follows and the |workshop| command is identical:
+%
+% \medskip
+% \noindent
+% |\presentation|\oarg{options}\marg{description}\marg{contribution}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options specified described in Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{description}, should provide the date, presenter(s), title, and venue.
+% The second mandatory argument, \meta{contribution}, describes the presentation or workshop details.
+% The third mandatory argument, \meta{significance \& impact}, details selectivity of the venue (e.g., acceptance rate) and impact of the presentation to the audience.
+% Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
+%
+% \DescribeEnv{service}
+% The |service| environment describes academic service.
+% Such service comprises institutional activities (e.g., serving as the \gls{OIC} for a cadet club) and professional activities (e.g., journal editor or member of a program committee).
+% The environment accepts key-value arguments (|applicant| and |rank|) to specify the name of the applicant and academic rank being sought; these options are required if not previously specified when loading the package.
+% An example illustrates how to use this environment:
+% \begin{VerbatimOut}[gobble=2]{minted/service.out}
+% \begin{service}[
+%     applicant=\meta{Applicant},
+%     rank=\meta{Academic Rank},
+% ]
+%   \activity[
+%     date=2012--present,
+%     organization={Member, Editorial Board Peer Reviewer, College Teaching Journal},
+%     role=Review manuscripts submitted for publication,
+%     type={Disciplinary service to the higher education community in the areas of teaching and learning},
+%     sphere=National,
+%     frequency={During the past 5 years, I have reviewed 24 manuscripts},
+%     length={Each manuscript took $\approx 6$ hours to read, anlyze, synthesize, and write},
+%     teaching,
+%   ]{
+%     I regularly receive an invitation to review manuscripts in my areas of expertise for one of the premier teaching journals.
+%     My reviews require me to read, evaluate, and write a response to accept or reject the manuscript.
+%   }{
+%     I serve as an important gatekeeper for publications.
+%     I have rejected 95\% of the manuscripts I have received.
+%     This required me to write an extensive response to justify my rejection, as well as provide feedback and constructive criticism to the authorsl
+%     My recommendations have been overridden by the Editor-in-Chief only one time.
+%   }
+%   \activity[
+%     date=2016--present,
+%     organization={USAFA Center for Educational Innovation (CEI)},
+%     role={Learning Community Mentor, Faculty Orientation},
+%     type=Institutional,
+%     sphere=USAFA,
+%     frequency={One week during July orientation; met with learning community (8 faculty) about every two weeks throughout the academic year},
+%     length={Each meeting took $\approx 2$ hours to prepare and facilitate},
+%   ]{
+%     I serve as a teaching mentor for new and returning faculty members during faculty orientation.
+%     In this role I prompt and facilitate discussion, elicit suggestions, and give advice to incoming faculty.
+%     During the academic year I provide discussion prompts and help faculty gain the necessary teaching skills and resolve teaching-learning challenges.
+%   }{
+%     I serve an essential role in accelerating the development of new and returning instructors that will, in turn, potentially impact the development of $\approx 200$ cadets (8 faculty $\times$ 24 cadets) here at USAFA.
+%   }
+% \end{service}
+% \end{VerbatimOut}
+% \inputminted{latex}{minted/service.out}
+% This code recreates the example service record found in the \gls{FPC}['s] application instructions:
+% \input{minted/service.out}\par
+%
+% The |service| environment defines a single command, |activity|, for each entry in the table.
+% The general form of the |activity| command is as follows:
+%
+% \medskip
+% \noindent
+% |\activity|\oarg{options}\marg{contribution}\marg{significance \& impact}\par
+% \medskip
+%
+% \noindent
+% Much of the content of each entry is specified using the key-value options specified described in Table~\ref{table:record entry options}.
+% The first mandatory argument, \meta{contribution}, describes the details of the service contribution.
+% The second mandatory argument, \meta{significance \& impact}, details the importance of the service, including how the work affected the organization's mission and who was positively impacted.
+% Each mandatory arguments can contain arbitrary formatting, including paragraphs or, to match the table header, an |itemize| environment.
+%
+% \section{Compatibility}
+% Using this package has the following compatibility issues:
+% \begin{description}
+%   \item[\textsf{longtable}]
+%   The |longtable| environment is patched to avoid numbering the scholarship and service records.
+%   This patching precludes numbering \emph{any} instance of a |longtable|.
+% \end{description}
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{record}[%
+    2020/10/09 %
+    v0.1.0 %
+    Package for scholarship and service records%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%    \begin{macrocode}
+\RequirePackage{amssymb}
+\RequirePackage{bibentry}
+\RequirePackage{booktabs}
+\RequirePackage{enumitem}[2018-11-30]
+\RequirePackage{environ}
+\RequirePackage[pass]{geometry}
+\RequirePackage{ltablex}
+\RequirePackage{pdflscape}
+\RequirePackage{pgfkeys}
+\RequirePackage{pgfopts}
+\RequirePackage{relsize}
+\RequirePackage{stackengine}
+\RequirePackage{xpatch}
+
+\RequirePackage{hyperfix}
+%    \end{macrocode}
+%
+% \subsection{Options}
+% Define the package options.
+%    \begin{macrocode}
+\pgfkeys{% definitions
+  record/.cd,
+  applicant/.store in=\record@applicant,
+  applicant/.value required,
+  rank/.store in=\record@rank,
+  rank/.value required,
+}
+%    \end{macrocode}
+% Process the options using the name of the package (i.e., \texttt{record}) as the path.
+%    \begin{macrocode}
+\ProcessPgfOptions*
+%    \end{macrocode}
+%
+% \subsection{Configuration}
+% This section describes the package configuration.
+%
+% Do not use monospace font for URLs.
+%    \begin{macrocode}
+\urlstyle{same}
+%    \end{macrocode}
+%
+% Hook |\author| and |\rank| so that they define the defaults for the applicant name and academic rank.
+%    \begin{macrocode}
+\xapptocmd{\author}{%
+  \@ifundefined{record@applicant}{%
+    \gdef\record@applicant{#1}%
+  }{}%
+}{}{}
+
+\providecommand{\rank}[1]{%
+  \gdef\@rank{#1}%
+}
+
+\xapptocmd{\rank}{%
+  \@ifundefined{record@rank}{%
+    \gdef\record@rank{#1}%
+  }{}%
+}{}{}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{record} package.
+%
+% Allow the |tabularx| environment (provided by \textsf{ltablex}) to be used inside an environment.\footnote{%
+%   Implementation courtesy Stack Overflow: \href{https://tex.stackexchange.com/q/196993/\#197000}{ltablex inside environment throws \textbackslash end -error}.
+% }
+%    \begin{macrocode}
+\xpatchcmd{\TX@endtabularx}{\end{tabularx}}{\endtabularx\endgroup}{}{}
+%    \end{macrocode}
+%
+% Patch the |longtable| environment (provided by \textsf{ltablex}) to skip numbering.
+%    \begin{macrocode}
+\xpatchcmd{\LT@array}{\refstepcounter{table}}{}{}{%
+  \xpatchcmd{\LT@array}{\H@refstepcounter{table}}{}{}{%
+    \@latex@warning{Error patching longtable to avoid numbering!}%
+  }%
+}
+%    \end{macrocode}
+%
+% Save macros for |itemize| environment.
+%    \begin{macrocode}
+\let\record@itemize@old=\itemize\relax
+\let\record@enditemize@old=\enditemize\relax
+%    \end{macrocode}
+%
+% Define a new |itemize| environment for use within the scholarship and service tables.
+%    \begin{macrocode}
+\newenvironment{record@itemize}[1][]{%
+  \begin{minipage}[t]{\linewidth}%
+    \raggedright%
+    \record@itemize@old[
+        after=\strut,
+        left=0pt,
+        nosep,
+        #1,
+    ]
+}{%
+    \record@enditemize@old%
+  \end{minipage}
+}
+%    \end{macrocode}
+%
+% Define a command to retrieve values specified using |pgfkeys| and provide an error message if a required option (e.g., academic rank) has not been specified.
+%    \begin{macrocode}
+\newcommand*{\record@getvalue}[1]{%
+  \ifcsname record@#1\endcsname%
+    \csname record@#1\endcsname%
+  \else%
+    \errmessage{Missing required argument `#1' for record}%
+  \fi%
+}%
+%    \end{macrocode}
+%
+% Define a convenience macro for the table header.
+%    \begin{macrocode}
+\newcommand*{\record@header}{%
+  \record@getvalue{applicant}\ --\ Applying for \record@getvalue{rank}
+}
+%    \end{macrocode}
+%
+% Define the base environment for scholarship and service tables.
+%    \begin{macrocode}
+\NewEnviron{record@record}[4][]{%
+  \let\itemize=\record@itemize\relax
+  \let\enditemize=\endrecord@itemize\relax
+  \newgeometry{
+    margin=1in,
+  }%
+  \begin{landscape}%
+  \begin{tabularx}{\linewidth}{#3}
+    % header
+    #4\\
+    \if\relax\detokenize{#2}\relax\else\addlinespace#2\\\fi
+    \midrule
+    \endfirsthead
+    #4\\
+    \midrule
+    \endhead
+    % footer
+    \bottomrule
+    \endfoot
+    \BODY
+  \end{tabularx}%
+  \end{landscape}%
+  \restoregeometry%
+}
+
+\newif\ifrecord@entry@peerreview%
+\newif\ifrecord@entry@service%
+\newif\ifrecord@entry@teaching%
+\pgfkeys{% definitions
+  record/entry/.cd,
+  peer review/.is if=record@entry@peerreview,
+  service/.is if=record@entry@service,
+  teaching/.is if=record@entry@teaching,
+  type/.store in=\record@entry@type,
+  type/.value required,
+}
+
+\newcommand*{\record@entry@getvalue}[2][entry]{
+  \ifcsname record@#1@#2\endcsname%
+    \csname record@#1@#2\endcsname%
+  \else%
+    \ifcsname record@entry@#2\endcsname%
+      \csname record@entry@#2\endcsname%
+    \else%
+      \errmessage{Missing required argument `#2' for #1}%
+    \fi%
+  \fi%
+}%
+%    \end{macrocode}
+%
+% \subsection{Environments}
+%
+% Define the options for the |publications| environment.
+%    \begin{macrocode}
+\pgfkeys{% default
+  record/publications/.cd,
+  .search also={/record},
+}
+%    \end{macrocode}
+%
+% Define the |publications| environment.
+%    \begin{macrocode}
+\newenvironment{publications}[1][]{%
+  \pgfkeys{record/publications/.cd,#1}%
+  \record@record{
+    & Date, all contributing authors, title, publication, publisher
+      name, location, pages, and URL if accessible online
+    & Where did you do this work?\\[\baselineskip] Peer Reviewed?
+    & Scholarly book, textbook book chapter, research paper, review
+      paper, article, blog, etc.
+    & \begin{itemize}
+        \item \emph{Describe your scholarly or intellectual
+            contribution to the publication} such as senior author,
+            editor, reviewer, etc.
+        \item \emph{What specific work did you do?} (e.g., designed
+            research, performed research, contributed new analytic
+            tools, analyzed data, wrote the paper / book / review)
+      \end{itemize}
+    & \begin{itemize}
+        \item \emph{How important is this publication in your field?}
+            What value did it add to the field? If available, include
+            the citation count for your pub, or number of books sold.
+        \item \emph{How prestigious or selective is the publication
+            outlet?} If available, provide concrete evidence for this
+            such as impact factor of the journal, acceptance rate,
+            other quality indicators, and overall reputation within
+            the field.
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g}
+    & \Longunderstack{S e r v i c e}
+  }{%
+      r
+      >{\raggedright}p{1.5in}
+      >{\arraybackslash\centering}p{0.75in}
+      >{\raggedright}p{0.75in}
+      >{\raggedright}p{2in}
+      >{\raggedright}X
+      c
+      c
+  }{%
+    \multicolumn{8}{c}{%
+      \larger[2]%
+      \record@header
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \bfseries\larger[3] Scholarship Record:\ Publications
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Citation}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Institution / Peer Review}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }
+}{%
+  \endrecord@record
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcounter{record@publication}
+
+\pgfkeys{% definitions
+  record/publication/.cd,
+  .search also={/record/entry},
+  institution/.store in=\record@publication@institution,
+  institution/.value required,
+  number/.default={%
+    \stepcounter{record@publication}%
+    \arabic{record@publication}%
+  },
+  number/.store in=\record@publication@number,
+  % defaults
+  number,
+}
+\newcommand{\publication}[4][]{%
+    \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@entry@getvalue[publication]{number}
+  & \bibentry{#2}
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@publication@institution\\[\baselineskip]
+    \ifrecord@entry@peerreview Yes\else No\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \record@entry@type
+  & \parskip=1ex #3
+  & \parskip=1ex #4
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@service\checkmark\fi
+  \\
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\pgfkeys{% default
+  record/presentations--workshops/.cd,
+  .search also={/record},
+}
+
+\newenvironment{presentations/workshops}[1][]{%
+  \pgfkeys{record/presentations--workshops/.cd,#1}%
+  \record@record[#1]{
+    & \begin{itemize}
+        \item Date
+        \item Presenters
+        \item Title
+        \item Conference or venue, location
+      \end{itemize}
+    & conference oral presentation, faculty development workshop,
+      poster at a conference, TED talk, etc.
+    & Describe your  workshop or presentation to the academic community:
+      \begin{itemize}
+        \item How long was it? (e.g., one hour, 4-hr, day, 2 days)
+        \item Who was the audience? How many attended?
+        \item Why were you there? What was your purpose? Strategy?
+        \item What specific work did you do? (e.g., designed the
+            workshop, presented the workshop)
+      \end{itemize}
+    & \begin{itemize}
+        \item Was this an invited presentation or keynote?
+        \item How prestigious and/or selective is the
+            conference/workshop? (i.e., what is the acceptance rate
+            for conference submissions?)
+        \item What was the significance and/or impact of your
+            presentation to the audience?
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g}
+    & \Longunderstack{S e r v i c e}
+  }{%
+      r  % #
+      >{\raggedright}p{1.25in}  % Presentation / Workshop
+      >{\raggedright}p{1.25in}  % Type
+      >{\raggedright}p{2.5in}  % Contribution
+      >{\raggedright}p{2.5in}  % Significance and Impact
+      c  % Teaching
+      c  % Service
+  }{%
+    \multicolumn{7}{c}{%
+      \larger[2]
+      \record@header
+      \par
+    }\\\addlinespace
+    \multicolumn{7}{c}{%
+      \bfseries
+      \larger[3]
+      Scholarship Record:\ Presentations / Workshops
+      \par
+    }\\\addlinespace
+    \multicolumn{7}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Presentation / Workshop}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }%
+}{%
+  \endrecord@record%
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcounter{record@presentation}
+
+\pgfkeys{% definitions
+  record/presentation/.cd,
+  .search also={/record/entry},
+  number/.default={%
+    \stepcounter{record@presentation}%
+    \arabic{record@presentation}%
+  },
+  number/.store in=\record@presentation@number,
+  % defaults
+  number,
+}
+\newcommand{\presentation}[4][]{%
+    \pgfkeys{record/presentation/.cd,#1}% arguments
+    \record@entry@getvalue[presentation]{number}
+  & \parskip=1ex #2
+  & \pgfkeys{record/presentation/.cd,#1}% arguments
+    \record@entry@type
+  & \parskip=1ex #3
+  & \parskip=1ex #4
+  & \pgfkeys{record/presentation/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/publication/.cd,#1}% arguments
+    \ifrecord@entry@service\checkmark\fi
+  \\
+}
+\let\workshop=\presentation\relax
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\pgfkeys{% default
+  record/service/.cd,
+  .search also={/record},
+}
+
+\newenvironment{service}[1][]{%
+  \pgfkeys{record/service/.cd,#1}%
+  \record@record{
+    & \begin{itemize}
+        \item Date(s) of service
+        \item The committee or organization you served
+        \item Your role such as organizer, chair, or member
+      \end{itemize}
+    & \begin{itemize}
+        \item Type -- institutional or disciplinary
+        \item Sphere -- USAFA, regional, national, or international
+      \end{itemize}
+
+      \emph{Note: Do not include department-level additional duties
+      or part of your job.}
+    & \begin{itemize}
+        \item Frequency -- one time event or recurring; annual,
+            biannual, 1 year, etc.
+        \item Length -- $\approx$ number of hours to prepare / perform
+      \end{itemize}
+    & \begin{itemize}
+        \item Describe your service contribution
+        \item What specific work did you do?
+      \end{itemize}
+
+      \emph{Note: You can leave this and the significance column
+          blank if the service activities are common knowledge such
+          as AAOCA or Executive Officer}
+    & \begin{itemize}
+        \item How important was this service?
+        \item In what ways did you specifically impact the success
+            of the committee's or organization's mission?
+        \item Who was positively impacted?
+        \item How many were impacted or potentially impacted?
+      \end{itemize}
+    & \Longunderstack{T e a c h i n g\strut}
+    & \Longunderstack{S c h o l a r s h i p\strut}
+  }{
+    r  % #
+    >{\raggedright\arraybackslash}p{1.5in}  % Service
+    >{\raggedright\arraybackslash}p{1.5in}  % Type & Sphere
+    >{\raggedright\arraybackslash}p{1in}  % Frequency & Length
+    >{\raggedright\arraybackslash}X  % Contribution
+    >{\raggedright\arraybackslash}X  % Significance and Impact
+    c  % Teaching
+    c  % Service
+  }{
+    \multicolumn{8}{c}{%
+      \larger[2]
+      \record@header
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \bfseries
+      \larger[3]
+      Academic Service Record
+      \par
+    }\\\addlinespace
+    \multicolumn{8}{c}{%
+      \larger
+      (since last promotion)
+      \par
+    }\\\addlinespace
+    \toprule
+      {\bfseries \#}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Service}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Type \& Sphere}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Frequency\\\& Length}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Contribution}}
+    & {\bfseries\parbox[b]{\linewidth}{\centering Significance and Impact}}
+    & {\bfseries T}
+    & {\bfseries S}
+  }%
+}{%
+  \endrecord@record%
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newcounter{record@activity}
+
+\newif\ifrecord@activity@scholarship
+\pgfkeys{% definitions
+  record/activity/.cd,
+  .search also={/record/entry},
+  date/.store in=\record@activity@date,
+  date/.value required,
+  frequency/.store in=\record@activity@frequency,
+  frequency/.value required,
+  institution/.store in=\record@activity@institution,
+  institution/.value required,
+  length/.store in=\record@activity@length,
+  length/.value required,
+  number/.default={%
+    \stepcounter{record@activity}%
+    \arabic{record@activity}%
+  },
+  number/.store in=\record@activity@number,
+  organization/.store in=\record@activity@organization,
+  organization/.value required,
+  role/.store in=\record@activity@role,
+  role/.value required,
+  scholarship/.is if=record@activity@scholarship,
+  sphere/.store in=\record@activity@sphere,
+  sphere/.value required,
+  teaching/.is if=record@entry@teaching,
+  type/.store in=\record@activity@type,
+  type/.value required,
+  % defaults
+  number,
+}
+\newcommand{\activity}[3][]{%
+    \pgfkeys{record/activity/.cd,#1}% arguments
+    {\bfseries\record@entry@getvalue[activity]{number}}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{date}
+      \item \record@entry@getvalue[activity]{organization}
+      \item \record@entry@getvalue[activity]{role}
+    \end{itemize}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{type}
+      \item \record@entry@getvalue[activity]{sphere}
+    \end{itemize}
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \begin{itemize}
+      \item \record@entry@getvalue[activity]{frequency}
+      \item \record@entry@getvalue[activity]{length}
+    \end{itemize}
+  & \parskip=1ex #2
+  & \parskip=1ex #3
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \ifrecord@entry@teaching\checkmark\fi
+  & \pgfkeys{record/activity/.cd,#1}% arguments
+    \ifrecord@activity@scholarship\checkmark\fi
+  \\\addlinespace
+}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
