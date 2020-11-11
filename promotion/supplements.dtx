@@ -250,7 +250,7 @@
 % Define the |supplement| macro (nested within the |supplements| environment to restrict its scope).
 %    \begin{macrocode}
   \newcommand*{\supplement}[3][]{%
-    \newif\iflist
+    \newif\ifsupplements@supplement@list
 %    \end{macrocode}
 % Declare the key-value options for the |supplement| macro.
 %    \begin{macrocode}
@@ -258,14 +258,14 @@
       % definitions
       supplement/.is family,
       supplement,
-      list/.is if=list,
-      options/.store in=\options,
+      list/.is if=supplements@supplement@list,
+      options/.store in=\supplements@supplement@options,
       options/.value required,
-      pages/.store in=\pages,
+      pages/.store in=\supplements@supplement@pages,
       pages/.value required,
-      section/.store in=\supplements@supplements@supplement@section,
+      section/.store in=\supplements@supplement@section,
       section/.value required,
-      tocentry/.store in=\tocentry,
+      tocentry/.store in=\supplements@supplement@tocentry,
       tocentry/.value required,
       % defaults
       list,
@@ -278,8 +278,8 @@
 %    \end{macrocode}
 % Store the arguments.
 %    \begin{macrocode}
-    \edef\path{\directory/##2}%
-    \edef\title{##3}%
+    \edef\supplements@supplement@path{\supplements@directory/##2}%
+    \edef\supplements@supplement@title{##3}%
 %    \end{macrocode}
 % Add the supplement to the list to insert.
 %    \begin{macrocode}
@@ -288,22 +288,22 @@
       \supplments@insert
       \noexpand
       \includepdf[
-          \iflist
+          \ifsupplements@supplement@list
             addtotoc={
               1,  % page number
-              \supplements@supplements@supplement@section,  % section
+              \supplements@supplement@section,  % section
               -1,  % level (ignored if lower than specified section level?)
-              \tocentry,  % title
-              \path  % label
+              \supplements@supplement@tocentry,  % title
+              \supplements@supplement@path  % label
             },
           \fi
           link,
-          pages=\pages,
-          \options,
-      ]{\path}
+          pages=\supplements@supplement@pages,
+          \supplements@supplement@options,
+      ]{\supplements@supplement@path}
     }% end of \supplments@insert
-    \iflist
-      \item \hyperlink{\path.1}{\title}
+    \ifsupplements@supplement@list
+      \item \hyperlink{\supplements@supplement@path.1}{\supplements@supplement@title}
     \fi
   }% end of \supplement
 %    \end{macrocode}
@@ -313,11 +313,11 @@
     % definitions
     supplements/.is family,
     supplements,
-    directory/.store in=\directory,
+    directory/.store in=\supplements@directory,
     directory/.value required,
-    structure/.store in=\structure,
+    structure/.store in=\supplements@structure,
     structure/.value required,
-    type/.store in=\type,
+    type/.store in=\supplements@type,
     type/.value required,
     % defaults
     directory=.,
@@ -330,16 +330,16 @@
   \pgfkeys{supplements,#1}%
 %    \end{macrocode}
 %    \begin{macrocode}
-  The following \type{} are included:
+  The following \supplements@type{} are included:
 %    \end{macrocode}
 %    \begin{macrocode}
-  \csname \structure\endcsname
+  \csname \supplements@structure\endcsname
 %    \end{macrocode}
 %    \begin{macrocode}
 }{%
 %    \end{macrocode}
 %    \begin{macrocode}
-  \csname end\structure\endcsname
+  \csname end\supplements@structure\endcsname
 %    \end{macrocode}
 % Insert the supplements, first ejecting any content (e.g., floats) that have been deferred.
 %    \begin{macrocode}
