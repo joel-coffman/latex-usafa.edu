@@ -5,6 +5,14 @@ jobs:
       - image: sunslayer/latex-docker:buster
 
     steps:
+      # ensure that Git is installed
+      - run:
+          name: install Git
+          command: |
+            apt update && apt install --no-install-recommends --yes \
+                    git \
+                    openssh-client
+
       - checkout
 
       - run:
@@ -36,8 +44,7 @@ jobs:
       - run:
           name: misspell
           command: |
-            misspell --error \
-                $(git diff-tree --no-commit-id --name-only -r HEAD)
+            .ci/spelling/check.sh
 
 workflows:
   version: 2
