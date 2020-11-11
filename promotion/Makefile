@@ -15,4 +15,4 @@ record.pdf: record.sty | minted
 statement.pdf: statement.sty | minted
 supplements.pdf: supplements.sty | minted record.pdf statement.pdf
 
-include $(shell git rev-parse --show-toplevel)/Makefile
+include $(shell git rev-parse --show-toplevel)/Makefile.mk

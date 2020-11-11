@@ -8,4 +8,4 @@ beamercolorthemefalcon.pdf: beamercolorthemefalcon.sty example.pdf
 
 example.pdf: beamercolorthemefalcon.sty
 
-include $(shell git rev-parse --show-toplevel)/Makefile
+include $(shell git rev-parse --show-toplevel)/Makefile.mk
