@@ -44,7 +44,7 @@ jobs:
       - run:
           name: misspell
           command: |
-            .ci/spelling/check.sh
+            .ci/lint/misspell/check.sh
 
 workflows:
   version: 2

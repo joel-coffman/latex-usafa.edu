@@ -1,4 +1,4 @@
-name: spelling
+name: lint
 
 on:
   pull_request:
@@ -7,8 +7,19 @@ on:
       - master
 
 jobs:
+  git-diff--check:
+    name: git diff --check
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: git diff --check
+        uses: joel-coffman/action-git-diff-check@0.1.1
+
   misspell:
-    name: misspell
+    name: spelling
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,4 +31,4 @@ jobs:
         working-directory: /usr/local/
       - name: run misspell
         run: |
-          .ci/spelling/check.sh
+          .ci/lint/misspell/check.sh
