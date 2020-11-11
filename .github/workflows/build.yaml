@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt update && apt install --no-install-recommends --yes \
-              $(cat .github/workflows/make/apt.list)
-          pip install --requirement .github/workflows/make/python.list
+              $(cat .ci/build/make/dependencies/apt.list)
+          pip install --requirement .ci/build/make/dependencies/python.list
       - name: make
         run: make

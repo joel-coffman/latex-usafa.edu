@@ -19,8 +19,8 @@ jobs:
           name: install dependencies
           command: |
             apt update && apt install --no-install-recommends --yes \
-                    $(cat .circleci/dependencies/apt.list)
-            pip install --requirement .circleci/dependencies/python.list
+                    $(cat .ci/build/make/dependencies/apt.list)
+            pip install --requirement .ci/build/make/dependencies/python.list
 
       - run:
           name: build packages
