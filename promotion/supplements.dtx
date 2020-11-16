@@ -239,6 +239,7 @@
 % \subsection{Macros}
 % This section describes the macros in the \textsf{supplements} package.
 %
+% \begin{environment}{supplements}
 % Declare the |supplements| environment:
 %    \begin{macrocode}
 \newenvironment{supplements}[1][]{%
@@ -247,6 +248,8 @@
 %    \begin{macrocode}
   \global\def\supplments@insert{}%
 %    \end{macrocode}
+%
+%   \begin{macro}{\supplement}
 % Define the |supplement| macro (nested within the |supplements| environment to restrict its scope).
 %    \begin{macrocode}
   \newcommand*{\supplement}[3][]{%
@@ -307,6 +310,8 @@
     \fi
   }% end of \supplement
 %    \end{macrocode}
+%   \end{macro}
+%
 % Define the key-value options for the |supplements| environment.
 %    \begin{macrocode}
   \pgfkeys{
@@ -349,6 +354,7 @@
 %    \begin{macrocode}
 }% end of supplements environment
 %    \end{macrocode}
+% \end{environment}
 %
 % \iffalse
 %</package>
