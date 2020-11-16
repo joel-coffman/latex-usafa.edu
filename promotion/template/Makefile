@@ -1,4 +1,4 @@
-SUBDIRS := $(wildcard */.) ../../graded-review/
+SUBDIRS := $(wildcard */.)
 
 .PHONY: default
 default: promotion $(SUBDIRS) \
