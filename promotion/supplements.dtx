@@ -279,6 +279,14 @@
     }%
     \pgfkeys{supplement,##1}%
 %    \end{macrocode}
+% Extract the string of the table of contents entry to avoid errors when the title contains formatting (e.g., a different font).
+%     \changes{0.1.1}{2020/11/16}{%
+%       Force table of contents entry to be a string
+%     }
+%    \begin{macrocode}
+    \pdfstringdef{\supplements@supplement@tocentry}%
+        {\supplements@supplement@tocentry}%
+%    \end{macrocode}
 % Store the arguments.
 %    \begin{macrocode}
     \edef\supplements@supplement@path{\supplements@directory/##2}%
