@@ -289,9 +289,12 @@
 %    \end{macrocode}
 % Store the arguments.
 %    \begin{macrocode}
-    \edef\supplements@supplement@path{\supplements@directory/##2}%
-    \edef\supplements@supplement@title{##3}%
+    \def\supplements@supplement@path{\supplements@directory/##2}%
+    \def\supplements@supplement@title{##3}%
 %    \end{macrocode}
+%     \changes{0.1.1}{2020/11/16}{%
+%       Delay expansion of path and title arguments
+%     }
 % Add the supplement to the list to insert.
 %    \begin{macrocode}
     \global\edef\supplments@insert{%
