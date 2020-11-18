@@ -6,6 +6,7 @@
 ]{libertine}
 \usepackage{microtype}
 \usepackage[authoryear,round]{natbib}
+\usepackage{titlesec}
 %\usepackage{tocbibind}  % add bibliography, index, etc. to table of contents
 \usepackage{url}
 
@@ -22,6 +23,11 @@
 \setcitestyle{aysep={}}
 
 \let\cite=\citep\relax
+
+% titlesec
+\titleformat{\chapter}[hang]
+    {\normalfont\huge\bfseries}{\thechapter}{1em}{\Huge\filright}
+\titlespacing*{\chpter}{0pt}{50pt}{40pt}
 
 % url
 \urlstyle{same}  % do not use monospace font for URLs
