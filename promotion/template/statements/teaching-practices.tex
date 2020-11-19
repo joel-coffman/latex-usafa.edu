@@ -5,6 +5,15 @@
 \usepackage{application}
 
 
+% bibentry
+\AtBeginDocument{%
+  \nobibliography*
+}
+\AtEndDocument{%
+  \bibliography{../references}
+}
+
+
 \title{Evidence-Based, Learning-Focused Practice}
 %\author{}
 
@@ -24,11 +33,5 @@
 \section{Annotated Evidence}  %------------------------------------------------
 
 \lipsum[8-12]  % TODO: Replace with actual content
-
-%------------------------------------------------------------------------------
-\ifstandalone  %---------------------------------------------------------------
-  \bibliographystyle{plainurl}
-  \bibliography{../../../../references}
-\fi
 
 \end{document}
