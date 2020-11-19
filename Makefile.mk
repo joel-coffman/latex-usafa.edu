@@ -55,10 +55,6 @@ PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 %.sty: %.ins %.dtx
 	$(TEX) -draftmode $<
 
-# fall-back for other packages (must appear at end to avoid infinite recursion)
-%.sty: $(CWD)%
-	$(MAKE) --directory=$< $@
-
 
 derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
 
