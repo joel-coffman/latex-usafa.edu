@@ -40,21 +40,20 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.bib) $(wildcard *.cls) $(wildcard *.sty) \
-               $(wildcard $(CWD)glossary.tex) $(wildcard $(CWD)references.bib)
+DEPENDENCIES = $(wildcard *.bib) $(wildcard $(CWD)references.bib) \
+               $(wildcard $(CWD)glossary.tex)
+
+PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
 %.pdf: %.dtx $(DEPENDENCIES) .version.tex
 	$(compile-doc)
 
-%.pdf: %.tex $(DEPENDENCIES) $(shell find . -mindepth 2 -name "*.tex")
+%.pdf: %.tex $(DEPENDENCIES) $(PACKAGES) \
+       $(shell find . -mindepth 2 -name "*.tex")
 	$(compile-doc)
 
 %.sty: %.ins %.dtx
 	$(TEX) -draftmode $<
-
-# fall-back for other packages (must appear at end to avoid infinite recursion)
-%.sty: $(CWD)%
-	$(MAKE) --directory=$< $@
 
 
 derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
