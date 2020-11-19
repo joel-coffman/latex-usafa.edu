@@ -1,0 +1,9 @@
+# Ignore everything
+*
+
+# EXCEPT...
+
+# subdirectories
+!*/
+# files that end with ".url"
+!**/*.url
