@@ -1,11 +1,11 @@
 .PHONY: default
-default: packages $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+default: promotion $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
-.PHONY: packages
-packages:
-	$(MAKE) -C ../../ packages
+.PHONY: promotion
+promotion:
+	$(MAKE) -C $(shell git rev-parse --show-toplevel) $@
 
 
-export TEXINPUTS := ../../:../:${TEXINPUTS}
+export TEXINPUTS := ../:${TEXINPUTS}
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk
