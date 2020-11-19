@@ -12,5 +12,5 @@ $(packages):
 	$(MAKE) -C $@
 
 .PHONY: promotion/template
-promotion/template: promotion
+promotion/template: | promotion
 	$(MAKE) -C $@
