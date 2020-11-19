@@ -1,0 +1,55 @@
+% global configuration for consistency across standalone documents
+
+\usepackage{enumitem}
+\usepackage[
+    ttscale=0.875,
+]{libertine}
+\usepackage{microtype}
+\usepackage[authoryear,round]{natbib}
+\usepackage{titlesec}
+%\usepackage{tocbibind}  % add bibliography, index, etc. to table of contents
+\usepackage{url}
+
+\usepackage{promotion}
+
+
+% enumitem
+\setlist{
+  listparindent=\parindent,
+  noitemsep,
+}
+
+% natbib
+\setcitestyle{aysep={}}
+
+\let\cite=\citep\relax
+
+% titlesec
+\titleformat{\chapter}[hang]
+    {\normalfont\huge\bfseries}{\thechapter}{1em}{\Huge\filright}
+\titlespacing*{\chpter}{0pt}{50pt}{40pt}
+
+% url
+\urlstyle{same}  % do not use monospace font for URLs
+
+
+% configuration
+\bibliographystyle{plainnat}
+\pagestyle{plain}
+
+
+% TODO: Update with applicant's information
+\author{\meta{Applicant}}
+\rank{\meta{Academic Rank}}
+
+
+% TODO: Remove the following lines used for placeholder text
+
+% packages
+\usepackage{lipsum}
+
+
+% macros / environments
+\providecommand{\meta}[1]{%
+  \textlangle\,\emph{#1}\,\textrangle%
+}
