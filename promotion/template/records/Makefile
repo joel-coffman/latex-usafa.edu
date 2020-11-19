@@ -1,5 +1,5 @@
 .PHONY: default
-default: $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+default: promotion $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
 .PHONY: promotion
 promotion:

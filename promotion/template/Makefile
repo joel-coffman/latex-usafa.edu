@@ -1,7 +1,7 @@
-SUBDIRS := $(wildcard */.)
+SUBDIRS := $(patsubst %/.,%,$(wildcard */.))
 
 .PHONY: default
-default: promotion $(SUBDIRS) application.pdf
+default: promotion application.pdf
 
 .PHONY: promotion
 promotion:
@@ -10,6 +10,9 @@ promotion:
 .PHONY: $(SUBDIRS)
 $(SUBDIRS):
 	$(MAKE) -C $@
+
+
+application.pdf: | supplements
 
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk
