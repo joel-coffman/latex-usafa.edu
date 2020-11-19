@@ -1,8 +1,7 @@
 SUBDIRS := $(wildcard */.)
 
 .PHONY: default
-default: promotion $(SUBDIRS) \
-         $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+default: promotion $(SUBDIRS) application.pdf
 
 .PHONY: promotion
 promotion:
