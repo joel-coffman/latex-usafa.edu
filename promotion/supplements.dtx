@@ -105,6 +105,10 @@
 %     The directory that contains the supplements; specifying this option avoids to need to repeat a common prefix in the path of each supplement.
 %     Defaults to the current directory (\texttt{./}).
 %
+%     \item[section]
+%     The section command that corresponds to the ``level'' of the supplementary material (\texttt{section}, \texttt{subsection}, \dots).
+%     Defaults to \texttt{subsection}.
+%
 %     \item[structure]
 %     The type of list to use (e.g., \texttt{enumerate} or \texttt{itemize}).
 %     Defaults to an unordered list (i.e., \texttt{itemize}).
@@ -201,8 +205,8 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{supplements}[%
-    2020/10/23 %
-    v0.1.0 %
+    2020/11/19 %
+    v0.1.1 %
     Package for supplemental material%
 ]
 %    \end{macrocode}
@@ -266,15 +270,12 @@
       options/.value required,
       pages/.store in=\supplements@supplement@pages,
       pages/.value required,
-      section/.store in=\supplements@supplement@section,
-      section/.value required,
       tocentry/.store in=\supplements@supplement@tocentry,
       tocentry/.value required,
       % defaults
       list,
       options=,
       pages=-,
-      section=subsection,
       tocentry=##3,
     }%
     \pgfkeys{supplement,##1}%
@@ -321,6 +322,9 @@
     \fi
   }% end of \supplement
 %    \end{macrocode}
+%     \changes{0.1.1}{2020/11/19}{%
+%       Remove section option (moved to \texttt{supplements} environment)
+%     }
 %   \end{macro}
 %
 % Define the key-value options for the |supplements| environment.
@@ -331,12 +335,15 @@
     supplements,
     directory/.store in=\supplements@directory,
     directory/.value required,
+    section/.store in=\supplements@supplement@section,
+    section/.value required,
     structure/.store in=\supplements@structure,
     structure/.value required,
     type/.store in=\supplements@type,
     type/.value required,
     % defaults
     directory=.,
+    section=subsection,
     structure=itemize,
     type=supplementary material,
   }%
@@ -365,6 +372,9 @@
 %    \begin{macrocode}
 }% end of supplements environment
 %    \end{macrocode}
+%   \changes{0.1.1}{2020/11/19}{%
+%     Add section option (moved from \texttt{supplement} macro)
+%   }
 % \end{environment}
 %
 % \iffalse
