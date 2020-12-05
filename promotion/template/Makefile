@@ -26,19 +26,19 @@ dependencies = \
         supplements.sty \
         hyperfix.sty
 
-directory := $(shell mktemp --directory)
+distribution := $(shell mktemp --directory)
 
-.PHONY: $(directory)
-$(directory): $(package) $(dependencies)
-	cp --dereference --parents $(package) $(directory)/.
-	cp $$(git rev-parse --show-toplevel)/Makefile.mk $(directory)/.
+.PHONY: $(distribution)
+$(distribution): $(package) $(dependencies)
+	cp --dereference --parents $(package) $(distribution)/.
+	cp $$(git rev-parse --show-toplevel)/Makefile.mk $(distribution)/.
 	for f in $$(find . -name Makefile | sort); do \
-	  sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$$f .))|" $$f | sed -n '/END Makefile for distribution/q;p' > $(directory)/$$f; \
+	  sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$$f .))|" $$f | sed -n '/END Makefile for distribution/q;p' > $(distribution)/$$f; \
 	done
 
 %.sty:
-	cp $$(find $(shell git rev-parse --show-toplevel)/texmf -name "$@") $(directory)/.
+	cp $$(find $(shell git rev-parse --show-toplevel)/texmf -name "$@") $(distribution)/.
 
-template.zip: $(directory)
-	(cd $(directory); zip -r $(archive) *)
-	cp $(directory)/$(archive) .
+template.zip: $(distribution)
+	(cd $(distribution); zip -r $(archive) *)
+	cp $(distribution)/$(archive) .
