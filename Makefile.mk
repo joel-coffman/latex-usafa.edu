@@ -70,6 +70,25 @@ veryclean: clean
 force: veryclean default
 
 
+package = \
+        $(wildcard *.dtx) \
+        $(wildcard *.ins) \
+        $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
+        $(wildcard README)
+
+archive = $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
+# multiple packages (i.e., bundle) => use the directory as the package name
+ifneq ($(words $(package_name)),1)
+archive = $(notdir $(CURDIR)).zip
+endif
+
+$(archive): $(package)
+	zip $(archive) $(package)
+
+.PHONY: dist
+dist: $(archive)
+
+
 %:: %.url
 	[ -f $@ ] || curl --location --output $@ $$(cat $<)
 
