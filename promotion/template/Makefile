@@ -42,3 +42,12 @@ $(distribution): $(package) $(dependencies)
 template.zip: $(distribution)
 	(cd $(distribution); zip -r $(archive) *)
 	cp $(distribution)/$(archive) .
+
+
+.PHONY: distcheck
+distcheck: dist
+	unzip -d $(directory) template.zip
+	$(MAKE) -C $(directory)
+
+# target-specific variables
+distcheck: directory := $(shell mktemp --directory)
