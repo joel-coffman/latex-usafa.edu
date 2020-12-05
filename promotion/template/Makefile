@@ -15,20 +15,30 @@ application.pdf: | supplements
 
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk
+# END Makefile for distribution
 
 
-# NOTE: Remove promotion prerequisite and target before use
-#   The following rules ensure that the template builds the promotion bundle of
-# packages *before* attempting to compile the application. These rules are
-# necessary for the template to use the latest version of those packages, such
-# as when editing the packages in the latex-usafa.edu repository.
-#   When using this template "stand alone" (i.e., as the starting point for an
-# application for academic promotion), the promotion bundle should be installed
-# separately -- e.g., placing its packages in this directory (or in a directory
-# referenced by TEXINPUTS). In that case, the following rules are unnecessary
-# and will result in errors when executing `make`.
-application.pdf: | promotion
+package = $(shell git ls-files)
+dependencies = \
+        promotion.sty \
+        record.sty \
+        statement.sty \
+        supplements.sty \
+        hyperfix.sty
 
-.PHONY: promotion
-promotion:
-	$(MAKE) -C $(shell git rev-parse --show-toplevel) $@
+directory := $(shell mktemp --directory)
+
+.PHONY: $(directory)
+$(directory): $(package) $(dependencies)
+	cp --dereference --parents $(package) $(directory)/.
+	cp $$(git rev-parse --show-toplevel)/Makefile.mk $(directory)/.
+	for f in $$(find . -name Makefile | sort); do \
+	  sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$$f .))|" $$f | sed -n '/END Makefile for distribution/q;p' > $(directory)/$$f; \
+	done
+
+%.sty:
+	cp $$(find $(shell git rev-parse --show-toplevel)/texmf -name "$@") $(directory)/.
+
+template.zip: $(directory)
+	(cd $(directory); zip -r $(archive) *)
+	cp $(directory)/$(archive) .
