@@ -70,7 +70,7 @@ veryclean: clean
 force: veryclean default
 
 
-package ?= \
+package = \
         $(wildcard *.dtx) \
         $(wildcard *.ins) \
         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
