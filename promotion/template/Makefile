@@ -50,7 +50,7 @@ $(distribution)/Makefile: Makefile
 $(distribution)/%/Makefile: %/Makefile
 	$(patch-makefile)
 
-%/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
+$(distribution)/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
 	cp $< $@
 
 # set search path for packages: ./texmf is last resort due to its symlinks
