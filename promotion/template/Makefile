@@ -33,8 +33,14 @@ sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relativ
 endef
 
 
-files := $(shell git ls-files) Makefile.mk
-files := $(filter-out texmf,$(files))
+files := \
+        $(shell git ls-files) \
+        promotion.sty \
+        record.sty \
+        statement.sty \
+        supplements.sty \
+        hyperfix.sty \
+        Makefile.mk
 files := $(addprefix $(distribution)/,$(files))
 
 
@@ -45,6 +51,13 @@ $(distribution)/%/Makefile: %/Makefile
 	$(patch-makefile)
 
 %/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
+	cp $< $@
+
+# set search path for packages: ./texmf is last resort due to its symlinks
+_VPATH = $(shell find $$(git rev-parse --show-cdup) -name "*.sty" -exec dirname {} \; | sort | uniq)
+vpath %.sty $(filter-out $(shell git rev-parse --show-cdup)texmf/%,$(_VPATH)) $(filter $(shell git rev-parse --show-cdup)texmf/%,$(_VPATH))
+
+$(distribution)/%.sty: %.sty
 	cp $< $@
 
 $(distribution)/%: %
