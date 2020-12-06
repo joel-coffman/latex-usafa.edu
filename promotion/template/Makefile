@@ -69,4 +69,4 @@ distcheck: directory := $(shell mktemp --directory)
 
 .PHONY: distclean
 distclean:
-	$(RM) --recursive $(distribution)
+	$(RM) --recursive $(archive) $(distribution)
