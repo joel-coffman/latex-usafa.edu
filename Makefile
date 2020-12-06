@@ -13,4 +13,4 @@ $(packages):
 
 .PHONY: promotion/template
 promotion/template: | promotion
-	$(MAKE) -C $@
+	$(MAKE) -C $@ dist
