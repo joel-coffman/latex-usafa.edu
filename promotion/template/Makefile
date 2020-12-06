@@ -54,8 +54,8 @@ $(distribution)/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
 	cp $< $@
 
 # set search path for packages: ./texmf is last resort due to its symlinks
-_VPATH = $(shell find $$(git rev-parse --show-cdup) -name "*.sty" -exec dirname {} \; | sort | uniq)
-vpath %.sty $(filter-out $(shell git rev-parse --show-cdup)texmf/%,$(_VPATH)) $(filter $(shell git rev-parse --show-cdup)texmf/%,$(_VPATH))
+_VPATH = $(shell cd $$(git rev-parse --show-cdup) && find . -name "*.sty" -exec dirname {} \; | sort --random-sort)
+vpath %.sty $(addprefix $(shell git rev-parse --show-cdup),$(filter-out ./texmf/%,$(_VPATH)) $(filter ./texmf/%,$(_VPATH)))
 
 $(distribution)/%.sty: %.sty
 	cp $< $@
