@@ -4,10 +4,12 @@ documents := application.pdf
 default: application.pdf
 
 
-distribution := distribution
-
 subdirs := $(patsubst %/.,%,$(wildcard */.))
+
+# BEGIN remove for distribution
+distribution := distribution
 subdirs := $(filter-out $(distribution),$(subdirs))
+# END remove for distribution
 
 .PHONY: $(subdirs)
 $(subdirs):
@@ -18,7 +20,7 @@ application.pdf: | supplements
 
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk
-# END Makefile for distribution
+# BEGIN remove for distribution
 
 
 define create-parent-directories
@@ -27,11 +29,12 @@ endef
 
 define patch-makefile
 $(create-parent-directories)
-sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$< .))|" $< | sed -n '/END Makefile for distribution/q;p' > $@
+sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$< .))|" $< | sed '/^# BEGIN remove for distribution/,/^# END remove for distribution/d' > $@
 endef
 
 
 files := $(shell git ls-files) Makefile.mk
+files := $(filter-out texmf,$(files))
 files := $(addprefix $(distribution)/,$(files))
 
 
