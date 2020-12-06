@@ -12,10 +12,10 @@ $(CWD)Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
-export TEXINPUTS := .:$(CWD)texmf//:${TEXINPUTS}
+TEXINPUTS := .:$(CWD)texmf//:${TEXINPUTS}
 
 # define TEX as pdflatex
-TEX=pdflatex -shell-escape #-interaction batchmode
+TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
 
 # Define a "Canned Recipe" for compiling PDFs from *.{dtx,tex} files.
 #
