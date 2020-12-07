@@ -43,6 +43,7 @@ files := \
         Makefile.mk
 files := $(addprefix $(distribution)/,$(files))
 
+$(files): | $(distribution)
 
 $(distribution)/Makefile: Makefile
 	$(patch-makefile)
@@ -68,7 +69,7 @@ $(distribution):
 	mkdir --parents $@
 
 
-template.zip: $(files) | $(distribution)
+template.zip: $(files)
 	zip -r $(archive) $(distribution)
 
 
