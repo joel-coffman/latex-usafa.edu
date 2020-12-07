@@ -7,7 +7,8 @@ default: application.pdf
 subdirs := $(patsubst %/.,%,$(wildcard */.))
 
 # BEGIN remove for distribution
-distribution := distribution
+_distribution := template
+distribution := _$(_distribution)
 subdirs := $(filter-out $(distribution),$(subdirs))
 # END remove for distribution
 
@@ -56,7 +57,7 @@ $(distribution)/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
 
 # set search path for packages: ./texmf is last resort due to its symlinks
 _VPATH = $(shell cd $$(git rev-parse --show-cdup) && find . -name "*.sty" -exec dirname {} \; | sort | uniq)
-vpath %.sty $(addprefix $(shell git rev-parse --show-cdup),$(filter-out ./texmf/%,$(_VPATH)) $(filter ./texmf/%,$(_VPATH)))
+vpath %.sty $(addprefix $(shell git rev-parse --show-toplevel),$(filter-out ./texmf/%,$(_VPATH)) $(filter ./texmf/%,$(_VPATH)))
 
 $(distribution)/%.sty: %.sty
 	cp $< $@
@@ -70,13 +71,19 @@ $(distribution):
 
 
 template.zip: $(files)
-	zip -r $(archive) $(distribution)
+	cp --recursive $(distribution) $(directory)/$(_distribution)
+	cd $(directory) && zip -r $@ $(_distribution)
+	mv $(directory)/$@ $@
+	$(RM) --recursive $(directory)
+
+# target-specific variables
+template.zip: directory := $(shell mktemp --directory)
 
 
 .PHONY: distcheck
 distcheck: dist
 	unzip -d $(directory) template.zip
-	$(MAKE) -C $(directory)/$(distribution)
+	$(MAKE) -C $(directory)/$(_distribution)
 
 # target-specific variables
 distcheck: directory := $(shell mktemp --directory)
