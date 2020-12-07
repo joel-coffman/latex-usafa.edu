@@ -84,6 +84,7 @@ template.zip: directory := $(shell mktemp --directory)
 distcheck: dist
 	unzip -d $(directory) template.zip
 	$(MAKE) -C $(directory)/$(_distribution)
+	$(RM) --recursive $(directory)
 
 # target-specific variables
 distcheck: directory := $(shell mktemp --directory)
