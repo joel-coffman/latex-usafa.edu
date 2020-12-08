@@ -24,3 +24,9 @@ jobs:
           pip install --requirement .ci/build/make/dependencies/python.list
       - name: make
         run: make
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: packages
+          path: |
+            **/*.zip
