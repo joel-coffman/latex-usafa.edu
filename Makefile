@@ -9,7 +9,7 @@ default: $(packages) promotion/template
 
 .PHONY: $(packages)
 $(packages):
-	$(MAKE) -C $@ dist
+	$(MAKE) -C $@ dist distcheck
 
 .PHONY: promotion/template
 promotion/template: | promotion
