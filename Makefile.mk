@@ -82,7 +82,7 @@ ifneq ($(words $(package_name)),1)
 archive = $(notdir $(CURDIR)).zip
 endif
 
-$(archive): $(package)
+%.zip: $(package)
 	zip $(archive) $(package)
 
 .PHONY: dist
