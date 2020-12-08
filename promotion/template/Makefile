@@ -89,6 +89,4 @@ distcheck: dist
 # target-specific variables
 distcheck: directory := $(shell mktemp --directory)
 
-.PHONY: distclean
-distclean:
-	$(RM) --recursive $(archive) $(distribution)
+_dist_derivatives += $(distribution)
