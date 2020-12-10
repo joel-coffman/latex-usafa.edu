@@ -78,7 +78,7 @@ package = \
 
 archive = $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
 # multiple packages (i.e., bundle) => use the directory as the package name
-ifneq ($(words $(package_name)),1)
+ifneq ($(words $(archive)),1)
 archive = $(notdir $(CURDIR)).zip
 endif
 
