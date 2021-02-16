@@ -6,18 +6,24 @@ on:
 
 jobs:
   make:
-    runs-on: ubuntu-latest
-    container: sunslayer/latex-docker:buster
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-16.04
+          - ubuntu-18.04
+          - ubuntu-20.04
     steps:
       - name: Install Git
         run: |
-          apt update && apt install --no-install-recommends --yes \
+          sudo apt update && sudo apt install --no-install-recommends --yes \
               ca-certificates \
               git
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
-          apt update && apt install --no-install-recommends --yes \
+          sudo apt update && sudo apt install --no-install-recommends --yes \
               $(cat .ci/build/make/dependencies/apt.list)
           pip install --requirement .ci/build/make/dependencies/python.list
       - name: make
