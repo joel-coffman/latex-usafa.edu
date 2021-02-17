@@ -12,21 +12,32 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - debian:stretch  # TeX Live 2016
-          - debian:buster  # TeX Live 2018
-          - debian:bullseye  # TeX Live 2020
+          - debian:stretch-backports  # TeX Live 2016
+          - debian:buster-backports  # TeX Live 2018
+          - debian:bullseye-backports  # TeX Live 2020
     steps:
-      - name: Install Git
+      - name: Install lsb_release
         run: |
           apt update && apt install --no-install-recommends --yes \
+              lsb-release
+      - name: Install Git
+        run: |
+          install_options=""
+          if apt-cache policy | grep backports; then
+            install_options="--target-release=$(lsb_release -cs)-backports"
+          fi
+
+          apt update
+          apt install --no-install-recommends --yes $install_options \
               ca-certificates \
               git
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: |
           apt update && apt install --no-install-recommends --yes \
-              $(cat .ci/build/make/dependencies/apt.list)
-          pip3 install --requirement .ci/build/make/dependencies/python.list
+              $(cat .ci/build/make/dependencies/$(lsb_release -cs)/apt.list)
+          pip3 install --requirement \
+              .ci/build/make/dependencies/$(lsb_release -cs)/python.list
       - name: make
         run: make
       - name: Archive artifacts
