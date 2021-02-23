@@ -45,7 +45,7 @@ DEPENDENCIES = $(wildcard *.bib) $(wildcard $(CWD)references.bib) \
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
-%.pdf: %.dtx $(DEPENDENCIES) .version.tex
+%.pdf: %.dtx %.sty $(DEPENDENCIES) .version.tex
 	$(compile-doc)
 
 %.pdf: %.tex $(DEPENDENCIES) $(PACKAGES) \
