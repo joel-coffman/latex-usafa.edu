@@ -72,13 +72,13 @@ veryclean: clean
 force: veryclean default
 
 
-package = \
+package ?= \
         $(wildcard *.dtx) \
         $(wildcard *.ins) \
         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
         $(wildcard README)
 
-archive = $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
+archive ?= $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
 # multiple packages (i.e., bundle) => use the directory as the package name
 ifneq ($(words $(archive)),1)
 archive = $(notdir $(CURDIR)).zip
