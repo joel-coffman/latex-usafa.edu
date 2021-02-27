@@ -5,14 +5,15 @@ SHELL := /bin/bash
 where-am-i = $(word $(words $(MAKEFILE_LIST)), $(MAKEFILE_LIST))
 # location of this Makefile (presumably the root directory of a project)
 CWD := $(dir $(call where-am-i))
+CWD != realpath $(CWD) --relative-to=$(CURDIR)
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
-$(CWD)Makefile.mk: ;
+$(CWD)/Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
-TEXINPUTS := .:$(CWD)texmf//:${TEXINPUTS}
+TEXINPUTS := .:$(CWD)/texmf//:${TEXINPUTS}
 
 # define TEX as pdflatex
 TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
@@ -40,8 +41,9 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.bib) $(wildcard $(CWD)references.bib) \
-               $(wildcard $(CWD)glossary.tex)
+DEPENDENCIES = $(wildcard *.bib) \
+               $(wildcard $(CWD)/glossary.tex) \
+               $(wildcard $(CWD)/references.bib)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
