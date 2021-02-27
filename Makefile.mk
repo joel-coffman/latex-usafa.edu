@@ -54,8 +54,16 @@ PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
        $(shell find . -mindepth 2 -name "*.tex")
 	$(compile-doc)
 
+%.sty: directory = $(dir $<)
 %.sty: %.ins %.dtx
-	$(TEX) -draftmode $<
+	$(TEX) -draftmode -output-directory=$(directory) $<
+
+# include packages in the search path
+packages != $(MAKE) --directory=$(CWD) --quiet list 2> /dev/null
+
+vpath %.ins $(CWD):$(addprefix $(CWD)/,$(packages))
+vpath %.dtx $(CWD):$(addprefix $(CWD)/,$(packages))
+vpath %.sty $(CWD):$(addprefix $(CWD)/,$(packages))
 
 
 derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
