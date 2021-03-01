@@ -59,7 +59,9 @@ PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 	$(TEX) -draftmode -output-directory=$(directory) $<
 
 # include packages in the search path
+ifneq ($(CWD),.)  # ...but not if it will cause infinite recursion
 packages != $(MAKE) --directory=$(CWD) --quiet list 2> /dev/null
+endif
 
 vpath %.ins $(CWD):$(addprefix $(CWD)/,$(packages))
 vpath %.dtx $(CWD):$(addprefix $(CWD)/,$(packages))
