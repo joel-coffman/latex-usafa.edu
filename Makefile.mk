@@ -127,12 +127,19 @@ distclean:
 
 
 ifneq ($(shell git rev-parse --show-toplevel 2> /dev/null),)
-VERSION:=$(shell git describe --abbrev=12 --always --dirty=+ | sed 's/.*/\\\\providecommand{\\\\version}{&}/')
+VERSION:=$(shell git describe --abbrev=12 --always --dirty=+)
 endif
+
+.PHONY: version
+version:
+	@echo $(VERSION)
 
 .PHONY: .version
 .version:
 	[ -f $@.tex ] || touch $@.tex
-	echo "$(VERSION)" | cmp -s $@.tex - || echo "$(VERSION)" > $@.tex
+	echo "$(VERSION)" \
+	        | sed 's/.*/\\providecommand{\\version}{&}/' > $@.tex~
+	cmp -s $@.tex $@.tex~ || mv $@.tex~ $@.tex
+	$(RM) $@.tex~
 
 .version.tex: .version
