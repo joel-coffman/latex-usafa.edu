@@ -41,7 +41,10 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.bib) \
+external := $(basename $(shell find . -name "*.url"))
+.SECONDARY: $(external)
+
+DEPENDENCIES = $(wildcard *.bib) $(external) \
                $(wildcard $(CWD)/glossary.tex) \
                $(wildcard $(CWD)/references.bib)
 
@@ -82,6 +85,10 @@ veryclean: clean
 force: veryclean default
 
 
+%:: %.url
+	[ -s "$@" ] || curl --location --output "$@" "$$(cat "$<")"
+
+
 package ?= \
         $(wildcard *.dtx) \
         $(wildcard *.ins) \
@@ -119,6 +126,7 @@ _dist_derivatives += $(archive)
 
 .PHONY: distclean
 distclean:
+	$(RM) $(patsubst %.url,%,$(shell find . -name "*.url"))
 	$(RM) $(_dist_derivatives)
 
 
