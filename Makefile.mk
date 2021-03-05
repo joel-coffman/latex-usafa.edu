@@ -125,7 +125,7 @@ distcheck: dist
 _dist_derivatives += $(archive)
 
 .PHONY: distclean
-distclean:
+distclean: clean
 	$(RM) $(patsubst %.url,%,$(shell find . -name "*.url"))
 	$(RM) $(_dist_derivatives)
 
