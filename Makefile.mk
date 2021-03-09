@@ -45,7 +45,7 @@ external := $(basename $(shell find . -name "*.url"))
 .SECONDARY: $(external)
 
 DEPENDENCIES = $(wildcard *.bib) $(external) \
-               $(wildcard $(CWD)/glossary.tex) \
+               $(wildcard $(CWD)/*.tex) \
                $(wildcard $(CWD)/references.bib)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
