@@ -26,7 +26,7 @@ TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
 define compile-doc
 $(TEX) -draftmode $<
 if grep -E '^\\@istfilename' $*.aux; then \
-		makeglossaries $*; \
+		makeglossaries $* && $(TEX) -draftmode $<; \
 fi
 files=$$(sed -n 's/\\@input{\(.*\)}/\1/p' $*.aux); \
 		if grep --quiet -E '\\(citation)' $*.aux $$files; then \
