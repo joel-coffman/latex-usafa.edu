@@ -5,14 +5,15 @@ SHELL := /bin/bash
 where-am-i = $(word $(words $(MAKEFILE_LIST)), $(MAKEFILE_LIST))
 # location of this Makefile (presumably the root directory of a project)
 CWD := $(dir $(call where-am-i))
+CWD != realpath $(CWD) --relative-to=$(CURDIR)
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
-$(CWD)Makefile.mk: ;
+$(CWD)/Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
-TEXINPUTS := .:$(CWD)texmf//:${TEXINPUTS}
+TEXINPUTS := .:$(CWD)/texmf//:${TEXINPUTS}
 
 # define TEX as pdflatex
 TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
@@ -40,8 +41,9 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.bib) $(wildcard $(CWD)references.bib) \
-               $(wildcard $(CWD)glossary.tex)
+DEPENDENCIES = $(wildcard *.bib) \
+               $(wildcard $(CWD)/glossary.tex) \
+               $(wildcard $(CWD)/references.bib)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
@@ -52,8 +54,18 @@ PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
        $(shell find . -mindepth 2 -name "*.tex")
 	$(compile-doc)
 
+%.sty: directory = $(dir $<)
 %.sty: %.ins %.dtx
-	$(TEX) -draftmode $<
+	$(TEX) -draftmode -output-directory=$(directory) $<
+
+# include packages in the search path
+ifneq ($(CWD),.)  # ...but not if it will cause infinite recursion
+packages != $(MAKE) --directory=$(CWD) --quiet list 2> /dev/null
+endif
+
+vpath %.ins $(CWD):$(addprefix $(CWD)/,$(packages))
+vpath %.dtx $(CWD):$(addprefix $(CWD)/,$(packages))
+vpath %.sty $(CWD):$(addprefix $(CWD)/,$(packages))
 
 
 derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
@@ -70,13 +82,13 @@ veryclean: clean
 force: veryclean default
 
 
-package = \
+package ?= \
         $(wildcard *.dtx) \
         $(wildcard *.ins) \
         $(patsubst %.dtx,%.pdf,$(wildcard *.dtx)) \
         $(wildcard README)
 
-archive = $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
+archive ?= $(patsubst %.dtx,%.zip,$(wildcard *.dtx))
 # multiple packages (i.e., bundle) => use the directory as the package name
 ifneq ($(words $(archive)),1)
 archive = $(notdir $(CURDIR)).zip
