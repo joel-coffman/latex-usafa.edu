@@ -13,7 +13,7 @@ $(CWD)/Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
-TEXINPUTS := .:$(CWD)/texmf//:${TEXINPUTS}
+TEXINPUTS := .:$(TEXINPUTS):$(CWD)/texmf//:
 
 # define TEX as pdflatex
 TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
