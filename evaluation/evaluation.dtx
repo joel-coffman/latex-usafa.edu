@@ -184,10 +184,12 @@
 % \begin{VerbatimOut}[
 %     gobble=2,
 % ]{examples/barplot.tex}
-% \barplot{
-%   (4.695,Course) +- (0.918,0)
-%   (4.917,Department) +- (0.664,0)
-%   (5.178,University) +- (1.370,0)
+% \barplot[
+%     symbolic y coords={University,Department,Course},
+% ]{^^A
+%   {(4.695,Course) +- (0.918,0)},^^A
+%   {(4.917,Department) +- (0.664,0)},^^A
+%   {(5.178,University) +- (1.370,0)}^^A
 % }
 % \end{VerbatimOut}
 % \inputminted{latex}{examples/barplot.tex}
@@ -230,8 +232,11 @@
 % Load packages required by this one.
 %
 %    \begin{macrocode}
+\RequirePackage{pgffor}
 \RequirePackage{pgfkeys}
 \RequirePackage{pgfplots}
+
+\usepgfplotslibrary{colorbrewer}
 %    \end{macrocode}
 %
 % \subsection{Macros}
@@ -269,16 +274,23 @@
 %  Define the \textsf{pgfplots} axis.
 %    \begin{macrocode}
     \begin{axis}[
+        xbar,
         axis x line=bottom,
         axis y line=left,
         axis line style={-},
         bar width=0.67\baselineskip,
+        cycle list/Set1-9,
+        cycle list name=Set1-9,
         enlarge y limits=0.25,
+        every axis plot/.append style={
+          bar shift=0pt,
+          draw,
+          fill,
+          fill opacity=0.9,
+        },
         height=1.25in,  % TODO: Scale based on height of responses
-        symbolic y coords={University,Department,Course},
         % TODO: scale exactly (see https://tex.stackexchange.com/q/36297)
         width=\linewidth - 45pt,  % 45pt is size of axis and tick labels
-        xbar,
         xlabel=Mean of Responses,
         xlabel style={
           font=\footnotesize,
@@ -289,7 +301,7 @@
         xticklabel style={
           font=\scriptsize,
         },
-        ytick=data,
+        ytick distance=1,
         yticklabel style={
           font=\footnotesize,
         },
@@ -311,15 +323,18 @@
     ]
 %    \end{macrocode}
 %    \begin{macrocode}
-      \addplot+[
-          error bars/.cd,
-          error bar style={
-            black,
-            opacity=0.5,
-          },
-          x dir=both,
-          x explicit,
-      ] coordinates {#2};
+      \edef\coordinates{\zap@space#2 \@empty}% https://tex.stackexchange.com/q/372871
+      \foreach \coordinate in \coordinates {
+        \addplot+[
+            error bars/.cd,
+            error bar style={
+              black,
+              opacity=0.5,
+            },
+            x dir=both,
+            x explicit,
+        ] coordinates {\coordinate};
+      }
 %    \end{macrocode}
 %    \begin{macrocode}
     \end{axis}
@@ -355,7 +370,7 @@
     \begin{minipage}[t]{0.55\linewidth}%
       \vspace{0pt}% hack to force vertical alignment
       \hfill%
-      \barplot[\options]{\coordinates}%
+      %\barplot[\options]{\coordinates}%
     \end{minipage}%
   }%
 %    \end{macrocode}
