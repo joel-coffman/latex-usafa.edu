@@ -127,7 +127,9 @@
 % \begin{question}{Course Activities}
 %   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
 %
-%   \begin{responses}{
+%   \begin{responses}[
+%       symbolic y coords={University,Department,Course},
+%   ]{
 %       (4.695,Course) +- (0.918,0)
 %       (4.917,Department) +- (0.664,0)
 %       (5.178,University) +- (1.370,0)
@@ -157,7 +159,9 @@
 % \begin{question}{Course Activities}
 %   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
 %
-%   \begin{responses}{
+%   \begin{responses}[
+%       symbolic y coords={University,Department,Course},
+%   ]{
 %       (4.695,Course) +- (0.918,0)
 %       (4.917,Department) +- (0.664,0)
 %       (5.178,University) +- (1.370,0)
@@ -192,7 +196,9 @@
 % \begin{VerbatimOut}[
 %     gobble=2,
 % ]{examples/barplot.tex}
-% \barplot{
+% \barplot[
+%     symbolic y coords={University,Department,Course},
+% ]{
 %   (4.695,Course) +- (0.918,0)
 %   (4.917,Department) +- (0.664,0)
 %   (5.178,University) +- (1.370,0)
@@ -229,7 +235,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{evaluation}[%
     2021/03/30 %
-    v0.1.0 %
+    v0.1.1 %
     Template for course evaluation reports%
 ]
 %    \end{macrocode}
@@ -238,16 +244,37 @@
 % Load packages required by this one.
 %
 %    \begin{macrocode}
+\RequirePackage{pgfkeys}
 \RequirePackage{pgfplots}
 %    \end{macrocode}
 %
 % \subsection{Macros}
 % This section describes the macros in the \textsf{evaluation} package.
 %
+% \begin{macro}{setevaluation}
+%    \begin{macrocode}
+\pgfkeys{
+  evaluation/.is family,
+  evaluation,
+    barplot/axis/.value required,
+    barplot/axis/.store in=\evaluation@barplot@axis,
+    barplot/axis={},
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\newcommand*{\setevaluation}[1]{%
+  \pgfkeys{/evaluation,#1}%
+}%
+%    \end{macrocode}
+% \changes{0.1.1}{2021/03/27}{%
+%   Add macro for package configuration
+% }
+% \end{macro}
+%
 % \begin{macro}{barplot}
 %  Define the |barplot| macro.
 %    \begin{macrocode}
-\newcommand*{\barplot}[1]{%
+\newcommand*{\barplot}[2][]{%
 %    \end{macrocode}
 %  Create a \TikZ{} picture.
 %    \begin{macrocode}
@@ -259,11 +286,10 @@
         axis x line=bottom,
         axis y line=left,
         axis line style={-},
-        bar width=7.5pt,
-        enlarge y limits=0.5,
+        bar width=0.67\baselineskip,
+        enlarge y limits=0.25,
         height=1.25in,  % TODO: Scale based on height of responses
         minor x tick num=1,
-        symbolic y coords={University,Department,Course},
         % TODO: scale exactly (see https://tex.stackexchange.com/q/36297)
         width=\linewidth - 45pt,  % 45pt is size of axis and tick labels
         xbar,
@@ -294,6 +320,8 @@
           yshift=0.75ex,
         },
         nodes near coords align={horizontal},
+        \evaluation@barplot@axis,
+        #1
     ]
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -305,7 +333,7 @@
           },
           x dir=both,
           x explicit,
-      ] coordinates {#1};
+      ] coordinates {#2};
 %    \end{macrocode}
 %    \begin{macrocode}
     \end{axis}
@@ -316,14 +344,21 @@
 %    \begin{macrocode}
 }
 %    \end{macrocode}
+% \changes{0.1.1}{2021/03/27}{%
+%   Add optional argument to customize axis
+% }
 % \end{macro}
 %
 % \begin{environment}{question}
 %  Define the |question| environment.
 %    \begin{macrocode}
 \newenvironment{question}[1]{%
-  \newenvironment{responses}[1]{%
-    \global\def\means{##1}%
+%    \end{macrocode}
+%  \begin{environment}{responses}
+%    \begin{macrocode}
+  \newenvironment{responses}[2][]{%
+    \global\def\options{##1}%
+    \global\def\coordinates{##2}%
     \vspace{-\medskipamount}% FORMATTING
     \vspace{-\parskip}% FORMATTING
     \noindent%
@@ -334,9 +369,15 @@
     \begin{minipage}[t]{0.55\linewidth}%
       \vspace{0pt}% hack to force vertical alignment
       \hfill%
-      \barplot{\means}%
+      \barplot[\options]{\coordinates}%
     \end{minipage}%
   }%
+%    \end{macrocode}
+% \changes{0.1.1}{2021/03/27}{%
+%   Add optional argument to customize bar chart axis
+% }
+%  \end{environment}
+%    \begin{macrocode}
   \paragraph{#1}
 }{%
 }
