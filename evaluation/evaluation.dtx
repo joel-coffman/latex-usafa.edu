@@ -199,6 +199,18 @@
 % \noindent
 % Note that the width of the graph scales automatically to the available space (i.e., |\linewidth|).
 %
+% \begin{VerbatimOut}[
+%     gobble=2,
+% ]{examples/likert.tex}
+% \likert{Strongly disagree/3,Disagree/6,Neutral/12,Agree/24,Strongly agree/16}
+% \end{VerbatimOut}
+% \inputminted{latex}{examples/likert.tex}
+% which produces the following graph:
+%
+% \noindent
+% \input{examples/likert.tex}
+%
+%
 % \StopEventually{
 %   \PrintChanges
 %   \PrintIndex
@@ -221,7 +233,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{evaluation}[%
     2021/03/27 %
-    v0.1.1 %
+    v0.2.0 %
     Template for course evaluation reports%
 ]
 %    \end{macrocode}
@@ -232,6 +244,11 @@
 %    \begin{macrocode}
 \RequirePackage{pgfkeys}
 \RequirePackage{pgfplots}
+
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{
+  compat=1.9,
+}
 %    \end{macrocode}
 %
 % \subsection{Macros}
@@ -332,6 +349,126 @@
 %    \end{macrocode}
 % \changes{0.1.1}{2021/03/27}{%
 %   Add optional argument to customize axis
+% }
+% \end{macro}
+%
+% \begin{macro}{likert}
+% Declare counters:
+%    \begin{macrocode}
+\newcounter{responses@count}%
+\newcounter{responses@sum}%
+%    \end{macrocode}
+%
+%  Define the |likert| macro (doi:10.18637/jss.v057.i05).
+%    \begin{macrocode}
+\newcommand*{\likert}[2][]{%
+  \setcounter{responses@count}{0}%
+  \setcounter{responses@sum}{0}%
+  \foreach \choice/\respondents in {#2} {%
+    \stepcounter{responses@count}%
+    \addtocounter{responses@sum}{\respondents}%
+  }%
+  \pgfmathparse{int(\the\value{responses@count} / 2.0)}%
+  \edef\middle{\pgfmathresult}%
+  \def\offset{1.00}%
+  \foreach \choice/\respondents [count=\index from 0] in {#2} {%
+    \xdef\increment{0.00}%
+    \ifnum\index<\middle%
+      \xdef\increment{\respondents}%
+    \else%
+      \ifnum\index=\middle%
+        \pgfmathparse{isodd(\the\value{responses@count})}%
+        \ifnum\pgfmathresult=1%
+          \pgfmathparse{\respondents / 2.0}%
+          \xdef\increment{\pgfmathresult}%
+        \fi%
+      \fi%
+    \fi%
+    \pgfmathparse{\offset - (\increment / \the\value{responses@sum}}%
+    \xdef\offset{\pgfmathresult}%
+  }%
+  \edef\palette{RdYlBu-\the\value{responses@count}}%
+  \def\respondents{}%
+%    \end{macrocode}
+%  Create a \TikZ{} picture.
+%    \begin{macrocode}
+  \begin{tikzpicture}
+%    \end{macrocode}
+%  Define the \textsf{pgfplots} axis.
+%    \begin{macrocode}
+    \begin{axis}[
+        xbar stacked,
+        stack negative=separate,
+        axis x line=bottom,
+        axis y line=none,
+        bar width=4\baselineskip,
+        cycle list/\palette,
+        cycle list name/.expanded=\palette,  % https://tex.stackexchange.com/a/333974
+        every axis plot/.append style={
+          draw,
+          fill,
+          fill opacity=0.9,
+        },
+        every major tick/.append style={
+          black,
+        },
+        every minor tick/.append style={
+          black,
+        },
+        height=0.33\linewidth,
+        legend style={
+          anchor=north,
+          at={(0.5,1.125)},
+          draw=none,
+          fill=none,
+          font=\small,
+          legend columns=-1,
+          /tikz/every even column/.append style={
+            column sep=0.75em,
+          },
+        },
+        minor x tick num=1,
+        nodes near coords,
+        nodes near coords style={
+          color=black,
+          font=\small,
+          text opacity=0.9,
+        },
+        point meta=explicit symbolic,
+        ticklabel style={
+          font=\small,
+        },
+        visualization depends on=value \respondents,
+        width=\linewidth,
+        x axis line style=-,
+        %xlabel={\%},
+        xmin=0.00,
+        xmax=2.00,
+        xtick={0.00,0.50,1.00,1.50,2.00},
+        xticklabels={$-100\%$,$-50\%$,$0\%$,$+50\%$,$+100\%$},
+        ytick=data,
+        #1
+    ]
+      \addplot[
+          draw=none,
+          fill=none,
+          forget plot,
+      ] coordinates {(\offset,0)};
+      \foreach \choice/\respondents in {#2} {
+        \addplot+[
+        ] coordinates {(\respondents / \the\value{responses@sum},0) [\respondents]};
+        \expandafter\addlegendentry\expandafter{\choice}  % https://tex.stackexchange.com/a/289866
+      }
+    \end{axis}
+%    \end{macrocode}
+%    \begin{macrocode}
+  \end{tikzpicture}
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+% \changes{0.2.0}{2021/03/27}{%
+%   Add macro for diverging stacked bar charts
 % }
 % \end{macro}
 %
