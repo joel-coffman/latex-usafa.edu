@@ -1,0 +1,341 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2021 by Joel Coffman
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.2
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.2 or later is part of all distributions of LaTeX
+% version 1999/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{minted}
+
+\usepackage{minted-doc}
+
+\usepackage{evaluation}
+
+
+% minted
+\setminted{
+  autogobble,
+  breaklines,
+}
+
+
+\input{.version}
+
+
+% macros / environments
+\newcommand*{\TikZ}[0]{Ti\textit{k}Z}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\begin{document}
+  \DocInput{evaluation.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case   \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+%
+%
+% \changes{0.1.0}{2021/03/26}{Initial version}
+%
+% \GetFileInfo{evaluation.sty}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\@ne}
+% \DoNotIndex{\advance,\begingroup,\catcode,\closein}
+% \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+% \DoNotIndex{\global,\let,\relax}
+%
+% \title{The \textsf{evaluation} package\thanks{This
+% document corresponds to \textsf{evaluation~\fileversion-\version, dated \filedate.}}}
+% \author{Joel Coffman\\\texttt{joel.coffman@usafa.edu}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% This package supports the creation of reports for course evaluations.
+% It uses \textsf{pgfplots} to visualize raw data while imposing few constraints on the format of the report.
+% \end{abstract}
+%
+% \section{Usage}\label{section:usage}
+%
+% \DescribeEnv{question}
+% The |question| environment encapsulates data related to objective questions, including the question itself and responses:
+%
+% |\begin{question}|\marg{title} \dots |\end{question}|
+%
+% \noindent
+% It has a single mandatory argument, \meta{title}, which is used as a header in the report.
+%
+% \DescribeEnv{responses}
+% Within the |question| environment, the |responses| environment summarizes the possible responses:
+%
+% |\begin{responses}|\marg{coordinates} \dots |\end{responses}|
+%
+% \noindent
+% The mandatory argument, \meta{coordinates}, defines the mean, and possibly error bars, of the responses.
+% Multiple coordinates may be specified to compare the instructor, course, etc. against others.
+%
+% For example,
+% \begin{VerbatimOut}[
+%     gobble=2,
+% ]{examples/question.tex}
+% \begin{question}{Course Activities}
+%   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
+%
+%   \begin{responses}{
+%       (4.695,Course) +- (0.918,0)
+%       (4.917,Department) +- (0.664,0)
+%       (5.178,University) +- (1.370,0)
+%   }
+%     \begin{enumerate}[
+%         nosep,
+%     ]
+%       \item Strongly Disagree
+%       \item Disagree
+%       \item Slightly Disagree
+%       \item Slightly Agree
+%       \item Agree
+%       \item Strongly Agree
+%     \end{enumerate}
+%   \end{responses}
+% \end{question}
+% \end{VerbatimOut}
+% \inputminted{latex}{examples/question.tex}
+% which produces the following result:
+%
+% \noindent
+% \input{examples/question.tex}
+%
+% \noindent
+% Alternatively, a table may be provided with the raw data.
+% For example,
+% \begin{question}{Course Activities}
+%   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
+%
+%   \begin{responses}{
+%       (4.695,Course) +- (0.918,0)
+%       (4.917,Department) +- (0.664,0)
+%       (5.178,University) +- (1.370,0)
+%   }
+%     \small
+%     \begin{tabular}{llr}
+%       & Response & \#\\
+%       \midrule
+%       1 & Strongly Disagree & 1\\
+%       2 & Disagree & 3\\
+%       3 & Slightly Disagree & 2\\
+%       4 & Slightly Agree & 5\\
+%       5 & Agree & 16\\
+%       6 & Strongly Agree & 4\\
+%     \end{tabular}
+%   \end{responses}
+% \end{question}
+%
+% \noindent
+% Thus, the |responses| environment is fairly flexible in terms of the content it may contain.
+%
+% \DescribeMacro{barplot}
+% A bar chart can be used to summarize feedback (as shown above).
+% The |barplot| macro has a single mandatory argument, \meta{coordinates}, to specify the size of the bars (and possibly the size of error bars):
+%
+% |\barplot|\marg{coordinates}
+%
+% \noindent
+% When multiple coordinates are specified, the bar chart will contain multiple bars.
+% The |responses| environment (internal to the |question| environment) uses this macro to visualize the responses.
+% For example, the prior visualization may be created as follows:
+% \begin{VerbatimOut}[
+%     gobble=2,
+% ]{examples/barplot.tex}
+% \barplot{
+%   (4.695,Course) +- (0.918,0)
+%   (4.917,Department) +- (0.664,0)
+%   (5.178,University) +- (1.370,0)
+% }
+% \end{VerbatimOut}
+% \inputminted{latex}{examples/barplot.tex}
+% which produces the following graph:
+%
+% \noindent
+% \input{examples/barplot.tex}
+%
+% \noindent
+% Note that the width of the graph scales automatically to the available space (i.e., |\linewidth|).
+%
+% \StopEventually{
+%   \PrintChanges
+%   \PrintIndex
+% }
+%
+% \appendix
+%
+% \iffalse
+%<*package>
+% \fi
+%
+% \section{Implementation}
+% This section documents the implementation of the package.
+%
+% Require \LaTeXe.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% Identify package and version.
+%    \begin{macrocode}
+\ProvidesPackage{evaluation}[%
+    2021/03/26 %
+    v0.1.0 %
+    Template for course evaluation reports%
+]
+%    \end{macrocode}
+%
+% \subsection{Packages}
+% Load packages required by this one.
+%
+%    \begin{macrocode}
+\RequirePackage{pgfplots}
+%    \end{macrocode}
+%
+% \subsection{Macros}
+% This section describes the macros in the \textsf{evaluation} package.
+%
+% \begin{macro}{barplot}
+%  Define the |barplot| macro.
+%    \begin{macrocode}
+\newcommand*{\barplot}[1]{%
+%    \end{macrocode}
+%  Create a \TikZ{} picture.
+%    \begin{macrocode}
+  \begin{tikzpicture}
+%    \end{macrocode}
+%  Define the \textsf{pgfplots} axis.
+%    \begin{macrocode}
+    \begin{axis}[
+        axis x line=bottom,
+        axis y line=left,
+        axis line style={-},
+        bar width=7.5pt,
+        enlarge y limits=0.5,
+        height=1.25in,  % TODO: Scale based on height of responses
+        symbolic y coords={University,Department,Course},
+        % TODO: scale exactly (see https://tex.stackexchange.com/q/36297)
+        width=\linewidth - 45pt,  % 45pt is size of axis and tick labels
+        xbar,
+        xlabel=Mean of Responses,
+        xlabel style={
+          font=\footnotesize,
+          yshift=1ex,
+        },
+        xmin=0,
+        xmax=6,
+        xticklabel style={
+          font=\scriptsize,
+        },
+        ytick=data,
+        yticklabel style={
+          font=\footnotesize,
+        },
+        nodes near coords={%
+          \pgfmathprintnumber[
+              fixed zerofill,
+              precision=3,
+          ]\pgfplotspointmeta%
+        },
+        every node near coord/.append style={
+          color=black,
+          font=\scriptsize,
+          opacity=0.85,
+          yshift=0.75ex,
+        },
+        nodes near coords align={horizontal},
+    ]
+%    \end{macrocode}
+%    \begin{macrocode}
+      \addplot+[
+          error bars/.cd,
+          error bar style={
+            black,
+            opacity=0.5,
+          },
+          x dir=both,
+          x explicit,
+      ] coordinates {#1};
+%    \end{macrocode}
+%    \begin{macrocode}
+    \end{axis}
+%    \end{macrocode}
+%    \begin{macrocode}
+  \end{tikzpicture}
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{question}
+%  Define the |question| environment.
+%    \begin{macrocode}
+\newenvironment{question}[1]{%
+  \newenvironment{responses}[1]{%
+    \global\def\means{##1}%
+    \vspace{-\medskipamount}% FORMATTING
+    \vspace{-\parskip}% FORMATTING
+    \noindent%
+    \begin{minipage}[t]{0.35\linewidth}%
+      \vspace{0pt}% hack to force vertical alignment
+  }{%
+    \end{minipage}%
+    \begin{minipage}[t]{0.65\linewidth}%
+      \vspace{0pt}% hack to force vertical alignment
+      \hfill%
+      \barplot{\means}%
+    \end{minipage}%
+  }%
+  \paragraph{#1}
+}{%
+}
+%    \end{macrocode}
+% \end{environment}
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale
+\endinput
