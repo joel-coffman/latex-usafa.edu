@@ -262,6 +262,9 @@
     barplot/axis/.value required,
     barplot/axis/.store in=\evaluation@barplot@axis,
     barplot/axis={},
+    likert/axis/.value required,
+    likert/axis/.store in=\evaluation@likert@axis,
+    likert/axis={},
 }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -447,6 +450,7 @@
         xtick={0.00,0.50,1.00,1.50,2.00},
         xticklabels={$-100\%$,$-50\%$,$0\%$,$+50\%$,$+100\%$},
         ytick=data,
+        \evaluation@likert@axis,
         #1
     ]
       \addplot[
