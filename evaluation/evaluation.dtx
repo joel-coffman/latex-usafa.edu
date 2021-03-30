@@ -89,11 +89,19 @@
 % \maketitle
 %
 % \begin{abstract}
-% This package supports the creation of reports for course evaluations.
+% This package supports the creation of reports from course evaluations.
 % It uses \textsf{pgfplots} to visualize raw data while imposing few constraints on the format of the report.
 % \end{abstract}
 %
 % \section{Usage}\label{section:usage}
+%
+% Load this package in the document preamble:
+% \begin{VerbatimOut}[
+%     gobble=2,
+% ]{examples/usepackage.tex}
+% \usepackage{evaluation}
+% \end{VerbatimOut}
+% \inputminted{latex}{examples/usepackage.tex}
 %
 % \DescribeEnv{question}
 % The |question| environment encapsulates data related to objective questions, including the question itself and responses:
@@ -144,7 +152,7 @@
 % \input{examples/question.tex}
 %
 % \noindent
-% Alternatively, a table may be provided with the raw data.
+% Instead of simply listing the possible responses in an |enumerate| environment, a table may be provided with the raw data.
 % For example,
 % \begin{question}{Course Activities}
 %   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
