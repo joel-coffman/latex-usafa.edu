@@ -228,7 +228,7 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{evaluation}[%
-    2021/03/26 %
+    2021/03/30 %
     v0.1.0 %
     Template for course evaluation reports%
 ]
@@ -262,6 +262,7 @@
         bar width=7.5pt,
         enlarge y limits=0.5,
         height=1.25in,  % TODO: Scale based on height of responses
+        minor x tick num=1,
         symbolic y coords={University,Department,Course},
         % TODO: scale exactly (see https://tex.stackexchange.com/q/36297)
         width=\linewidth - 45pt,  % 45pt is size of axis and tick labels
