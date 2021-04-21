@@ -12,7 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - debian:stretch-backports  # TeX Live 2016
           - debian:buster-backports  # TeX Live 2018
           - debian:bullseye-backports  # TeX Live 2020
     steps:
