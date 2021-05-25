@@ -21,8 +21,7 @@ jobs:
               lsb-release
       - name: Install Git
         run: |
-          apt update
-          apt install --no-install-recommends --yes \
+          apt update && apt install --no-install-recommends --yes \
               ca-certificates \
               git
       - uses: actions/checkout@v2
