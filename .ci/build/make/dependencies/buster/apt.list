@@ -2,7 +2,7 @@ curl
 ghostscript
 git
 make
-python-pip
+python3-pip
 texlive
 texlive-bibtex-extra
 texlive-font-utils

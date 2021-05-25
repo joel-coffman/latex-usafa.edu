@@ -7,8 +7,18 @@ on:
 jobs:
   make:
     runs-on: ubuntu-latest
-    container: sunslayer/latex-docker:buster
+    container: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - debian:buster  # TeX Live 2018
+          - debian:bullseye  # TeX Live 2020
     steps:
+      - name: Install lsb_release
+        run: |
+          apt update && apt install --no-install-recommends --yes \
+              lsb-release
       - name: Install Git
         run: |
           apt update && apt install --no-install-recommends --yes \
@@ -18,8 +28,9 @@ jobs:
       - name: Install dependencies
         run: |
           apt update && apt install --no-install-recommends --yes \
-              $(cat .ci/build/make/dependencies/apt.list)
-          pip install --requirement .ci/build/make/dependencies/python.list
+              $(cat .ci/build/make/dependencies/$(lsb_release -cs)/apt.list)
+          pip3 install --requirement \
+              .ci/build/make/dependencies/$(lsb_release -cs)/python.list
       - name: make
         run: make
       - name: Archive artifacts
