@@ -235,7 +235,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{evaluation}[%
     2021/04/21 %
-    v0.1.1 %
+    v0.1.2 %
     Template for course evaluation reports%
 ]
 %    \end{macrocode}
@@ -363,11 +363,11 @@
     \vspace{-\medskipamount}% FORMATTING
     \vspace{-\parskip}% FORMATTING
     \noindent%
-    \begin{minipage}[t]{0.45\linewidth}%
+    \begin{minipage}[t]{0.5\linewidth}%
       \vspace{0pt}% hack to force vertical alignment
   }{%
     \end{minipage}%
-    \begin{minipage}[t]{0.55\linewidth}%
+    \begin{minipage}[t]{0.5\linewidth}%
       \vspace{0pt}% hack to force vertical alignment
       \hfill%
       \barplot[\options]{\coordinates}%
@@ -376,6 +376,9 @@
 %    \end{macrocode}
 % \changes{0.1.1}{2021/03/27}{%
 %   Add optional argument to customize bar chart axis
+% }
+% \changes{0.1.2}{2021/06/07}{%
+%   Use even split for responses and graph
 % }
 %  \end{environment}
 %    \begin{macrocode}
