@@ -169,6 +169,31 @@
 % \end{question}
 %
 % \noindent
+% Or, if you prefer a visualization of the raw data:
+% \begin{question}{Course Activities}
+%   The course activities (e.g., assigned readings, lectures, discussions, labs, projects, etc.) were effective in helping me accomplish the learning goals of this course.
+%
+%   \begin{responses}[
+%       height=1.375in,
+%   ]{
+%       (4.695,Course) +- (0.918,0)
+%       (4.917,Department) +- (0.664,0)
+%       (5.178,University) +- (1.370,0)
+%   }
+%     \small
+%     \likert[
+%         bar width=1.5\baselineskip,
+%         height=1.125in,
+%         legend style={
+%           at={(0.5,1.75)},
+%           legend columns=3,
+%         },
+%         transpose legend,
+%     ]{Strongly Disagree/1,Disagree/3,Slightly Disagree/2,Slightly Agree/5,Agree/16,Strongly Agree/4}
+%   \end{responses}
+% \end{question}
+%
+% \noindent
 % Thus, the |responses| environment is fairly flexible in terms of the content it may contain.
 %
 % \DescribeMacro{barplot}
@@ -404,7 +429,7 @@
         stack negative=separate,
         axis x line=bottom,
         axis y line=none,
-        bar width=4\baselineskip,
+        bar width=2\baselineskip,
         cycle list/\palette,
         cycle list name/.expanded=\palette,  % https://tex.stackexchange.com/a/333974
         every axis plot/.append style={
@@ -418,13 +443,14 @@
         every minor tick/.append style={
           black,
         },
-        height=0.33\linewidth,
+        height=0.25\linewidth,
+        legend cell align=left,
         legend style={
           anchor=north,
           at={(0.5,1.125)},
           draw=none,
           fill=none,
-          font=\small,
+          font=\scriptsize,
           legend columns=-1,
           /tikz/every even column/.append style={
             column sep=0.75em,
@@ -434,12 +460,12 @@
         nodes near coords,
         nodes near coords style={
           color=black,
-          font=\small,
+          font=\tiny,
           text opacity=0.9,
         },
         point meta=explicit symbolic,
         ticklabel style={
-          font=\small,
+          font=\scriptsize,
         },
         visualization depends on=value \respondents,
         width=\linewidth,
