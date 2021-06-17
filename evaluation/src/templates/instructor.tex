@@ -38,7 +38,7 @@
   \begin{tabular}{l rr@{}}
     Sections & {{ sections }}\\
     Enrollment & {{ enrollment }}\\
-    Responses & {{ responses }} & (\%)\\
+    Responses & {{ responses }} & ({{ (100.0 * responses / enrollment) | round(1) }}\%)\\
   \end{tabular}
 \end{minipage}
 \medskip  % FORMATTING

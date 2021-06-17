@@ -95,6 +95,9 @@ for question, frequencies in responses.items():
 academy = pandas.DataFrame(data)
 
 
+enrollments = pandas.read_csv(os.path.join('dat', 'enrollments.csv'))
+
+
 data = pandas.read_csv(os.path.join('dat', 'evaluations.csv'))
 
 columns = {
@@ -165,12 +168,18 @@ for instructor in instructors.index.unique(level='Instructor'):
         assert len(department) == 1
         department = department.item()
 
+        sections = enrollments.loc[(enrollments['Course'] == course) &
+                                   (enrollments['Instructor'] == instructor)]
+        assert 1 <= len(sections), "Missing enrollment data!"
+
         respondents = instructors.loc[(instructor, course, department)].\
             xs('count', axis='index', level=1)
         report = {
             'instructor': instructor,
             'course': course,
             'semester': semester,
+            'sections': len(sections),
+            'enrollment': sections['Enrollment'].sum(),
             'responses': int(max(respondents)),
         }
         for question, responses in closed.items():
