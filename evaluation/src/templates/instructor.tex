@@ -1,0 +1,73 @@
+\documentclass{article}
+
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{libertinus}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{nicefrac}
+
+\usepackage{evaluation}
+
+
+% evaluation
+\setevaluation{
+  barplot/axis={
+    enlarge y limits=0.25,
+    symbolic y coords={Academy,Department,Course,Instructor},
+  },
+}
+
+
+\begin{document}
+
+{\bfseries\large United States Air Force Academy}
+
+\smallskip  % FORMATTING
+\begin{minipage}{0.67\linewidth}
+  \begin{tabular}{@{}>{\bfseries}ll}
+    Course & {{ course }}\\
+    Instructor & {{ instructor }}\\
+    Semester & {{ semester }}\\
+  \end{tabular}
+\end{minipage}%
+\begin{minipage}{0.33\linewidth}
+  \hfill  % right-align tabular environment
+  \begin{tabular}{l rr@{}}
+    Sections & {{ sections }}\\
+    Enrollment & {{ enrollment }}\\
+    Responses & {{ responses }} & (\%)\\
+  \end{tabular}
+\end{minipage}
+\medskip  % FORMATTING
+
+{{ course_activities }}
+
+{{ graded_events }}
+
+{{ feedback }}
+
+{{ course_overall }}
+
+{{ effort }}
+
+\clearpage  % FORMATTING
+{{ workload }}
+
+{{ climate }}
+
+{{ instructor_overall }}
+
+\begin{question}{Additional Comments}
+  Please provide any additional comments:
+
+{% if comments %}
+  \begin{itemize}
+\item {{ comments | join('\n\n\item ') }}
+  \end{itemize}
+{% endif %}
+\end{question}
+
+\end{document}
