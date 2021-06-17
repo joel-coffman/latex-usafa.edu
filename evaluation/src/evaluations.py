@@ -248,5 +248,3 @@ for instructor in instructors.index.unique(level='Instructor'):
 
         shutil.copy('./templates/Makefile',
                     os.path.join(directory, 'Makefile'))
-
-    # break
