@@ -132,15 +132,15 @@ open_ended = {
 }
 
 prompts = {
-    'Course Activities': 'The course activities were effective in helping me accomplish the learning goals of this course.',  # noqa: E501
-    'Graded Events': 'In this course, the graded events provided the opportunity for me to demonstrate my accomplishment of the course learning goals.',  # noqa: E501
-    'Feedback': 'In this course, I received feedback that improved my ability to meet the course learning goals.',  # noqa: E501
-    'Course Overall': 'Overall, this course is:',
-    'Effort': 'I gave my best possible effort to learning in this course.',  # noqa: E501
-    'Workload': 'On average, for every hour I spent in this class, I spent \rule{3em}{0.4pt} outside of class completing work in this course (including studying, reading, writing, doing homework or lab work, etc.',  # noqa: E501
-    'Climate': 'The instructor created a respectful, engaging learning environment for students.',  # noqa: E501
-    'Instructor Overall': 'Overall, my instructor is:',
-    'Comments': 'Please provide any additional comments:',
+    'Course Activities': r'The course activities were effective in helping me accomplish the learning goals of this course.',  # noqa: E501
+    'Graded Events': r'In this course, the graded events provided the opportunity for me to demonstrate my accomplishment of the course learning goals.',  # noqa: E501
+    'Feedback': r'In this course, I received feedback that improved my ability to meet the course learning goals.',  # noqa: E501
+    'Course Overall': r'Overall, this course is:',
+    'Effort': r'I gave my best possible effort to learning in this course.',  # noqa: E501
+    'Workload': r'On average, for every hour I spent in this class, I spent \rule{3em}{0.4pt} outside of class completing work in this course (including studying, reading, writing, doing homework or lab work, etc.',  # noqa: E501
+    'Climate': r'The instructor created a respectful, engaging learning environment for students.',  # noqa: E501
+    'Instructor Overall': r'Overall, my instructor is:',
+    'Comments': r'Please provide any additional comments:',
 }
 
 
