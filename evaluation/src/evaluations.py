@@ -237,9 +237,10 @@ for instructor in instructors.index.unique(level='Instructor'):
         # create report
         template = environment.get_template('instructor.tex')
 
-        directory = os.path.join('./reports', instructor.replace(' ', '_'))
+        directory = os.path.join('reports', 'instructors',
+                                 instructor.replace(' ', '_'))
         if not os.path.isdir(directory):
-            os.mkdir(directory)
+            os.makedirs(directory)
 
         with open(os.path.join(directory,
                                '{}.tex'.format(course.replace(' ', '_'))),
