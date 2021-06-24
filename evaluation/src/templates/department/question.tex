@@ -1,0 +1,14 @@
+\begin{question}{ {{ label }} }
+  {{ prompt }}
+
+  \barplot[
+      symbolic y coords={{ '{' }}Academy,Department,{},{{ entities.keys() | reverse | join(',') }}{{ '}' }},
+  ]{
+    {% for entity, values in entities.items() -%}
+    ({{ values.mean }},{{ entity }}) +- ({{ values.error }},0)
+    {% endfor -%}
+    % aggregated statistics
+    ({{ department.mean }},Department) +- ({{ department.error }},0)
+    ({{ academy.mean }},Academy) +- ({{ academy.error }},0)
+  }
+\end{question}
