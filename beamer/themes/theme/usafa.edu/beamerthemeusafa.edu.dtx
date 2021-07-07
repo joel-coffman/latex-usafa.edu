@@ -146,6 +146,11 @@
 \RequirePackage{pgfopts}
 %    \end{macrocode}
 %
+% Require the \textsf{svg} package for graphics (e.g., logos).
+%    \begin{macrocode}
+\RequirePackage{svg}
+%    \end{macrocode}
+%
 % \subsection{Required Packages}
 % Use the \textsf{calc} package to compute the size of the logo.
 %    \begin{macrocode}
@@ -299,6 +304,37 @@
 \setbeamertemplate{footline}[usafa.edu]
 %    \end{macrocode}
 %
+% Create template for final slide.
+%    \begin{macrocode}
+\defbeamertemplate*{end page}{usafa.edu}{%
+%    \end{macrocode}
+% Correct the vertical alignment (|c| for center), which ordinarily has more space at the bottom of the slide due to different |fill|s.\footnote{Stack Exchange: beamer full vertical centering: \url{https://tex.stackexchange.com/a/247850}}
+%    \begin{macrocode}
+  \define@key{beamerframe}{c}[true]{%
+    \beamer@framebottomskip=\beamer@frametopskip\relax%
+  }
+%    \end{macrocode}
+% Insert a frame with the United States Air Force Academy shield.
+%    \begin{macrocode}
+  \begin{frame}[c,noframenumbering,plain]
+    \centering
+    % https://commons.wikimedia.org/wiki/File:US-AirForceAcademy-Shield.svg
+    \includesvg[
+        height=0.9\textheight,
+        width=0.9\textwidth,
+    ]{US-AirForceAcademy-Shield}
+  \end{frame}
+%    \end{macrocode}
+%    \begin{macrocode}
+}%
+%    \end{macrocode}
+%
+% Insert the final slide at the end of the presentation.
+%    \begin{macrocode}
+\AtEndDocument{%
+  \usebeamertemplate{end page}
+}
+%    \end{macrocode}
 %
 % End presentation mode.
 %    \begin{macrocode}
