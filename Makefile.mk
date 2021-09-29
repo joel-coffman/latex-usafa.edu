@@ -30,7 +30,7 @@ if grep -E '^\\@istfilename' $*.aux; then \
 fi
 files=$$(sed -n 's/\\@input{\(.*\)}/\1/p' $*.aux); \
 		if grep --quiet -E '\\(citation)' $*.aux $$files; then \
-			bibtex $*; \
+			BIBINPUTS=$(TEXINPUTS) bibtex $*; \
 		fi
 $(TEX) -draftmode $<
 if [ -f $*.idx ]; then makeindex $$(if [[ $< == *.dtx ]]; then echo -s gind.ist; fi) -o $*.ind $*.idx; fi
@@ -45,8 +45,8 @@ external := $(basename $(shell find . -name "*.url"))
 .SECONDARY: $(external)
 
 DEPENDENCIES = $(wildcard *.bib) $(external) \
-               $(wildcard $(CWD)/*.tex) \
-               $(wildcard $(CWD)/references.bib)
+               $(wildcard $(CWD)/include/*.bib) \
+               $(wildcard $(CWD)/include/*.tex)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
