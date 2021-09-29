@@ -20,7 +20,7 @@ $(subdirs):
 application.pdf: | supplements
 
 
-include $(shell git rev-parse --show-toplevel)/Makefile.mk
+include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
 # BEGIN remove for distribution
 
 
@@ -30,7 +30,7 @@ endef
 
 define patch-makefile
 $(create-parent-directories)
-sed "s|\$$(shell git rev-parse --show-toplevel)|$$(dirname $$(realpath --relative-to=$< .))|" $< | sed '/^# BEGIN remove for distribution/,/^# END remove for distribution/d' > $@
+sed "s|\$$(shell git rev-parse --show-toplevel)/texmf|$$(dirname $$(realpath --relative-to=$< .))|" $< | sed '/^# BEGIN remove for distribution/,/^# END remove for distribution/d' > $@
 endef
 
 
@@ -41,7 +41,7 @@ files := \
         statement.sty \
         supplements.sty \
         hyperfix.sty \
-        Makefile.mk
+        Makefile.tex
 files := $(addprefix $(distribution)/,$(files))
 
 $(files): | $(distribution)
@@ -52,7 +52,7 @@ $(distribution)/Makefile: Makefile
 $(distribution)/%/Makefile: %/Makefile
 	$(patch-makefile)
 
-$(distribution)/Makefile.mk: $(shell git rev-parse --show-toplevel)/Makefile.mk
+$(distribution)/Makefile.tex: $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
 	cp $< $@
 
 # set search path for packages: ./texmf is last resort due to its symlinks
