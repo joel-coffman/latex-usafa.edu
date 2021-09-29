@@ -1,3 +1,5 @@
+# vim: syntax=make
+
 # use Bash as the shell when interpreting the Makefile
 SHELL := /bin/bash
 
@@ -5,7 +7,7 @@ SHELL := /bin/bash
 where-am-i = $(word $(words $(MAKEFILE_LIST)), $(MAKEFILE_LIST))
 # location of this Makefile (presumably the root directory of a project)
 CWD := $(dir $(call where-am-i))
-CWD != realpath $(CWD) --relative-to=$(CURDIR)
+CWD != realpath $(CWD)/.. --relative-to=$(CURDIR)
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
@@ -45,8 +47,8 @@ external := $(basename $(shell find . -name "*.url"))
 .SECONDARY: $(external)
 
 DEPENDENCIES = $(wildcard *.bib) $(external) \
-               $(wildcard $(CWD)/include/*.bib) \
-               $(wildcard $(CWD)/include/*.tex)
+               $(wildcard $(CWD)/texmf/include/*.bib) \
+               $(wildcard $(CWD)/texmf/include/*.tex)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
