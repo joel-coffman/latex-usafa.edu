@@ -26,6 +26,7 @@ TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
 #       after `define' (see https://goo.gl/tml4Zi). If omitted, make assumes
 #       it to be '='.
 define compile-doc
+@$(RM) $*.sta
 $(TEX) -draftmode $<
 if grep -E '^\\@istfilename' $*.aux; then \
 		makeglossaries $* && $(TEX) -draftmode $<; \
@@ -73,7 +74,7 @@ vpath %.dtx $(CWD):$(addprefix $(CWD)/,$(packages))
 vpath %.sty $(CWD):$(addprefix $(CWD)/,$(packages))
 
 
-derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
+derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.sta *.toc *.vrb
 
 .PHONY: mostlyclean
 mostlyclean:
