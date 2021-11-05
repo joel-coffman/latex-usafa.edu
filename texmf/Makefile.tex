@@ -11,7 +11,6 @@ CWD != realpath $(CWD)/.. --relative-to=$(CURDIR)
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
-$(CWD)/Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
