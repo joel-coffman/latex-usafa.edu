@@ -17,7 +17,7 @@ Makefile: ;
 TEXINPUTS := .:$(TEXINPUTS):$(CWD)/texmf//:
 
 # define TEX as pdflatex
-TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape
+TEX = TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape
 
 # Define a "Canned Recipe" for compiling PDFs from *.{dtx,tex} files.
 #
