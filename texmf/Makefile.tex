@@ -28,7 +28,7 @@ define compile-doc
 @$(RM) $*.sta
 $(TEX) -draftmode $<
 if grep -E '^\\@istfilename' $*.aux; then \
-		makeglossaries $* && $(TEX) -draftmode $<; \
+		makeglossaries -d $(*D) $(*F) && $(TEX) -draftmode $<; \
 fi
 files=$$(sed -n 's/\\@input{\(.*\)}/\1/p' $*.aux); \
 		if grep --quiet -E '\\(citation)' $*.aux $$files; then \
