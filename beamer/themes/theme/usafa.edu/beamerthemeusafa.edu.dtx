@@ -141,6 +141,12 @@
 % Trebuchet~MS is used in the official template.
 % Fira Sans is a similar humanist sans-serif typeface that is distributed with \LaTeX.
 %
+% Require the \textsf{microtype} package to adjust tracking (i.e., letter spacing).
+%    \begin{macrocode}
+\RequirePackage{microtype}
+%    \end{macrocode}
+%
+%
 % Require the \textsf{pgfopts} package to parse package options.
 %    \begin{macrocode}
 \RequirePackage{pgfopts}
@@ -245,23 +251,50 @@
 % \end{macro}
 %
 % Define the footline template.
+%
+% Define the color and font style for the motto.
 %    \begin{macrocode}
+\setbeamercolor{motto in foot}{%
+  fg=Falcon 2000 Alternate Silver,
+}
+\setbeamerfont{motto in foot}{%
+  size=\scriptsize,
+  shape=\slshape,
+  series=\bfseries,
+}
+%    \end{macrocode}
+% Define the content of the ``motto in foot'' template.
+% \mintinline{latex}{\textls} adjusts the tracking (i.e., letter spacing) of its text based on the value of its optional argument (in thousands of an \texttt{em}).
+% Quoting from \textsf{microtype}'s documentation,
+% \begin{quote}
+%   \dots letterspacing lowercase text is held in abhorrence by honourable typographers.
+%   Unless you know what you are doing, you should probably only letterspace capitals or small capitals.
+% \end{quote}
+% Alas, this style reproduces that of the official presentation template (albeit not using spaces between each individual letter as the template does).
+%    \begin{macrocode}
+\setbeamertemplate{motto in foot}
+{
+  \strut
+  \textls[400]{%
+    Integrity $\boldsymbol{\strut\cdot}$
+    Service $\boldsymbol{\cdot}$
+    Excellence
+  }
+}
+
 \defbeamertemplate{footline}{usafa.edu}{%
   \leavevmode%
   \hbox{%
     \begin{beamercolorbox}[
-        dp=1.125ex,%
-        ht=2.5ex,%
+        dp=1.25ex,%
         leftskip=1em,%
         rightskip=1em,%
         wd=\paperwidth,%
     ]{palette quaternary}%
-      \hfil\rule{\paperwidth - 7em}{0.5pt}\hfil\par%
+      \hfil\rule{\paperwidth - 3em}{1pt}\hfil\par%
+      \vspace{0.2\baselineskip}%
       \hfill%
-      \smash{%
-        \usebeamerfont{page number in head/foot}%
-        Integrity $\boldsymbol{\cdot}$ Service $\boldsymbol{\cdot}$ Excellence%
-      }%
+      \usebeamertemplate***{motto in foot}%
       \hfill%
       \llap{%
         \usebeamerfont{page number in head/foot}%
@@ -414,24 +447,24 @@ q 0 -1 131 44 rectclip q
  l 11.309 18.099 l 9.039 18.099 l 10.004 21.338 l 17.449 21.338 l 18.359
  18.099 l 15.789 18.099 l 15.789 13.974 l 26.82 13.974 l 26.82 4.142 l 23.934
  4.142 l 23.934 0.017 l 34.328 0.017 l 34.328 4.142 l 31.441 4.142 l 31.441
- 13.974 l 37.43 13.974 l 37.43 12.322 l 41.184 12.322 l 41.184 19.752 l 
+ 13.974 l 37.43 13.974 l 37.43 12.322 l 41.184 12.322 l 41.184 19.752 l
 37.43 19.752 l 37.43 18.099 l 31.441 18.099 l 31.441 25.466 l 40.895 25.466
  l 40.895 22.716 l 45.227 22.716 l 45.227 29.595 l 23.934 29.595 l 23.934
- 25.466 l 26.82 25.466 l 26.82 18.099 l 23.398 18.099 l 15.906 42.252 l 
+ 25.466 l 26.82 25.466 l 26.82 18.099 l 23.398 18.099 l 15.906 42.252 l
 h
 11.27 42.252 m f
 63.867 31.791 m 63.867 30.341 62.863 29.502 61.531 29.502 c 60.176 29.502
  59.184 30.341 59.184 31.791 c 59.184 35.029 l 60.098 35.029 l 60.098 31.736
  l 60.098 30.779 60.73 30.302 61.531 30.302 c 62.328 30.302 62.949 30.779
  62.949 31.736 c 62.949 35.029 l 63.867 35.029 l h
-70.371 35.029 m 70.371 29.502 l 70.062 29.502 l 66.586 33.267 l 66.586 
+70.371 35.029 m 70.371 29.502 l 70.062 29.502 l 66.586 33.267 l 66.586
 29.591 l 65.672 29.591 l 65.672 35.119 l 65.992 35.119 l 69.457 31.365 l
  69.457 35.029 l h
 73.164 29.591 m 72.246 29.591 l 72.246 35.029 l 73.164 35.029 l h
-79.211 34.248 m 77.285 34.248 l 77.285 29.591 l 76.367 29.591 l 76.367 
+79.211 34.248 m 77.285 34.248 l 77.285 29.591 l 76.367 29.591 l 76.367
 34.248 l 74.449 34.248 l 74.449 35.029 l 79.211 35.029 l h
 84.25 34.248 m 81.414 34.248 l 81.414 32.853 l 83.551 32.853 l 83.551 32.095
- l 81.414 32.095 l 81.414 30.377 l 84.355 30.377 l 84.355 29.591 l 80.5 
+ l 81.414 32.095 l 81.414 30.377 l 84.355 30.377 l 84.355 29.591 l 80.5
 29.591 l 80.5 35.029 l 84.25 35.029 l h
 90.738 32.318 m 90.738 30.74 89.52 29.591 87.637 29.591 c 85.848 29.591
  l 85.848 35.029 l 87.637 35.029 l 89.52 35.029 90.738 33.923 90.738 32.318
@@ -457,10 +490,10 @@ h
 119.918 34.248 m 117.086 34.248 l 117.086 32.853 l 119.219 32.853 l 119.219
  32.095 l 117.086 32.095 l 117.086 30.377 l 120.023 30.377 l 120.023 29.591
  l 116.168 29.591 l 116.168 35.029 l 119.918 35.029 l h
-125.078 34.146 m 124.438 33.677 l 124.145 34.095 123.73 34.338 123.238 
+125.078 34.146 m 124.438 33.677 l 124.145 34.095 123.73 34.338 123.238
 34.338 c 122.777 34.338 122.371 34.123 122.371 33.677 c 122.371 33.267 122.703
- 33.119 123.168 32.904 c 123.809 32.623 l 124.672 32.244 125.172 31.826 
-125.172 31.076 c 125.172 30.111 124.352 29.502 123.262 29.502 c 122.312 
+ 33.119 123.168 32.904 c 123.809 32.623 l 124.672 32.244 125.172 31.826
+125.172 31.076 c 125.172 30.111 124.352 29.502 123.262 29.502 c 122.312
 29.502 121.543 29.963 121.109 30.681 c 121.758 31.15 l 122.086 30.697 122.547
  30.287 123.254 30.287 c 123.84 30.287 124.238 30.572 124.238 31.045 c 124.238
  31.47 123.902 31.634 123.402 31.857 c 122.77 32.138 l 122.035 32.459 121.438
@@ -472,12 +505,12 @@ h
  l 58.125 24.017 l 62.695 13.974 l 60.906 13.974 l h
 57.844 21.084 m 56.113 16.982 l 59.555 16.982 l h
 66.012 13.974 m 64.348 13.974 l 64.348 23.853 l 66.012 23.853 l h
-75.141 13.974 m 72.188 17.791 l 70.285 17.791 l 70.285 13.974 l 68.621 
+75.141 13.974 m 72.188 17.791 l 70.285 17.791 l 70.285 13.974 l 68.621
 13.974 l 68.621 23.853 l 72.406 23.853 l 74.512 23.853 75.926 22.627 75.926
  20.83 c 75.926 19.525 75.172 18.509 73.93 18.045 c 77.039 13.974 l h
 70.285 19.197 m 72.375 19.197 l 73.551 19.197 74.211 19.869 74.211 20.814
  c 74.211 21.771 73.551 22.443 72.375 22.443 c 70.285 22.443 l h
-89.594 22.431 m 84.598 22.431 l 84.598 19.482 l 88.715 19.482 l 88.715 
+89.594 22.431 m 84.598 22.431 l 84.598 19.482 l 88.715 19.482 l 88.715
 18.045 l 84.598 18.045 l 84.598 13.97 l 82.934 13.97 l 82.934 23.853 l 89.594
  23.853 l h
 101.422 18.912 m 101.422 16.009 98.973 13.806 95.973 13.806 c 92.941 13.806
@@ -491,15 +524,15 @@ h
  110.727 20.83 c 110.727 19.525 109.973 18.509 108.73 18.045 c 111.84 13.974
  l h
 105.086 19.197 m 107.176 19.197 l 108.352 19.197 109.012 19.869 109.012
- 20.814 c 109.012 21.771 108.352 22.443 107.176 22.443 c 105.086 22.443 
+ 20.814 c 109.012 21.771 108.352 22.443 107.176 22.443 c 105.086 22.443
 l h
 122.367 21.74 m 121.109 20.857 l 120.387 21.92 119.32 22.564 117.938 22.564
  c 115.801 22.564 114.195 21.021 114.195 18.912 c 114.195 16.802 115.801
- 15.259 117.938 15.259 c 119.316 15.259 120.387 15.904 121.109 16.966 c 
-122.367 16.084 l 121.504 14.705 119.867 13.806 117.922 13.806 c 114.887 
+ 15.259 117.938 15.259 c 119.316 15.259 120.387 15.904 121.109 16.966 c
+122.367 16.084 l 121.504 14.705 119.867 13.806 117.922 13.806 c 114.887
 13.806 112.469 16.009 112.469 18.912 c 112.469 21.802 114.887 24.017 117.922
  24.017 c 119.867 24.017 121.484 23.119 122.367 21.74 c h
-131.18 22.431 m 126.027 22.431 l 126.027 19.9 l 129.906 19.9 l 129.906 
+131.18 22.431 m 126.027 22.431 l 126.027 19.9 l 129.906 19.9 l 129.906
 18.521 l 126.027 18.521 l 126.027 15.392 l 131.367 15.392 l 131.367 13.97
  l 124.363 13.97 l 124.363 23.853 l 131.18 23.853 l h
 62.934 1.662 m 58.266 1.662 l 57.527 0.017 l 55.754 0.017 l 60.324 10.06
@@ -519,7 +552,7 @@ l h
 90.016 8.459 m 90.016 1.439 l 91.59 1.439 l 94.023 1.439 95.531 2.92 95.531
  4.97 c 95.531 7.08 94.023 8.459 91.59 8.459 c h
 106.043 8.474 m 100.891 8.474 l 100.891 5.943 l 104.77 5.943 l 104.77 4.564
- l 100.891 4.564 l 100.891 1.439 l 106.23 1.439 l 106.23 0.013 l 99.223 
+ l 100.891 4.564 l 100.891 1.439 l 106.23 1.439 l 106.23 0.013 l 99.223
 0.013 l 99.223 9.896 l 106.043 9.896 l h
 118.012 10.06 m 118.012 0.017 l 116.348 0.017 l 116.348 6.213 l 113.379
  2.502 l 112.812 2.502 l 109.828 6.213 l 109.828 0.017 l 108.164 0.017 l
@@ -550,30 +583,24 @@ end restore
 %%LanguageLevel: 2
 %%DocumentData: Clean7Bit
 %%Pages: 1
-%%DocumentNeededResources: 
+%%DocumentNeededResources:
 %%DocumentSuppliedResources: procset Adobe_AGM_Image 1.0 0
 %%+ procset Adobe_CoolType_Utility_T42 1.0 0
 %%+ procset Adobe_CoolType_Utility_MAKEOCF 1.23 0
 %%+ procset Adobe_CoolType_Core 2.31 0
 %%+ procset Adobe_AGM_Core 2.0 0
 %%+ procset Adobe_AGM_Utils 1.0 0
-%%DocumentFonts: 
-%%DocumentNeededFonts: 
-%%DocumentNeededFeatures: 
-%%DocumentSuppliedFeatures: 
-%%DocumentProcessColors: 
+%%DocumentFonts:
+%%DocumentNeededFonts:
+%%DocumentNeededFeatures:
+%%DocumentSuppliedFeatures:
+%%DocumentProcessColors:
 %%DocumentCustomColors: (USAFA Navy Blue)
 %%+ (USAFA Royal Blue)
 %%CMYKCustomColor: 1 0.7500 0.1000 0.5000 (USAFA Navy Blue)
 %%+ 1 0.7500 0 0.2500 (USAFA Royal Blue)
-%%RGBCustomColor: 
+%%RGBCustomColor:
 %%EndComments
-                                                                                                                               
-                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                         
 %%BeginDefaults
 %%ViewingOrientation: 1 0 0 1
 %%EndDefaults
@@ -589,12 +616,12 @@ userdict/Adobe_AGM_Utils 75 dict dup begin put
 /nd{null def}bdf
 /xdf
 {exch def}bdf
-/ldf 
+/ldf
 {load def}bdf
 /ddf
-{put}bdf	
+{put}bdf
 /xddf
-{3 -1 roll put}bdf	
+{3 -1 roll put}bdf
 /xpt
 {exch put}bdf
 /ndf
@@ -622,10 +649,10 @@ userdict/Adobe_AGM_Utils 75 dict dup begin put
 		1
 	}ifelse
 def
-/level2 
+/level2
 	ps_level 2 ge
 def
-/level3 
+/level3
 	ps_level 3 ge
 def
 /ps_version
@@ -759,14 +786,14 @@ def
 				currenthalftone
 			}ifelse
 		}ifelse
-}def 
+}def
 /rdcmntline
 {
 	currentfile AGMUTIL_str256 readline pop
 	(%)anchorsearch{pop}if
 }bdf
 /filter_cmyk
-{	
+{
 	dup type/filetype ne{
 		exch()/SubFileDecode filter
 	}{
@@ -796,7 +823,7 @@ def
 	cvi Names length mul names_index add Lookup exch get
 }bdf
 /filter_devn
-{	
+{
 	4 dict begin
 	/srcStr xdf
 	/dstStr xdf
@@ -847,7 +874,7 @@ def
 		}for
 		DeviceN_PS2{
 			imageDict begin
-		 	/DataSource[DataSource/devn_sep_datasource cvx]cvx def
+			/DataSource[DataSource/devn_sep_datasource cvx]cvx def
 			/MultipleDataSources false def
 			/Decode[0 1]def
 			end
@@ -860,9 +887,9 @@ def
 				{
 					Width Decode length 2 div mul cvi string
 				}repeat
-				end]def		
+				end]def
 			imageDict begin
-		 	/DataSource[AGMUTIL_imagefile Decode BitsPerComponent false 1/filter_indexed_devn load dstDataStr srcDataStrs devn_alt_datasource/exec cvx]cvx def
+			/DataSource[AGMUTIL_imagefile Decode BitsPerComponent false 1/filter_indexed_devn load dstDataStr srcDataStrs devn_alt_datasource/exec cvx]cvx def
 			/Decode[0 1]def
 			end
 		}{
@@ -874,7 +901,7 @@ def
 	load exec
 	imageDict/DataSource origDataSource put
 	imageDict/MultipleDataSources origMultipleDataSources put
-	imageDict/Decode origDecode put	
+	imageDict/Decode origDecode put
 	end
 }bdf
 /write_image_file
@@ -883,7 +910,7 @@ def
 	{(AGMUTIL_imagefile)(w+)file}stopped{
 		false
 	}{
-		Adobe_AGM_Utils/AGMUTIL_imagefile xddf 
+		Adobe_AGM_Utils/AGMUTIL_imagefile xddf
 		2 dict begin
 		/imbufLen Width BitsPerComponent mul 7 add 8 idiv def
 		MultipleDataSources{DataSource 0 get}{DataSource}ifelse type/filetype eq{
@@ -892,7 +919,7 @@ def
 		1 1 Height MultipleDataSources not{Decode length 2 idiv mul}if{
 			pop
 			MultipleDataSources{
-			 	0 1 DataSource length 1 sub{
+				0 1 DataSource length 1 sub{
 					DataSource type dup
 					/arraytype eq{
 						pop DataSource exch gx
@@ -930,7 +957,7 @@ def
 }def
 statusdict/product known userdict/AGMP_current_show known not and{
 	/pstr statusdict/product get def
-	pstr(HP LaserJet 2200)eq 	
+	pstr(HP LaserJet 2200)eq
 	pstr(HP LaserJet 4000 Series)eq or
 	pstr(HP LaserJet 4050 Series )eq or
 	pstr(HP LaserJet 8000 Series)eq or
@@ -943,9 +970,9 @@ statusdict/product known userdict/AGMP_current_show known not and{
 	pstr(HP LaserJet 5Si)eq or
 	pstr(HP LaserJet 1200 Series)eq or
 	pstr(HP LaserJet 1300 Series)eq or
-	pstr(HP LaserJet 4100 Series)eq or 
+	pstr(HP LaserJet 4100 Series)eq or
 	{
- 		userdict/AGMP_current_show/show load put
+		userdict/AGMP_current_show/show load put
 		userdict/show{
 		 currentcolorspace 0 get
 		 /Pattern eq
@@ -991,10 +1018,10 @@ statusdict/product known userdict/AGMP_current_show known not and{
 					{exit}if
 				}loop
 			pop
-			}if		
+			}if
 		}
 		{
-		/DataSource load type 
+		/DataSource load type
 		dup/filetype eq
 			{
 			1 dict begin
@@ -1026,23 +1053,23 @@ statusdict/product known userdict/AGMP_current_show known not and{
 {
 	currenthalftone dup length dict copy begin
 	 currentdict 2 index known{
-	 	1 index load dup length dict copy begin
+		1 index load dup length dict copy begin
 		currentdict/TransferFunction known{
 			/TransferFunction load
 		}{
 			currenttransfer
 		}ifelse
-		 addprocs/TransferFunction xdf 
+		 addprocs/TransferFunction xdf
 		 currentdict end def
 		currentdict end sethalftone
 	}{
 		currentdict/TransferFunction known{
-			/TransferFunction load 
+			/TransferFunction load
 		}{
 			currenttransfer
 		}ifelse
 		addprocs/TransferFunction xdf
-		currentdict end sethalftone		
+		currentdict end sethalftone
 		pop
 	}ifelse
 }def
@@ -1050,21 +1077,21 @@ statusdict/product known userdict/AGMP_current_show known not and{
 {
 	dup xcheck exch
 	dup length array exch
-	Adobe_AGM_Core/AGMCORE_tmp -1 ddf 
+	Adobe_AGM_Core/AGMCORE_tmp -1 ddf
 	{
-	Adobe_AGM_Core/AGMCORE_tmp 2 copy get 1 add ddf 
+	Adobe_AGM_Core/AGMCORE_tmp 2 copy get 1 add ddf
 	dup type/dicttype eq
 		{
 			Adobe_AGM_Core/AGMCORE_tmp get
 			exch
 			clonedict
-			Adobe_AGM_Core/AGMCORE_tmp 4 -1 roll ddf 
+			Adobe_AGM_Core/AGMCORE_tmp 4 -1 roll ddf
 		}if
 	dup type/arraytype eq
 		{
 			Adobe_AGM_Core/AGMCORE_tmp get exch
 			clonearray
-			Adobe_AGM_Core/AGMCORE_tmp 4 -1 roll ddf 
+			Adobe_AGM_Core/AGMCORE_tmp 4 -1 roll ddf
 		}if
 	exch dup
 	Adobe_AGM_Core/AGMCORE_tmp get 4 -1 roll put
@@ -1093,7 +1120,7 @@ statusdict/product known userdict/AGMP_current_show known not and{
 {
 	/indexed_colorspace_dict AGMCORE_gget dup null ne{
 		dup/CSDBase known{
-			/CSDBase get/CSD get_res/Names known 
+			/CSDBase get/CSD get_res/Names known
 		}{
 			pop false
 		}ifelse
@@ -1102,7 +1129,7 @@ statusdict/product known userdict/AGMP_current_show known not and{
 	}ifelse
 }bdf
 /DeviceN_NoneName
-{	
+{
 	/Names where{
 		pop
 		false Names
@@ -1146,10 +1173,10 @@ statusdict/product known userdict/AGMP_current_show known not and{
 /ReadBypdfmark_5
 {
 	currentfile exch 0 exch/SubFileDecode filter
-	/currentdistillerparams where 
+	/currentdistillerparams where
 	{pop currentdistillerparams/CoreDistVersion get 5000 lt}{true}ifelse
 	{flushfile cleartomark}
-	{/PUT pdfmark}ifelse 	
+	{/PUT pdfmark}ifelse
 }bdf
 /ReadBypdfmark_5_string
 {
@@ -1360,7 +1387,7 @@ setglobal
 }def
 /compose_error_msg
 {
-	grestoreall initgraphics	
+	grestoreall initgraphics
 	/Helvetica findfont 10 scalefont setfont
 	/AGMCORE_deltaY 100 def
 	/AGMCORE_deltaX 310 def
@@ -1368,7 +1395,7 @@ setglobal
 	0 AGMCORE_deltaY rlineto AGMCORE_deltaX 0 rlineto
 	0 AGMCORE_deltaY neg rlineto AGMCORE_deltaX neg 0 rlineto closepath
 	0 AGMCORE_&setgray
-	gsave 1 AGMCORE_&setgray fill grestore 
+	gsave 1 AGMCORE_&setgray fill grestore
 	1 setlinewidth gsave stroke grestore
 	currentpoint AGMCORE_deltaY 15 sub add exch 8 add exch moveto
 	/AGMCORE_deltaY 12 def
@@ -1420,7 +1447,7 @@ setglobal
 		{
 		pop currentdistillerparams/CoreDistVersion get 5000 lt
 			{<</DetectBlends false>>setdistillerparams}if
-		}if	
+		}if
 	/AGMCORE_ps_version xdf
 	/AGMCORE_ps_level xdf
 	errordict/AGM_handleerror known not{
@@ -1436,9 +1463,9 @@ setglobal
 			errordict/AGM_handleerror get exec
 			}bind put
 		}if
-	/AGMCORE_environ_ok 
+	/AGMCORE_environ_ok
 		ps_level AGMCORE_ps_level ge
-		ps_version AGMCORE_ps_version ge and 
+		ps_version AGMCORE_ps_version ge and
 		AGMCORE_ps_level -1 eq or
 	def
 	AGMCORE_environ_ok not
@@ -1504,7 +1531,7 @@ setglobal
 		}def
 		/grestoreall{
 			AGMCORE_&grestoreall
-			/AGMCORE_gstackptr AGMCORE_gstacksaveptr store 
+			/AGMCORE_gstackptr AGMCORE_gstacksaveptr store
 		}def
 		/save{
 			AGMCORE_&save
@@ -1518,7 +1545,7 @@ setglobal
 		}def
 		/setoverprint{
 			dup/AGMCORE_currentoverprint exch AGMCORE_gput AGMCORE_&setoverprint
-		}def	
+		}def
 		0 1 AGMCORE_gstack length 1 sub{
 				AGMCORE_gstack exch AGMCORE_gstackframekeys dict put
 		}for
@@ -1582,7 +1609,7 @@ setglobal
 	/AGMCORE_magenta_plate 0 1 0 0 test_cmyk_color_plate def
 	/AGMCORE_yellow_plate 0 0 1 0 test_cmyk_color_plate def
 	/AGMCORE_black_plate 0 0 0 1 test_cmyk_color_plate def
-	/AGMCORE_plate_ndx 
+	/AGMCORE_plate_ndx
 		AGMCORE_cyan_plate{
 			0
 		}{
@@ -1616,7 +1643,7 @@ setglobal
 		/AGMCORE_in_rip_sep where{
 			pop AGMCORE_in_rip_sep
 		}{
-			AGMCORE_distilling 
+			AGMCORE_distilling
 			{
 				false
 			}{
@@ -1638,7 +1665,7 @@ setglobal
 	def
 	/AGMCORE_producing_seps AGMCORE_composite_job not AGMCORE_in_rip_sep or def
 	/AGMCORE_host_sep AGMCORE_producing_seps AGMCORE_in_rip_sep not and def
-	/AGM_preserve_spots 
+	/AGM_preserve_spots
 		/AGM_preserve_spots where{
 			pop AGM_preserve_spots
 		}{
@@ -1711,7 +1738,7 @@ setglobal
 									pop pop pop true
 								}if
 							}if
-						}if					
+						}if
 						{
 							AGMCORE_name/HqnSpots/ProcSet findresource/TestSpot gx not
 						}{
@@ -1784,10 +1811,10 @@ setglobal
 				}ifelse
 			}ifelse
 		}def
-	}ifelse	
-	/AGMCORE_avoid_L2_sep_space 
-		version cvr 2012 lt 
-		level2 and 
+	}ifelse
+	/AGMCORE_avoid_L2_sep_space
+		version cvr 2012 lt
+		level2 and
 		AGMCORE_producing_seps not and
 	def
 	/AGMCORE_is_cmyk_sep
@@ -1796,8 +1823,8 @@ setglobal
 	/AGM_avoid_0_cmyk where{
 		pop AGM_avoid_0_cmyk
 	}{
-		AGM_preserve_spots 
-		userdict/Adobe_AGM_OnHost_Seps known 
+		AGM_preserve_spots
+		userdict/Adobe_AGM_OnHost_Seps known
 		userdict/Adobe_AGM_InRip_Seps known or
 		not and
 	}ifelse
@@ -1823,32 +1850,32 @@ setglobal
 			AGMCORE_cyan_plate{
 				pop pop pop
 			}{
-			 	AGMCORE_magenta_plate{
-			 		4 3 roll pop pop pop
-			 	}{
-			 		AGMCORE_yellow_plate{
-			 			4 2 roll pop pop pop
-			 		}{
-			 			4 1 roll pop pop pop
-			 		}ifelse
-			 	}ifelse
+				AGMCORE_magenta_plate{
+					4 3 roll pop pop pop
+				}{
+					AGMCORE_yellow_plate{
+						4 2 roll pop pop pop
+					}{
+						4 1 roll pop pop pop
+					}ifelse
+				}ifelse
 			}ifelse
-			settransfer 
-		}	
+			settransfer
+		}
 		def
 		/AGMCORE_get_ink_data
 			AGMCORE_cyan_plate{
 				{pop pop pop}
 			}{
-			 	AGMCORE_magenta_plate{
-			 		{4 3 roll pop pop pop}
-			 	}{
-			 		AGMCORE_yellow_plate{
-			 			{4 2 roll pop pop pop}
-			 		}{
-			 			{4 1 roll pop pop pop}
-			 		}ifelse
-			 	}ifelse
+				AGMCORE_magenta_plate{
+					{4 3 roll pop pop pop}
+				}{
+					AGMCORE_yellow_plate{
+						{4 2 roll pop pop pop}
+					}{
+						{4 1 roll pop pop pop}
+					}ifelse
+				}ifelse
 			}ifelse
 		def
 		/AGMCORE_RemoveProcessColorNames
@@ -1896,7 +1923,7 @@ setglobal
 					}ifelse
 				}def
 			/AGMCORE_filter_functiondatasource
-				{	
+				{
 				5 dict begin
 				/data_in xdf
 				data_in type/stringtype eq
@@ -1946,11 +1973,11 @@ setglobal
 							}{
 							/C0[1]def
 							/C1[1]def
-							}ifelse			
+							}ifelse
 						}if
 					FunctionType 3 eq
 						{
-						/Functions[Functions{channel paint? AGMCORE_separateShadingFunction}forall]def			
+						/Functions[Functions{channel paint? AGMCORE_separateShadingFunction}forall]def
 						}if
 					currentdict/Range known
 						{/Range[0 1]def}if
@@ -1993,7 +2020,7 @@ setglobal
 							}ifelse
 							ColorSpace 3 3 -1 roll bind put
 						}ifelse
-					ColorSpace 2/DeviceGray put																		
+					ColorSpace 2/DeviceGray put
 					}ifelse
 				end
 				}def
@@ -2004,7 +2031,7 @@ setglobal
 					{[exch]}if
 				dup 0 get/DeviceCMYK eq
 					{
-					exch begin 
+					exch begin
 					currentdict
 					AGMCORE_cyan_plate
 						{0 true}if
@@ -2015,7 +2042,7 @@ setglobal
 					AGMCORE_black_plate
 						{3 true}if
 					AGMCORE_plate_ndx 4 eq
-						{0 false}if		
+						{0 false}if
 					dup not currentoverprint and
 						{/AGMCORE_ignoreshade true def}if
 					AGMCORE_separateShading
@@ -2029,7 +2056,7 @@ setglobal
 						{
 						ColorSpace 1 get AGMCORE_IsCurrentColor AGMCORE_plate_ndx 4 lt and ColorSpace 1 get AGMCORE_IsSeparationAProcessColor not and
 							{
-							ColorSpace 2 get dup type/arraytype eq{0 get}if/DeviceCMYK eq 
+							ColorSpace 2 get dup type/arraytype eq{0 get}if/DeviceCMYK eq
 								{
 								/ColorSpace
 									[
@@ -2042,7 +2069,7 @@ setglobal
 										4 1/roll cvx
 										3[/pop cvx]cvx/repeat cvx
 										1/exch cvx/sub cvx
-										]cvx									
+										]cvx
 									]def
 								}{
 								AGMCORE_report_unsupported_color_space
@@ -2053,12 +2080,12 @@ setglobal
 								}ifelse
 							}{
 							currentdict ColorSpace 1 get AGMCORE_IsCurrentColor
-							0 exch 
+							0 exch
 							dup not currentoverprint and
 								{/AGMCORE_ignoreshade true def}if
 							AGMCORE_separateShading
-							}ifelse	
-						}if			
+							}ifelse
+						}if
 					currentdict
 					end exch
 					}if
@@ -2067,7 +2094,7 @@ setglobal
 					exch begin
 					ColorSpace 1 get convert_to_process
 						{
-						ColorSpace 2 get dup type/arraytype eq{0 get}if/DeviceCMYK eq 
+						ColorSpace 2 get dup type/arraytype eq{0 get}if/DeviceCMYK eq
 							{
 							/ColorSpace
 								[
@@ -2080,7 +2107,7 @@ setglobal
 									4 1/roll cvx
 									3[/pop cvx]cvx/repeat cvx
 									1/exch cvx/sub cvx
-									]cvx									
+									]cvx
 								]def
 							}{
 							AGMCORE_report_unsupported_color_space
@@ -2101,7 +2128,7 @@ setglobal
 								}if
 							1 add
 							}forall
-						exch 
+						exch
 						dup not currentoverprint and
 							{/AGMCORE_ignoreshade true def}if
 						AGMCORE_separateShading
@@ -2147,7 +2174,7 @@ setglobal
 				}def
 			/shfill
 				{
-				AGMCORE_separateShadingDict 
+				AGMCORE_separateShadingDict
 				dup/AGMCORE_ignoreshade known
 					{pop}
 					{AGMCORE_&sysshfill}ifelse
@@ -2276,9 +2303,9 @@ setglobal
 									/sep_colorspace_dict currentdict AGMCORE_gput
 									pop pop	pop
 									[
-										/Separation Name 
+										/Separation Name
 										CSA map_csa
-										MappedCSA 
+										MappedCSA
 										/sep_colorspace_proc load
 									]
 									dup Name
@@ -2287,7 +2314,7 @@ setglobal
 							}if
 							map_reserved_ink_name 1 xpt
 						}{
-							/DeviceN eq 
+							/DeviceN eq
 							{
 								dup length array copy
 								dup dup 1 get[
@@ -2298,7 +2325,7 @@ setglobal
 											}if
 										}if
 										map_reserved_ink_name
-									}forall 
+									}forall
 								]1 xpt
 							}if
 						}ifelse
@@ -2334,7 +2361,7 @@ setglobal
 				}if
 				DeviceN_PS2_inRip_seps{AGMCORE_&&&setcolorspace}if
 			}def
-		}if	
+		}if
 	}{
 		/adj
 		{
@@ -2495,7 +2522,7 @@ setglobal
 			3 1 roll
 			mul add
 		}for
-		ColorSpaceFamily/Separation eq 
+		ColorSpaceFamily/Separation eq
 		{sep}
 		{
 			ColorSpaceFamily/DeviceN eq
@@ -2503,13 +2530,13 @@ setglobal
 		}ifelse
 	}bdf
 	/sssetbackground{
-		aload pop 
-		ColorSpaceFamily/Separation eq 
+		aload pop
+		ColorSpaceFamily/Separation eq
 		{sep}
 		{
 			ColorSpaceFamily/DeviceN eq
 			{devn}{setcolor}ifelse
-		}ifelse	
+		}ifelse
 	}bdf
 	/RadialShade
 	{
@@ -2958,7 +2985,7 @@ def
 	/AGMCORE_tmp exch store
 	/sep_colorspace_dict AGMCORE_gget begin
 	currentdict/Components known{
-		Components aload pop 
+		Components aload pop
 		TintMethod/Lab eq{
 			2{AGMCORE_tmp mul NComponents 1 roll}repeat
 			LMax sub AGMCORE_tmp mul LMax add NComponents 1 roll
@@ -2988,7 +3015,7 @@ def
 }def
 /sep_proc_name
 {
-	dup 0 get 
+	dup 0 get
 	dup/DeviceRGB eq exch/DeviceCMYK eq or level2 not and has_color not and{
 		pop[/DeviceGray]
 		/sep_colorspace_gray_proc
@@ -3010,27 +3037,27 @@ def
 	CSA map_csa
 	/AGMCORE_sep_special Name dup()eq exch(All)eq or store
 	AGMCORE_avoid_L2_sep_space{
-		[/Indexed MappedCSA sep_proc_name 255 exch 
-			{255 div}/exec cvx 3 -1 roll[4 1 roll load/exec cvx]cvx 
+		[/Indexed MappedCSA sep_proc_name 255 exch
+			{255 div}/exec cvx 3 -1 roll[4 1 roll load/exec cvx]cvx
 		]setcolorspace_opt
 		/TintProc{
 			255 mul round cvi setcolor
 		}bdf
 	}{
-		MappedCSA 0 get/DeviceCMYK eq 
-		currentdict/Components known and 
+		MappedCSA 0 get/DeviceCMYK eq
+		currentdict/Components known and
 		AGMCORE_sep_special not and{
 			/TintProc[
-				Components aload pop Name findcmykcustomcolor 
+				Components aload pop Name findcmykcustomcolor
 				/exch cvx/setcustomcolor cvx
 			]cvx bdf
 		}{
- 			AGMCORE_host_sep Name(All)eq and{
- 				/TintProc{
-					1 exch sub setseparationgray 
+			AGMCORE_host_sep Name(All)eq and{
+				/TintProc{
+					1 exch sub setseparationgray
 				}bdf
- 			}{
-				AGMCORE_in_rip_sep MappedCSA 0 get/DeviceCMYK eq and 
+			}{
+				AGMCORE_in_rip_sep MappedCSA 0 get/DeviceCMYK eq and
 				AGMCORE_host_sep or
 				Name()eq and{
 					/TintProc[
@@ -3042,7 +3069,7 @@ def
 					]cvx bdf
 				}{
 					AGMCORE_producing_seps MappedCSA 0 get dup/DeviceCMYK eq exch/DeviceGray eq or and AGMCORE_sep_special not and{
-	 					/TintProc[
+						/TintProc[
 							/dup cvx
 							MappedCSA sep_proc_name cvx exch
 							0 get/DeviceGray eq{
@@ -3051,18 +3078,18 @@ def
 							/Name cvx/findcmykcustomcolor cvx/exch cvx
 							AGMCORE_host_sep{
 								AGMCORE_is_cmyk_sep
-								/Name cvx 
+								/Name cvx
 								/AGMCORE_IsSeparationAProcessColor load/exec cvx
-								/not cvx/and cvx 
+								/not cvx/and cvx
 							}{
 								Name inRip_spot_has_ink not
 							}ifelse
 							[
-		 						/pop cvx 1
+								/pop cvx 1
 							]cvx/if cvx
 							/setcustomcolor cvx
 						]cvx bdf
- 					}{
+					}{
 						/TintProc{setcolor}bdf
 						[/Separation Name MappedCSA sep_proc_name load]setcolorspace_opt
 					}ifelse
@@ -3076,22 +3103,22 @@ def
 }def
 /additive_blend
 {
- 	3 dict begin
- 	/numarrays xdf
- 	/numcolors xdf
- 	0 1 numcolors 1 sub
- 		{
- 		/c1 xdf
- 		1
- 		0 1 numarrays 1 sub
- 			{
+	3 dict begin
+	/numarrays xdf
+	/numcolors xdf
+	0 1 numcolors 1 sub
+		{
+		/c1 xdf
+		1
+		0 1 numarrays 1 sub
+			{
 			1 exch add/index cvx
- 			c1/get cvx/mul cvx
- 			}for
- 		numarrays 1 add 1/roll cvx 
- 		}for
- 	numarrays[/pop cvx]cvx/repeat cvx
- 	end
+			c1/get cvx/mul cvx
+			}for
+		numarrays 1 add 1/roll cvx
+		}for
+	numarrays[/pop cvx]cvx/repeat cvx
+	end
 }def
 /subtractive_blend
 {
@@ -3104,7 +3131,7 @@ def
 		1 1
 		0 1 numarrays 1 sub
 			{
-			1 3 3 -1 roll add/index cvx 
+			1 3 3 -1 roll add/index cvx
 			c1/get cvx/sub cvx/mul cvx
 			}for
 		/sub cvx
@@ -3132,7 +3159,7 @@ def
 }bdf
 /setdevicencolorspace
 {
-	dup/AliasedColorants known{false}{true}ifelse 
+	dup/AliasedColorants known{false}{true}ifelse
 	current_spot_alias and{
 		7 dict begin
 		/names_index 0 def
@@ -3160,9 +3187,9 @@ def
 					}ifelse
 				}ifelse
 				new_names names_index 3 -1 roll/Name get put
-				/alias_cnt alias_cnt 1 add def 
+				/alias_cnt alias_cnt 1 add def
 			}{
-				/name xdf				
+				/name xdf
 				new_names names_index name put
 				dup/LookupTables known{
 					dup begin
@@ -3174,7 +3201,7 @@ def
 					end
 				}ifelse
 			}ifelse
-			/names_index names_index 1 add def 
+			/names_index names_index 1 add def
 		}forall
 		alias_cnt 0 gt{
 			/AliasedColorants true def
@@ -3272,19 +3299,19 @@ def
 				}for
 			Names length[/pop cvx]cvx/repeat cvx
 			NComponents Names length
- 			TintMethod/Subtractive eq
- 				{
- 				subtractive_blend
- 				}{
- 				additive_blend
- 				}ifelse
+			TintMethod/Subtractive eq
+				{
+				subtractive_blend
+				}{
+				additive_blend
+				}ifelse
 		]cvx bdf
 	}if
 	AGMCORE_host_sep{
 		Names convert_to_process{
 			exec_tint_transform
 		}
-		{	
+		{
 			currentdict/AliasedColorants known{
 				AliasedColorants not
 			}{
@@ -3330,7 +3357,7 @@ def
 			}{
 				/devicen_colorspace_dict AGMCORE_gget/TintProc[
 					names_len[/pop cvx]cvx/repeat cvx 1/setseparationgray cvx
- 					0 0 0 0/setcmykcolor cvx
+					0 0 0 0/setcmykcolor cvx
 				]cvx ddf
 			}ifelse
 			end
@@ -3388,7 +3415,7 @@ def
 					}ifelse
 					currentgray
 					tableIndex exch
-					255 mul cvi 
+					255 mul cvi
 					NewLookup 3 1 roll put
 				}for
 				[/Indexed currentcolorspace HiVal NewLookup]setcolorspace_opt
@@ -3427,18 +3454,18 @@ def
 			AGMCORE_host_sep level2 not and{
 				0 0 0 0 setcmykcolor
 			}{
-				[/Indexed MappedCSA 
+				[/Indexed MappedCSA
 				level2 not has_color not and{
 					dup 0 get dup/DeviceRGB eq exch/DeviceCMYK eq or{
 						pop[/DeviceGray]
 					}if
 					HiVal GrayLookup
 				}{
-					HiVal 
+					HiVal
 					currentdict/RangeArray known{
 						{
 							/indexed_colorspace_dict AGMCORE_gget begin
-							Lookup exch 
+							Lookup exch
 							dup HiVal gt{
 								pop HiVal
 							}if
@@ -3512,7 +3539,7 @@ def
 /add_res
 {
 	dup/CSD eq{
-		pop 
+		pop
 		//Adobe_AGM_Core begin
 		/AGMCORE_CSD_cache load 3 1 roll put
 		end
@@ -3525,7 +3552,7 @@ def
 	{
 		aload pop exch
 		dup/CSD eq{
-			pop 
+			pop
 			{//Adobe_AGM_Core/AGMCORE_CSD_cache get exch undef}forall
 		}{
 			exch
@@ -3560,7 +3587,7 @@ def
 	dup/count get dup 0 get
 	dup 3 1 roll
 	1 add 0 xpt
-	get				
+	get
 }def
 /cachepaintproc_compress
 {
@@ -3569,10 +3596,10 @@ def
 	/ppdict 20 dict def
 	/string_size 16000 def
 	/readbuffer string_size string def
-	currentglobal true setglobal 
+	currentglobal true setglobal
 	ppdict 1 array dup 0 1 put/count xpt
 	setglobal
-	/LZWFilter 
+	/LZWFilter
 	{
 		exch
 		dup length 0 eq{
@@ -3582,13 +3609,13 @@ def
 		}ifelse
 		{string_size}{0}ifelse string
 	}/LZWEncode filter def
-	{		
+	{
 		ReadFilter readbuffer readstring
 		exch LZWFilter exch writestring
 		not{exit}if
 	}loop
 	LZWFilter closefile
-	ppdict				
+	ppdict
 	end
 }def
 /cachepaintproc
@@ -3596,7 +3623,7 @@ def
 	2 dict begin
 	currentfile exch 0 exch/SubFileDecode filter/ReadFilter exch def
 	/ppdict 20 dict def
-	currentglobal true setglobal 
+	currentglobal true setglobal
 	ppdict 1 array dup 0 1 put/count xpt
 	setglobal
 	{
@@ -3604,8 +3631,8 @@ def
 		ppdict dup length 1 sub 3 -1 roll put
 		not{exit}if
 	}loop
-	ppdict dup dup length 1 sub()put					
-	end	
+	ppdict dup dup length 1 sub()put
+	end
 }def
 /make_pattern
 {
@@ -3649,7 +3676,7 @@ def
 		currentcolorrendering/RenderingIntent get
 	}
 	{
-		Intent/AbsoluteColorimetric eq 
+		Intent/AbsoluteColorimetric eq
 		{
 			/absolute_colorimetric_crd AGMCORE_gget dup null eq
 		}
@@ -3669,7 +3696,7 @@ def
 			}ifelse
 		}ifelse
 		{
-			pop null	
+			pop null
 		}
 		{
 			/RenderingIntent known{null}{Intent}ifelse
@@ -3680,16 +3707,16 @@ def
 		{
 			pop pop systemdict/findcolorrendering known
 			{
- 				Intent findcolorrendering
- 				{
- 					/ColorRendering findresource true exch
- 				}
- 				{
- 					/ColorRendering findresource
+				Intent findcolorrendering
+				{
+					/ColorRendering findresource true exch
+				}
+				{
+					/ColorRendering findresource
 					product(Xerox Phaser 5400)ne
 					exch
- 				}ifelse
-				dup Intent/AbsoluteColorimetric eq 
+				}ifelse
+				dup Intent/AbsoluteColorimetric eq
 				{
 					/absolute_colorimetric_crd exch AGMCORE_gput
 				}
@@ -3751,7 +3778,7 @@ def
 				currentdict end
 			}if
 			setcolorrendering_opt
-		}if		
+		}if
 	}if
 }def
 /set_crd
@@ -3771,7 +3798,7 @@ def
 			currentdict/UCR known
 				{/UCR}{/AGMCORE_currentucr}ifelse
 			load setundercolorremoval
-			currentdict/BG known 
+			currentdict/BG known
 				{/BG}{/AGMCORE_currentbg}ifelse
 			load setblackgeneration
 			}if
@@ -3813,7 +3840,7 @@ def
 /cpaint_gsep
 {
 	//Adobe_AGM_Core/AGMCORE_ConvertToProcess get
-	{	
+	{
 		(%end_cpaint_gsep)flushinput
 	}if
 }def
@@ -3824,10 +3851,10 @@ def
 	currentfile token pop currentfile token pop mo
 	{
 		currentfile token pop dup type/stringtype eq
-			{pop exit}if 
-		0 exch rlineto 
+			{pop exit}if
+		0 exch rlineto
 		currentfile token pop dup type/stringtype eq
-			{pop exit}if 
+			{pop exit}if
 		0 rlineto
 	}loop
 }def
@@ -3839,7 +3866,7 @@ def
 /T1_grestore
 	level3
 	{/cliprestore}
-	{/grestore}ifelse 
+	{/grestore}ifelse
 	load def
 /set_spot_alias_ary
 {
@@ -3886,7 +3913,7 @@ def
 	/AGMCORE_SpotAliasAry2 where{
 		begin
 			/AGMCORE_name xdf
-			false	
+			false
 			AGMCORE_SpotAliasAry2{
 				dup/Name get AGMCORE_name eq{
 					/CSD get/CSD get_res
@@ -3971,12 +3998,12 @@ def
 	}if
 	AGMCORE_inverting{
 		[{1 exch sub}/exec load dup currenttransfer exch]cvx bind settransfer
- 		AGMCORE_distilling{
- 			erasepage
- 		}{
- 			gsave np clippath 1/setseparationgray where{pop setseparationgray}{setgray}ifelse
- 			/AGMIRS_&fill where{pop AGMIRS_&fill}{fill}ifelse grestore
- 		}ifelse
+		AGMCORE_distilling{
+			erasepage
+		}{
+			gsave np clippath 1/setseparationgray where{pop setseparationgray}{setgray}ifelse
+			/AGMIRS_&fill where{pop AGMIRS_&fill}{fill}ifelse grestore
+		}ifelse
 	}if
 	end
 }def
@@ -4050,8 +4077,8 @@ def
 }def
 /driver_check_media_override
 {
- 	/PrepsDict where
- 		{pop}
+	/PrepsDict where
+		{pop}
 		{
 		Adobe_AGM_Core/AGMCORE_Default_CTM get matrix currentmatrix ne
 		Adobe_AGM_Core/AGMCORE_Default_PageSize get type/arraytype eq
@@ -4077,7 +4104,7 @@ end
 systemdict/setpacking known
 {setpacking}if
 %%EndResource
-%%BeginResource: procset Adobe_CoolType_Core 2.31 0%%Copyright: Copyright 1997-2006 Adobe Systems Incorporated. All Rights Reserved.%%Version: 2.31 010 dict begin/Adobe_CoolType_Passthru currentdict def/Adobe_CoolType_Core_Defined userdict/Adobe_CoolType_Core known defAdobe_CoolType_Core_Defined	{/Adobe_CoolType_Core userdict/Adobe_CoolType_Core get def}ifuserdict/Adobe_CoolType_Core 70 dict dup begin put/Adobe_CoolType_Version 2.31 def/Level2?	systemdict/languagelevel known dup		{pop systemdict/languagelevel get 2 ge}	if defLevel2? not	{	/currentglobal false def	/setglobal/pop load def	/gcheck{pop false}bind def	/currentpacking false def	/setpacking/pop load def	/SharedFontDirectory 0 dict def	}ifcurrentpackingtrue setpackingcurrentglobal false setglobaluserdict/Adobe_CoolType_Data 2 copy known not	{2 copy 10 dict put}ifget	 begin	/@opStackCountByLevel 32 dict def	/@opStackLevel 0 def	/@dictStackCountByLevel 32 dict def	/@dictStackLevel 0 def	 endsetglobalcurrentglobal true setglobaluserdict/Adobe_CoolType_GVMFonts known not	{userdict/Adobe_CoolType_GVMFonts 10 dict put}ifsetglobalcurrentglobal false setglobaluserdict/Adobe_CoolType_LVMFonts known not	{userdict/Adobe_CoolType_LVMFonts 10 dict put}ifsetglobal/ct_VMDictPut	{	dup gcheck{Adobe_CoolType_GVMFonts}{Adobe_CoolType_LVMFonts}ifelse	3 1 roll put	}bind def/ct_VMDictUndef	{	dup Adobe_CoolType_GVMFonts exch known		{Adobe_CoolType_GVMFonts exch undef}		{			dup Adobe_CoolType_LVMFonts exch known			{Adobe_CoolType_LVMFonts exch undef}			{pop}			ifelse		}ifelse	}bind def/ct_str1 1 string def/ct_xshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			_ct_x _ct_y moveto			0			rmoveto		}		ifelse		/_ct_i _ct_i 1 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/ct_yshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			_ct_x _ct_y moveto			0 exch			rmoveto		}		ifelse		/_ct_i _ct_i 1 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/ct_xyshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			{_ct_na _ct_i 1 add get}stopped 			{pop pop pop}			{				_ct_x _ct_y moveto				rmoveto			}			ifelse		}		ifelse		/_ct_i _ct_i 2 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/xsh{{@xshow}stopped{Adobe_CoolType_Data begin ct_xshow end}if}bind def/ysh{{@yshow}stopped{Adobe_CoolType_Data begin ct_yshow end}if}bind def/xysh{{@xyshow}stopped{Adobe_CoolType_Data begin ct_xyshow end}if}bind defcurrentglobal true setglobal/ct_T3Defs{/BuildChar{	1 index/Encoding get exch get	1 index/BuildGlyph get exec}bind def/BuildGlyph{	exch begin	GlyphProcs exch get exec	end}bind def}bind defsetglobal/@_SaveStackLevels	{	Adobe_CoolType_Data		begin		/@vmState currentglobal def false setglobal		@opStackCountByLevel		@opStackLevel		2 copy known not			{			2 copy			3 dict dup/args			7 index			5 add array put			put get			}			{			get dup/args get dup length 3 index lt				{				dup length 5 add array exch				1 index exch 0 exch putinterval				1 index exch/args exch put				}				{pop}			ifelse			}		ifelse			begin			count 1 sub			1 index lt				{pop count}			if			dup/argCount exch def			dup 0 gt				{				args exch 0 exch getinterval 			astore pop				}				{pop}			ifelse			count			/restCount exch def			end		/@opStackLevel @opStackLevel 1 add def		countdictstack 1 sub		@dictStackCountByLevel exch @dictStackLevel exch put		/@dictStackLevel @dictStackLevel 1 add def		@vmState setglobal		end	}bind def/@_RestoreStackLevels	{	Adobe_CoolType_Data		begin		/@opStackLevel @opStackLevel 1 sub def		@opStackCountByLevel @opStackLevel get			begin			count restCount sub dup 0 gt				{{pop}repeat}				{pop}			ifelse			args 0 argCount getinterval{}forall			end		/@dictStackLevel @dictStackLevel 1 sub def		@dictStackCountByLevel @dictStackLevel get		end	countdictstack exch sub dup 0 gt		{{end}repeat}		{pop}	ifelse	}bind def/@_PopStackLevels	{	Adobe_CoolType_Data		begin		/@opStackLevel @opStackLevel 1 sub def		/@dictStackLevel @dictStackLevel 1 sub def		end	}bind def/@Raise	{	exch cvx exch errordict exch get exec	stop	}bind def/@ReRaise	{	cvx $error/errorname get errordict exch get exec	stop	}bind def/@Stopped	{	0 @#Stopped	}bind def/@#Stopped	{	@_SaveStackLevels	stopped		{@_RestoreStackLevels true}		{@_PopStackLevels false}	ifelse	}bind def/@Arg	{	Adobe_CoolType_Data		begin		@opStackCountByLevel @opStackLevel 1 sub get		begin		args exch		argCount 1 sub exch sub get		end		end	}bind defcurrentglobal true setglobal/CTHasResourceForAllBug	Level2?		{		1 dict dup				/@shouldNotDisappearDictValue true def				Adobe_CoolType_Data exch/@shouldNotDisappearDict exch put				begin				count @_SaveStackLevels					{(*){pop stop}128 string/Category resourceforall}				stopped pop				@_RestoreStackLevels				currentdict Adobe_CoolType_Data/@shouldNotDisappearDict get dup 3 1 roll ne dup 3 1 roll					{						 /@shouldNotDisappearDictValue known								{										 {												end												currentdict 1 index eq													{pop exit}												if										 }									 loop								}						 if					}					{						 pop						 end					}				ifelse		}		{false}	ifelse	deftrue setglobal/CTHasResourceStatusBug	Level2?		{		mark			{/steveamerige/Category resourcestatus}		stopped			{cleartomark true}			{cleartomark currentglobal not}		ifelse		}		{false}	ifelse	defsetglobal/CTResourceStatus		{		mark 3 1 roll		/Category findresource			begin			({ResourceStatus}stopped)0()/SubFileDecode filter cvx exec				{cleartomark false}				{{3 2 roll pop true}{cleartomark false}ifelse}			ifelse			end		}bind def/CTWorkAroundBugs	{	Level2?		{		/cid_PreLoad/ProcSet resourcestatus			{			pop pop			currentglobal			mark				{				(*)					{					dup/CMap CTHasResourceStatusBug						{CTResourceStatus}						{resourcestatus}					ifelse						{						pop dup 0 eq exch 1 eq or							{							dup/CMap findresource gcheck setglobal							/CMap undefineresource							}							{							pop CTHasResourceForAllBug								{exit}								{stop}							ifelse							}						ifelse						}						{pop}					ifelse					}				128 string/CMap resourceforall				}			stopped				{cleartomark}			stopped pop			setglobal			}		if		}	if	}bind def/ds	{	Adobe_CoolType_Core		begin		CTWorkAroundBugs		/mo/moveto load def		/nf/newencodedfont load def		/msf{makefont setfont}bind def		/uf{dup undefinefont ct_VMDictUndef}bind def		/ur/undefineresource load def		/chp/charpath load def		/awsh/awidthshow load def		/wsh/widthshow load def		/ash/ashow load def		/@xshow/xshow load def		/@yshow/yshow load def		/@xyshow/xyshow load def		/@cshow/cshow load def		/sh/show load def		/rp/repeat load def		/.n/.notdef def		end		currentglobal false setglobal	 userdict/Adobe_CoolType_Data 2 copy known not		 {2 copy 10 dict put}		if		get		begin		/AddWidths? false def		/CC 0 def		/charcode 2 string def		/@opStackCountByLevel 32 dict def		/@opStackLevel 0 def		/@dictStackCountByLevel 32 dict def		/@dictStackLevel 0 def		/InVMFontsByCMap 10 dict def		/InVMDeepCopiedFonts 10 dict def		end		setglobal	}bind def/dt	{	currentdict Adobe_CoolType_Core eq		{end}	if	}bind def/ps	{	Adobe_CoolType_Core begin	Adobe_CoolType_GVMFonts begin	Adobe_CoolType_LVMFonts begin	SharedFontDirectory begin	}bind def/pt	{	end	end	end	end	}bind def/unload	{	systemdict/languagelevel known		{		systemdict/languagelevel get 2 ge			{			userdict/Adobe_CoolType_Core 2 copy known				{undef}				{pop pop}			ifelse			}		if		}	if	}bind def/ndf	{	1 index where		{pop pop pop}		{dup xcheck{bind}if def}	ifelse	}def/findfont systemdict	begin	userdict		begin		/globaldict where{/globaldict get begin}if			dup where pop exch get		/globaldict where{pop end}if		end	endAdobe_CoolType_Core_Defined	{/systemfindfont exch def}	{	/findfont 1 index def	/systemfindfont exch def	}ifelse/undefinefont	{pop}ndf/copyfont	{	currentglobal 3 1 roll	1 index gcheck setglobal	dup null eq{0}{dup length}ifelse	2 index length add 1 add dict		begin		exch			{			1 index/FID eq				{pop pop}				{def}			ifelse			}		forall		dup null eq			{pop}			{{def}forall}		ifelse		currentdict		end	exch setglobal	}bind def/copyarray	{	currentglobal exch	dup gcheck setglobal	dup length array copy	exch setglobal	}bind def/newencodedfont	{	currentglobal		{		SharedFontDirectory 3 index known			{SharedFontDirectory 3 index get/FontReferenced known}			{false}		ifelse		}		{		FontDirectory 3 index known			{FontDirectory 3 index get/FontReferenced known}			{			SharedFontDirectory 3 index known				{SharedFontDirectory 3 index get/FontReferenced known}				{false}			ifelse			}		ifelse		}	ifelse	dup		{		3 index findfont/FontReferenced get		2 index dup type/nametype eq			{findfont}		if ne			{pop false}		if		}	if	dup		{		1 index dup type/nametype eq			{findfont}		 if		dup/CharStrings known			{			/CharStrings get length			4 index findfont/CharStrings get length			ne				{				pop false				}			if 			}			{pop}			ifelse		}	if		{		pop		1 index findfont		/Encoding get exch		0 1 255			{2 copy get 3 index 3 1 roll put}		for		pop pop pop		}		{		currentglobal	 4 1 roll		dup type/nametype eq		 {findfont}	 if	 dup gcheck setglobal		dup dup maxlength 2 add dict			begin			exch				{				1 index/FID ne				2 index/Encoding ne and					{def}					{pop pop}				ifelse				}			forall			/FontReferenced exch def			/Encoding exch dup length array copy def			/FontName 1 index dup type/stringtype eq{cvn}if def dup			currentdict			end		definefont ct_VMDictPut		setglobal		}	ifelse	}bind def/SetSubstituteStrategy	{	$SubstituteFont		begin		dup type/dicttype ne			{0 dict}		if		currentdict/$Strategies known			{			exch $Strategies exch 			2 copy known				{				get				2 copy maxlength exch maxlength add dict					begin					{def}forall					{def}forall					currentdict					dup/$Init known						{dup/$Init get exec}					if					end				/$Strategy exch def				}				{pop pop pop}			ifelse			}			{pop pop}		ifelse		end	}bind def/scff	{	$SubstituteFont		begin		dup type/stringtype eq			{dup length exch}			{null}		ifelse		/$sname exch def		/$slen exch def		/$inVMIndex			$sname null eq				{				1 index $str cvs				dup length $slen sub $slen getinterval cvn				}				{$sname}			ifelse def		end		{findfont}	@Stopped		{		dup length 8 add string exch		1 index 0(BadFont:)putinterval		1 index exch 8 exch dup length string cvs putinterval cvn			{findfont}		@Stopped			{pop/Courier findfont}		if		}	if	$SubstituteFont		begin		/$sname null def		/$slen 0 def		/$inVMIndex null def		end	}bind def/isWidthsOnlyFont	{	dup/WidthsOnly known		{pop pop true}		{		dup/FDepVector known			{/FDepVector get{isWidthsOnlyFont dup{exit}if}forall}			{			dup/FDArray known				{/FDArray get{isWidthsOnlyFont dup{exit}if}forall}				{pop}			ifelse			}		ifelse		}	ifelse	}bind def/ct_StyleDicts 4 dict dup begin		 /Adobe-Japan1 4 dict dup begin					 Level2?								{								/Serif								/HeiseiMin-W3-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiMin-W3}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiMin-W3/CIDFont resourcestatus								{pop pop/HeiseiMin-W3}								{/Ryumin-Light}								ifelse							}							{/Ryumin-Light}							ifelse								}								ifelse								def								/SansSerif								/HeiseiKakuGo-W5-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiKakuGo-W5}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiKakuGo-W5/CIDFont resourcestatus								{pop pop/HeiseiKakuGo-W5}								{/GothicBBB-Medium}								ifelse							}							{/GothicBBB-Medium}							ifelse								}								ifelse								def								/HeiseiMaruGo-W4-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiMaruGo-W4}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiMaruGo-W4/CIDFont resourcestatus								{pop pop/HeiseiMaruGo-W4}								{									/Jun101-Light-RKSJ-H/Font resourcestatus									{pop pop/Jun101-Light}									{SansSerif}									ifelse								}								ifelse							}							{								/Jun101-Light-RKSJ-H/Font resourcestatus								{pop pop/Jun101-Light}								{SansSerif}								ifelse							}							ifelse								}								ifelse								/RoundSansSerif exch def								/Default Serif def								}								{								/Serif/Ryumin-Light def								/SansSerif/GothicBBB-Medium def								{								(fonts/Jun101-Light-83pv-RKSJ-H)status								}stopped								{pop}{										 {pop pop pop pop/Jun101-Light}										 {SansSerif}										 ifelse										 /RoundSansSerif exch def								}ifelse								/Default Serif def								}					 ifelse		 end		 def		 /Adobe-Korea1 4 dict dup begin					/Serif/HYSMyeongJo-Medium def					/SansSerif/HYGoThic-Medium def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 def		 /Adobe-GB1 4 dict dup begin					/Serif/STSong-Light def					/SansSerif/STHeiti-Regular def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 def		 /Adobe-CNS1 4 dict dup begin					/Serif/MKai-Medium def					/SansSerif/MHei-Medium def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 defenddefLevel2?{currentglobal true setglobal}if/ct_BoldRomanWidthProc 	{	stringwidth 1 index 0 ne{exch .03 add exch}if setcharwidth	0 0	}bind def/ct_Type0WidthProc 	{	 dup stringwidth 0 0 moveto 	 2 index true charpath pathbbox	 0 -1 	 7 index 2 div .88 	 setcachedevice2	 pop	0 0	}bind def/ct_Type0WMode1WidthProc 	{	 dup stringwidth 	 pop 2 div neg -0.88	2 copy	moveto 	0 -1	 5 -1 roll true charpath pathbbox	 setcachedevice	}bind def/cHexEncoding[/c00/c01/c02/c03/c04/c05/c06/c07/c08/c09/c0A/c0B/c0C/c0D/c0E/c0F/c10/c11/c12/c13/c14/c15/c16/c17/c18/c19/c1A/c1B/c1C/c1D/c1E/c1F/c20/c21/c22/c23/c24/c25/c26/c27/c28/c29/c2A/c2B/c2C/c2D/c2E/c2F/c30/c31/c32/c33/c34/c35/c36/c37/c38/c39/c3A/c3B/c3C/c3D/c3E/c3F/c40/c41/c42/c43/c44/c45/c46/c47/c48/c49/c4A/c4B/c4C/c4D/c4E/c4F/c50/c51/c52/c53/c54/c55/c56/c57/c58/c59/c5A/c5B/c5C/c5D/c5E/c5F/c60/c61/c62/c63/c64/c65/c66/c67/c68/c69/c6A/c6B/c6C/c6D/c6E/c6F/c70/c71/c72/c73/c74/c75/c76/c77/c78/c79/c7A/c7B/c7C/c7D/c7E/c7F/c80/c81/c82/c83/c84/c85/c86/c87/c88/c89/c8A/c8B/c8C/c8D/c8E/c8F/c90/c91/c92/c93/c94/c95/c96/c97/c98/c99/c9A/c9B/c9C/c9D/c9E/c9F/cA0/cA1/cA2/cA3/cA4/cA5/cA6/cA7/cA8/cA9/cAA/cAB/cAC/cAD/cAE/cAF/cB0/cB1/cB2/cB3/cB4/cB5/cB6/cB7/cB8/cB9/cBA/cBB/cBC/cBD/cBE/cBF/cC0/cC1/cC2/cC3/cC4/cC5/cC6/cC7/cC8/cC9/cCA/cCB/cCC/cCD/cCE/cCF/cD0/cD1/cD2/cD3/cD4/cD5/cD6/cD7/cD8/cD9/cDA/cDB/cDC/cDD/cDE/cDF/cE0/cE1/cE2/cE3/cE4/cE5/cE6/cE7/cE8/cE9/cEA/cEB/cEC/cED/cEE/cEF/cF0/cF1/cF2/cF3/cF4/cF5/cF6/cF7/cF8/cF9/cFA/cFB/cFC/cFD/cFE/cFF]def/ct_BoldBaseFont 	 11 dict begin		/FontType 3 def		/FontMatrix[1 0 0 1 0 0]def		/FontBBox[0 0 1 1]def		/Encoding cHexEncoding def 		/_setwidthProc/ct_BoldRomanWidthProc load def		/_bcstr1 1 string def		/BuildChar		{			exch begin				_basefont setfont				_bcstr1 dup 0 4 -1 roll put				dup 				_setwidthProc				3 copy 				moveto								show				_basefonto setfont				moveto				show			end		}bind def		 currentdict	 end defsystemdict/composefont known{/ct_DefineIdentity-H{	/Identity-H/CMap resourcestatus	{		pop pop	}	{		/CIDInit/ProcSet findresource begin		 12 dict begin		 begincmap		 /CIDSystemInfo 3 dict dup begin			 /Registry(Adobe)def			 /Ordering(Identity)def			 /Supplement 0 def		 end def		 /CMapName/Identity-H def		 /CMapVersion 1.000 def		 /CMapType 1 def		 1 begincodespacerange		 <0000><FFFF>		 endcodespacerange		 1 begincidrange		 <0000><FFFF>0		 endcidrange		 endcmap		 CMapName currentdict/CMap defineresource pop		 end		 end	 }	 ifelse}def/ct_BoldBaseCIDFont 	 11 dict begin		/CIDFontType 1 def		/CIDFontName/ct_BoldBaseCIDFont def		/FontMatrix[1 0 0 1 0 0]def		/FontBBox[0 0 1 1]def		/_setwidthProc/ct_Type0WidthProc load def		/_bcstr2 2 string def		/BuildGlyph		{			exch begin		 				_basefont setfont				_bcstr2 1 2 index 256 mod put				_bcstr2 0 3 -1 roll 256 idiv put				_bcstr2 dup _setwidthProc		 				3 copy 				moveto				show				_basefonto setfont				moveto				show			end		}bind def		 currentdict	 end def}ifLevel2?{setglobal}if/ct_CopyFont{	{		1 index/FID ne 2 index/UniqueID ne and		{def}{pop pop}ifelse	}forall}bind def/ct_Type0CopyFont {	exch	dup length dict	begin	ct_CopyFont	[	exch	FDepVector 	{		 dup/FontType get 0 eq		{			1 index ct_Type0CopyFont 		/_ctType0 exch definefont		}		{		/_ctBaseFont exch		2 index exec		}		 ifelse 		 exch	}	forall 	pop	]					/FDepVector exch def	currentdict	end}bind def/ct_MakeBoldFont{	 dup/ct_SyntheticBold known	{		dup length 3 add dict begin 		ct_CopyFont 		/ct_StrokeWidth .03 0 FontMatrix idtransform pop def 		/ct_SyntheticBold true def		currentdict 		end 		definefont	}	{		dup dup length 3 add dict		begin			ct_CopyFont			/PaintType 2 def			/StrokeWidth .03 0 FontMatrix idtransform pop def			/dummybold currentdict		end		definefont		dup/FontType get dup 9 ge exch 11 le and 		{			ct_BoldBaseCIDFont			dup length 3 add dict copy begin			dup/CIDSystemInfo get/CIDSystemInfo exch def			ct_DefineIdentity-H			/_Type0Identity/Identity-H 3 -1 roll[exch]composefont			/_basefont exch def			/_Type0Identity/Identity-H 3 -1 roll[exch]composefont			/_basefonto exch def			currentdict			end			/CIDFont defineresource		}		{			ct_BoldBaseFont			dup length 3 add dict copy begin			/_basefont exch def			/_basefonto exch def			currentdict			end			definefont		}		ifelse	}	ifelse}bind def/ct_MakeBold{	1 index 	1 index	findfont	currentglobal 5 1 roll	dup gcheck setglobal		dup		 /FontType get 0 eq			{				dup/WMode known{dup/WMode get 1 eq}{false}ifelse				version length 4 ge				and					{version 0 4 getinterval cvi 2015 ge}					{true}				ifelse 					{/ct_Type0WidthProc}					{/ct_Type0WMode1WidthProc}				ifelse				ct_BoldBaseFont/_setwidthProc 3 -1 roll load put						{ct_MakeBoldFont}ct_Type0CopyFont definefont			}			{				dup/_fauxfont known not 1 index/SubstMaster known not and				{					 ct_BoldBaseFont/_setwidthProc /ct_BoldRomanWidthProc load put					 ct_MakeBoldFont 				}				{				2 index 2 index eq					{exch pop	}					{						dup length dict begin						ct_CopyFont						currentdict						end						definefont 					}				ifelse				}			ifelse			}		 ifelse		 pop pop pop		 setglobal}bind def/?str1 256 string def/?set	{	$SubstituteFont		begin		/$substituteFound false def		/$fontname 1 index def		/$doSmartSub false def		end	dup	 findfont	$SubstituteFont		begin		$substituteFound			{false}			{			dup/FontName known				{				dup/FontName get $fontname eq				1 index/DistillerFauxFont known not and				/currentdistillerparams where					{pop false 2 index isWidthsOnlyFont not and}				if				}				{false}			ifelse			}		ifelse		exch pop		/$doSmartSub true def		end		{		5 1 roll pop pop pop pop		findfont		}		{		1 index		findfont		dup/FontType get 3 eq		{			6 1 roll pop pop pop pop pop false		}		{pop true}		ifelse		{		$SubstituteFont		begin		pop pop		/$styleArray 1 index def		/$regOrdering 2 index def		pop pop		0 1 $styleArray length 1 sub		{			$styleArray exch get			ct_StyleDicts $regOrdering			2 copy known			{				get				exch 2 copy known not				{pop/Default}				if				get				dup type/nametype eq				{				?str1 cvs length dup 1 add exch				?str1 exch(-)putinterval				exch dup length exch ?str1 exch 3 index exch putinterval				add ?str1 exch 0 exch getinterval cvn				}				{				pop pop/Unknown				}				ifelse			}			{				pop pop pop pop/Unknown			}			ifelse		}		for		end		findfont 		}if		}	ifelse	currentglobal false setglobal 3 1 roll	null copyfont definefont pop	setglobal	}bind defsetpackinguserdict/$SubstituteFont 25 dict put1 dict	begin	/SubstituteFont		dup $error exch 2 copy known			{get}			{pop pop{pop/Courier}bind}		ifelse def	/currentdistillerparams where dup		{		pop pop		currentdistillerparams/CannotEmbedFontPolicy 2 copy known			{get/Error eq}			{pop pop false}		ifelse		}	if not		{		countdictstack array dictstack 0 get			begin			userdict				begin				$SubstituteFont					begin					/$str 128 string def					/$fontpat 128 string def					/$slen 0 def					/$sname null def					/$match false def					/$fontname null def					/$substituteFound false def					/$inVMIndex null def					/$doSmartSub true def					/$depth 0 def					/$fontname null def					/$italicangle 26.5 def					/$dstack null def					/$Strategies 10 dict dup						begin						/$Type3Underprint							{							currentglobal exch false setglobal							11 dict								begin								/UseFont exch									$WMode 0 ne										{										dup length dict copy										dup/WMode $WMode put										/UseFont exch definefont										}									if def								/FontName $fontname dup type/stringtype eq{cvn}if def								/FontType 3 def								/FontMatrix[.001 0 0 .001 0 0]def								/Encoding 256 array dup 0 1 255{/.notdef put dup}for pop def								/FontBBox[0 0 0 0]def								/CCInfo 7 dict dup									begin									/cc null def									/x 0 def									/y 0 def									end def								/BuildChar									{									exch										begin										CCInfo											begin											1 string dup 0 3 index put exch pop											/cc exch def											UseFont 1000 scalefont setfont											cc stringwidth/y exch def/x exch def											x y setcharwidth											$SubstituteFont/$Strategy get/$Underprint get exec											0 0 moveto cc show											x y moveto											end										end									}bind def								currentdict								end							exch setglobal							}bind def						/$GetaTint							2 dict dup								begin								/$BuildFont									{									dup/WMode known										{dup/WMode get}										{0}									ifelse									/$WMode exch def									$fontname exch									dup/FontName known										{										dup/FontName get										dup type/stringtype eq{cvn}if										}										{/unnamedfont}									ifelse									exch									Adobe_CoolType_Data/InVMDeepCopiedFonts get									1 index/FontName get known										{										pop										Adobe_CoolType_Data/InVMDeepCopiedFonts get										1 index get										null copyfont										}										{$deepcopyfont}									ifelse									exch 1 index exch/FontBasedOn exch put									dup/FontName $fontname dup type/stringtype eq{cvn}if put									definefont									Adobe_CoolType_Data/InVMDeepCopiedFonts get										begin										dup/FontBasedOn get 1 index def										end									}bind def								/$Underprint									{									gsave									x abs y abs gt										{/y 1000 def}										{/x -1000 def 500 120 translate}									ifelse									Level2?										{										[/Separation(All)/DeviceCMYK{0 0 0 1 pop}]										setcolorspace										}										{0 setgray}									ifelse									10 setlinewidth									x .8 mul									[7 3]										{										y mul 8 div 120 sub x 10 div exch moveto										0 y 4 div neg rlineto										dup 0 rlineto										0 y 4 div rlineto										closepath										gsave										Level2?											{.2 setcolor}											{.8 setgray}										ifelse										fill grestore										stroke										}									forall									pop									grestore									}bind def								end def						/$Oblique							1 dict dup								begin								/$BuildFont									{									currentglobal exch dup gcheck setglobal									null copyfont										begin										/FontBasedOn										currentdict/FontName known											{											FontName											dup type/stringtype eq{cvn}if											}											{/unnamedfont}										ifelse										def										/FontName $fontname dup type/stringtype eq{cvn}if def										/currentdistillerparams where											{pop}											{											/FontInfo currentdict/FontInfo known												{FontInfo null copyfont}												{2 dict}											ifelse											dup												begin												/ItalicAngle $italicangle def												/FontMatrix FontMatrix												[1 0 ItalicAngle dup sin exch cos div 1 0 0]												matrix concatmatrix readonly												end											4 2 roll def											def											}										ifelse										FontName currentdict										end									definefont									exch setglobal									}bind def								end def						/$None							1 dict dup								begin								/$BuildFont{}bind def								end def						end def					/$Oblique SetSubstituteStrategy					/$findfontByEnum						{						dup type/stringtype eq{cvn}if						dup/$fontname exch def						$sname null eq							{$str cvs dup length $slen sub $slen getinterval}							{pop $sname}						ifelse						$fontpat dup 0(fonts/*)putinterval exch 7 exch putinterval						/$match false def						$SubstituteFont/$dstack countdictstack array dictstack put						mark							{							$fontpat 0 $slen 7 add getinterval								{/$match exch def exit}							$str filenameforall							}						stopped							{							cleardictstack							currentdict							true							$SubstituteFont/$dstack get								{								exch									{									1 index eq										{pop false}										{true}									ifelse									}									{begin false}								ifelse								}							forall							pop							}						if						cleartomark						/$slen 0 def						$match false ne							{$match(fonts/)anchorsearch pop pop cvn}							{/Courier}						ifelse						}bind def					/$ROS 1 dict dup						begin						/Adobe 4 dict dup							begin							/Japan1 [/Ryumin-Light/HeiseiMin-W3										 /GothicBBB-Medium/HeiseiKakuGo-W5										 /HeiseiMaruGo-W4/Jun101-Light]def							/Korea1 [/HYSMyeongJo-Medium/HYGoThic-Medium]def							/GB1	 [/STSong-Light/STHeiti-Regular]def							/CNS1	[/MKai-Medium/MHei-Medium]def							end def						end def					/$cmapname null def					/$deepcopyfont						{						dup/FontType get 0 eq							{							1 dict dup/FontName/copied put copyfont								begin								/FDepVector FDepVector copyarray								0 1 2 index length 1 sub									{									2 copy get $deepcopyfont									dup/FontName/copied put									/copied exch definefont									3 copy put pop pop									}								for								def								currentdict								end							}							{$Strategies/$Type3Underprint get exec}						ifelse						}bind def					/$buildfontname						{						dup/CIDFont findresource/CIDSystemInfo get							begin							Registry length Ordering length Supplement 8 string cvs							3 copy length 2 add add add string							dup 5 1 roll dup 0 Registry putinterval							dup 4 index(-)putinterval							dup 4 index 1 add Ordering putinterval							4 2 roll add 1 add 2 copy(-)putinterval							end						1 add 2 copy 0 exch getinterval $cmapname $fontpat cvs exch						anchorsearch							{pop pop 3 2 roll putinterval cvn/$cmapname exch def}							{pop pop pop pop pop}						ifelse						length						$str 1 index(-)putinterval 1 add						$str 1 index $cmapname $fontpat cvs putinterval						$cmapname length add						$str exch 0 exch getinterval cvn						}bind def					/$findfontByROS						{						/$fontname exch def						$ROS Registry 2 copy known							{							get Ordering 2 copy known								{get}								{pop pop[]}							ifelse							}							{pop pop[]}						ifelse						false exch							{							dup/CIDFont resourcestatus								{								pop pop								save								1 index/CIDFont findresource								dup/WidthsOnly known									{dup/WidthsOnly get}									{false}								ifelse								exch pop								exch restore									{pop}									{exch pop true exit}								ifelse								}								{pop}							ifelse							}						forall							{$str cvs $buildfontname}							{							false(*)								{								save exch								dup/CIDFont findresource								dup/WidthsOnly known									{dup/WidthsOnly get not}									{true}								ifelse								exch/CIDSystemInfo get								dup/Registry get Registry eq								exch/Ordering get Ordering eq and and									{exch restore exch pop true exit}									{pop restore}								ifelse								}							$str/CIDFont resourceforall								{$buildfontname}								{$fontname $findfontByEnum}							ifelse							}						ifelse						}bind def					end				end				currentdict/$error known currentdict/languagelevel known and dup					{pop $error/SubstituteFont known}				if				dup					{$error}					{Adobe_CoolType_Core}				ifelse				begin					{					/SubstituteFont					/CMap/Category resourcestatus						{						pop pop						{						$SubstituteFont							begin							/$substituteFound true def							dup length $slen gt							$sname null ne or							$slen 0 gt and								{								$sname null eq									{dup $str cvs dup length $slen sub $slen getinterval cvn}									{$sname}								ifelse								Adobe_CoolType_Data/InVMFontsByCMap get								1 index 2 copy known									{									get									false exch										{										pop										currentglobal											{											GlobalFontDirectory 1 index known												{exch pop true exit}												{pop}											ifelse											}											{											FontDirectory 1 index known												{exch pop true exit}												{												GlobalFontDirectory 1 index known													{exch pop true exit}													{pop}												ifelse												}											ifelse											}										ifelse										}									forall									}									{pop pop false}								ifelse									{									exch pop exch pop									}									{									dup/CMap resourcestatus										{										pop pop										dup/$cmapname exch def										/CMap findresource/CIDSystemInfo get{def}forall										$findfontByROS										}										{										128 string cvs										dup(-)search											{											3 1 roll search												{												3 1 roll pop													{dup cvi}												stopped													{pop pop pop pop pop $findfontByEnum}													{													4 2 roll pop pop													exch length													exch													2 index length													2 index													sub													exch 1 sub -1 0														{														$str cvs dup length														4 index														0														4 index														4 3 roll add														getinterval														exch 1 index exch 3 index exch														putinterval														dup/CMap resourcestatus															{															pop pop															4 1 roll pop pop pop															dup/$cmapname exch def															/CMap findresource/CIDSystemInfo get{def}forall															$findfontByROS															true exit															}															{pop}														ifelse														}													for													dup type/booleantype eq														{pop}														{pop pop pop $findfontByEnum}													ifelse													}												ifelse												}												{pop pop pop $findfontByEnum}											ifelse											}											{pop pop $findfontByEnum}										ifelse										}									ifelse									}								ifelse								}								{//SubstituteFont exec}							ifelse							/$slen 0 def							end						}						}						{						{						$SubstituteFont							begin							/$substituteFound true def							dup length $slen gt							$sname null ne or							$slen 0 gt and								{$findfontByEnum}								{//SubstituteFont exec}							ifelse							end						}						}					ifelse					bind readonly def					Adobe_CoolType_Core/scfindfont/systemfindfont load put					}					{					/scfindfont						{						$SubstituteFont							begin							dup systemfindfont							dup/FontName known								{dup/FontName get dup 3 index ne}								{/noname true}							ifelse							dup								{								/$origfontnamefound 2 index def								/$origfontname 4 index def/$substituteFound true def								}							if							exch pop								{								$slen 0 gt								$sname null ne								3 index length $slen gt or and									{									pop dup $findfontByEnum findfont									dup maxlength 1 add dict										begin											{1 index/FID eq{pop pop}{def}ifelse}										forall										currentdict										end									definefont									dup/FontName known{dup/FontName get}{null}ifelse									$origfontnamefound ne										{										$origfontname $str cvs print										( substitution revised, using )print										dup/FontName known											{dup/FontName get}{(unspecified font)}										ifelse										$str cvs print(.\n)print										}									if									}									{exch pop}								ifelse								}								{exch pop}							ifelse							end						}bind def					}				ifelse				end			end		Adobe_CoolType_Core_Defined not			{			Adobe_CoolType_Core/findfont				{				$SubstituteFont					begin					$depth 0 eq						{						/$fontname 1 index dup type/stringtype ne{$str cvs}if def						/$substituteFound false def						}					if					/$depth $depth 1 add def					end				scfindfont				$SubstituteFont					begin					/$depth $depth 1 sub def					$substituteFound $depth 0 eq and						{						$inVMIndex null ne							{dup $inVMIndex $AddInVMFont}						if						$doSmartSub							{							currentdict/$Strategy known								{$Strategy/$BuildFont get exec}							if							}						if						}					if					end				}bind put			}		if		}	if	end/$AddInVMFont	{	exch/FontName 2 copy known		{		get		1 dict dup begin exch 1 index gcheck def end exch		Adobe_CoolType_Data/InVMFontsByCMap get exch		$DictAdd		}		{pop pop pop}	ifelse	}bind def/$DictAdd	{	2 copy known not		{2 copy 4 index length dict put}	if	Level2? not		{		2 copy get dup maxlength exch length 4 index length add lt		2 copy get dup length 4 index length add exch maxlength 1 index lt			{			2 mul dict				begin				2 copy get{forall}def				2 copy currentdict put				end			}			{pop}		ifelse		}	if	get		begin			{def}		forall		end	}bind defendend%%EndResourcecurrentglobal true setglobal%%BeginResource: procset Adobe_CoolType_Utility_MAKEOCF 1.23 0%%Copyright: Copyright 1987-2006 Adobe Systems Incorporated.%%Version: 1.23 0systemdict/languagelevel known dup	{currentglobal false setglobal}	{false}ifelseexchuserdict/Adobe_CoolType_Utility 2 copy known	{2 copy get dup maxlength 27 add dict copy}	{27 dict}ifelse putAdobe_CoolType_Utility	begin	/@eexecStartData		 <BAB431EA07F209EB8C4348311481D9D3F76E3D15246555577D87BC510ED54E		 118C39697FA9F6DB58128E60EB8A12FA24D7CDD2FA94D221FA9EC8DA3E5E6A1C		 4ACECC8C2D39C54E7C946031DD156C3A6B4A09AD29E1867A>def	/@recognizeCIDFont null def	/ct_Level2? exch def	/ct_Clone? 1183615869 internaldict dup			/CCRun known not			exch/eCCRun known not			ct_Level2? and or defct_Level2?	{globaldict begin currentglobal true setglobal}if	/ct_AddStdCIDMap		ct_Level2?			{{				mark				Adobe_CoolType_Utility/@recognizeCIDFont currentdict put					{					((Hex)57 StartData					 0615 1e27 2c39 1c60 d8a8 cc31 fe2b f6e0					 7aa3 e541 e21c 60d8 a8c9 c3d0 6d9e 1c60					 d8a8 c9c2 02d7 9a1c 60d8 a849 1c60 d8a8					 cc36 74f4 1144 b13b 77)0()/SubFileDecode filter cvx exec					}				stopped					{					 cleartomark					 Adobe_CoolType_Utility/@recognizeCIDFont get					 countdictstack dup array dictstack					 exch 1 sub -1 0						 {						 2 copy get 3 index eq								{1 index length exch sub 1 sub{end}repeat exit}								{pop}						 ifelse						 }					 for					 pop pop					 Adobe_CoolType_Utility/@eexecStartData get eexec					}					{cleartomark}				ifelse			}}			{{				Adobe_CoolType_Utility/@eexecStartData get eexec			}}		ifelse bind defuserdict/cid_extensions knowndup{cid_extensions/cid_UpdateDB known and}if	{	 cid_extensions	 begin	/cid_GetCIDSystemInfo		{		 1 index type/stringtype eq			{exch cvn exch}		 if		 cid_extensions			 begin			 dup load 2 index known				{				 2 copy				 cid_GetStatusInfo				 dup null ne					{					 1 index load					 3 index get					 dup null eq						 {pop pop cid_UpdateDB}						 {						 exch						 1 index/Created get eq							 {exch pop exch pop}							 {pop cid_UpdateDB}						 ifelse						 }					 ifelse					}					{pop cid_UpdateDB}				 ifelse				}				{cid_UpdateDB}			 ifelse			 end		}bind def	 end	}ifct_Level2?	{end setglobal}if	/ct_UseNativeCapability? systemdict/composefont known def	/ct_MakeOCF 35 dict def	/ct_Vars 25 dict def	/ct_GlyphDirProcs 6 dict def	/ct_BuildCharDict 15 dict dup		begin		/charcode 2 string def		/dst_string 1500 string def		/nullstring()def		/usewidths? true def		end def	ct_Level2?{setglobal}{pop}ifelse	ct_GlyphDirProcs		begin		/GetGlyphDirectory			{			systemdict/languagelevel known				{pop/CIDFont findresource/GlyphDirectory get}				{				1 index/CIDFont findresource/GlyphDirectory				get dup type/dicttype eq					{					dup dup maxlength exch length sub 2 index lt						{						dup length 2 index add dict copy 2 index						/CIDFont findresource/GlyphDirectory 2 index put						}					if					}				if				exch pop exch pop				}			ifelse			+			}def		/+			{			systemdict/languagelevel known				{				currentglobal false setglobal				3 dict begin					/vm exch def				}				{1 dict begin}			ifelse			/$ exch def			systemdict/languagelevel known				{				vm setglobal				/gvm currentglobal def				$ gcheck setglobal				}			if			?{$ begin}if			}def		/?{$ type/dicttype eq}def		/|{			userdict/Adobe_CoolType_Data known				{			Adobe_CoolType_Data/AddWidths? known				{				 currentdict Adobe_CoolType_Data					begin					 begin						AddWidths?								{								Adobe_CoolType_Data/CC 3 index put								?{def}{$ 3 1 roll put}ifelse								CC charcode exch 1 index 0 2 index 256 idiv put								1 index exch 1 exch 256 mod put								stringwidth 2 array astore								currentfont/Widths get exch CC exch put								}								{?{def}{$ 3 1 roll put}ifelse}							ifelse					end				end				}				{?{def}{$ 3 1 roll put}ifelse}	ifelse				}				{?{def}{$ 3 1 roll put}ifelse}			ifelse			}def		/!			{			?{end}if			systemdict/languagelevel known				{gvm setglobal}			if			end			}def		/:{string currentfile exch readstring pop}executeonly def		end	ct_MakeOCF		begin		/ct_cHexEncoding		[/c00/c01/c02/c03/c04/c05/c06/c07/c08/c09/c0A/c0B/c0C/c0D/c0E/c0F/c10/c11/c12		/c13/c14/c15/c16/c17/c18/c19/c1A/c1B/c1C/c1D/c1E/c1F/c20/c21/c22/c23/c24/c25		/c26/c27/c28/c29/c2A/c2B/c2C/c2D/c2E/c2F/c30/c31/c32/c33/c34/c35/c36/c37/c38		/c39/c3A/c3B/c3C/c3D/c3E/c3F/c40/c41/c42/c43/c44/c45/c46/c47/c48/c49/c4A/c4B		/c4C/c4D/c4E/c4F/c50/c51/c52/c53/c54/c55/c56/c57/c58/c59/c5A/c5B/c5C/c5D/c5E		/c5F/c60/c61/c62/c63/c64/c65/c66/c67/c68/c69/c6A/c6B/c6C/c6D/c6E/c6F/c70/c71		/c72/c73/c74/c75/c76/c77/c78/c79/c7A/c7B/c7C/c7D/c7E/c7F/c80/c81/c82/c83/c84		/c85/c86/c87/c88/c89/c8A/c8B/c8C/c8D/c8E/c8F/c90/c91/c92/c93/c94/c95/c96/c97		/c98/c99/c9A/c9B/c9C/c9D/c9E/c9F/cA0/cA1/cA2/cA3/cA4/cA5/cA6/cA7/cA8/cA9/cAA		/cAB/cAC/cAD/cAE/cAF/cB0/cB1/cB2/cB3/cB4/cB5/cB6/cB7/cB8/cB9/cBA/cBB/cBC/cBD		/cBE/cBF/cC0/cC1/cC2/cC3/cC4/cC5/cC6/cC7/cC8/cC9/cCA/cCB/cCC/cCD/cCE/cCF/cD0		/cD1/cD2/cD3/cD4/cD5/cD6/cD7/cD8/cD9/cDA/cDB/cDC/cDD/cDE/cDF/cE0/cE1/cE2/cE3		/cE4/cE5/cE6/cE7/cE8/cE9/cEA/cEB/cEC/cED/cEE/cEF/cF0/cF1/cF2/cF3/cF4/cF5/cF6		/cF7/cF8/cF9/cFA/cFB/cFC/cFD/cFE/cFF]def		/ct_CID_STR_SIZE 8000 def		/ct_mkocfStr100 100 string def		/ct_defaultFontMtx[.001 0 0 .001 0 0]def		/ct_1000Mtx[1000 0 0 1000 0 0]def		/ct_raise{exch cvx exch errordict exch get exec stop}bind def		/ct_reraise			{cvx $error/errorname get(Error: )print dup(						 )cvs print					errordict exch get exec stop			}bind def		/ct_cvnsi			{			1 index add 1 sub 1 exch 0 4 1 roll				{				2 index exch get				exch 8 bitshift				add				}			for			exch pop			}bind def		/ct_GetInterval			{			Adobe_CoolType_Utility/ct_BuildCharDict get				begin				/dst_index 0 def				dup dst_string length gt					{dup string/dst_string exch def}				if				1 index ct_CID_STR_SIZE idiv				/arrayIndex exch def				2 index arrayIndex get				2 index				arrayIndex ct_CID_STR_SIZE mul				sub					{					dup 3 index add 2 index length le						{						2 index getinterval						dst_string dst_index 2 index putinterval						length dst_index add/dst_index exch def						exit						}						{						1 index length 1 index sub						dup 4 1 roll						getinterval						dst_string dst_index 2 index putinterval						pop dup dst_index add/dst_index exch def						sub						/arrayIndex arrayIndex 1 add def						2 index dup length arrayIndex gt							 {arrayIndex get}							 {							 pop							 exit							 }						ifelse						0						}					ifelse					}				loop				pop pop pop				dst_string 0 dst_index getinterval				end			}bind def		ct_Level2?			{			/ct_resourcestatus			currentglobal mark true setglobal				{/unknowninstancename/Category resourcestatus}			stopped				{cleartomark setglobal true}				{cleartomark currentglobal not exch setglobal}			ifelse				{					{					mark 3 1 roll/Category findresource						begin						ct_Vars/vm currentglobal put						({ResourceStatus}stopped)0()/SubFileDecode filter cvx exec							{cleartomark false}							{{3 2 roll pop true}{cleartomark false}ifelse}						ifelse						ct_Vars/vm get setglobal						end					}				}				{{resourcestatus}}			ifelse bind def			/CIDFont/Category ct_resourcestatus				{pop pop}				{				currentglobal true setglobal				/Generic/Category findresource				dup length dict copy				dup/InstanceType/dicttype put				/CIDFont exch/Category defineresource pop				setglobal				}			ifelse			ct_UseNativeCapability?				{				/CIDInit/ProcSet findresource begin				12 dict begin				begincmap				/CIDSystemInfo 3 dict dup begin				 /Registry(Adobe)def				 /Ordering(Identity)def				 /Supplement 0 def				end def				/CMapName/Identity-H def				/CMapVersion 1.000 def				/CMapType 1 def				1 begincodespacerange				<0000><FFFF>				endcodespacerange				1 begincidrange				<0000><FFFF>0				endcidrange				endcmap				CMapName currentdict/CMap defineresource pop				end				end				}			if			}			{			/ct_Category 2 dict begin			/CIDFont 10 dict def			/ProcSet	2 dict def			currentdict			end			def			/defineresource				{				ct_Category 1 index 2 copy known					{					get					dup dup maxlength exch length eq						{						dup length 10 add dict copy						ct_Category 2 index 2 index put						}					if					3 index 3 index put					pop exch pop					}					{pop pop/defineresource/undefined ct_raise}				ifelse				}bind def			/findresource				{				ct_Category 1 index 2 copy known					{					get					2 index 2 copy known						{get 3 1 roll pop pop}						{pop pop/findresource/undefinedresource ct_raise}					ifelse					}					{pop pop/findresource/undefined ct_raise}				ifelse				}bind def			/resourcestatus				{				ct_Category 1 index 2 copy known					{					get					2 index known					exch pop exch pop						{						0 -1 true						}						{						false						}					ifelse					}					{pop pop/findresource/undefined ct_raise}				ifelse				}bind def			/ct_resourcestatus/resourcestatus load def			}		ifelse		/ct_CIDInit 2 dict			begin			/ct_cidfont_stream_init				{					{					dup(Binary)eq						{						pop						null						currentfile						ct_Level2?							{								{cid_BYTE_COUNT()/SubFileDecode filter}							stopped								{pop pop pop}							if							}						if						/readstring load						exit						}					if					dup(Hex)eq						{						pop						currentfile						ct_Level2?							{								{null exch/ASCIIHexDecode filter/readstring}							stopped								{pop exch pop(>)exch/readhexstring}							if							}							{(>)exch/readhexstring}						ifelse						load						exit						}					if					/StartData/typecheck ct_raise					}				loop				cid_BYTE_COUNT ct_CID_STR_SIZE le					{					2 copy cid_BYTE_COUNT string exch exec					pop					1 array dup					3 -1 roll					0 exch put					}					{					cid_BYTE_COUNT ct_CID_STR_SIZE div ceiling cvi					dup array exch 2 sub 0 exch 1 exch						{						2 copy						5 index						ct_CID_STR_SIZE						string						6 index exec						pop						put						pop						}					for					2 index					cid_BYTE_COUNT ct_CID_STR_SIZE mod string					3 index exec					pop					1 index exch					1 index length 1 sub					exch put					}				ifelse				cid_CIDFONT exch/GlyphData exch put				2 index null eq					{					pop pop pop					}					{					pop/readstring load					1 string exch						{						3 copy exec						pop						dup length 0 eq							{							pop pop pop pop pop							true exit							}						if						4 index						eq							{							pop pop pop pop							false exit							}						if						}					loop					pop					}				ifelse				}bind def			/StartData				{				mark					{					currentdict					dup/FDArray get 0 get/FontMatrix get					0 get 0.001 eq						{						dup/CDevProc known not							{							/CDevProc 1183615869 internaldict/stdCDevProc 2 copy known								{get}								{								pop pop								{pop pop pop pop pop 0 -1000 7 index 2 div 880}								}							ifelse							def							}						if						}						{						/CDevProc							{							 pop pop pop pop pop							 0							 1 cid_temp/cid_CIDFONT get							/FDArray get 0 get							/FontMatrix get 0 get div							 7 index 2 div							 1 index 0.88 mul							}def						}					ifelse					/cid_temp 15 dict def					cid_temp						begin						/cid_CIDFONT exch def						3 copy pop						dup/cid_BYTE_COUNT exch def 0 gt							{							ct_cidfont_stream_init							FDArray								{								/Private get								dup/SubrMapOffset known									{									begin									/Subrs SubrCount array def									Subrs									SubrMapOffset									SubrCount									SDBytes									ct_Level2?										{										currentdict dup/SubrMapOffset undef										dup/SubrCount undef										/SDBytes undef										}									if									end									/cid_SD_BYTES exch def									/cid_SUBR_COUNT exch def									/cid_SUBR_MAP_OFFSET exch def									/cid_SUBRS exch def									cid_SUBR_COUNT 0 gt										{										GlyphData cid_SUBR_MAP_OFFSET cid_SD_BYTES ct_GetInterval										0 cid_SD_BYTES ct_cvnsi										0 1 cid_SUBR_COUNT 1 sub											{											exch 1 index											1 add											cid_SD_BYTES mul cid_SUBR_MAP_OFFSET add											GlyphData exch cid_SD_BYTES ct_GetInterval											0 cid_SD_BYTES ct_cvnsi											cid_SUBRS 4 2 roll											GlyphData exch											4 index											1 index											sub											ct_GetInterval											dup length string copy put											}										for										pop										}									if									}									{pop}								ifelse								}							forall							}						if						cleartomark pop pop						end					CIDFontName currentdict/CIDFont defineresource pop					end end					}				stopped					{cleartomark/StartData ct_reraise}				if				}bind def			currentdict			end def		/ct_saveCIDInit			{			/CIDInit/ProcSet ct_resourcestatus				{true}				{/CIDInitC/ProcSet ct_resourcestatus}			ifelse				{				pop pop				/CIDInit/ProcSet findresource				ct_UseNativeCapability?					{pop null}					{/CIDInit ct_CIDInit/ProcSet defineresource pop}				ifelse				}				{/CIDInit ct_CIDInit/ProcSet defineresource pop null}			ifelse			ct_Vars exch/ct_oldCIDInit exch put			}bind def		/ct_restoreCIDInit			{			ct_Vars/ct_oldCIDInit get dup null ne				{/CIDInit exch/ProcSet defineresource pop}				{pop}			ifelse			}bind def		/ct_BuildCharSetUp			{			1 index				begin				CIDFont					begin					Adobe_CoolType_Utility/ct_BuildCharDict get						begin						/ct_dfCharCode exch def						/ct_dfDict exch def						CIDFirstByte ct_dfCharCode add						dup CIDCount ge							{pop 0}						if						/cid exch def							{							GlyphDirectory cid 2 copy known								{get}								{pop pop nullstring}							ifelse							dup length FDBytes sub 0 gt								{								dup								FDBytes 0 ne									{0 FDBytes ct_cvnsi}									{pop 0}								ifelse								/fdIndex exch def								dup length FDBytes sub FDBytes exch getinterval								/charstring exch def								exit								}								{								pop								cid 0 eq									{/charstring nullstring def exit}								if								/cid 0 def								}							ifelse							}						loop			}def		/ct_SetCacheDevice			{			0 0 moveto			dup stringwidth			3 -1 roll			true charpath			pathbbox			0 -1000			7 index 2 div 880			setcachedevice2			0 0 moveto			}def		/ct_CloneSetCacheProc			{			1 eq				{				stringwidth				pop -2 div -880				0 -1000 setcharwidth				moveto				}				{				usewidths?					{					currentfont/Widths get cid					2 copy known						{get exch pop aload pop}						{pop pop stringwidth}					ifelse					}					{stringwidth}				ifelse				setcharwidth				0 0 moveto				}			ifelse			}def		/ct_Type3ShowCharString			{			ct_FDDict fdIndex 2 copy known				{get}				{				currentglobal 3 1 roll				1 index gcheck setglobal				ct_Type1FontTemplate dup maxlength dict copy					begin					FDArray fdIndex get					dup/FontMatrix 2 copy known						{get}						{pop pop ct_defaultFontMtx}					ifelse					/FontMatrix exch dup length array copy def					/Private get					/Private exch def					/Widths rootfont/Widths get def					/CharStrings 1 dict dup/.notdef						<d841272cf18f54fc13>dup length string copy put def					currentdict					end				/ct_Type1Font exch definefont				dup 5 1 roll put				setglobal				}			ifelse			dup/CharStrings get 1 index/Encoding get			ct_dfCharCode get charstring put			rootfont/WMode 2 copy known				{get}				{pop pop 0}			ifelse			exch			1000 scalefont setfont			ct_str1 0 ct_dfCharCode put			ct_str1 exch ct_dfSetCacheProc			ct_SyntheticBold				{				currentpoint				ct_str1 show				newpath				moveto				ct_str1 true charpath				ct_StrokeWidth setlinewidth				stroke				}				{ct_str1 show}			ifelse			}def		/ct_Type4ShowCharString			{			ct_dfDict ct_dfCharCode charstring			FDArray fdIndex get			dup/FontMatrix get dup ct_defaultFontMtx ct_matrixeq not				{ct_1000Mtx matrix concatmatrix concat}				{pop}			ifelse			/Private get			Adobe_CoolType_Utility/ct_Level2? get not				{				ct_dfDict/Private				3 -1 roll					{put}				1183615869 internaldict/superexec get exec				}			if			1183615869 internaldict			Adobe_CoolType_Utility/ct_Level2? get				{1 index}				{3 index/Private get mark 6 1 roll}			ifelse			dup/RunInt known				{/RunInt get}				{pop/CCRun}			ifelse			get exec			Adobe_CoolType_Utility/ct_Level2? get not				{cleartomark}			if			}bind def		/ct_BuildCharIncremental			{				{				Adobe_CoolType_Utility/ct_MakeOCF get begin				ct_BuildCharSetUp				ct_ShowCharString				}			stopped				{stop}			if			end			end			end			end			}bind def		/BaseFontNameStr(BF00)def		/ct_Type1FontTemplate 14 dict			begin			/FontType 1 def			/FontMatrix [0.001 0 0 0.001 0 0]def			/FontBBox [-250 -250 1250 1250]def			/Encoding ct_cHexEncoding def			/PaintType 0 def			currentdict			end def		/BaseFontTemplate 11 dict			begin			/FontMatrix [0.001 0 0 0.001 0 0]def			/FontBBox [-250 -250 1250 1250]def			/Encoding ct_cHexEncoding def			/BuildChar/ct_BuildCharIncremental load def			ct_Clone?				{				/FontType 3 def				/ct_ShowCharString/ct_Type3ShowCharString load def				/ct_dfSetCacheProc/ct_CloneSetCacheProc load def				/ct_SyntheticBold false def				/ct_StrokeWidth 1 def				}				{				/FontType 4 def				/Private 1 dict dup/lenIV 4 put def				/CharStrings 1 dict dup/.notdef<d841272cf18f54fc13>put def				/PaintType 0 def				/ct_ShowCharString/ct_Type4ShowCharString load def				}			ifelse			/ct_str1 1 string def			currentdict			end def		/BaseFontDictSize BaseFontTemplate length 5 add def		/ct_matrixeq			{			true 0 1 5				{				dup 4 index exch get exch 3 index exch get eq and				dup not					{exit}				if				}			for			exch pop exch pop			}bind def		/ct_makeocf			{			15 dict				begin				exch/WMode exch def				exch/FontName exch def				/FontType 0 def				/FMapType 2 def			dup/FontMatrix known				{dup/FontMatrix get/FontMatrix exch def}				{/FontMatrix matrix def}			ifelse				/bfCount 1 index/CIDCount get 256 idiv 1 add					dup 256 gt{pop 256}if def				/Encoding					256 array 0 1 bfCount 1 sub{2 copy dup put pop}for					bfCount 1 255{2 copy bfCount put pop}for					def				/FDepVector bfCount dup 256 lt{1 add}if array def				BaseFontTemplate BaseFontDictSize dict copy					begin					/CIDFont exch def					CIDFont/FontBBox known						{CIDFont/FontBBox get/FontBBox exch def}					if					CIDFont/CDevProc known						{CIDFont/CDevProc get/CDevProc exch def}					if					currentdict					end				BaseFontNameStr 3(0)putinterval				0 1 bfCount dup 256 eq{1 sub}if					{					FDepVector exch					2 index BaseFontDictSize dict copy						begin						dup/CIDFirstByte exch 256 mul def						FontType 3 eq							{/ct_FDDict 2 dict def}						if						currentdict						end					1 index 16					BaseFontNameStr 2 2 getinterval cvrs pop					BaseFontNameStr exch definefont					put					}				for				ct_Clone?					{/Widths 1 index/CIDFont get/GlyphDirectory get length dict def}				if				FontName				currentdict				end			definefont			ct_Clone?				{				gsave				dup 1000 scalefont setfont				ct_BuildCharDict					begin					/usewidths? false def					currentfont/Widths get						begin						exch/CIDFont get/GlyphDirectory get							{							pop							dup charcode exch 1 index 0 2 index 256 idiv put							1 index exch 1 exch 256 mod put							stringwidth 2 array astore def							}						forall						end					/usewidths? true def					end				grestore				}				{exch pop}			ifelse			}bind def		currentglobal true setglobal		/ct_ComposeFont			{			ct_UseNativeCapability?				{								2 index/CMap ct_resourcestatus					{pop pop exch pop}					{					/CIDInit/ProcSet findresource						begin						12 dict							begin							begincmap							/CMapName 3 index def							/CMapVersion 1.000 def							/CMapType 1 def							exch/WMode exch def							/CIDSystemInfo 3 dict dup								begin								/Registry(Adobe)def								/Ordering								CMapName ct_mkocfStr100 cvs								(Adobe-)search									{									pop pop									(-)search										{										dup length string copy										exch pop exch pop										}										{pop(Identity)}									ifelse									}									{pop (Identity)}								ifelse								def								/Supplement 0 def								end def							1 begincodespacerange							<0000><FFFF>							endcodespacerange							1 begincidrange							<0000><FFFF>0							endcidrange							endcmap							CMapName currentdict/CMap defineresource pop							end						end					}				ifelse				composefont				}				{				3 2 roll pop				0 get/CIDFont findresource				ct_makeocf				}			ifelse			}bind def			setglobal		/ct_MakeIdentity			{			ct_UseNativeCapability?				{				1 index/CMap ct_resourcestatus					{pop pop}					{					/CIDInit/ProcSet findresource begin					12 dict begin					begincmap					/CMapName 2 index def					/CMapVersion 1.000 def					/CMapType 1 def					/CIDSystemInfo 3 dict dup						begin						/Registry(Adobe)def						/Ordering						CMapName ct_mkocfStr100 cvs						(Adobe-)search							{							pop pop							(-)search								{dup length string copy exch pop exch pop}								{pop(Identity)}							ifelse							}							{pop(Identity)}						ifelse						def						/Supplement 0 def						end def					1 begincodespacerange					<0000><FFFF>					endcodespacerange					1 begincidrange					<0000><FFFF>0					endcidrange					endcmap					CMapName currentdict/CMap defineresource pop					end					end					}				ifelse				composefont				}				{				exch pop				0 get/CIDFont findresource				ct_makeocf				}			ifelse			}bind def		currentdict readonly pop		end	end%%EndResourcesetglobal%%BeginResource: procset Adobe_CoolType_Utility_T42 1.0 0%%Copyright: Copyright 1987-2004 Adobe Systems Incorporated.%%Version: 1.0 0userdict/ct_T42Dict 15 dict putct_T42Dict begin/Is2015?{ version cvi 2015 ge}bind def/AllocGlyphStorage{ Is2015? {		pop } {	{string}forall }ifelse}bind def/Type42DictBegin{25 dict begin /FontName exch def /CharStrings 256 dict begin	 /.notdef 0 def	 currentdict end def /Encoding exch def /PaintType 0 def /FontType 42 def /FontMatrix[1 0 0 1 0 0]def 4 array astore cvx/FontBBox exch def /sfnts}bind def/Type42DictEnd { currentdict dup/FontName get exch definefont endct_T42Dict exchdup/FontName get exch put}bind def/RD{string currentfile exch readstring pop}executeonly def/PrepFor2015{Is2015?{		 	/GlyphDirectory 	 16	 dict def	 sfnts 0 get	 dup	 2 index	(glyx)	 putinterval	 2 index 	(locx)	 putinterval	 pop	 pop}{	 pop	 pop}ifelse			}bind def/AddT42Char{Is2015?{	/GlyphDirectory get 	begin	def	end	pop	pop}{	/sfnts get	4 index	get	3 index 2 index	putinterval	pop	pop	pop	pop}ifelse}bind def/T0AddT42Mtx2{/CIDFont findresource/Metrics2 get begin def end}bind defend%%EndResourcecurrentglobal true setglobal%%BeginFile: MMFauxFont.prc%%Copyright: Copyright 1987-2001 Adobe Systems Incorporated. %%All Rights Reserved.userdict /ct_EuroDict 10 dict putct_EuroDict begin/ct_CopyFont {    { 1 index /FID ne {def} {pop pop} ifelse} forall} def/ct_GetGlyphOutline{   gsave   initmatrix newpath   exch findfont dup    length 1 add dict    begin 		ct_CopyFont 		/Encoding Encoding dup length array copy 		dup		4 -1 roll		0 exch put   		def		currentdict   end   /ct_EuroFont exch definefont   1000 scalefont setfont   0 0 moveto   [       <00> stringwidth        <00> false charpath       pathbbox       [       {/m cvx} {/l cvx} {/c cvx} {/cp cvx} pathforall   grestore   counttomark 8 add}def/ct_MakeGlyphProc{   ] cvx   /ct_PSBuildGlyph cvx   ] cvx} def/ct_PSBuildGlyph {  	gsave 	8 -1 roll pop 	7 1 roll         6 -2 roll ct_FontMatrix transform 6 2 roll        4 -2 roll ct_FontMatrix transform 4 2 roll        ct_FontMatrix transform 	currentdict /PaintType 2 copy known {get 2 eq}{pop pop false} ifelse  	dup  9 1 roll 	{  		currentdict /StrokeWidth 2 copy known  		{   			get 2 div   			0 ct_FontMatrix dtransform pop			5 1 roll  			4 -1 roll 4 index sub   			4 1 roll   			3 -1 roll 4 index sub  			3 1 roll   			exch 4 index add exch  			4 index add  			5 -1 roll pop  		}  		{	 			pop pop 		}  		ifelse  	}           if  	setcachedevice          ct_FontMatrix concat        ct_PSPathOps begin 		exec 	end 	{  		currentdict /StrokeWidth 2 copy known  			{ get }  			{ pop pop 0 }    	    ifelse  		setlinewidth stroke  	}  	{   	    fill  	}  	ifelse      grestore} def /ct_PSPathOps 4 dict dup begin 	/m {moveto} def 	/l {lineto} def 	/c {curveto} def 	/cp {closepath} def end def /ct_matrix1000 [1000 0 0 1000 0 0] def/ct_AddGlyphProc  {   2 index findfont dup length 4 add dict    begin 	ct_CopyFont 	/CharStrings CharStrings dup length 1 add dict copy      begin         3 1 roll def           currentdict       end       def      /ct_FontMatrix ct_matrix1000 FontMatrix matrix concatmatrix def      /ct_PSBuildGlyph /ct_PSBuildGlyph load def      /ct_PSPathOps /ct_PSPathOps load def      currentdict   end   definefont pop}defsystemdict /languagelevel known{	/ct_AddGlyphToPrinterFont {		2 copy		ct_GetGlyphOutline 3 add -1 roll restore 		ct_MakeGlyphProc 		ct_AddGlyphProc	} def}{	/ct_AddGlyphToPrinterFont {	    pop pop restore		Adobe_CTFauxDict /$$$FONTNAME get		/Euro		Adobe_CTFauxDict /$$$SUBSTITUTEBASE get		ct_EuroDict exch get		ct_AddGlyphProc	} def} ifelse/AdobeSansMM { 556 0 24 -19 541 703 	{ 	541 628 m 	510 669 442 703 354 703 c 	201 703 117 607 101 444 c 	50 444 l 	25 372 l 	97 372 l 	97 301 l 	49 301 l 	24 229 l 	103 229 l 	124 67 209 -19 350 -19 c 	435 -19 501 25 509 32 c 	509 131 l 	492 105 417 60 343 60 c 	267 60 204 127 197 229 c 	406 229 l 	430 301 l 	191 301 l 	191 372 l 	455 372 l 	479 444 l 	194 444 l 	201 531 245 624 348 624 c 	433 624 484 583 509 534 c 	cp 	556 0 m 	}ct_PSBuildGlyph} def/AdobeSerifMM { 500 0 10 -12 484 692 	{ 	347 298 m 	171 298 l 	170 310 170 322 170 335 c 	170 362 l 	362 362 l 	374 403 l 	172 403 l 	184 580 244 642 308 642 c 	380 642 434 574 457 457 c 	481 462 l 	474 691 l 	449 691 l 	433 670 429 657 410 657 c 	394 657 360 692 299 692 c 	204 692 94 604 73 403 c 	22 403 l 	10 362 l 	70 362 l 	69 352 69 341 69 330 c 	69 319 69 308 70 298 c 	22 298 l 	10 257 l 	73 257 l 	97 57 216 -12 295 -12 c 	364 -12 427 25 484 123 c 	458 142 l 	425 101 384 37 316 37 c 	256 37 189 84 173 257 c 	335 257 l 	cp 	500 0 m 	} ct_PSBuildGlyph } def end		%%EndFilesetglobalAdobe_CoolType_Core begin /$Oblique SetSubstituteStrategy end%%BeginResource: procset Adobe_AGM_Image 1.0 0
+%%BeginResource: procset Adobe_CoolType_Core 2.31 0%%Copyright: Copyright 1997-2006 Adobe Systems Incorporated. All Rights Reserved.%%Version: 2.31 010 dict begin/Adobe_CoolType_Passthru currentdict def/Adobe_CoolType_Core_Defined userdict/Adobe_CoolType_Core known defAdobe_CoolType_Core_Defined	{/Adobe_CoolType_Core userdict/Adobe_CoolType_Core get def}ifuserdict/Adobe_CoolType_Core 70 dict dup begin put/Adobe_CoolType_Version 2.31 def/Level2?	systemdict/languagelevel known dup		{pop systemdict/languagelevel get 2 ge}	if defLevel2? not	{	/currentglobal false def	/setglobal/pop load def	/gcheck{pop false}bind def	/currentpacking false def	/setpacking/pop load def	/SharedFontDirectory 0 dict def	}ifcurrentpackingtrue setpackingcurrentglobal false setglobaluserdict/Adobe_CoolType_Data 2 copy known not	{2 copy 10 dict put}ifget	 begin	/@opStackCountByLevel 32 dict def	/@opStackLevel 0 def	/@dictStackCountByLevel 32 dict def	/@dictStackLevel 0 def	 endsetglobalcurrentglobal true setglobaluserdict/Adobe_CoolType_GVMFonts known not	{userdict/Adobe_CoolType_GVMFonts 10 dict put}ifsetglobalcurrentglobal false setglobaluserdict/Adobe_CoolType_LVMFonts known not	{userdict/Adobe_CoolType_LVMFonts 10 dict put}ifsetglobal/ct_VMDictPut	{	dup gcheck{Adobe_CoolType_GVMFonts}{Adobe_CoolType_LVMFonts}ifelse	3 1 roll put	}bind def/ct_VMDictUndef	{	dup Adobe_CoolType_GVMFonts exch known		{Adobe_CoolType_GVMFonts exch undef}		{			dup Adobe_CoolType_LVMFonts exch known			{Adobe_CoolType_LVMFonts exch undef}			{pop}			ifelse		}ifelse	}bind def/ct_str1 1 string def/ct_xshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			_ct_x _ct_y moveto			0			rmoveto		}		ifelse		/_ct_i _ct_i 1 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/ct_yshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			_ct_x _ct_y moveto			0 exch			rmoveto		}		ifelse		/_ct_i _ct_i 1 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/ct_xyshow{	/_ct_na exch def	/_ct_i 0 def	currentpoint	/_ct_y exch def	/_ct_x exch def	{		pop pop		ct_str1 exch 0 exch put		ct_str1 show		{_ct_na _ct_i get}stopped 		{pop pop}		{			{_ct_na _ct_i 1 add get}stopped 			{pop pop pop}			{				_ct_x _ct_y moveto				rmoveto			}			ifelse		}		ifelse		/_ct_i _ct_i 2 add def		currentpoint		/_ct_y exch def		/_ct_x exch def	}	exch	@cshow}bind def/xsh{{@xshow}stopped{Adobe_CoolType_Data begin ct_xshow end}if}bind def/ysh{{@yshow}stopped{Adobe_CoolType_Data begin ct_yshow end}if}bind def/xysh{{@xyshow}stopped{Adobe_CoolType_Data begin ct_xyshow end}if}bind defcurrentglobal true setglobal/ct_T3Defs{/BuildChar{	1 index/Encoding get exch get	1 index/BuildGlyph get exec}bind def/BuildGlyph{	exch begin	GlyphProcs exch get exec	end}bind def}bind defsetglobal/@_SaveStackLevels	{	Adobe_CoolType_Data		begin		/@vmState currentglobal def false setglobal		@opStackCountByLevel		@opStackLevel		2 copy known not			{			2 copy			3 dict dup/args			7 index			5 add array put			put get			}			{			get dup/args get dup length 3 index lt				{				dup length 5 add array exch				1 index exch 0 exch putinterval				1 index exch/args exch put				}				{pop}			ifelse			}		ifelse			begin			count 1 sub			1 index lt				{pop count}			if			dup/argCount exch def			dup 0 gt				{				args exch 0 exch getinterval 			astore pop				}				{pop}			ifelse			count			/restCount exch def			end		/@opStackLevel @opStackLevel 1 add def		countdictstack 1 sub		@dictStackCountByLevel exch @dictStackLevel exch put		/@dictStackLevel @dictStackLevel 1 add def		@vmState setglobal		end	}bind def/@_RestoreStackLevels	{	Adobe_CoolType_Data		begin		/@opStackLevel @opStackLevel 1 sub def		@opStackCountByLevel @opStackLevel get			begin			count restCount sub dup 0 gt				{{pop}repeat}				{pop}			ifelse			args 0 argCount getinterval{}forall			end		/@dictStackLevel @dictStackLevel 1 sub def		@dictStackCountByLevel @dictStackLevel get		end	countdictstack exch sub dup 0 gt		{{end}repeat}		{pop}	ifelse	}bind def/@_PopStackLevels	{	Adobe_CoolType_Data		begin		/@opStackLevel @opStackLevel 1 sub def		/@dictStackLevel @dictStackLevel 1 sub def		end	}bind def/@Raise	{	exch cvx exch errordict exch get exec	stop	}bind def/@ReRaise	{	cvx $error/errorname get errordict exch get exec	stop	}bind def/@Stopped	{	0 @#Stopped	}bind def/@#Stopped	{	@_SaveStackLevels	stopped		{@_RestoreStackLevels true}		{@_PopStackLevels false}	ifelse	}bind def/@Arg	{	Adobe_CoolType_Data		begin		@opStackCountByLevel @opStackLevel 1 sub get		begin		args exch		argCount 1 sub exch sub get		end		end	}bind defcurrentglobal true setglobal/CTHasResourceForAllBug	Level2?		{		1 dict dup				/@shouldNotDisappearDictValue true def				Adobe_CoolType_Data exch/@shouldNotDisappearDict exch put				begin				count @_SaveStackLevels					{(*){pop stop}128 string/Category resourceforall}				stopped pop				@_RestoreStackLevels				currentdict Adobe_CoolType_Data/@shouldNotDisappearDict get dup 3 1 roll ne dup 3 1 roll					{						 /@shouldNotDisappearDictValue known								{										 {												end												currentdict 1 index eq													{pop exit}												if										 }									 loop								}						 if					}					{						 pop						 end					}				ifelse		}		{false}	ifelse	deftrue setglobal/CTHasResourceStatusBug	Level2?		{		mark			{/steveamerige/Category resourcestatus}		stopped			{cleartomark true}			{cleartomark currentglobal not}		ifelse		}		{false}	ifelse	defsetglobal/CTResourceStatus		{		mark 3 1 roll		/Category findresource			begin			({ResourceStatus}stopped)0()/SubFileDecode filter cvx exec				{cleartomark false}				{{3 2 roll pop true}{cleartomark false}ifelse}			ifelse			end		}bind def/CTWorkAroundBugs	{	Level2?		{		/cid_PreLoad/ProcSet resourcestatus			{			pop pop			currentglobal			mark				{				(*)					{					dup/CMap CTHasResourceStatusBug						{CTResourceStatus}						{resourcestatus}					ifelse						{						pop dup 0 eq exch 1 eq or							{							dup/CMap findresource gcheck setglobal							/CMap undefineresource							}							{							pop CTHasResourceForAllBug								{exit}								{stop}							ifelse							}						ifelse						}						{pop}					ifelse					}				128 string/CMap resourceforall				}			stopped				{cleartomark}			stopped pop			setglobal			}		if		}	if	}bind def/ds	{	Adobe_CoolType_Core		begin		CTWorkAroundBugs		/mo/moveto load def		/nf/newencodedfont load def		/msf{makefont setfont}bind def		/uf{dup undefinefont ct_VMDictUndef}bind def		/ur/undefineresource load def		/chp/charpath load def		/awsh/awidthshow load def		/wsh/widthshow load def		/ash/ashow load def		/@xshow/xshow load def		/@yshow/yshow load def		/@xyshow/xyshow load def		/@cshow/cshow load def		/sh/show load def		/rp/repeat load def		/.n/.notdef def		end		currentglobal false setglobal	 userdict/Adobe_CoolType_Data 2 copy known not		 {2 copy 10 dict put}		if		get		begin		/AddWidths? false def		/CC 0 def		/charcode 2 string def		/@opStackCountByLevel 32 dict def		/@opStackLevel 0 def		/@dictStackCountByLevel 32 dict def		/@dictStackLevel 0 def		/InVMFontsByCMap 10 dict def		/InVMDeepCopiedFonts 10 dict def		end		setglobal	}bind def/dt	{	currentdict Adobe_CoolType_Core eq		{end}	if	}bind def/ps	{	Adobe_CoolType_Core begin	Adobe_CoolType_GVMFonts begin	Adobe_CoolType_LVMFonts begin	SharedFontDirectory begin	}bind def/pt	{	end	end	end	end	}bind def/unload	{	systemdict/languagelevel known		{		systemdict/languagelevel get 2 ge			{			userdict/Adobe_CoolType_Core 2 copy known				{undef}				{pop pop}			ifelse			}		if		}	if	}bind def/ndf	{	1 index where		{pop pop pop}		{dup xcheck{bind}if def}	ifelse	}def/findfont systemdict	begin	userdict		begin		/globaldict where{/globaldict get begin}if			dup where pop exch get		/globaldict where{pop end}if		end	endAdobe_CoolType_Core_Defined	{/systemfindfont exch def}	{	/findfont 1 index def	/systemfindfont exch def	}ifelse/undefinefont	{pop}ndf/copyfont	{	currentglobal 3 1 roll	1 index gcheck setglobal	dup null eq{0}{dup length}ifelse	2 index length add 1 add dict		begin		exch			{			1 index/FID eq				{pop pop}				{def}			ifelse			}		forall		dup null eq			{pop}			{{def}forall}		ifelse		currentdict		end	exch setglobal	}bind def/copyarray	{	currentglobal exch	dup gcheck setglobal	dup length array copy	exch setglobal	}bind def/newencodedfont	{	currentglobal		{		SharedFontDirectory 3 index known			{SharedFontDirectory 3 index get/FontReferenced known}			{false}		ifelse		}		{		FontDirectory 3 index known			{FontDirectory 3 index get/FontReferenced known}			{			SharedFontDirectory 3 index known				{SharedFontDirectory 3 index get/FontReferenced known}				{false}			ifelse			}		ifelse		}	ifelse	dup		{		3 index findfont/FontReferenced get		2 index dup type/nametype eq			{findfont}		if ne			{pop false}		if		}	if	dup		{		1 index dup type/nametype eq			{findfont}		 if		dup/CharStrings known			{			/CharStrings get length			4 index findfont/CharStrings get length			ne				{				pop false				}			if 			}			{pop}			ifelse		}	if		{		pop		1 index findfont		/Encoding get exch		0 1 255			{2 copy get 3 index 3 1 roll put}		for		pop pop pop		}		{		currentglobal	 4 1 roll		dup type/nametype eq		 {findfont}	 if	 dup gcheck setglobal		dup dup maxlength 2 add dict			begin			exch				{				1 index/FID ne				2 index/Encoding ne and					{def}					{pop pop}				ifelse				}			forall			/FontReferenced exch def			/Encoding exch dup length array copy def			/FontName 1 index dup type/stringtype eq{cvn}if def dup			currentdict			end		definefont ct_VMDictPut		setglobal		}	ifelse	}bind def/SetSubstituteStrategy	{	$SubstituteFont		begin		dup type/dicttype ne			{0 dict}		if		currentdict/$Strategies known			{			exch $Strategies exch 			2 copy known				{				get				2 copy maxlength exch maxlength add dict					begin					{def}forall					{def}forall					currentdict					dup/$Init known						{dup/$Init get exec}					if					end				/$Strategy exch def				}				{pop pop pop}			ifelse			}			{pop pop}		ifelse		end	}bind def/scff	{	$SubstituteFont		begin		dup type/stringtype eq			{dup length exch}			{null}		ifelse		/$sname exch def		/$slen exch def		/$inVMIndex			$sname null eq				{				1 index $str cvs				dup length $slen sub $slen getinterval cvn				}				{$sname}			ifelse def		end		{findfont}	@Stopped		{		dup length 8 add string exch		1 index 0(BadFont:)putinterval		1 index exch 8 exch dup length string cvs putinterval cvn			{findfont}		@Stopped			{pop/Courier findfont}		if		}	if	$SubstituteFont		begin		/$sname null def		/$slen 0 def		/$inVMIndex null def		end	}bind def/isWidthsOnlyFont	{	dup/WidthsOnly known		{pop pop true}		{		dup/FDepVector known			{/FDepVector get{isWidthsOnlyFont dup{exit}if}forall}			{			dup/FDArray known				{/FDArray get{isWidthsOnlyFont dup{exit}if}forall}				{pop}			ifelse			}		ifelse		}	ifelse	}bind def/ct_StyleDicts 4 dict dup begin		 /Adobe-Japan1 4 dict dup begin					 Level2?								{								/Serif								/HeiseiMin-W3-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiMin-W3}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiMin-W3/CIDFont resourcestatus								{pop pop/HeiseiMin-W3}								{/Ryumin-Light}								ifelse							}							{/Ryumin-Light}							ifelse								}								ifelse								def								/SansSerif								/HeiseiKakuGo-W5-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiKakuGo-W5}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiKakuGo-W5/CIDFont resourcestatus								{pop pop/HeiseiKakuGo-W5}								{/GothicBBB-Medium}								ifelse							}							{/GothicBBB-Medium}							ifelse								}								ifelse								def								/HeiseiMaruGo-W4-83pv-RKSJ-H/Font resourcestatus								{pop pop/HeiseiMaruGo-W4}								{							/CIDFont/Category resourcestatus							{								pop pop								/HeiseiMaruGo-W4/CIDFont resourcestatus								{pop pop/HeiseiMaruGo-W4}								{									/Jun101-Light-RKSJ-H/Font resourcestatus									{pop pop/Jun101-Light}									{SansSerif}									ifelse								}								ifelse							}							{								/Jun101-Light-RKSJ-H/Font resourcestatus								{pop pop/Jun101-Light}								{SansSerif}								ifelse							}							ifelse								}								ifelse								/RoundSansSerif exch def								/Default Serif def								}								{								/Serif/Ryumin-Light def								/SansSerif/GothicBBB-Medium def								{								(fonts/Jun101-Light-83pv-RKSJ-H)status								}stopped								{pop}{										 {pop pop pop pop/Jun101-Light}										 {SansSerif}										 ifelse										 /RoundSansSerif exch def								}ifelse								/Default Serif def								}					 ifelse		 end		 def		 /Adobe-Korea1 4 dict dup begin					/Serif/HYSMyeongJo-Medium def					/SansSerif/HYGoThic-Medium def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 def		 /Adobe-GB1 4 dict dup begin					/Serif/STSong-Light def					/SansSerif/STHeiti-Regular def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 def		 /Adobe-CNS1 4 dict dup begin					/Serif/MKai-Medium def					/SansSerif/MHei-Medium def					/RoundSansSerif SansSerif def					/Default Serif def		 end		 defenddefLevel2?{currentglobal true setglobal}if/ct_BoldRomanWidthProc 	{	stringwidth 1 index 0 ne{exch .03 add exch}if setcharwidth	0 0	}bind def/ct_Type0WidthProc 	{	 dup stringwidth 0 0 moveto 	 2 index true charpath pathbbox	 0 -1 	 7 index 2 div .88 	 setcachedevice2	 pop	0 0	}bind def/ct_Type0WMode1WidthProc 	{	 dup stringwidth 	 pop 2 div neg -0.88	2 copy	moveto 	0 -1	 5 -1 roll true charpath pathbbox	 setcachedevice	}bind def/cHexEncoding[/c00/c01/c02/c03/c04/c05/c06/c07/c08/c09/c0A/c0B/c0C/c0D/c0E/c0F/c10/c11/c12/c13/c14/c15/c16/c17/c18/c19/c1A/c1B/c1C/c1D/c1E/c1F/c20/c21/c22/c23/c24/c25/c26/c27/c28/c29/c2A/c2B/c2C/c2D/c2E/c2F/c30/c31/c32/c33/c34/c35/c36/c37/c38/c39/c3A/c3B/c3C/c3D/c3E/c3F/c40/c41/c42/c43/c44/c45/c46/c47/c48/c49/c4A/c4B/c4C/c4D/c4E/c4F/c50/c51/c52/c53/c54/c55/c56/c57/c58/c59/c5A/c5B/c5C/c5D/c5E/c5F/c60/c61/c62/c63/c64/c65/c66/c67/c68/c69/c6A/c6B/c6C/c6D/c6E/c6F/c70/c71/c72/c73/c74/c75/c76/c77/c78/c79/c7A/c7B/c7C/c7D/c7E/c7F/c80/c81/c82/c83/c84/c85/c86/c87/c88/c89/c8A/c8B/c8C/c8D/c8E/c8F/c90/c91/c92/c93/c94/c95/c96/c97/c98/c99/c9A/c9B/c9C/c9D/c9E/c9F/cA0/cA1/cA2/cA3/cA4/cA5/cA6/cA7/cA8/cA9/cAA/cAB/cAC/cAD/cAE/cAF/cB0/cB1/cB2/cB3/cB4/cB5/cB6/cB7/cB8/cB9/cBA/cBB/cBC/cBD/cBE/cBF/cC0/cC1/cC2/cC3/cC4/cC5/cC6/cC7/cC8/cC9/cCA/cCB/cCC/cCD/cCE/cCF/cD0/cD1/cD2/cD3/cD4/cD5/cD6/cD7/cD8/cD9/cDA/cDB/cDC/cDD/cDE/cDF/cE0/cE1/cE2/cE3/cE4/cE5/cE6/cE7/cE8/cE9/cEA/cEB/cEC/cED/cEE/cEF/cF0/cF1/cF2/cF3/cF4/cF5/cF6/cF7/cF8/cF9/cFA/cFB/cFC/cFD/cFE/cFF]def/ct_BoldBaseFont 	 11 dict begin		/FontType 3 def		/FontMatrix[1 0 0 1 0 0]def		/FontBBox[0 0 1 1]def		/Encoding cHexEncoding def 		/_setwidthProc/ct_BoldRomanWidthProc load def		/_bcstr1 1 string def		/BuildChar		{			exch begin				_basefont setfont				_bcstr1 dup 0 4 -1 roll put				dup 				_setwidthProc				3 copy 				moveto								show				_basefonto setfont				moveto				show			end		}bind def		 currentdict	 end defsystemdict/composefont known{/ct_DefineIdentity-H{	/Identity-H/CMap resourcestatus	{		pop pop	}	{		/CIDInit/ProcSet findresource begin		 12 dict begin		 begincmap		 /CIDSystemInfo 3 dict dup begin			 /Registry(Adobe)def			 /Ordering(Identity)def			 /Supplement 0 def		 end def		 /CMapName/Identity-H def		 /CMapVersion 1.000 def		 /CMapType 1 def		 1 begincodespacerange		 <0000><FFFF>		 endcodespacerange		 1 begincidrange		 <0000><FFFF>0		 endcidrange		 endcmap		 CMapName currentdict/CMap defineresource pop		 end		 end	 }	 ifelse}def/ct_BoldBaseCIDFont 	 11 dict begin		/CIDFontType 1 def		/CIDFontName/ct_BoldBaseCIDFont def		/FontMatrix[1 0 0 1 0 0]def		/FontBBox[0 0 1 1]def		/_setwidthProc/ct_Type0WidthProc load def		/_bcstr2 2 string def		/BuildGlyph		{			exch begin		 				_basefont setfont				_bcstr2 1 2 index 256 mod put				_bcstr2 0 3 -1 roll 256 idiv put				_bcstr2 dup _setwidthProc		 				3 copy 				moveto				show				_basefonto setfont				moveto				show			end		}bind def		 currentdict	 end def}ifLevel2?{setglobal}if/ct_CopyFont{	{		1 index/FID ne 2 index/UniqueID ne and		{def}{pop pop}ifelse	}forall}bind def/ct_Type0CopyFont {	exch	dup length dict	begin	ct_CopyFont	[	exch	FDepVector 	{		 dup/FontType get 0 eq		{			1 index ct_Type0CopyFont 		/_ctType0 exch definefont		}		{		/_ctBaseFont exch		2 index exec		}		 ifelse 		 exch	}	forall 	pop	]					/FDepVector exch def	currentdict	end}bind def/ct_MakeBoldFont{	 dup/ct_SyntheticBold known	{		dup length 3 add dict begin 		ct_CopyFont 		/ct_StrokeWidth .03 0 FontMatrix idtransform pop def 		/ct_SyntheticBold true def		currentdict 		end 		definefont	}	{		dup dup length 3 add dict		begin			ct_CopyFont			/PaintType 2 def			/StrokeWidth .03 0 FontMatrix idtransform pop def			/dummybold currentdict		end		definefont		dup/FontType get dup 9 ge exch 11 le and 		{			ct_BoldBaseCIDFont			dup length 3 add dict copy begin			dup/CIDSystemInfo get/CIDSystemInfo exch def			ct_DefineIdentity-H			/_Type0Identity/Identity-H 3 -1 roll[exch]composefont			/_basefont exch def			/_Type0Identity/Identity-H 3 -1 roll[exch]composefont			/_basefonto exch def			currentdict			end			/CIDFont defineresource		}		{			ct_BoldBaseFont			dup length 3 add dict copy begin			/_basefont exch def			/_basefonto exch def			currentdict			end			definefont		}		ifelse	}	ifelse}bind def/ct_MakeBold{	1 index 	1 index	findfont	currentglobal 5 1 roll	dup gcheck setglobal		dup		 /FontType get 0 eq			{				dup/WMode known{dup/WMode get 1 eq}{false}ifelse				version length 4 ge				and					{version 0 4 getinterval cvi 2015 ge}					{true}				ifelse 					{/ct_Type0WidthProc}					{/ct_Type0WMode1WidthProc}				ifelse				ct_BoldBaseFont/_setwidthProc 3 -1 roll load put						{ct_MakeBoldFont}ct_Type0CopyFont definefont			}			{				dup/_fauxfont known not 1 index/SubstMaster known not and				{					 ct_BoldBaseFont/_setwidthProc /ct_BoldRomanWidthProc load put					 ct_MakeBoldFont 				}				{				2 index 2 index eq					{exch pop	}					{						dup length dict begin						ct_CopyFont						currentdict						end						definefont 					}				ifelse				}			ifelse			}		 ifelse		 pop pop pop		 setglobal}bind def/?str1 256 string def/?set	{	$SubstituteFont		begin		/$substituteFound false def		/$fontname 1 index def		/$doSmartSub false def		end	dup	 findfont	$SubstituteFont		begin		$substituteFound			{false}			{			dup/FontName known				{				dup/FontName get $fontname eq				1 index/DistillerFauxFont known not and				/currentdistillerparams where					{pop false 2 index isWidthsOnlyFont not and}				if				}				{false}			ifelse			}		ifelse		exch pop		/$doSmartSub true def		end		{		5 1 roll pop pop pop pop		findfont		}		{		1 index		findfont		dup/FontType get 3 eq		{			6 1 roll pop pop pop pop pop false		}		{pop true}		ifelse		{		$SubstituteFont		begin		pop pop		/$styleArray 1 index def		/$regOrdering 2 index def		pop pop		0 1 $styleArray length 1 sub		{			$styleArray exch get			ct_StyleDicts $regOrdering			2 copy known			{				get				exch 2 copy known not				{pop/Default}				if				get				dup type/nametype eq				{				?str1 cvs length dup 1 add exch				?str1 exch(-)putinterval				exch dup length exch ?str1 exch 3 index exch putinterval				add ?str1 exch 0 exch getinterval cvn				}				{				pop pop/Unknown				}				ifelse			}			{				pop pop pop pop/Unknown			}			ifelse		}		for		end		findfont 		}if		}	ifelse	currentglobal false setglobal 3 1 roll	null copyfont definefont pop	setglobal	}bind defsetpackinguserdict/$SubstituteFont 25 dict put1 dict	begin	/SubstituteFont		dup $error exch 2 copy known			{get}			{pop pop{pop/Courier}bind}		ifelse def	/currentdistillerparams where dup		{		pop pop		currentdistillerparams/CannotEmbedFontPolicy 2 copy known			{get/Error eq}			{pop pop false}		ifelse		}	if not		{		countdictstack array dictstack 0 get			begin			userdict				begin				$SubstituteFont					begin					/$str 128 string def					/$fontpat 128 string def					/$slen 0 def					/$sname null def					/$match false def					/$fontname null def					/$substituteFound false def					/$inVMIndex null def					/$doSmartSub true def					/$depth 0 def					/$fontname null def					/$italicangle 26.5 def					/$dstack null def					/$Strategies 10 dict dup						begin						/$Type3Underprint							{							currentglobal exch false setglobal							11 dict								begin								/UseFont exch									$WMode 0 ne										{										dup length dict copy										dup/WMode $WMode put										/UseFont exch definefont										}									if def								/FontName $fontname dup type/stringtype eq{cvn}if def								/FontType 3 def								/FontMatrix[.001 0 0 .001 0 0]def								/Encoding 256 array dup 0 1 255{/.notdef put dup}for pop def								/FontBBox[0 0 0 0]def								/CCInfo 7 dict dup									begin									/cc null def									/x 0 def									/y 0 def									end def								/BuildChar									{									exch										begin										CCInfo											begin											1 string dup 0 3 index put exch pop											/cc exch def											UseFont 1000 scalefont setfont											cc stringwidth/y exch def/x exch def											x y setcharwidth											$SubstituteFont/$Strategy get/$Underprint get exec											0 0 moveto cc show											x y moveto											end										end									}bind def								currentdict								end							exch setglobal							}bind def						/$GetaTint							2 dict dup								begin								/$BuildFont									{									dup/WMode known										{dup/WMode get}										{0}									ifelse									/$WMode exch def									$fontname exch									dup/FontName known										{										dup/FontName get										dup type/stringtype eq{cvn}if										}										{/unnamedfont}									ifelse									exch									Adobe_CoolType_Data/InVMDeepCopiedFonts get									1 index/FontName get known										{										pop										Adobe_CoolType_Data/InVMDeepCopiedFonts get										1 index get										null copyfont										}										{$deepcopyfont}									ifelse									exch 1 index exch/FontBasedOn exch put									dup/FontName $fontname dup type/stringtype eq{cvn}if put									definefont									Adobe_CoolType_Data/InVMDeepCopiedFonts get										begin										dup/FontBasedOn get 1 index def										end									}bind def								/$Underprint									{									gsave									x abs y abs gt										{/y 1000 def}										{/x -1000 def 500 120 translate}									ifelse									Level2?										{										[/Separation(All)/DeviceCMYK{0 0 0 1 pop}]										setcolorspace										}										{0 setgray}									ifelse									10 setlinewidth									x .8 mul									[7 3]										{										y mul 8 div 120 sub x 10 div exch moveto										0 y 4 div neg rlineto										dup 0 rlineto										0 y 4 div rlineto										closepath										gsave										Level2?											{.2 setcolor}											{.8 setgray}										ifelse										fill grestore										stroke										}									forall									pop									grestore									}bind def								end def						/$Oblique							1 dict dup								begin								/$BuildFont									{									currentglobal exch dup gcheck setglobal									null copyfont										begin										/FontBasedOn										currentdict/FontName known											{											FontName											dup type/stringtype eq{cvn}if											}											{/unnamedfont}										ifelse										def										/FontName $fontname dup type/stringtype eq{cvn}if def										/currentdistillerparams where											{pop}											{											/FontInfo currentdict/FontInfo known												{FontInfo null copyfont}												{2 dict}											ifelse											dup												begin												/ItalicAngle $italicangle def												/FontMatrix FontMatrix												[1 0 ItalicAngle dup sin exch cos div 1 0 0]												matrix concatmatrix readonly												end											4 2 roll def											def											}										ifelse										FontName currentdict										end									definefont									exch setglobal									}bind def								end def						/$None							1 dict dup								begin								/$BuildFont{}bind def								end def						end def					/$Oblique SetSubstituteStrategy					/$findfontByEnum						{						dup type/stringtype eq{cvn}if						dup/$fontname exch def						$sname null eq							{$str cvs dup length $slen sub $slen getinterval}							{pop $sname}						ifelse						$fontpat dup 0(fonts/*)putinterval exch 7 exch putinterval						/$match false def						$SubstituteFont/$dstack countdictstack array dictstack put						mark							{							$fontpat 0 $slen 7 add getinterval								{/$match exch def exit}							$str filenameforall							}						stopped							{							cleardictstack							currentdict							true							$SubstituteFont/$dstack get								{								exch									{									1 index eq										{pop false}										{true}									ifelse									}									{begin false}								ifelse								}							forall							pop							}						if						cleartomark						/$slen 0 def						$match false ne							{$match(fonts/)anchorsearch pop pop cvn}							{/Courier}						ifelse						}bind def					/$ROS 1 dict dup						begin						/Adobe 4 dict dup							begin							/Japan1 [/Ryumin-Light/HeiseiMin-W3										 /GothicBBB-Medium/HeiseiKakuGo-W5										 /HeiseiMaruGo-W4/Jun101-Light]def							/Korea1 [/HYSMyeongJo-Medium/HYGoThic-Medium]def							/GB1	 [/STSong-Light/STHeiti-Regular]def							/CNS1	[/MKai-Medium/MHei-Medium]def							end def						end def					/$cmapname null def					/$deepcopyfont						{						dup/FontType get 0 eq							{							1 dict dup/FontName/copied put copyfont								begin								/FDepVector FDepVector copyarray								0 1 2 index length 1 sub									{									2 copy get $deepcopyfont									dup/FontName/copied put									/copied exch definefont									3 copy put pop pop									}								for								def								currentdict								end							}							{$Strategies/$Type3Underprint get exec}						ifelse						}bind def					/$buildfontname						{						dup/CIDFont findresource/CIDSystemInfo get							begin							Registry length Ordering length Supplement 8 string cvs							3 copy length 2 add add add string							dup 5 1 roll dup 0 Registry putinterval							dup 4 index(-)putinterval							dup 4 index 1 add Ordering putinterval							4 2 roll add 1 add 2 copy(-)putinterval							end						1 add 2 copy 0 exch getinterval $cmapname $fontpat cvs exch						anchorsearch							{pop pop 3 2 roll putinterval cvn/$cmapname exch def}							{pop pop pop pop pop}						ifelse						length						$str 1 index(-)putinterval 1 add						$str 1 index $cmapname $fontpat cvs putinterval						$cmapname length add						$str exch 0 exch getinterval cvn						}bind def					/$findfontByROS						{						/$fontname exch def						$ROS Registry 2 copy known							{							get Ordering 2 copy known								{get}								{pop pop[]}							ifelse							}							{pop pop[]}						ifelse						false exch							{							dup/CIDFont resourcestatus								{								pop pop								save								1 index/CIDFont findresource								dup/WidthsOnly known									{dup/WidthsOnly get}									{false}								ifelse								exch pop								exch restore									{pop}									{exch pop true exit}								ifelse								}								{pop}							ifelse							}						forall							{$str cvs $buildfontname}							{							false(*)								{								save exch								dup/CIDFont findresource								dup/WidthsOnly known									{dup/WidthsOnly get not}									{true}								ifelse								exch/CIDSystemInfo get								dup/Registry get Registry eq								exch/Ordering get Ordering eq and and									{exch restore exch pop true exit}									{pop restore}								ifelse								}							$str/CIDFont resourceforall								{$buildfontname}								{$fontname $findfontByEnum}							ifelse							}						ifelse						}bind def					end				end				currentdict/$error known currentdict/languagelevel known and dup					{pop $error/SubstituteFont known}				if				dup					{$error}					{Adobe_CoolType_Core}				ifelse				begin					{					/SubstituteFont					/CMap/Category resourcestatus						{						pop pop						{						$SubstituteFont							begin							/$substituteFound true def							dup length $slen gt							$sname null ne or							$slen 0 gt and								{								$sname null eq									{dup $str cvs dup length $slen sub $slen getinterval cvn}									{$sname}								ifelse								Adobe_CoolType_Data/InVMFontsByCMap get								1 index 2 copy known									{									get									false exch										{										pop										currentglobal											{											GlobalFontDirectory 1 index known												{exch pop true exit}												{pop}											ifelse											}											{											FontDirectory 1 index known												{exch pop true exit}												{												GlobalFontDirectory 1 index known													{exch pop true exit}													{pop}												ifelse												}											ifelse											}										ifelse										}									forall									}									{pop pop false}								ifelse									{									exch pop exch pop									}									{									dup/CMap resourcestatus										{										pop pop										dup/$cmapname exch def										/CMap findresource/CIDSystemInfo get{def}forall										$findfontByROS										}										{										128 string cvs										dup(-)search											{											3 1 roll search												{												3 1 roll pop													{dup cvi}												stopped													{pop pop pop pop pop $findfontByEnum}													{													4 2 roll pop pop													exch length													exch													2 index length													2 index													sub													exch 1 sub -1 0														{														$str cvs dup length														4 index														0														4 index														4 3 roll add														getinterval														exch 1 index exch 3 index exch														putinterval														dup/CMap resourcestatus															{															pop pop															4 1 roll pop pop pop															dup/$cmapname exch def															/CMap findresource/CIDSystemInfo get{def}forall															$findfontByROS															true exit															}															{pop}														ifelse														}													for													dup type/booleantype eq														{pop}														{pop pop pop $findfontByEnum}													ifelse													}												ifelse												}												{pop pop pop $findfontByEnum}											ifelse											}											{pop pop $findfontByEnum}										ifelse										}									ifelse									}								ifelse								}								{//SubstituteFont exec}							ifelse							/$slen 0 def							end						}						}						{						{						$SubstituteFont							begin							/$substituteFound true def							dup length $slen gt							$sname null ne or							$slen 0 gt and								{$findfontByEnum}								{//SubstituteFont exec}							ifelse							end						}						}					ifelse					bind readonly def					Adobe_CoolType_Core/scfindfont/systemfindfont load put					}					{					/scfindfont						{						$SubstituteFont							begin							dup systemfindfont							dup/FontName known								{dup/FontName get dup 3 index ne}								{/noname true}							ifelse							dup								{								/$origfontnamefound 2 index def								/$origfontname 4 index def/$substituteFound true def								}							if							exch pop								{								$slen 0 gt								$sname null ne								3 index length $slen gt or and									{									pop dup $findfontByEnum findfont									dup maxlength 1 add dict										begin											{1 index/FID eq{pop pop}{def}ifelse}										forall										currentdict										end									definefont									dup/FontName known{dup/FontName get}{null}ifelse									$origfontnamefound ne										{										$origfontname $str cvs print										( substitution revised, using )print										dup/FontName known											{dup/FontName get}{(unspecified font)}										ifelse										$str cvs print(.\n)print										}									if									}									{exch pop}								ifelse								}								{exch pop}							ifelse							end						}bind def					}				ifelse				end			end		Adobe_CoolType_Core_Defined not			{			Adobe_CoolType_Core/findfont				{				$SubstituteFont					begin					$depth 0 eq						{						/$fontname 1 index dup type/stringtype ne{$str cvs}if def						/$substituteFound false def						}					if					/$depth $depth 1 add def					end				scfindfont				$SubstituteFont					begin					/$depth $depth 1 sub def					$substituteFound $depth 0 eq and						{						$inVMIndex null ne							{dup $inVMIndex $AddInVMFont}						if						$doSmartSub							{							currentdict/$Strategy known								{$Strategy/$BuildFont get exec}							if							}						if						}					if					end				}bind put			}		if		}	if	end/$AddInVMFont	{	exch/FontName 2 copy known		{		get		1 dict dup begin exch 1 index gcheck def end exch		Adobe_CoolType_Data/InVMFontsByCMap get exch		$DictAdd		}		{pop pop pop}	ifelse	}bind def/$DictAdd	{	2 copy known not		{2 copy 4 index length dict put}	if	Level2? not		{		2 copy get dup maxlength exch length 4 index length add lt		2 copy get dup length 4 index length add exch maxlength 1 index lt			{			2 mul dict				begin				2 copy get{forall}def				2 copy currentdict put				end			}			{pop}		ifelse		}	if	get		begin			{def}		forall		end	}bind defendend%%EndResourcecurrentglobal true setglobal%%BeginResource: procset Adobe_CoolType_Utility_MAKEOCF 1.23 0%%Copyright: Copyright 1987-2006 Adobe Systems Incorporated.%%Version: 1.23 0systemdict/languagelevel known dup	{currentglobal false setglobal}	{false}ifelseexchuserdict/Adobe_CoolType_Utility 2 copy known	{2 copy get dup maxlength 27 add dict copy}	{27 dict}ifelse putAdobe_CoolType_Utility	begin	/@eexecStartData		 <BAB431EA07F209EB8C4348311481D9D3F76E3D15246555577D87BC510ED54E		 118C39697FA9F6DB58128E60EB8A12FA24D7CDD2FA94D221FA9EC8DA3E5E6A1C		 4ACECC8C2D39C54E7C946031DD156C3A6B4A09AD29E1867A>def	/@recognizeCIDFont null def	/ct_Level2? exch def	/ct_Clone? 1183615869 internaldict dup			/CCRun known not			exch/eCCRun known not			ct_Level2? and or defct_Level2?	{globaldict begin currentglobal true setglobal}if	/ct_AddStdCIDMap		ct_Level2?			{{				mark				Adobe_CoolType_Utility/@recognizeCIDFont currentdict put					{					((Hex)57 StartData					 0615 1e27 2c39 1c60 d8a8 cc31 fe2b f6e0					 7aa3 e541 e21c 60d8 a8c9 c3d0 6d9e 1c60					 d8a8 c9c2 02d7 9a1c 60d8 a849 1c60 d8a8					 cc36 74f4 1144 b13b 77)0()/SubFileDecode filter cvx exec					}				stopped					{					 cleartomark					 Adobe_CoolType_Utility/@recognizeCIDFont get					 countdictstack dup array dictstack					 exch 1 sub -1 0						 {						 2 copy get 3 index eq								{1 index length exch sub 1 sub{end}repeat exit}								{pop}						 ifelse						 }					 for					 pop pop					 Adobe_CoolType_Utility/@eexecStartData get eexec					}					{cleartomark}				ifelse			}}			{{				Adobe_CoolType_Utility/@eexecStartData get eexec			}}		ifelse bind defuserdict/cid_extensions knowndup{cid_extensions/cid_UpdateDB known and}if	{	 cid_extensions	 begin	/cid_GetCIDSystemInfo		{		 1 index type/stringtype eq			{exch cvn exch}		 if		 cid_extensions			 begin			 dup load 2 index known				{				 2 copy				 cid_GetStatusInfo				 dup null ne					{					 1 index load					 3 index get					 dup null eq						 {pop pop cid_UpdateDB}						 {						 exch						 1 index/Created get eq							 {exch pop exch pop}							 {pop cid_UpdateDB}						 ifelse						 }					 ifelse					}					{pop cid_UpdateDB}				 ifelse				}				{cid_UpdateDB}			 ifelse			 end		}bind def	 end	}ifct_Level2?	{end setglobal}if	/ct_UseNativeCapability? systemdict/composefont known def	/ct_MakeOCF 35 dict def	/ct_Vars 25 dict def	/ct_GlyphDirProcs 6 dict def	/ct_BuildCharDict 15 dict dup		begin		/charcode 2 string def		/dst_string 1500 string def		/nullstring()def		/usewidths? true def		end def	ct_Level2?{setglobal}{pop}ifelse	ct_GlyphDirProcs		begin		/GetGlyphDirectory			{			systemdict/languagelevel known				{pop/CIDFont findresource/GlyphDirectory get}				{				1 index/CIDFont findresource/GlyphDirectory				get dup type/dicttype eq					{					dup dup maxlength exch length sub 2 index lt						{						dup length 2 index add dict copy 2 index						/CIDFont findresource/GlyphDirectory 2 index put						}					if					}				if				exch pop exch pop				}			ifelse			+			}def		/+			{			systemdict/languagelevel known				{				currentglobal false setglobal				3 dict begin					/vm exch def				}				{1 dict begin}			ifelse			/$ exch def			systemdict/languagelevel known				{				vm setglobal				/gvm currentglobal def				$ gcheck setglobal				}			if			?{$ begin}if			}def		/?{$ type/dicttype eq}def		/|{			userdict/Adobe_CoolType_Data known				{			Adobe_CoolType_Data/AddWidths? known				{				 currentdict Adobe_CoolType_Data					begin					 begin						AddWidths?								{								Adobe_CoolType_Data/CC 3 index put								?{def}{$ 3 1 roll put}ifelse								CC charcode exch 1 index 0 2 index 256 idiv put								1 index exch 1 exch 256 mod put								stringwidth 2 array astore								currentfont/Widths get exch CC exch put								}								{?{def}{$ 3 1 roll put}ifelse}							ifelse					end				end				}				{?{def}{$ 3 1 roll put}ifelse}	ifelse				}				{?{def}{$ 3 1 roll put}ifelse}			ifelse			}def		/!			{			?{end}if			systemdict/languagelevel known				{gvm setglobal}			if			end			}def		/:{string currentfile exch readstring pop}executeonly def		end	ct_MakeOCF		begin		/ct_cHexEncoding		[/c00/c01/c02/c03/c04/c05/c06/c07/c08/c09/c0A/c0B/c0C/c0D/c0E/c0F/c10/c11/c12		/c13/c14/c15/c16/c17/c18/c19/c1A/c1B/c1C/c1D/c1E/c1F/c20/c21/c22/c23/c24/c25		/c26/c27/c28/c29/c2A/c2B/c2C/c2D/c2E/c2F/c30/c31/c32/c33/c34/c35/c36/c37/c38		/c39/c3A/c3B/c3C/c3D/c3E/c3F/c40/c41/c42/c43/c44/c45/c46/c47/c48/c49/c4A/c4B		/c4C/c4D/c4E/c4F/c50/c51/c52/c53/c54/c55/c56/c57/c58/c59/c5A/c5B/c5C/c5D/c5E		/c5F/c60/c61/c62/c63/c64/c65/c66/c67/c68/c69/c6A/c6B/c6C/c6D/c6E/c6F/c70/c71		/c72/c73/c74/c75/c76/c77/c78/c79/c7A/c7B/c7C/c7D/c7E/c7F/c80/c81/c82/c83/c84		/c85/c86/c87/c88/c89/c8A/c8B/c8C/c8D/c8E/c8F/c90/c91/c92/c93/c94/c95/c96/c97		/c98/c99/c9A/c9B/c9C/c9D/c9E/c9F/cA0/cA1/cA2/cA3/cA4/cA5/cA6/cA7/cA8/cA9/cAA		/cAB/cAC/cAD/cAE/cAF/cB0/cB1/cB2/cB3/cB4/cB5/cB6/cB7/cB8/cB9/cBA/cBB/cBC/cBD		/cBE/cBF/cC0/cC1/cC2/cC3/cC4/cC5/cC6/cC7/cC8/cC9/cCA/cCB/cCC/cCD/cCE/cCF/cD0		/cD1/cD2/cD3/cD4/cD5/cD6/cD7/cD8/cD9/cDA/cDB/cDC/cDD/cDE/cDF/cE0/cE1/cE2/cE3		/cE4/cE5/cE6/cE7/cE8/cE9/cEA/cEB/cEC/cED/cEE/cEF/cF0/cF1/cF2/cF3/cF4/cF5/cF6		/cF7/cF8/cF9/cFA/cFB/cFC/cFD/cFE/cFF]def		/ct_CID_STR_SIZE 8000 def		/ct_mkocfStr100 100 string def		/ct_defaultFontMtx[.001 0 0 .001 0 0]def		/ct_1000Mtx[1000 0 0 1000 0 0]def		/ct_raise{exch cvx exch errordict exch get exec stop}bind def		/ct_reraise			{cvx $error/errorname get(Error: )print dup(						 )cvs print					errordict exch get exec stop			}bind def		/ct_cvnsi			{			1 index add 1 sub 1 exch 0 4 1 roll				{				2 index exch get				exch 8 bitshift				add				}			for			exch pop			}bind def		/ct_GetInterval			{			Adobe_CoolType_Utility/ct_BuildCharDict get				begin				/dst_index 0 def				dup dst_string length gt					{dup string/dst_string exch def}				if				1 index ct_CID_STR_SIZE idiv				/arrayIndex exch def				2 index arrayIndex get				2 index				arrayIndex ct_CID_STR_SIZE mul				sub					{					dup 3 index add 2 index length le						{						2 index getinterval						dst_string dst_index 2 index putinterval						length dst_index add/dst_index exch def						exit						}						{						1 index length 1 index sub						dup 4 1 roll						getinterval						dst_string dst_index 2 index putinterval						pop dup dst_index add/dst_index exch def						sub						/arrayIndex arrayIndex 1 add def						2 index dup length arrayIndex gt							 {arrayIndex get}							 {							 pop							 exit							 }						ifelse						0						}					ifelse					}				loop				pop pop pop				dst_string 0 dst_index getinterval				end			}bind def		ct_Level2?			{			/ct_resourcestatus			currentglobal mark true setglobal				{/unknowninstancename/Category resourcestatus}			stopped				{cleartomark setglobal true}				{cleartomark currentglobal not exch setglobal}			ifelse				{					{					mark 3 1 roll/Category findresource						begin						ct_Vars/vm currentglobal put						({ResourceStatus}stopped)0()/SubFileDecode filter cvx exec							{cleartomark false}							{{3 2 roll pop true}{cleartomark false}ifelse}						ifelse						ct_Vars/vm get setglobal						end					}				}				{{resourcestatus}}			ifelse bind def			/CIDFont/Category ct_resourcestatus				{pop pop}				{				currentglobal true setglobal				/Generic/Category findresource				dup length dict copy				dup/InstanceType/dicttype put				/CIDFont exch/Category defineresource pop				setglobal				}			ifelse			ct_UseNativeCapability?				{				/CIDInit/ProcSet findresource begin				12 dict begin				begincmap				/CIDSystemInfo 3 dict dup begin				 /Registry(Adobe)def				 /Ordering(Identity)def				 /Supplement 0 def				end def				/CMapName/Identity-H def				/CMapVersion 1.000 def				/CMapType 1 def				1 begincodespacerange				<0000><FFFF>				endcodespacerange				1 begincidrange				<0000><FFFF>0				endcidrange				endcmap				CMapName currentdict/CMap defineresource pop				end				end				}			if			}			{			/ct_Category 2 dict begin			/CIDFont 10 dict def			/ProcSet	2 dict def			currentdict			end			def			/defineresource				{				ct_Category 1 index 2 copy known					{					get					dup dup maxlength exch length eq						{						dup length 10 add dict copy						ct_Category 2 index 2 index put						}					if					3 index 3 index put					pop exch pop					}					{pop pop/defineresource/undefined ct_raise}				ifelse				}bind def			/findresource				{				ct_Category 1 index 2 copy known					{					get					2 index 2 copy known						{get 3 1 roll pop pop}						{pop pop/findresource/undefinedresource ct_raise}					ifelse					}					{pop pop/findresource/undefined ct_raise}				ifelse				}bind def			/resourcestatus				{				ct_Category 1 index 2 copy known					{					get					2 index known					exch pop exch pop						{						0 -1 true						}						{						false						}					ifelse					}					{pop pop/findresource/undefined ct_raise}				ifelse				}bind def			/ct_resourcestatus/resourcestatus load def			}		ifelse		/ct_CIDInit 2 dict			begin			/ct_cidfont_stream_init				{					{					dup(Binary)eq						{						pop						null						currentfile						ct_Level2?							{								{cid_BYTE_COUNT()/SubFileDecode filter}							stopped								{pop pop pop}							if							}						if						/readstring load						exit						}					if					dup(Hex)eq						{						pop						currentfile						ct_Level2?							{								{null exch/ASCIIHexDecode filter/readstring}							stopped								{pop exch pop(>)exch/readhexstring}							if							}							{(>)exch/readhexstring}						ifelse						load						exit						}					if					/StartData/typecheck ct_raise					}				loop				cid_BYTE_COUNT ct_CID_STR_SIZE le					{					2 copy cid_BYTE_COUNT string exch exec					pop					1 array dup					3 -1 roll					0 exch put					}					{					cid_BYTE_COUNT ct_CID_STR_SIZE div ceiling cvi					dup array exch 2 sub 0 exch 1 exch						{						2 copy						5 index						ct_CID_STR_SIZE						string						6 index exec						pop						put						pop						}					for					2 index					cid_BYTE_COUNT ct_CID_STR_SIZE mod string					3 index exec					pop					1 index exch					1 index length 1 sub					exch put					}				ifelse				cid_CIDFONT exch/GlyphData exch put				2 index null eq					{					pop pop pop					}					{					pop/readstring load					1 string exch						{						3 copy exec						pop						dup length 0 eq							{							pop pop pop pop pop							true exit							}						if						4 index						eq							{							pop pop pop pop							false exit							}						if						}					loop					pop					}				ifelse				}bind def			/StartData				{				mark					{					currentdict					dup/FDArray get 0 get/FontMatrix get					0 get 0.001 eq						{						dup/CDevProc known not							{							/CDevProc 1183615869 internaldict/stdCDevProc 2 copy known								{get}								{								pop pop								{pop pop pop pop pop 0 -1000 7 index 2 div 880}								}							ifelse							def							}						if						}						{						/CDevProc							{							 pop pop pop pop pop							 0							 1 cid_temp/cid_CIDFONT get							/FDArray get 0 get							/FontMatrix get 0 get div							 7 index 2 div							 1 index 0.88 mul							}def						}					ifelse					/cid_temp 15 dict def					cid_temp						begin						/cid_CIDFONT exch def						3 copy pop						dup/cid_BYTE_COUNT exch def 0 gt							{							ct_cidfont_stream_init							FDArray								{								/Private get								dup/SubrMapOffset known									{									begin									/Subrs SubrCount array def									Subrs									SubrMapOffset									SubrCount									SDBytes									ct_Level2?										{										currentdict dup/SubrMapOffset undef										dup/SubrCount undef										/SDBytes undef										}									if									end									/cid_SD_BYTES exch def									/cid_SUBR_COUNT exch def									/cid_SUBR_MAP_OFFSET exch def									/cid_SUBRS exch def									cid_SUBR_COUNT 0 gt										{										GlyphData cid_SUBR_MAP_OFFSET cid_SD_BYTES ct_GetInterval										0 cid_SD_BYTES ct_cvnsi										0 1 cid_SUBR_COUNT 1 sub											{											exch 1 index											1 add											cid_SD_BYTES mul cid_SUBR_MAP_OFFSET add											GlyphData exch cid_SD_BYTES ct_GetInterval											0 cid_SD_BYTES ct_cvnsi											cid_SUBRS 4 2 roll											GlyphData exch											4 index											1 index											sub											ct_GetInterval											dup length string copy put											}										for										pop										}									if									}									{pop}								ifelse								}							forall							}						if						cleartomark pop pop						end					CIDFontName currentdict/CIDFont defineresource pop					end end					}				stopped					{cleartomark/StartData ct_reraise}				if				}bind def			currentdict			end def		/ct_saveCIDInit			{			/CIDInit/ProcSet ct_resourcestatus				{true}				{/CIDInitC/ProcSet ct_resourcestatus}			ifelse				{				pop pop				/CIDInit/ProcSet findresource				ct_UseNativeCapability?					{pop null}					{/CIDInit ct_CIDInit/ProcSet defineresource pop}				ifelse				}				{/CIDInit ct_CIDInit/ProcSet defineresource pop null}			ifelse			ct_Vars exch/ct_oldCIDInit exch put			}bind def		/ct_restoreCIDInit			{			ct_Vars/ct_oldCIDInit get dup null ne				{/CIDInit exch/ProcSet defineresource pop}				{pop}			ifelse			}bind def		/ct_BuildCharSetUp			{			1 index				begin				CIDFont					begin					Adobe_CoolType_Utility/ct_BuildCharDict get						begin						/ct_dfCharCode exch def						/ct_dfDict exch def						CIDFirstByte ct_dfCharCode add						dup CIDCount ge							{pop 0}						if						/cid exch def							{							GlyphDirectory cid 2 copy known								{get}								{pop pop nullstring}							ifelse							dup length FDBytes sub 0 gt								{								dup								FDBytes 0 ne									{0 FDBytes ct_cvnsi}									{pop 0}								ifelse								/fdIndex exch def								dup length FDBytes sub FDBytes exch getinterval								/charstring exch def								exit								}								{								pop								cid 0 eq									{/charstring nullstring def exit}								if								/cid 0 def								}							ifelse							}						loop			}def		/ct_SetCacheDevice			{			0 0 moveto			dup stringwidth			3 -1 roll			true charpath			pathbbox			0 -1000			7 index 2 div 880			setcachedevice2			0 0 moveto			}def		/ct_CloneSetCacheProc			{			1 eq				{				stringwidth				pop -2 div -880				0 -1000 setcharwidth				moveto				}				{				usewidths?					{					currentfont/Widths get cid					2 copy known						{get exch pop aload pop}						{pop pop stringwidth}					ifelse					}					{stringwidth}				ifelse				setcharwidth				0 0 moveto				}			ifelse			}def		/ct_Type3ShowCharString			{			ct_FDDict fdIndex 2 copy known				{get}				{				currentglobal 3 1 roll				1 index gcheck setglobal				ct_Type1FontTemplate dup maxlength dict copy					begin					FDArray fdIndex get					dup/FontMatrix 2 copy known						{get}						{pop pop ct_defaultFontMtx}					ifelse					/FontMatrix exch dup length array copy def					/Private get					/Private exch def					/Widths rootfont/Widths get def					/CharStrings 1 dict dup/.notdef						<d841272cf18f54fc13>dup length string copy put def					currentdict					end				/ct_Type1Font exch definefont				dup 5 1 roll put				setglobal				}			ifelse			dup/CharStrings get 1 index/Encoding get			ct_dfCharCode get charstring put			rootfont/WMode 2 copy known				{get}				{pop pop 0}			ifelse			exch			1000 scalefont setfont			ct_str1 0 ct_dfCharCode put			ct_str1 exch ct_dfSetCacheProc			ct_SyntheticBold				{				currentpoint				ct_str1 show				newpath				moveto				ct_str1 true charpath				ct_StrokeWidth setlinewidth				stroke				}				{ct_str1 show}			ifelse			}def		/ct_Type4ShowCharString			{			ct_dfDict ct_dfCharCode charstring			FDArray fdIndex get			dup/FontMatrix get dup ct_defaultFontMtx ct_matrixeq not				{ct_1000Mtx matrix concatmatrix concat}				{pop}			ifelse			/Private get			Adobe_CoolType_Utility/ct_Level2? get not				{				ct_dfDict/Private				3 -1 roll					{put}				1183615869 internaldict/superexec get exec				}			if			1183615869 internaldict			Adobe_CoolType_Utility/ct_Level2? get				{1 index}				{3 index/Private get mark 6 1 roll}			ifelse			dup/RunInt known				{/RunInt get}				{pop/CCRun}			ifelse			get exec			Adobe_CoolType_Utility/ct_Level2? get not				{cleartomark}			if			}bind def		/ct_BuildCharIncremental			{				{				Adobe_CoolType_Utility/ct_MakeOCF get begin				ct_BuildCharSetUp				ct_ShowCharString				}			stopped				{stop}			if			end			end			end			end			}bind def		/BaseFontNameStr(BF00)def		/ct_Type1FontTemplate 14 dict			begin			/FontType 1 def			/FontMatrix [0.001 0 0 0.001 0 0]def			/FontBBox [-250 -250 1250 1250]def			/Encoding ct_cHexEncoding def			/PaintType 0 def			currentdict			end def		/BaseFontTemplate 11 dict			begin			/FontMatrix [0.001 0 0 0.001 0 0]def			/FontBBox [-250 -250 1250 1250]def			/Encoding ct_cHexEncoding def			/BuildChar/ct_BuildCharIncremental load def			ct_Clone?				{				/FontType 3 def				/ct_ShowCharString/ct_Type3ShowCharString load def				/ct_dfSetCacheProc/ct_CloneSetCacheProc load def				/ct_SyntheticBold false def				/ct_StrokeWidth 1 def				}				{				/FontType 4 def				/Private 1 dict dup/lenIV 4 put def				/CharStrings 1 dict dup/.notdef<d841272cf18f54fc13>put def				/PaintType 0 def				/ct_ShowCharString/ct_Type4ShowCharString load def				}			ifelse			/ct_str1 1 string def			currentdict			end def		/BaseFontDictSize BaseFontTemplate length 5 add def		/ct_matrixeq			{			true 0 1 5				{				dup 4 index exch get exch 3 index exch get eq and				dup not					{exit}				if				}			for			exch pop exch pop			}bind def		/ct_makeocf			{			15 dict				begin				exch/WMode exch def				exch/FontName exch def				/FontType 0 def				/FMapType 2 def			dup/FontMatrix known				{dup/FontMatrix get/FontMatrix exch def}				{/FontMatrix matrix def}			ifelse				/bfCount 1 index/CIDCount get 256 idiv 1 add					dup 256 gt{pop 256}if def				/Encoding					256 array 0 1 bfCount 1 sub{2 copy dup put pop}for					bfCount 1 255{2 copy bfCount put pop}for					def				/FDepVector bfCount dup 256 lt{1 add}if array def				BaseFontTemplate BaseFontDictSize dict copy					begin					/CIDFont exch def					CIDFont/FontBBox known						{CIDFont/FontBBox get/FontBBox exch def}					if					CIDFont/CDevProc known						{CIDFont/CDevProc get/CDevProc exch def}					if					currentdict					end				BaseFontNameStr 3(0)putinterval				0 1 bfCount dup 256 eq{1 sub}if					{					FDepVector exch					2 index BaseFontDictSize dict copy						begin						dup/CIDFirstByte exch 256 mul def						FontType 3 eq							{/ct_FDDict 2 dict def}						if						currentdict						end					1 index 16					BaseFontNameStr 2 2 getinterval cvrs pop					BaseFontNameStr exch definefont					put					}				for				ct_Clone?					{/Widths 1 index/CIDFont get/GlyphDirectory get length dict def}				if				FontName				currentdict				end			definefont			ct_Clone?				{				gsave				dup 1000 scalefont setfont				ct_BuildCharDict					begin					/usewidths? false def					currentfont/Widths get						begin						exch/CIDFont get/GlyphDirectory get							{							pop							dup charcode exch 1 index 0 2 index 256 idiv put							1 index exch 1 exch 256 mod put							stringwidth 2 array astore def							}						forall						end					/usewidths? true def					end				grestore				}				{exch pop}			ifelse			}bind def		currentglobal true setglobal		/ct_ComposeFont			{			ct_UseNativeCapability?				{								2 index/CMap ct_resourcestatus					{pop pop exch pop}					{					/CIDInit/ProcSet findresource						begin						12 dict							begin							begincmap							/CMapName 3 index def							/CMapVersion 1.000 def							/CMapType 1 def							exch/WMode exch def							/CIDSystemInfo 3 dict dup								begin								/Registry(Adobe)def								/Ordering								CMapName ct_mkocfStr100 cvs								(Adobe-)search									{									pop pop									(-)search										{										dup length string copy										exch pop exch pop										}										{pop(Identity)}									ifelse									}									{pop (Identity)}								ifelse								def								/Supplement 0 def								end def							1 begincodespacerange							<0000><FFFF>							endcodespacerange							1 begincidrange							<0000><FFFF>0							endcidrange							endcmap							CMapName currentdict/CMap defineresource pop							end						end					}				ifelse				composefont				}				{				3 2 roll pop				0 get/CIDFont findresource				ct_makeocf				}			ifelse			}bind def			setglobal		/ct_MakeIdentity			{			ct_UseNativeCapability?				{				1 index/CMap ct_resourcestatus					{pop pop}					{					/CIDInit/ProcSet findresource begin					12 dict begin					begincmap					/CMapName 2 index def					/CMapVersion 1.000 def					/CMapType 1 def					/CIDSystemInfo 3 dict dup						begin						/Registry(Adobe)def						/Ordering						CMapName ct_mkocfStr100 cvs						(Adobe-)search							{							pop pop							(-)search								{dup length string copy exch pop exch pop}								{pop(Identity)}							ifelse							}							{pop(Identity)}						ifelse						def						/Supplement 0 def						end def					1 begincodespacerange					<0000><FFFF>					endcodespacerange					1 begincidrange					<0000><FFFF>0					endcidrange					endcmap					CMapName currentdict/CMap defineresource pop					end					end					}				ifelse				composefont				}				{				exch pop				0 get/CIDFont findresource				ct_makeocf				}			ifelse			}bind def		currentdict readonly pop		end	end%%EndResourcesetglobal%%BeginResource: procset Adobe_CoolType_Utility_T42 1.0 0%%Copyright: Copyright 1987-2004 Adobe Systems Incorporated.%%Version: 1.0 0userdict/ct_T42Dict 15 dict putct_T42Dict begin/Is2015?{ version cvi 2015 ge}bind def/AllocGlyphStorage{ Is2015? {		pop } {	{string}forall }ifelse}bind def/Type42DictBegin{25 dict begin /FontName exch def /CharStrings 256 dict begin	 /.notdef 0 def	 currentdict end def /Encoding exch def /PaintType 0 def /FontType 42 def /FontMatrix[1 0 0 1 0 0]def 4 array astore cvx/FontBBox exch def /sfnts}bind def/Type42DictEnd { currentdict dup/FontName get exch definefont endct_T42Dict exchdup/FontName get exch put}bind def/RD{string currentfile exch readstring pop}executeonly def/PrepFor2015{Is2015?{		 	/GlyphDirectory 	 16	 dict def	 sfnts 0 get	 dup	 2 index	(glyx)	 putinterval	 2 index 	(locx)	 putinterval	 pop	 pop}{	 pop	 pop}ifelse			}bind def/AddT42Char{Is2015?{	/GlyphDirectory get 	begin	def	end	pop	pop}{	/sfnts get	4 index	get	3 index 2 index	putinterval	pop	pop	pop	pop}ifelse}bind def/T0AddT42Mtx2{/CIDFont findresource/Metrics2 get begin def end}bind defend%%EndResourcecurrentglobal true setglobal%%BeginFile: MMFauxFont.prc%%Copyright: Copyright 1987-2001 Adobe Systems Incorporated. %%All Rights Reserved.userdict /ct_EuroDict 10 dict putct_EuroDict begin/ct_CopyFont {    { 1 index /FID ne {def} {pop pop} ifelse} forall} def/ct_GetGlyphOutline{   gsave   initmatrix newpath   exch findfont dup    length 1 add dict    begin 		ct_CopyFont 		/Encoding Encoding dup length array copy 		dup		4 -1 roll		0 exch put   		def		currentdict   end   /ct_EuroFont exch definefont   1000 scalefont setfont   0 0 moveto   [       <00> stringwidth        <00> false charpath       pathbbox       [       {/m cvx} {/l cvx} {/c cvx} {/cp cvx} pathforall   grestore   counttomark 8 add}def/ct_MakeGlyphProc{   ] cvx   /ct_PSBuildGlyph cvx   ] cvx} def/ct_PSBuildGlyph { 	gsave 	8 -1 roll pop 	7 1 roll         6 -2 roll ct_FontMatrix transform 6 2 roll        4 -2 roll ct_FontMatrix transform 4 2 roll        ct_FontMatrix transform 	currentdict /PaintType 2 copy known {get 2 eq}{pop pop false} ifelse  	dup  9 1 roll 	{  		currentdict /StrokeWidth 2 copy known  		{   			get 2 div   			0 ct_FontMatrix dtransform pop			5 1 roll  			4 -1 roll 4 index sub   			4 1 roll   			3 -1 roll 4 index sub  			3 1 roll   			exch 4 index add exch  			4 index add  			5 -1 roll pop  		}  		{	 			pop pop 		}  		ifelse  	}           if  	setcachedevice          ct_FontMatrix concat        ct_PSPathOps begin 		exec 	end 	{  		currentdict /StrokeWidth 2 copy known  			{ get }  			{ pop pop 0 }  	    ifelse  		setlinewidth stroke  	}  	{   	    fill  	}  	ifelse      grestore} def /ct_PSPathOps 4 dict dup begin 	/m {moveto} def 	/l {lineto} def 	/c {curveto} def 	/cp {closepath} def end def /ct_matrix1000 [1000 0 0 1000 0 0] def/ct_AddGlyphProc  {   2 index findfont dup length 4 add dict    begin 	ct_CopyFont 	/CharStrings CharStrings dup length 1 add dict copy      begin         3 1 roll def           currentdict       end       def      /ct_FontMatrix ct_matrix1000 FontMatrix matrix concatmatrix def      /ct_PSBuildGlyph /ct_PSBuildGlyph load def      /ct_PSPathOps /ct_PSPathOps load def      currentdict   end   definefont pop}defsystemdict /languagelevel known{	/ct_AddGlyphToPrinterFont {		2 copy		ct_GetGlyphOutline 3 add -1 roll restore 		ct_MakeGlyphProc 		ct_AddGlyphProc	} def}{	/ct_AddGlyphToPrinterFont {	    pop pop restore		Adobe_CTFauxDict /$$$FONTNAME get		/Euro		Adobe_CTFauxDict /$$$SUBSTITUTEBASE get		ct_EuroDict exch get		ct_AddGlyphProc	} def} ifelse/AdobeSansMM { 556 0 24 -19 541 703 	{ 	541 628 m 	510 669 442 703 354 703 c 	201 703 117 607 101 444 c 	50 444 l 	25 372 l 	97 372 l 	97 301 l 	49 301 l 	24 229 l 	103 229 l 	124 67 209 -19 350 -19 c 	435 -19 501 25 509 32 c 	509 131 l 	492 105 417 60 343 60 c 	267 60 204 127 197 229 c 	406 229 l 	430 301 l 	191 301 l 	191 372 l 	455 372 l 	479 444 l 	194 444 l 	201 531 245 624 348 624 c 	433 624 484 583 509 534 c 	cp 	556 0 m 	}ct_PSBuildGlyph} def/AdobeSerifMM { 500 0 10 -12 484 692 	{ 	347 298 m 	171 298 l 	170 310 170 322 170 335 c 	170 362 l 	362 362 l 	374 403 l 	172 403 l 	184 580 244 642 308 642 c 	380 642 434 574 457 457 c 	481 462 l 	474 691 l 	449 691 l 	433 670 429 657 410 657 c 	394 657 360 692 299 692 c 	204 692 94 604 73 403 c 	22 403 l 	10 362 l 	70 362 l 	69 352 69 341 69 330 c 	69 319 69 308 70 298 c 	22 298 l 	10 257 l 	73 257 l 	97 57 216 -12 295 -12 c 	364 -12 427 25 484 123 c 	458 142 l 	425 101 384 37 316 37 c 	256 37 189 84 173 257 c 	335 257 l 	cp 	500 0 m 	} ct_PSBuildGlyph } def end		%%EndFilesetglobalAdobe_CoolType_Core begin /$Oblique SetSubstituteStrategy end%%BeginResource: procset Adobe_AGM_Image 1.0 0
 %%Version: 1.0 0
 %%Copyright: Copyright(C)2000-2006 Adobe Systems, Inc. All Rights Reserved.
 systemdict/setpacking known
@@ -4136,7 +4163,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 /ps
 {
 	Adobe_AGM_Image begin
-	/AGMIMG_ccimage_exists{/customcolorimage where 
+	/AGMIMG_ccimage_exists{/customcolorimage where
 		{
 			pop
 			/Adobe_AGM_OnHost_Seps where
@@ -4152,7 +4179,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			}ifelse
 			}{
 			false
-		}ifelse 
+		}ifelse
 	}bdf
 	level2{
 		/invert_image_samples
@@ -4166,7 +4193,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 				/Decode[1 1]def
 			}if
 		}def
-	}{	
+	}{
 		/invert_image_samples
 		{
 			{1 exch sub}currenttransfer addprocs settransfer
@@ -4225,7 +4252,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			/imagemask
 		}{
 			/O load 2 eq{
-				/image 
+				/image
 			}{
 				/colorimage
 			}ifelse
@@ -4242,7 +4269,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			DataSource 0 get type/filetype eq{
 				/_Filters DataSource def
 				currentdict/MultipleDataSources known not{
-					/DataSource DataSource dup length 1 sub get def 
+					/DataSource DataSource dup length 1 sub get def
 				}if
 			}if
 		}if
@@ -4357,7 +4384,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 					use_mask{
 						process_mask image
 					}{
-						DeviceN_NoneName DeviceN_PS2 Indexed_DeviceN level3 not and or or AGMCORE_in_rip_sep and 
+						DeviceN_NoneName DeviceN_PS2 Indexed_DeviceN level3 not and or or AGMCORE_in_rip_sep and
 						{
 							Names convert_to_process not{
 								2 dict begin
@@ -4411,11 +4438,11 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 								currentdict imageormask_sys
 							}{
 								currentdict ignoreimagedata
-							}ifelse				 		
+							}ifelse
 						}ifelse
 					}ifelse
 				}{
-					BitsPerComponent ImageMatrix 
+					BitsPerComponent ImageMatrix
 					MultipleDataSources{
 						0 1 NComponents 1 sub{
 							DataSource exch get
@@ -4441,8 +4468,8 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 											DataSource aload pop AGMCORE_get_ink_data
 											}ifelse def
 									}{
-										/DataSource 
-										Width BitsPerComponent mul 7 add 8 idiv Height mul 4 mul 
+										/DataSource
+										Width BitsPerComponent mul 7 add 8 idiv Height mul 4 mul
 										/DataSource load
 										filter_cmyk 0()/SubFileDecode filter def
 									}ifelse
@@ -4451,18 +4478,18 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 									/NComponents 1 def
 									/Operator/image def
 									invert_image_samples
-						 			1 AGMCORE_&setgray
+									1 AGMCORE_&setgray
 									currentdict imageormask_sys
 								}{
 									currentoverprint not Operator/imagemask eq and{
- 			 							1 AGMCORE_&setgray
- 			 							currentdict imageormask_sys
- 			 						}{
- 			 							currentdict ignoreimagedata
- 			 						}ifelse
+										1 AGMCORE_&setgray
+										currentdict imageormask_sys
+									}{
+										currentdict ignoreimagedata
+									}ifelse
 								}ifelse
-							}{	
-								MultipleDataSources NComponents AGMIMG_&colorimage						
+							}{
+								MultipleDataSources NComponents AGMIMG_&colorimage
 							}ifelse
 						}{
 							true NComponents colorimage
@@ -4476,9 +4503,9 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 									AGMCORE_black_plate not Operator/imagemask ne and{
 										/DoImage false def
 										currentdict ignoreimagedata
-					 				}if
+									}if
 								}if
-						 		1 AGMCORE_&setgray
+								1 AGMCORE_&setgray
 								DoImage
 									{currentdict imageormask_sys}if
 							}{
@@ -4506,27 +4533,27 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 }def
 /sep_imageormask
 {
- 	/sep_colorspace_dict AGMCORE_gget begin
+	/sep_colorspace_dict AGMCORE_gget begin
 	CSA map_csa
 	begin
 	AGMIMG_init_common
 	SkipImageProc{
 		currentdict consumeimagedata
 	}{
-		save mark 
+		save mark
 		AGMCORE_avoid_L2_sep_space{
 			/Decode[Decode 0 get 255 mul Decode 1 get 255 mul]def
 		}if
- 		AGMIMG_ccimage_exists 
+		AGMIMG_ccimage_exists
 		MappedCSA 0 get/DeviceCMYK eq and
-		currentdict/Components known and 
-		Name()ne and 
-		Name(All)ne and 
+		currentdict/Components known and
+		Name()ne and
+		Name(All)ne and
 		Operator/image eq and
 		AGMCORE_producing_seps not and
 		level2 not and
 		{
-			Width Height BitsPerComponent ImageMatrix 
+			Width Height BitsPerComponent ImageMatrix
 			[
 			/DataSource load/exec cvx
 			{
@@ -4546,7 +4573,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 		}{
 			AGMCORE_producing_seps not{
 				level2{
- 					//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne AGMCORE_avoid_L2_sep_space not and currentcolorspace 0 get/Separation ne and{
+					//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne AGMCORE_avoid_L2_sep_space not and currentcolorspace 0 get/Separation ne and{
 						[/Separation Name MappedCSA sep_proc_name exch dup 0 get 15 string cvs(/Device)anchorsearch{pop pop 0 get}{pop}ifelse exch load]setcolorspace_opt
 						/sep_tint AGMCORE_gget setcolor
 					}if
@@ -4559,80 +4586,80 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 						sep_imageormask_lev1
 					}ifelse
 				}ifelse
- 			}{
+			}{
 				AGMCORE_host_sep{
 					Operator/knockout eq{
 						currentdict/ImageMatrix get concat
 						knockout_unitsq
 					}{
 						currentgray 1 ne{
- 							AGMCORE_is_cmyk_sep Name(All)ne and{
- 								level2{
- 									Name AGMCORE_IsSeparationAProcessColor 
- 									{
- 										Operator/imagemask eq{
- 											//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{
- 												/sep_tint AGMCORE_gget 1 exch sub AGMCORE_&setcolor
- 											}if
- 										}{
+							AGMCORE_is_cmyk_sep Name(All)ne and{
+								level2{
+									Name AGMCORE_IsSeparationAProcessColor
+									{
+										Operator/imagemask eq{
+											//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{
+												/sep_tint AGMCORE_gget 1 exch sub AGMCORE_&setcolor
+											}if
+										}{
 											invert_image_samples
- 										}ifelse
-	 								}{
-	 									//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{
-	 										[/Separation Name[/DeviceGray]
-	 										{
-	 											sep_colorspace_proc AGMCORE_get_ink_data
+										}ifelse
+									}{
+										//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{
+											[/Separation Name[/DeviceGray]
+											{
+												sep_colorspace_proc AGMCORE_get_ink_data
 												1 exch sub
-	 										}bind
+											}bind
 											]AGMCORE_&setcolorspace
 											/sep_tint AGMCORE_gget AGMCORE_&setcolor
 										}if
- 									}ifelse
- 									currentdict imageormask_sys
-	 							}{
-	 								currentdict
+									}ifelse
+									currentdict imageormask_sys
+								}{
+									currentdict
 									Operator/imagemask eq{
 										imageormask_sys
 									}{
 										sep_image_lev1_sep
 									}ifelse
-	 							}ifelse
- 							}{
- 								Operator/imagemask ne{
+								}ifelse
+							}{
+								Operator/imagemask ne{
 									invert_image_samples
- 								}if
-		 						currentdict imageormask_sys
- 							}ifelse
- 						}{
- 							currentoverprint not Name(All)eq or Operator/imagemask eq and{
-								currentdict imageormask_sys 
+								}if
+								currentdict imageormask_sys
+							}ifelse
+						}{
+							currentoverprint not Name(All)eq or Operator/imagemask eq and{
+								currentdict imageormask_sys
 								}{
 								currentoverprint not
 									{
- 									gsave 
- 									knockout_unitsq
- 									grestore
+									gsave
+									knockout_unitsq
+									grestore
 									}if
-								currentdict consumeimagedata 
-		 					}ifelse
- 						}ifelse
-		 			}ifelse
- 				}{
+								currentdict consumeimagedata
+							}ifelse
+						}ifelse
+					}ifelse
+				}{
 					//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{
 						currentcolorspace 0 get/Separation ne{
 							[/Separation Name MappedCSA sep_proc_name exch 0 get exch load]setcolorspace_opt
 							/sep_tint AGMCORE_gget setcolor
 						}if
 					}if
-					currentoverprint 
-					MappedCSA 0 get/DeviceCMYK eq and 
+					currentoverprint
+					MappedCSA 0 get/DeviceCMYK eq and
 					Name AGMCORE_IsSeparationAProcessColor not and
-					//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{Name inRip_spot_has_ink not and}{false}ifelse 
+					//Adobe_AGM_Core/AGMCORE_pattern_paint_type get 2 ne{Name inRip_spot_has_ink not and}{false}ifelse
 					Name(All)ne and{
 						imageormask_l2_overprint
 					}{
 						currentdict imageormask
- 					}ifelse
+					}ifelse
 				}ifelse
 			}ifelse
 		}ifelse
@@ -4657,7 +4684,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 		}for
 	]cvx bind
 	end
-}bdf		
+}bdf
 /devn_alt_datasource
 {
 	11 dict begin
@@ -4677,9 +4704,9 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 				dup 7 mul 1 add index exch dup BitsPerComponent 8 idiv mul exch
 				origDataSource exch get 0()/SubFileDecode filter
 				BitsPerComponent 8 idiv string/readstring cvx/pop cvx/putinterval cvx
-				}for 
+				}for
 			]bind cvx
-		}{origDataSource}ifelse 0()/SubFileDecode filter def		
+		}{origDataSource}ifelse 0()/SubFileDecode filter def
 	[
 		origcolorSpaceElemCnt string
 		0 2 origDecode length 2 sub
@@ -4698,7 +4725,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 }bdf
 /devn_imageormask
 {
- 	/devicen_colorspace_dict AGMCORE_gget begin
+	/devicen_colorspace_dict AGMCORE_gget begin
 	CSA map_csa
 	2 dict begin
 	dup
@@ -4719,34 +4746,34 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 	SkipImageProc{
 		currentdict consumeimagedata
 	}{
-		save mark 
+		save mark
 		AGMCORE_producing_seps not{
 			level3 not{
 				Operator/imagemask ne{
 					/DataSource[[
 						DataSource Decode BitsPerComponent currentdict/MultipleDataSources known{MultipleDataSources}{false}ifelse
-						colorSpaceElemCnt/devicen_colorspace_dict AGMCORE_gget/TintTransform get 
-						devn_alt_datasource 1/string cvx/readstring cvx/pop cvx]cvx colorSpaceElemCnt 1 sub{dup}repeat]def				
+						colorSpaceElemCnt/devicen_colorspace_dict AGMCORE_gget/TintTransform get
+						devn_alt_datasource 1/string cvx/readstring cvx/pop cvx]cvx colorSpaceElemCnt 1 sub{dup}repeat]def
 					/MultipleDataSources true def
 					/Decode colorSpaceElemCnt[exch{0 1}repeat]def
 				}if
 			}if
 			currentdict imageormask
- 		}{
+		}{
 			AGMCORE_host_sep{
 				Names convert_to_process{
 					CSA get_csa_by_name 0 get/DeviceCMYK eq{
 						/DataSource
-							Width BitsPerComponent mul 7 add 8 idiv Height mul 4 mul 
+							Width BitsPerComponent mul 7 add 8 idiv Height mul 4 mul
 							DataSource Decode BitsPerComponent currentdict/MultipleDataSources known{MultipleDataSources}{false}ifelse
-							4/devicen_colorspace_dict AGMCORE_gget/TintTransform get 
+							4/devicen_colorspace_dict AGMCORE_gget/TintTransform get
 							devn_alt_datasource
 						filter_cmyk 0()/SubFileDecode filter def
 						/MultipleDataSources false def
 						/Decode[1 0]def
 						/DeviceGray setcolorspace
-			 			currentdict imageormask_sys
- 					}{
+						currentdict imageormask_sys
+					}{
 						AGMCORE_report_unsupported_color_space
 						AGMCORE_black_plate{
 							/DataSource
@@ -4755,42 +4782,42 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 								devn_alt_datasource
 							/MultipleDataSources false def
 							/Decode colorSpaceElemCnt[exch{0 1}repeat]def
-				 			currentdict imageormask_sys
-				 		}{
-	 						gsave 
-	 						knockout_unitsq
-	 						grestore
-							currentdict consumeimagedata 
+							currentdict imageormask_sys
+						}{
+							gsave
+							knockout_unitsq
+							grestore
+							currentdict consumeimagedata
 						}ifelse
- 					}ifelse
+					}ifelse
 				}
-				{	
+				{
 					/devicen_colorspace_dict AGMCORE_gget/names_index known{
-	 					Operator/imagemask ne{
-	 						MultipleDataSources{
-		 						/DataSource[DataSource devn_sep_datasource/exec cvx]cvx def
+						Operator/imagemask ne{
+							MultipleDataSources{
+								/DataSource[DataSource devn_sep_datasource/exec cvx]cvx def
 								/MultipleDataSources false def
-	 						}{
+							}{
 								/DataSource/DataSource load dstDataStr srcDataStrs 0 get filter_devn def
-	 						}ifelse
+							}ifelse
 							invert_image_samples
-	 					}if
-			 			currentdict imageormask_sys
-	 				}{
-	 					currentoverprint not Operator/imagemask eq and{
-							currentdict imageormask_sys 
+						}if
+						currentdict imageormask_sys
+					}{
+						currentoverprint not Operator/imagemask eq and{
+							currentdict imageormask_sys
 							}{
 							currentoverprint not
 								{
-	 							gsave 
-	 							knockout_unitsq
-	 							grestore
+								gsave
+								knockout_unitsq
+								grestore
 								}if
-							currentdict consumeimagedata 
-			 			}ifelse
-	 				}ifelse
-	 			}ifelse
- 			}{
+							currentdict consumeimagedata
+						}ifelse
+					}ifelse
+				}ifelse
+			}{
 				currentdict imageormask
 			}ifelse
 		}ifelse
@@ -4807,11 +4834,11 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 	currentcmykcolor add add add 0 eq{
 		currentdict consumeimagedata
 	}{
-		level3{			
-			currentcmykcolor 
-			/AGMIMG_k xdf 
-			/AGMIMG_y xdf 
-			/AGMIMG_m xdf 
+		level3{
+			currentcmykcolor
+			/AGMIMG_k xdf
+			/AGMIMG_y xdf
+			/AGMIMG_m xdf
 			/AGMIMG_c xdf
 			Operator/imagemask eq{
 				[/DeviceN[
@@ -4824,10 +4851,10 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 				AGMIMG_m 0 ne{AGMIMG_m}if
 				AGMIMG_y 0 ne{AGMIMG_y}if
 				AGMIMG_k 0 ne{AGMIMG_k}if
-				setcolor			
-			}{	
+				setcolor
+			}{
 				/Decode[Decode 0 get 255 mul Decode 1 get 255 mul]def
-				[/Indexed 				
+				[/Indexed
 					[
 						/DeviceN[
 							AGMIMG_c 0 ne{/Cyan}if
@@ -4839,34 +4866,34 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 							AGMIMG_k 0 eq{0}if
 							AGMIMG_y 0 eq{0 exch}if
 							AGMIMG_m 0 eq{0 3 1 roll}if
-							AGMIMG_c 0 eq{0 4 1 roll}if						
+							AGMIMG_c 0 eq{0 4 1 roll}if
 						}
 					]
 					255
 					{
-						255 div 
+						255 div
 						mark exch
 						dup	dup dup
 						AGMIMG_k 0 ne{
-							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 1 roll pop pop pop		
+							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 1 roll pop pop pop
 							counttomark 1 roll
 						}{
 							pop
 						}ifelse
 						AGMIMG_y 0 ne{
-							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 2 roll pop pop pop		
+							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 2 roll pop pop pop
 							counttomark 1 roll
 						}{
 							pop
 						}ifelse
 						AGMIMG_m 0 ne{
-							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 3 roll pop pop pop		
+							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec 4 3 roll pop pop pop
 							counttomark 1 roll
 						}{
 							pop
 						}ifelse
 						AGMIMG_c 0 ne{
-							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec pop pop pop		
+							/sep_tint AGMCORE_gget mul MappedCSA sep_proc_name exch pop load exec pop pop pop
 							counttomark 1 roll
 						}{
 							pop
@@ -4909,7 +4936,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 		0 ne{
 			[/Separation/Cyan/DeviceGray{}]setcolorspace
 			gsave
-			/Cyan 
+			/Cyan
 			[{1 exch sub/sep_tint AGMCORE_gget mul}/exec cvx MappedCSA sep_proc_name cvx exch pop{pop pop pop 1 exch sub}/exec cvx]
 			cvx modify_halftone_xfer
 			Operator currentdict read_image_file
@@ -4926,9 +4953,9 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 {
 	begin
 		AGMIMG_init_common
-		save mark 
- 		currentdict
- 		AGMCORE_host_sep{
+		save mark
+		currentdict
+		AGMCORE_host_sep{
 			Operator/knockout eq{
 				/indexed_colorspace_dict AGMCORE_gget dup/CSA known{
 					/CSA get get_csa_by_name
@@ -4941,15 +4968,15 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			}{
 				Indexed_DeviceN{
 					/devicen_colorspace_dict AGMCORE_gget dup/names_index known exch/Names get convert_to_process or{
-			 			indexed_image_lev2_sep
+						indexed_image_lev2_sep
 					}{
 						currentoverprint not{
 							knockout_unitsq
-			 			}if
-			 			currentdict consumeimagedata
+						}if
+						currentdict consumeimagedata
 					}ifelse
 				}{
-		 			AGMCORE_is_cmyk_sep{
+					AGMCORE_is_cmyk_sep{
 						Operator/imagemask eq{
 							imageormask_sys
 						}{
@@ -4962,12 +4989,12 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 					}{
 						currentoverprint not{
 							knockout_unitsq
-			 			}if
-			 			currentdict consumeimagedata
+						}if
+						currentdict consumeimagedata
 					}ifelse
 				}ifelse
 			}ifelse
- 		}{
+		}{
 			level2{
 				Indexed_DeviceN{
 					/indexed_colorspace_dict AGMCORE_gget begin
@@ -4996,7 +5023,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 					indexed_imageormask_lev1
 				}ifelse
 			}ifelse
- 		}ifelse
+		}ifelse
 		cleartomark restore
 	currentdict/_Filters known{_Filters AGMIMG_flushfilters}if
 	end
@@ -5006,17 +5033,17 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 	/indexed_colorspace_dict AGMCORE_gget begin
 	begin
 		Indexed_DeviceN not{
-			currentcolorspace 
+			currentcolorspace
 			dup 1/DeviceGray put
 			dup 3
 			currentcolorspace 2 get 1 add string
 			0 1 2 3 AGMCORE_get_ink_data 4 currentcolorspace 3 get length 1 sub
 			{
 			dup 4 idiv exch currentcolorspace 3 get exch get 255 exch sub 2 index 3 1 roll put
-			}for 
+			}for
 			put	setcolorspace
 		}if
-		currentdict 
+		currentdict
 		Operator/imagemask eq{
 			AGMIMG_&imagemask
 		}{
@@ -5030,40 +5057,40 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 }def
  /OPIimage
  {
- 	dup type/dicttype ne{
- 		10 dict begin
- 			/DataSource xdf
- 			/ImageMatrix xdf
- 			/BitsPerComponent xdf
- 			/Height xdf
- 			/Width xdf
- 			/ImageType 1 def
- 			/Decode[0 1 def]
- 			currentdict
- 		end
- 	}if
- 	dup begin
- 		/NComponents 1 cdndf
- 		/MultipleDataSources false cdndf
- 		/SkipImageProc{false}cdndf
- 		/Decode[
- 				0 
- 				currentcolorspace 0 get/Indexed eq{
- 					2 BitsPerComponent exp 1 sub
- 				}{
- 					1
- 				}ifelse
- 		]cdndf
- 		/Operator/image cdndf
- 	end
- 	/sep_colorspace_dict AGMCORE_gget null eq{
- 		imageormask
- 	}{
- 		gsave
- 		dup begin invert_image_samples end
- 		sep_imageormask
- 		grestore
- 	}ifelse
+	dup type/dicttype ne{
+		10 dict begin
+			/DataSource xdf
+			/ImageMatrix xdf
+			/BitsPerComponent xdf
+			/Height xdf
+			/Width xdf
+			/ImageType 1 def
+			/Decode[0 1 def]
+			currentdict
+		end
+	}if
+	dup begin
+		/NComponents 1 cdndf
+		/MultipleDataSources false cdndf
+		/SkipImageProc{false}cdndf
+		/Decode[
+				0
+				currentcolorspace 0 get/Indexed eq{
+					2 BitsPerComponent exp 1 sub
+				}{
+					1
+				}ifelse
+		]cdndf
+		/Operator/image cdndf
+	end
+	/sep_colorspace_dict AGMCORE_gget null eq{
+		imageormask
+	}{
+		gsave
+		dup begin invert_image_samples end
+		sep_imageormask
+		grestore
+	}ifelse
  }def
 /cachemask_level2
 {
@@ -5086,7 +5113,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 }def
 /spot_alias
 {
-	/mapto_sep_imageormask 
+	/mapto_sep_imageormask
 	{
 		dup type/dicttype ne{
 			12 dict begin
@@ -5103,7 +5130,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 				/Decode[/customcolor_tint AGMCORE_gget 0]def
 				/Operator/image def
 				/SkipImageProc{false}def
-				currentdict 
+				currentdict
 			end
 		sep_imageormask
 	}bdf
@@ -5117,7 +5144,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			/TintMethod/Subtractive
 			/TintProc null
 			/MappedCSA null
-			/NComponents 4 
+			/NComponents 4
 			/Components[AGMIMG_colorAry aload pop pop]
 		>>
 		setsepcolorspace
@@ -5136,7 +5163,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 			true set_spot_alias
 		}{
 			//Adobe_AGM_Image/AGMIMG_&customcolorimage get exec
-		}ifelse			
+		}ifelse
 	}bdf
 }def
 /snap_to_device
@@ -5154,7 +5181,7 @@ userdict/Adobe_AGM_Image 71 dict dup begin put
 		1 1 transform
 		AGMIMG_ySign?{ceiling 0.1 add}{floor 0.1 sub}ifelse exch
 		AGMIMG_xSign?{ceiling 0.1 add}{floor 0.1 sub}ifelse exch
-		itransform/AGMIMG_urY exch def/AGMIMG_urX exch def			
+		itransform/AGMIMG_urY exch def/AGMIMG_urX exch def
 		[AGMIMG_urX AGMIMG_llX sub 0 0 AGMIMG_urY AGMIMG_llY sub AGMIMG_llX AGMIMG_llY]concat
 	}{
 	}ifelse
@@ -5164,17 +5191,17 @@ level2 not{
 	/colorbuf
 	{
 		0 1 2 index length 1 sub{
-			dup 2 index exch get 
-			255 exch sub 
-			2 index 
-			3 1 roll 
+			dup 2 index exch get
+			255 exch sub
+			2 index
+			3 1 roll
 			put
 		}for
 	}def
 	/tint_image_to_color
 	{
 		begin
-			Width Height BitsPerComponent ImageMatrix 
+			Width Height BitsPerComponent ImageMatrix
 			/DataSource load
 		end
 		Adobe_AGM_Image begin
@@ -5192,9 +5219,9 @@ level2 not{
 				dup AGMIMG_mbuf copy AGMIMG_ybuf copy AGMIMG_kbuf copy pop
 			}
 			addprocs
-			{AGMIMG_mbuf}{AGMIMG_ybuf}{AGMIMG_kbuf}true 4 colorimage	
+			{AGMIMG_mbuf}{AGMIMG_ybuf}{AGMIMG_kbuf}true 4 colorimage
 		end
-	}def			
+	}def
 	/sep_imageormask_lev1
 	{
 		begin
@@ -5210,10 +5237,10 @@ level2 not{
 					}{
 						0 0 0 Components aload pop 1 exch sub
 					}ifelse
-					Adobe_AGM_Image/AGMIMG_k xddf 
-					Adobe_AGM_Image/AGMIMG_y xddf 
-					Adobe_AGM_Image/AGMIMG_m xddf 
-					Adobe_AGM_Image/AGMIMG_c xddf 
+					Adobe_AGM_Image/AGMIMG_k xddf
+					Adobe_AGM_Image/AGMIMG_y xddf
+					Adobe_AGM_Image/AGMIMG_m xddf
+					Adobe_AGM_Image/AGMIMG_c xddf
 					AGMIMG_y 0.0 eq AGMIMG_m 0.0 eq and AGMIMG_c 0.0 eq and{
 						{AGMIMG_k mul 1 exch sub}currenttransfer addprocs settransfer
 						currentdict imageormask
@@ -5237,7 +5264,7 @@ level2 not{
 							{255 mul round cvi ColorLookup exch get 2 get 1 exch sub}exch addprocs 4 1 roll
 							{255 mul round cvi ColorLookup exch get 1 get 1 exch sub}exch addprocs 4 1 roll
 							{255 mul round cvi ColorLookup exch get 0 get 1 exch sub}exch addprocs 4 1 roll
-							setcolortransfer 
+							setcolortransfer
 							currentdict tint_image_to_color
 						}{
 							currentcolortransfer
@@ -5245,7 +5272,7 @@ level2 not{
 							{255 mul round cvi ColorLookup exch get 2 get}exch addprocs 4 1 roll
 							{255 mul round cvi ColorLookup exch get 1 get}exch addprocs 4 1 roll
 							{255 mul round cvi ColorLookup exch get 0 get}exch addprocs 4 1 roll
-							setcolortransfer 
+							setcolortransfer
 							currentdict tint_image_to_color
 						}ifelse
 					}ifelse
@@ -5258,10 +5285,10 @@ level2 not{
 		begin
 			/sep_colorspace_dict AGMCORE_gget/Components known{
 				Components aload pop
-				Adobe_AGM_Image/AGMIMG_k xddf 
-				Adobe_AGM_Image/AGMIMG_y xddf 
-				Adobe_AGM_Image/AGMIMG_m xddf 
-				Adobe_AGM_Image/AGMIMG_c xddf 
+				Adobe_AGM_Image/AGMIMG_k xddf
+				Adobe_AGM_Image/AGMIMG_y xddf
+				Adobe_AGM_Image/AGMIMG_m xddf
+				Adobe_AGM_Image/AGMIMG_c xddf
 				{AGMIMG_c mul 1 exch sub}
 				{AGMIMG_m mul 1 exch sub}
 				{AGMIMG_y mul 1 exch sub}
@@ -5295,15 +5322,15 @@ level2 not{
 						{4 mul HiVal mul round cvi 2 add Lookup exch get HiVal div 1 exch sub}exch addprocs 4 1 roll
 						{4 mul HiVal mul round cvi 1 add Lookup exch get HiVal div 1 exch sub}exch addprocs 4 1 roll
 						{4 mul HiVal mul round cvi		 Lookup exch get HiVal div 1 exch sub}exch addprocs 4 1 roll
-						setcolortransfer 
+						setcolortransfer
 						tint_image_to_color
 					}{
 						currentcolortransfer
 						{pop 1}exch addprocs 4 1 roll
 						{3 mul HiVal mul round cvi 2 add Lookup exch get HiVal div}exch addprocs 4 1 roll
 						{3 mul HiVal mul round cvi 1 add Lookup exch get HiVal div}exch addprocs 4 1 roll
-						{3 mul HiVal mul round cvi 		Lookup exch get HiVal div}exch addprocs 4 1 roll
-						setcolortransfer 
+						{3 mul HiVal mul round cvi		Lookup exch get HiVal div}exch addprocs 4 1 roll
+						setcolortransfer
 						tint_image_to_color
 					}ifelse
 				}ifelse
@@ -5509,17 +5536,17 @@ cp
 262.866 28.2936 li
 cp
 false sop
-/0 
+/0
 <<
 /Name (USAFA Royal Blue)
-/0 
+/0
 [/DeviceCMYK] /CSA add_res
 /CSA /0 get_csa_by_name
 /MappedCSA /0 /CSA get_res
 /TintMethod /Subtractive
 /TintProc null
-/NComponents 4 
-/Components [ 1 .75 0 .25 ] 
+/NComponents 4
+/Components [ 1 .75 0 .25 ]
 >>
 /CSD add_res
 1 /0 /CSD get_res sepcs
@@ -5730,15 +5757,15 @@ cp
 155.425 76.2802 li
 153.521 71.8251 li
 cp
-/1 
+/1
 <<
 /Name (USAFA Navy Blue)
 /CSA /0 get_csa_by_name
 /MappedCSA /0 /CSA get_res
 /TintMethod /Subtractive
 /TintProc null
-/NComponents 4 
-/Components [ 1 .75 .1 .5 ] 
+/NComponents 4
+/Components [ 1 .75 .1 .5 ]
 >>
 /CSD add_res
 1 /1 /CSD get_res sepcs
