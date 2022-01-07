@@ -1,6 +1,7 @@
 curl
 ghostscript
 git
+inkscape
 make
 python3-pip
 python-is-python3
