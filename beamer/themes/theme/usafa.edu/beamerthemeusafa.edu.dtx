@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2022/01/10 v0.1.2 Beamer theme for the United States Air Force Academy]
+%<package>  [2022/01/10 v0.1.3 Beamer theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -141,11 +141,6 @@
 % Trebuchet~MS is used in the official template.
 % Fira Sans is a similar humanist sans-serif typeface that is distributed with \LaTeX.
 %
-% Require the \textsf{pgfopts} package to parse package options.
-%    \begin{macrocode}
-\RequirePackage{pgfopts}
-%    \end{macrocode}
-%
 % \subsection{Required Packages}
 % Use the \textsf{calc} package to compute the size of the logo.
 %    \begin{macrocode}
@@ -155,68 +150,14 @@
 % Use predefined themes as basic style.
 %    \begin{macrocode}
 \usecolortheme{falcon}
-\useoutertheme{logo}
+\useoutertheme[width=0pt]{sidebar}
 %    \end{macrocode}
 % \changes{0.1.1}{2018/07/20}{%
 %   Use falcon color theme
 % }
-%
-% \subsection{Options}
-%    \begin{macrocode}
-\pgfkeys{
-  /beamer/themes/theme/usafa.edu/.cd,
-  .search also={
-    /beamer/themes/outer/logo,
-  },
-  /beamer/themes/outer/logo/.cd,
-  base/split/.add code={}{
-    \setbeamercolor*{palette quaternary}{
-      bg=structure.bg,
-      fg=Falcon 2000 Blue,
-      use=structure,
-    }
-    \setbeamercolor*{palette primary}{
-      bg=structure.bg,
-      fg=Falcon 2000 Blue,
-      use=structure,
-    }
-    \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
-      fg=Falcon 2000 Blue,
-      use=structure,
-    }
-  },
-  base/tree/.add code={}{
-    \setbeamercolor*{palette quaternary}{
-      bg=Falcon 2000 Black,
-      fg=white,
-    }
-    \setbeamercolor*{author in head/foot}{
-      parent=palette quaternary,
-    }
-    \setbeamercolor*{section in head/foot}{
-      bg=structure.bg,
-      fg=Falcon 2000 Blue!25,
-      use=structure,
-    }
-    \setbeamercolor*{subsection in head/foot}{
-      bg=structure.bg,
-      fg=Falcon 2000 Blue!25,
-      use=structure,
-    }
-    \setbeamercolor*{title in head/foot}{
-      bg=structure.bg,
-      fg=Falcon 2000 BLue,
-      use=structure,
-    }
-    \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
-      fg=white,
-      use=structure,
-    }
-  },
-}
-%    \end{macrocode}
+% \changes{0.1.3}{2022/01/10}{%
+%   Remove dependency on logo outer theme
+% }
 %
 % \subsection{Configuration}
 %
@@ -230,6 +171,25 @@
 % }
 % \end{macro}
 %
+% Set the colors of various templates.
+%    \begin{macrocode}
+\setbeamercolor*{palette quaternary}{
+  bg=structure.bg,
+  fg=Falcon 2000 Blue,
+  use=structure,
+}
+\setbeamercolor*{palette primary}{
+  bg=structure.bg,
+  fg=Falcon 2000 Blue,
+  use=structure,
+}
+\setbeamercolor*{logo in head/foot}{
+  bg=structure.bg,
+  fg=Falcon 2000 Blue,
+  use=structure,
+}
+%    \end{macrocode}
+%
 % \begin{macro}{logo}
 % Use the Academy's logo.
 %    \begin{macrocode}
@@ -238,11 +198,62 @@
   \includegraphics[
       height=\headheight - 4ex,
       keepaspectratio,
-      width=0.34\paperwidth - 4ex,
+      width=\linewidth - 4ex,
   ]{USAFA-Logo-v-3-Line}
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% Use the default frametitle template\dots
+%    \begin{macrocode}
+\setbeamertemplate{frametitle}[default][right]
+%    \end{macrocode}
+% \dots with a few modifications.
+%    \begin{macrocode}
+\addtobeamertemplate{frametitle}{%
+%    \end{macrocode}
+% Override adjustments (see |beamerouterthemedefault.tex|) when the text is right-aligned.
+%    \begin{macrocode}
+  \def\beamer@fteright{}%
+%    \end{macrocode}
+% Place the frametitle beside, not under, the logo.
+%    \begin{macrocode}
+  \ifbeamer@plainframe%
+  \else%
+    \vskip-\beamer@headheight%
+  \fi%
+%    \end{macrocode}
+%    \begin{macrocode}
+}{}
+%    \end{macrocode}
+%
+% Define the headline template.
+%    \begin{macrocode}
+\defbeamertemplate*{headline}{usafa.edu}{%
+  \begin{beamercolorbox}[
+      wd=\paperwidth,
+  ]{frametitle}%
+    \usebeamercolor[bg]{logo}%
+    \vrule width\beamer@sidebarwidth height \beamer@headheight%
+    \hskip-\beamer@sidebarwidth%
+    \hbox to \beamer@sidebarwidth{\vbox to
+      \beamer@headheight{\vss\hbox{\color{fg}\insertlogo}\vss}\hss}%
+  \end{beamercolorbox}%
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+% Omit the logo from the default \textsf{sidebar right} template.
+%    \begin{macrocode}
+\defbeamertemplate*{sidebar right}{usafa.edu}{%
+  \vfill%
+  \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+  \vskip2pt%
+}
+%    \end{macrocode}
+% \changes{0.1.3}{2022/01/10}{%
+%   Place frametitle beside logo
+% }
 %
 % Define the footline template.
 %    \begin{macrocode}
@@ -275,21 +286,9 @@
 }
 %    \end{macrocode}
 %
-% Set the default values for the options.
+% Install the theme-specific headline and footline.
 %    \begin{macrocode}
-\pgfkeys{
-  /beamer/themes/theme/usafa.edu/.cd,
-  base=split,
-  position=left,
-}
-%    \end{macrocode}
-% Process options.
-%    \begin{macrocode}
-\ProcessPgfOptions{/beamer/themes/theme/usafa.edu}
-%    \end{macrocode}
-%
-% Install the theme-specific footline.
-%    \begin{macrocode}
+\setbeamertemplate{headline}[usafa.edu]
 \setbeamertemplate{footline}[usafa.edu]
 %    \end{macrocode}
 %
