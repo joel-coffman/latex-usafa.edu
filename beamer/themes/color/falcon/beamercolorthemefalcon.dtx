@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamercolorthemefalcon}
-%<package>  [2018/07/20 v0.1.0 Beamer color theme for the US Air Force Academy]
+%<package>  [2022/01/10 v0.2.0 Beamer color theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -37,7 +37,7 @@
 
 
 % glossaries
-\newacronym{USAFA}{USAFA}{US Air Force Academy}
+\newacronym{USAFA}{USAFA}{the United States Air Force Academy}
 
 % url
 \urlstyle{same}  % do not use monospace font in URLs
@@ -77,6 +77,9 @@
 % \changes{0.1.0}{2018/07/20}{%
 %   Initial version
 % }
+% \changes{0.2.0}{2022/01/10}{%
+%   Update colors based on 2019 brand guidelines
+% }
 %
 % \GetFileInfo{beamercolorthemefalcon.sty}
 %
@@ -88,7 +91,7 @@
 %
 % \title{
 %   The \textsf{beamercolorthemefalcon} package\thanks{%
-%     This document corresponds to \protect\textsf{beamerouterthemefalcon}~\fileversion-\version, dated \filedate.
+%     This document corresponds to \protect\textsf{beamercolorthemefalcon}~\fileversion-\version, dated \filedate.
 %   }
 % }
 % \author{Joel Coffman\\\email{joel.coffman@jhu.edu}}
@@ -96,7 +99,7 @@
 % \maketitle
 %
 % \begin{abstract}
-% A Beamer color theme for the \gls{USAFA}.
+% A Beamer color theme for \gls{USAFA}.
 % The ``falcon'' color theme defines and uses colors from the official color palette.
 % \end{abstract}
 % \glsresetall  ^^A reset all acronyms
@@ -151,33 +154,20 @@
 %
 % Define the Patone colors\footnote{\url{https://www.pantone.com/}} used by \gls{USAFA}.
 %    \begin{macrocode}
-\definecolor{Pantone 123}{cmyk/RGB}{0.00,0.19,0.89,0.00/255,199,44}
-\definecolor{Pantone 286}{cmyk/RGB}{1.00,0.75,0.00,0.00/0,51,160}
-\definecolor{Pantone 287}{cmyk/RGB}{1.00,0.75,0.02,0.18/0,48,135}
-\definecolor{Pantone 429}{cmyk/RGB}{0.21,0.11,0.09,0.23/162,170,173}
-\definecolor{Pantone 485}{cmyk/RGB}{0.00,0.95,1.00,0.00/218,41,28}
-\definecolor{Pantone 877}{cmyk/RGB}{0.45,0.34,0.34,0.00/138,141,143}
+\definecolor{Pantone 661}{cmyk/RGB}{1.00,0.75,0.00,0.20/0,69,140}
+\colorlet{Academy Blue}{Pantone 661}
 
-\definecolor{Pantone Cool Gray 5}{cmyk/RGB}{0.13,0.09,0.10,0.27/177,179,179}
-\definecolor{Pantone Process Black}{cmyk/RGB}{0.00,0.00,0.00,1.00/39,37,31}
-%    \end{macrocode}
-%
-% Define the \gls{USAFA} colors using the previously-defined Pantone colors.
-%    \begin{macrocode}
-\colorlet{USAFA Blue}{Pantone 286}
-\colorlet{USAFA Metallic Silver}{Pantone 877}
-\colorlet{USAFA Alternate Silver}{Pantone 429}
+\definecolor{Pantone 655}{cmyk/RGB}{1.00,0.75,0.10,0.50/0,43,92}
+\colorlet{Academy Dark Blue}{Pantone 655}
 
-\colorlet{Falcon 2000 Blue}{Pantone 287}
-\colorlet{Falcon 2000 Metallic Silver}{Pantone 877}
-\colorlet{Falcon 2000 Alternate Silver}{Pantone Cool Gray 5}
-\colorlet{Falcon 2000 Gold}{Pantone 123}
-\colorlet{Falcon 2000 Black}{Pantone Process Black}
+\definecolor{Pantone 421}{cmyk/RGB}{0.15,0.10,0.11,0.30/178,180,178}
+\colorlet{Academy Gray}{Pantone 421}
 
-\colorlet{Class Gold}{Pantone 123}
-\colorlet{Class Royal}{Pantone 286}
-\colorlet{Class Silver}{Pantone 877}
-\colorlet{Class Red}{Pantone 485}
+\definecolor{Pantone 187}{cmyk/RGB}{0.27,1.00,0.84,0.17/166,25,46}
+\colorlet{Academy Red}{Pantone 187}
+
+\definecolor{Pantone 123}{cmyk/RGB}{0.00,0.23,0.91,0.00/255,198,47}
+\colorlet{Academy Yellow}{Pantone 123}
 %    \end{macrocode}
 %
 % Table~\ref{table:colors} lists the color names and samples of those colors defined by this theme.
@@ -188,24 +178,15 @@
 %     Color names and samples of colors defined by this theme.
 %   }
 %   \label{table:colors}
-%   \begin{tabular}{lc}
+%   \begin{tabular}{lcl}
 %     \toprule
-%     Color & Sample\\
+%     Color & Sample & Name\\
 %     \midrule
-%     USAFA Blue & \testcolor{USAFA Blue}\\
-%     USAFA Metallic Silver & \testcolor{USAFA Metallic Silver}\\
-%     USAFA Alternate Silver & \testcolor{USAFA Alternate Silver}\\
-%     \addlinespace
-%     Falcon 2000 Blue & \testcolor{Falcon 2000 Blue}\\
-%     Falcon 2000 Metallic Silver & \testcolor{Falcon 2000 Metallic Silver}\\
-%     Falcon 2000 Alternate Silver & \testcolor{Falcon 2000 Alternate Silver}\\
-%     Falcon 2000 Gold & \testcolor{Falcon 2000 Gold}\\
-%     Falcon 2000 Black & \testcolor{Falcon 2000 Black}\\
-%     \addlinespace
-%     Class Gold & \testcolor{Class Gold}\\
-%     Class Royal & \testcolor{Class Royal}\\
-%     Class Silver & \testcolor{Class Silver}\\
-%     Class Red & \testcolor{Class Red}\\
+%     Pantone 661 & \testcolor{Pantone 661} & Academy Blue\\
+%     Pantone 655 & \testcolor{Pantone 655} & Academy Dark Blue\\
+%     Pantone 421 & \testcolor{Pantone 421} & Academy Gray\\
+%     Pantone 187 & \testcolor{Pantone 187} & Academy Red\\
+%     Pantone 123 & \testcolor{Pantone 123} & Academy Yellow\\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
@@ -214,36 +195,33 @@
 % Override colors used by Beamer's color palettes.
 %
 % \mintinline{latex}{normal text} defines the most basic style for a presentation when another color palette does not apply.
+%
+% Use black foreground. \testcolor{black}
 %    \begin{macrocode}
 \setbeamercolor{normal text}{
-%    \end{macrocode}
-% Use black foreground. \testcolor{Falcon 2000 Black}
-% \mintinline{latex}{black} could be used instead, but
-% \mintinline{latex}{Falcon 2000 Black} appears in the official color palette.
-%    \begin{macrocode}
-  fg=Falcon 2000 Black,
+  fg=black,
 }
 %    \end{macrocode}
 %
-% \mintinline{latex}{alerted text} is red. \testcolor{Class Red}
+% \mintinline{latex}{alerted text} is red. \testcolor{Academy Red}
 %    \begin{macrocode}
 \setbeamercolor{alerted text}{
-  fg=Class Red,
+  fg=Academy Red,
 }
 %    \end{macrocode}
 %
-% \mintinline{latex}{example text} is royal blue. \testcolor{Class Royal}
+% \mintinline{latex}{example text} is royal blue. \testcolor{Academy Blue}
 %    \begin{macrocode}
 \setbeamercolor{example text}{
-  fg=Class Royal,
+  fg=Academy Blue,
 }
 %    \end{macrocode}
 %
-% The \mintinline{latex}{structure} color palette is derived from a medium blue. \testcolor{Falcon 2000 Blue}
+% The \mintinline{latex}{structure} color palette is derived from a dark blue. \testcolor{Academy Dark Blue}
 % Shades of this color are used for most elements in the presentation.
 %    \begin{macrocode}
 \setbeamercolor{structure}{
-  fg=Falcon 2000 Blue,
+  fg=Academy Dark Blue,
 }
 %    \end{macrocode}
 % \iffalse

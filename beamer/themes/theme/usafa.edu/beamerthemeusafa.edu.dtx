@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2018/08/10 v0.1.2 Beamer theme for the US Air Force Academy]
+%<package>  [2022/01/10 v0.1.3 Beamer theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -86,7 +86,7 @@
 % \maketitle
 %
 % \begin{abstract}
-% A Beamer theme for the US Air Force Academy
+% A Beamer theme for the United States Air Force Academy
 % \end{abstract}
 %
 % \StopEventually{
@@ -134,12 +134,15 @@
 %    \end{macrocode}
 %
 % \subsection{Packages}
-% Require the \textsf{FiraSans} package so that Fira Sans is the default typeface.
+% Require the \textsf{ClearSans} package so that Clear Sans is the default typeface.
 %    \begin{macrocode}
-\RequirePackage[sfdefault]{FiraSans}
+\RequirePackage[sfdefault]{ClearSans}
 %    \end{macrocode}
-% Trebuchet~MS is used in the official template.
-% Fira Sans is a similar humanist sans-serif typeface that is distributed with \LaTeX.
+% Trebuchet~MS is used in the official template with Cera, Ideal Sans, and Trebuchet specified for typography in the brand guidelines.
+% Clear Sans is similar to Cera\footnote{\url{http://www.identifont.com/}} and is distributed with \LaTeX.
+% \changes{0.1.3}{2022/01/10}{%
+%   Use Clear Sans as the typeface
+% }
 %
 % Require the \textsf{microtype} package to adjust tracking (i.e., letter spacing).
 %    \begin{macrocode}
@@ -177,23 +180,23 @@
   base/split/.add code={}{
     \setbeamercolor*{palette quaternary}{
       bg=structure.bg,
-      fg=Falcon 2000 Blue,
+      fg=Academy Dark Blue,
       use=structure,
     }
     \setbeamercolor*{palette primary}{
       bg=structure.bg,
-      fg=Falcon 2000 Blue,
+      fg=Academy Dark Blue,
       use=structure,
     }
     \setbeamercolor*{logo in head/foot}{
       bg=structure.bg,
-      fg=Falcon 2000 Blue,
+      fg=Academy Dark Blue,
       use=structure,
     }
   },
   base/tree/.add code={}{
     \setbeamercolor*{palette quaternary}{
-      bg=Falcon 2000 Black,
+      bg=black,
       fg=white,
     }
     \setbeamercolor*{author in head/foot}{
@@ -201,17 +204,17 @@
     }
     \setbeamercolor*{section in head/foot}{
       bg=structure.bg,
-      fg=Falcon 2000 Blue!25,
+      fg=Academy Dark Blue!25,
       use=structure,
     }
     \setbeamercolor*{subsection in head/foot}{
       bg=structure.bg,
-      fg=Falcon 2000 Blue!25,
+      fg=Academy Dark Blue!25,
       use=structure,
     }
     \setbeamercolor*{title in head/foot}{
       bg=structure.bg,
-      fg=Falcon 2000 BLue,
+      fg=Academy Dark Blue,
       use=structure,
     }
     \setbeamercolor*{logo in head/foot}{
@@ -228,7 +231,7 @@
 % \begin{macro}{institute}
 % Set the institute.
 %    \begin{macrocode}
-\institute[usafa.edu]{US Air Force Academy}
+\institute[usafa.edu]{United States Air Force Academy}
 %    \end{macrocode}
 % \changes{0.1.2}{2018/08/10}{%
 %   Set the institute automatically
@@ -236,7 +239,7 @@
 % \end{macro}
 %
 % \begin{macro}{logo}
-% Use the academy's logo.
+% Use the Academy's logo.
 %    \begin{macrocode}
 \logo{
   \hspace{2ex}
