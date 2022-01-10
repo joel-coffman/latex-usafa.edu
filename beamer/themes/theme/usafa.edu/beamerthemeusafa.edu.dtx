@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2022/01/10 v0.1.2 Beamer theme for the United States Air Force Academy]
+%<package>  [2022/01/10 v0.1.3 Beamer theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -134,12 +134,15 @@
 %    \end{macrocode}
 %
 % \subsection{Packages}
-% Require the \textsf{FiraSans} package so that Fira Sans is the default typeface.
+% Require the \textsf{ClearSans} package so that Clear Sans is the default typeface.
 %    \begin{macrocode}
-\RequirePackage[sfdefault]{FiraSans}
+\RequirePackage[sfdefault]{ClearSans}
 %    \end{macrocode}
-% Trebuchet~MS is used in the official template.
-% Fira Sans is a similar humanist sans-serif typeface that is distributed with \LaTeX.
+% Trebuchet~MS is used in the official template with Cera, Ideal Sans, and Trebuchet specified for typography in the brand guidelines.
+% Clear Sans is similar to Cera\footnote{\url{http://www.identifont.com/}} and is distributed with \LaTeX.
+% \changes{0.1.3}{2022/01/10}{%
+%   Use Clear Sans as the typeface
+% }
 %
 % Require the \textsf{pgfopts} package to parse package options.
 %    \begin{macrocode}
