@@ -152,6 +152,11 @@
 %   Use Clear Sans as the typeface
 % }
 %
+% Require the \textsf{microtype} package to adjust tracking (i.e., letter spacing).
+%    \begin{macrocode}
+\RequirePackage{microtype}
+%    \end{macrocode}
+%
 % \subsubsection{Beamer themes}
 %
 % Use predefined themes for the basic style.
@@ -290,23 +295,50 @@
 %
 % \paragraph{footline}
 % Define the footline template.
+%
+% Define the color and font style for the motto.
 %    \begin{macrocode}
+\setbeamercolor{motto in foot}{%
+  fg=Academy Gray,
+}
+\setbeamerfont{motto in foot}{%
+  size=\scriptsize,
+  shape=\slshape,
+  series=\bfseries,
+}
+%    \end{macrocode}
+% Define the content of the ``motto in foot'' template.
+% \mintinline{latex}{\textls} adjusts the tracking (i.e., letter spacing) of its text based on the value of its optional argument (in thousands of an \texttt{em}).
+% Quoting from \textsf{microtype}'s documentation,
+% \begin{quote}
+%   \dots letterspacing lowercase text is held in abhorrence by honourable typographers.
+%   Unless you know what you are doing, you should probably only letterspace capitals or small capitals.
+% \end{quote}
+% Alas, this style reproduces that of the official presentation template (albeit not using spaces between each individual letter as the template does).
+%    \begin{macrocode}
+\setbeamertemplate{motto in foot}
+{
+  \strut
+  \textls[400]{%
+    Integrity $\boldsymbol{\cdot}$
+    Service $\boldsymbol{\cdot}$
+    Excellence
+  }
+}
+
 \defbeamertemplate*{footline}{usafa.edu}{%
   \leavevmode%
   \hbox{%
     \begin{beamercolorbox}[
-        dp=1.125ex,%
-        ht=2.5ex,%
+        dp=1.25ex,%
         leftskip=1em,%
         rightskip=1em,%
         wd=\paperwidth,%
     ]{palette quaternary}%
-      \hfil\rule{\paperwidth - 7em}{0.5pt}\hfil\par%
+      \hfil\rule{\paperwidth - 3em}{1pt}\hfil\par%
+      \vspace{0.2\baselineskip}%
       \hfill%
-      \smash{%
-        \usebeamerfont{page number in head/foot}%
-        Integrity $\boldsymbol{\cdot}$ Service $\boldsymbol{\cdot}$ Excellence%
-      }%
+      \usebeamertemplate***{motto in foot}%
       \hfill%
       \llap{%
         \usebeamerfont{page number in head/foot}%
