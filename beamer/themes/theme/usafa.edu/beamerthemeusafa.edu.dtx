@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2022/01/10 v0.1.3 Beamer theme for the United States Air Force Academy]
+%<package>  [2022/01/10 v0.2.0 Beamer theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -66,6 +66,9 @@
 %
 % \changes{0.1.0}{2015/02/16}{%
 %   Initial version
+% }
+% \changes{0.2.0}{2022/01/10}{%
+%   Align with official template
 % }
 %
 % \GetFileInfo{beamerthemeusafa.edu.sty}
@@ -134,11 +137,16 @@
 %    \end{macrocode}
 %
 % \subsection{Packages}
-% Require the \textsf{ClearSans} package so that Clear Sans is the default typeface.
+% Use the \textsf{calc} package to compute the size of the logo.
+%    \begin{macrocode}
+\usepackage{calc}
+%    \end{macrocode}
+%
+% Use Clear Sans as the default typeface.
 %    \begin{macrocode}
 \RequirePackage[sfdefault]{ClearSans}
 %    \end{macrocode}
-% Trebuchet~MS is used in the official template with Cera, Ideal Sans, and Trebuchet specified for typography in the brand guidelines.
+% Trebuchet~MS is used in the official Microsoft PowerPoint template; Cera, Ideal Sans, and Trebuchet are specified for typography in the 2019 brand guidelines.
 % Clear Sans is similar to Cera\footnote{\url{http://www.identifont.com/}} and is distributed with \LaTeX.
 % \changes{0.1.3}{2022/01/10}{%
 %   Use Clear Sans as the typeface
@@ -149,82 +157,22 @@
 \RequirePackage{microtype}
 %    \end{macrocode}
 %
-% Require the \textsf{pgfopts} package to parse package options.
-%    \begin{macrocode}
-\RequirePackage{pgfopts}
-%    \end{macrocode}
+% \subsubsection{Beamer themes}
 %
-% \subsection{Required Packages}
-% Use the \textsf{calc} package to compute the size of the logo.
-%    \begin{macrocode}
-\usepackage{calc}
-%    \end{macrocode}
-%
-% Use predefined themes as basic style.
+% Use predefined themes for the basic style.
 %    \begin{macrocode}
 \usecolortheme{falcon}
-\useoutertheme{logo}
+\useoutertheme[
+    height=45pt,
+    width=0pt,
+]{sidebar}
 %    \end{macrocode}
 % \changes{0.1.1}{2018/07/20}{%
 %   Use falcon color theme
 % }
-%
-% \subsection{Options}
-%    \begin{macrocode}
-\pgfkeys{
-  /beamer/themes/theme/usafa.edu/.cd,
-  .search also={
-    /beamer/themes/outer/logo,
-  },
-  /beamer/themes/outer/logo/.cd,
-  base/split/.add code={}{
-    \setbeamercolor*{palette quaternary}{
-      bg=structure.bg,
-      fg=Academy Dark Blue,
-      use=structure,
-    }
-    \setbeamercolor*{palette primary}{
-      bg=structure.bg,
-      fg=Academy Dark Blue,
-      use=structure,
-    }
-    \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
-      fg=Academy Dark Blue,
-      use=structure,
-    }
-  },
-  base/tree/.add code={}{
-    \setbeamercolor*{palette quaternary}{
-      bg=black,
-      fg=white,
-    }
-    \setbeamercolor*{author in head/foot}{
-      parent=palette quaternary,
-    }
-    \setbeamercolor*{section in head/foot}{
-      bg=structure.bg,
-      fg=Academy Dark Blue!25,
-      use=structure,
-    }
-    \setbeamercolor*{subsection in head/foot}{
-      bg=structure.bg,
-      fg=Academy Dark Blue!25,
-      use=structure,
-    }
-    \setbeamercolor*{title in head/foot}{
-      bg=structure.bg,
-      fg=Academy Dark Blue,
-      use=structure,
-    }
-    \setbeamercolor*{logo in head/foot}{
-      bg=structure.bg,
-      fg=white,
-      use=structure,
-    }
-  },
-}
-%    \end{macrocode}
+% \changes{0.1.3}{2022/01/10}{%
+%   Remove dependency on logo outer theme
+% }
 %
 % \subsection{Configuration}
 %
@@ -242,22 +190,116 @@
 % Use the Academy's logo.
 %    \begin{macrocode}
 \logo{
-  \hspace{2ex}
+  \hspace{2ex}%
   \includegraphics[
-      height=\headheight - 4ex,
+      height=\beamer@headheight - 10pt,
       keepaspectratio,
-      width=0.34\paperwidth - 4ex,
-  ]{USAFA-Logo-v-3-Line}
+      width=\linewidth - 4ex,
+  ]{USAFA-Logo-v-3-Line}%
+  \hspace{2ex}%
 }
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{Colors}
+%
+% Specify the colors of various elements.
+%    \begin{macrocode}
+\setbeamercolor*{frametitle}{
+  fg=structure.fg,
+  use=structure,
+}
+\setbeamercolor*{logo in head/foot}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+\setbeamercolor*{palette primary}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+\setbeamercolor*{palette quaternary}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+%    \end{macrocode}
+%
+% \subsection{Templates}
+%
+% \paragraph{frametitle}
+% Define the frametitle template, which is based on the \textsf{default} outer theme, with the title right-aligned.
+%    \begin{macrocode}
+\newdimen\beamerthemeusafaedu@frametitle@width
+\defbeamertemplate*{frametitle}{usafa.edu}{%
+%    \end{macrocode}
+%    \begin{macrocode}
+  \ifbeamer@plainframe%
+    \beamerthemeusafaedu@frametitle@width=\textwidth%
+  \else%
+    \vskip-\beamer@headheight%
+    \beamerthemeusafaedu@frametitle@width=0.67\paperwidth%
+  \fi%
+  \hskip -\beamer@leftmargin%
+  \advance\beamerthemeusafaedu@frametitle@width by -\beamer@rightmargin%
+  \advance\beamerthemeusafaedu@frametitle@width by -0.3cm%
+  \hfill%
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \begin{beamercolorbox}[right,wd=\the\beamerthemeusafaedu@frametitle@width]{frametitle}
+    \vbox{}\vskip0pt plus 1.5fil%
+    \usebeamerfont{frametitle}%
+    \strut\insertframetitle\strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip1ex plus 1fil%
+  \end{beamercolorbox}%
+  \vrule width 0pt height \beamer@headheight%
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+%
+% \paragraph{headline}
+% Define the headline template.
+%    \begin{macrocode}
+\defbeamertemplate*{headline}{usafa.edu}{%
+  \begin{beamercolorbox}[
+      wd=0.33\paperwidth,
+  ]{frametitle}%
+    \usebeamercolor[bg]{logo}%
+    \vrule height \beamer@headheight%
+    \vbox to \beamer@headheight{\vss\hbox{\color{fg}\insertlogo}\vss}\hss%
+  \end{beamercolorbox}%
+%    \end{macrocode}
+%    \begin{macrocode}
+}
+%    \end{macrocode}
+%
+% \paragraph{sidebar right}
+% Omit the logo from the default \textsf{sidebar right} template.
+%    \begin{macrocode}
+\defbeamertemplate*{sidebar right}{usafa.edu}{%
+  \vfill%
+  \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+  \vskip2pt%
+}
+%    \end{macrocode}
+% \changes{0.1.3}{2022/01/10}{%
+%   Place frametitle beside logo
+% }
+%
+% \paragraph{footline}
 % Define the footline template.
 %
 % Define the color and font style for the motto.
 %    \begin{macrocode}
 \setbeamercolor{motto in foot}{%
-  fg=Falcon 2000 Alternate Silver,
+  fg=Academy Gray,
 }
 \setbeamerfont{motto in foot}{%
   size=\scriptsize,
@@ -284,7 +326,7 @@
   }
 }
 
-\defbeamertemplate{footline}{usafa.edu}{%
+\defbeamertemplate*{footline}{usafa.edu}{%
   \leavevmode%
   \hbox{%
     \begin{beamercolorbox}[
@@ -310,24 +352,7 @@
 }
 %    \end{macrocode}
 %
-% Set the default values for the options.
-%    \begin{macrocode}
-\pgfkeys{
-  /beamer/themes/theme/usafa.edu/.cd,
-  base=split,
-  position=left,
-}
-%    \end{macrocode}
-% Process options.
-%    \begin{macrocode}
-\ProcessPgfOptions{/beamer/themes/theme/usafa.edu}
-%    \end{macrocode}
-%
-% Install the theme-specific footline.
-%    \begin{macrocode}
-\setbeamertemplate{footline}[usafa.edu]
-%    \end{macrocode}
-%
+% \paragraph{end page}
 % Create template for final slide.
 %    \begin{macrocode}
 \defbeamertemplate*{end page}{usafa.edu}{%
@@ -338,7 +363,7 @@
     \beamer@framebottomskip=\beamer@frametopskip\relax%
   }
 %    \end{macrocode}
-% Insert a frame with the United States Air Force Academy shield.
+% Insert a frame with the United States Air Force Academy (horizontal) logo.
 %    \begin{macrocode}
   \begin{frame}[c,noframenumbering,plain]
     \centering
