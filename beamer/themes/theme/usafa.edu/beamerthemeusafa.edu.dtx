@@ -158,6 +158,7 @@
 %    \begin{macrocode}
 \usecolortheme{falcon}
 \useoutertheme[
+    height=45pt,
     width=0pt,
 ]{sidebar}
 %    \end{macrocode}
@@ -184,12 +185,13 @@
 % Use the Academy's logo.
 %    \begin{macrocode}
 \logo{
-  \hspace{2ex}
+  \hspace{2ex}%
   \includegraphics[
-      height=45pt - 4ex,
+      height=\beamer@headheight - 10pt,
       keepaspectratio,
       width=\linewidth - 4ex,
-  ]{USAFA-Logo-v-3-Line}
+  ]{USAFA-Logo-v-3-Line}%
+  \hspace{2ex}%
 }
 %    \end{macrocode}
 % \end{macro}
@@ -222,27 +224,39 @@
 % \subsection{Templates}
 %
 % \paragraph{frametitle}
-% Use the default frametitle template (specified by the \textsf{default} outer theme) with the title right-aligned\dots
+% Define the frametitle template, which is based on the \textsf{default} outer theme, with the title right-aligned.
 %    \begin{macrocode}
-\setbeamertemplate{frametitle}[default][dp=10pt,ht=30pt,right]
+\newdimen\beamerthemeusafaedu@frametitle@width
+\defbeamertemplate*{frametitle}{usafa.edu}{%
 %    \end{macrocode}
-% \dots but with a few modifications.
-%    \begin{macrocode}
-\addtobeamertemplate{frametitle}{%
-%    \end{macrocode}
-% Override adjustments when the text is right-aligned.
-%    \begin{macrocode}
-  \def\beamer@fteright{}%
-%    \end{macrocode}
-% Place the frametitle beside, not under, the logo.
 %    \begin{macrocode}
   \ifbeamer@plainframe%
+    \beamerthemeusafaedu@frametitle@width=\textwidth%
   \else%
     \vskip-\beamer@headheight%
+    \beamerthemeusafaedu@frametitle@width=0.67\paperwidth%
   \fi%
+  \hskip -\beamer@leftmargin%
+  \advance\beamerthemeusafaedu@frametitle@width by -\beamer@rightmargin%
+  \advance\beamerthemeusafaedu@frametitle@width by -0.3cm%
+  \hfill%
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \begin{beamercolorbox}[right,wd=\the\beamerthemeusafaedu@frametitle@width]{frametitle}
+    \vbox{}\vskip0pt plus 1.5fil%
+    \usebeamerfont{frametitle}%
+    \strut\insertframetitle\strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip1ex plus 1fil%
+  \end{beamercolorbox}%
+  \vrule width 0pt height \beamer@headheight%
 %    \end{macrocode}
 %    \begin{macrocode}
-}{}
+}
 %    \end{macrocode}
 %
 % \paragraph{headline}
@@ -250,13 +264,11 @@
 %    \begin{macrocode}
 \defbeamertemplate*{headline}{usafa.edu}{%
   \begin{beamercolorbox}[
-      wd=\paperwidth,
+      wd=0.33\paperwidth,
   ]{frametitle}%
     \usebeamercolor[bg]{logo}%
-    \vrule width\beamer@sidebarwidth height \beamer@headheight%
-    \hskip-\beamer@sidebarwidth%
-    \hbox to \beamer@sidebarwidth{\vbox to
-      \beamer@headheight{\vss\hbox{\color{fg}\insertlogo}\vss}\hss}%
+    \vrule height \beamer@headheight%
+    \vbox to \beamer@headheight{\vss\hbox{\color{fg}\insertlogo}\vss}\hss%
   \end{beamercolorbox}%
 %    \end{macrocode}
 %    \begin{macrocode}
