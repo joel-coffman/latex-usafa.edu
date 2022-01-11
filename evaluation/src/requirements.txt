@@ -1,0 +1,4 @@
+jinja2  # BSD
+numpy  # BSD
+pandas  # BSD
+scipy  # BSD
