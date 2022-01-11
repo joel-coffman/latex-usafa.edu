@@ -137,26 +137,29 @@
 %    \end{macrocode}
 %
 % \subsection{Packages}
-% Require the \textsf{ClearSans} package so that Clear Sans is the default typeface.
-%    \begin{macrocode}
-\RequirePackage[sfdefault]{ClearSans}
-%    \end{macrocode}
-% Trebuchet~MS is used in the official template with Cera, Ideal Sans, and Trebuchet specified for typography in the brand guidelines.
-% Clear Sans is similar to Cera\footnote{\url{http://www.identifont.com/}} and is distributed with \LaTeX.
-% \changes{0.1.3}{2022/01/10}{%
-%   Use Clear Sans as the typeface
-% }
-%
-% \subsection{Required Packages}
 % Use the \textsf{calc} package to compute the size of the logo.
 %    \begin{macrocode}
 \usepackage{calc}
 %    \end{macrocode}
 %
-% Use predefined themes as basic style.
+% Use Clear Sans as the default typeface.
+%    \begin{macrocode}
+\RequirePackage[sfdefault]{ClearSans}
+%    \end{macrocode}
+% Trebuchet~MS is used in the official Microsoft PowerPoint template; Cera, Ideal Sans, and Trebuchet are specified for typography in the 2019 brand guidelines.
+% Clear Sans is similar to Cera\footnote{\url{http://www.identifont.com/}} and is distributed with \LaTeX.
+% \changes{0.1.3}{2022/01/10}{%
+%   Use Clear Sans as the typeface
+% }
+%
+% \subsubsection{Beamer themes}
+%
+% Use predefined themes for the basic style.
 %    \begin{macrocode}
 \usecolortheme{falcon}
-\useoutertheme[width=0pt]{sidebar}
+\useoutertheme[
+    width=0pt,
+]{sidebar}
 %    \end{macrocode}
 % \changes{0.1.1}{2018/07/20}{%
 %   Use falcon color theme
@@ -177,29 +180,6 @@
 % }
 % \end{macro}
 %
-% Set the colors of various templates.
-%    \begin{macrocode}
-\setbeamercolor*{palette quaternary}{
-  bg=structure.bg,
-  fg=Academy Dark Blue,
-  use=structure,
-}
-\setbeamercolor*{palette primary}{
-  bg=structure.bg,
-  fg=Academy Dark Blue,
-  use=structure,
-}
-\setbeamercolor*{logo in head/foot}{
-  bg=structure.bg,
-  fg=Academy Dark Blue,
-  use=structure,
-}
-\setbeamercolor*{frametitle}{
-  fg=structure.fg,
-  use=structure,
-}
-%    \end{macrocode}
-%
 % \begin{macro}{logo}
 % Use the Academy's logo.
 %    \begin{macrocode}
@@ -214,15 +194,43 @@
 %    \end{macrocode}
 % \end{macro}
 %
-% Use the default frametitle template\dots
+% \subsection{Colors}
+%
+% Specify the colors of various elements.
+%    \begin{macrocode}
+\setbeamercolor*{frametitle}{
+  fg=structure.fg,
+  use=structure,
+}
+\setbeamercolor*{logo in head/foot}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+\setbeamercolor*{palette primary}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+\setbeamercolor*{palette quaternary}{
+  bg=structure.bg,
+  fg=Academy Dark Blue,
+  use=structure,
+}
+%    \end{macrocode}
+%
+% \subsection{Templates}
+%
+% \paragraph{frametitle}
+% Use the default frametitle template (specified by the \textsf{default} outer theme) with the title right-aligned\dots
 %    \begin{macrocode}
 \setbeamertemplate{frametitle}[default][right]
 %    \end{macrocode}
-% \dots with a few modifications.
+% \dots but with a few modifications.
 %    \begin{macrocode}
 \addtobeamertemplate{frametitle}{%
 %    \end{macrocode}
-% Override adjustments (see |beamerouterthemedefault.tex|) when the text is right-aligned.
+% Override adjustments when the text is right-aligned.
 %    \begin{macrocode}
   \def\beamer@fteright{}%
 %    \end{macrocode}
@@ -237,6 +245,7 @@
 }{}
 %    \end{macrocode}
 %
+% \paragraph{headline}
 % Define the headline template.
 %    \begin{macrocode}
 \defbeamertemplate*{headline}{usafa.edu}{%
@@ -253,6 +262,8 @@
 %    \begin{macrocode}
 }
 %    \end{macrocode}
+%
+% \paragraph{sidebar right}
 % Omit the logo from the default \textsf{sidebar right} template.
 %    \begin{macrocode}
 \defbeamertemplate*{sidebar right}{usafa.edu}{%
@@ -265,6 +276,7 @@
 %   Place frametitle beside logo
 % }
 %
+% \paragraph{footline}
 % Define the footline template.
 %    \begin{macrocode}
 \defbeamertemplate*{footline}{usafa.edu}{%
@@ -296,6 +308,7 @@
 }
 %    \end{macrocode}
 %
+% \paragraph{end page}
 % Create template for final slide.
 %    \begin{macrocode}
 \defbeamertemplate*{end page}{usafa.edu}{%
