@@ -68,20 +68,20 @@ def escape(value):
     return escaped
 
 
-semester = 'Spring 2021'
+semester = 'Fall 2021'
 
 
 data = {}
 
 responses = {
-    'Course Activities': [0, 178, 314, 445, 1893, 3912, 3052],
-    'Graded Events': [1, 226, 335, 511, 1978, 3708, 3035],
-    'Feedback': [1, 259, 382, 650, 2165, 3232, 3105],
-    'Course Overall': [1, 241, 423, 1147, 2663, 2669, 2650],
-    'Effort': [0, 48, 147, 786, 2747, 3285, 2781],
-    'Workload': [0, 925, 2472, 3732, 2088, 577],
-    'Climate': [0, 61, 99, 341, 1283, 1445, 6565],
-    'Instructor Overall': [1, 117, 200, 535, 1672, 2196, 5073],
+    'Course Activities': [109, 193, 273, 362, 1459, 4321, 3474],
+    'Graded Events': [315, 209, 255, 459, 1582, 4099, 3272],
+    'Feedback': [308, 209, 323, 558, 1748, 3726, 3319],
+    'Course Overall': [456, 190, 399, 1132, 2545, 2764, 2705],
+    'Effort': [483, 33, 152, 786, 2238, 3466, 3033],
+    'Workload': [477, 1463, 3051, 3529, 1256, 415],
+    'Climate': [628, 22, 56, 215, 684, 1493, 7093],
+    'Instructor Effectiveness': [634, 95, 217, 556, 1263, 2221, 5205],
 }
 for question, frequencies in responses.items():
     data[question] = []
@@ -102,11 +102,11 @@ data = pandas.read_csv(os.path.join('dat', 'evaluations.csv'))
 
 columns = {
   'Dept': 'Department',
-  'InstName': 'Instructor',
-  'Course_Activites': 'Course Activities',
-  'Graded_Events': 'Graded Events',
-  'Course_Overall': 'Course Overall',
-  'Instructor_Overall': 'Instructor Overall',
+  'Inst_Name': 'Instructor',
+  'CourseActivities': 'Course Activities',
+  'GradedEvents': 'Graded Events',
+  'CourseOverall': 'Course Overall',
+  'Effectiveness': 'Instructor Effectiveness',
 }
 data.rename(columns=columns, inplace=True)
 
@@ -128,7 +128,7 @@ closed = {
                  'More than 2 hours, but less than 3 hours',
                  'More than 3 hours'],
     'Climate': frequency,
-    'Instructor Overall': quality,
+    'Instructor Effectiveness': quality,
 }
 open_ended = {
     'Comments': 'comments',
@@ -142,7 +142,7 @@ prompts = {
     'Effort': r'I gave my best possible effort to learning in this course.',  # noqa: E501
     'Workload': r'On average, for every hour I spent in this class, I spent \rule{3em}{0.4pt} outside of class completing work in this course (including studying, reading, writing, doing homework or lab work, etc.)',  # noqa: E501
     'Climate': r'The instructor created a respectful, engaging learning environment for students.',  # noqa: E501
-    'Instructor Overall': r'Overall, my instructor is:',
+    'Instructor Effectiveness': r'Overall, my instructor is:',
     'Comments': r'Please provide any additional comments:',
 }
 
