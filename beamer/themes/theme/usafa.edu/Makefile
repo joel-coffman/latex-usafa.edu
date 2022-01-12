@@ -7,6 +7,6 @@ minted:
 beamerthemeusafa.edu.pdf: beamercolorthemefalcon.sty beamerthemeusafa.edu.sty example.pdf | minted
 beamerthemeusafa.edu.sty:
 
-example.pdf: beamerthemeusafa.edu.sty
+example.pdf: beamerthemeusafa.edu.sty ../../beamerthemeexamplebase.tex
 
 include $(shell git rev-parse --show-toplevel)/Makefile.mk
