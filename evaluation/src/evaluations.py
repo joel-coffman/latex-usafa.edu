@@ -11,7 +11,7 @@ import scipy.stats
 
 
 def get_confidence_interval(count, mean, std, level=0.95):
-    if std == 0.0:
+    if std == 0.0 or (count == 1 and numpy.isnan(std)):
         ci = (mean, mean)
     else:
         degrees_of_freedom = count - 1
