@@ -73,6 +73,7 @@ semester = 'Fall 2021'
 
 data = {}
 
+# TODO: Read data from CSV file
 responses = {
     'Course Activities': [109, 193, 273, 362, 1459, 4321, 3474],
     'Graded Events': [315, 209, 255, 459, 1582, 4099, 3272],
@@ -100,6 +101,7 @@ enrollments = pandas.read_csv(os.path.join('dat', 'enrollments.csv'))
 
 data = pandas.read_csv(os.path.join('dat', 'evaluations.csv'))
 
+# TODO: Read from CSV file
 columns = {
   'Dept': 'Department',
   'Inst_Name': 'Instructor',
@@ -111,6 +113,7 @@ columns = {
 data.rename(columns=columns, inplace=True)
 
 
+# TODO: Read from CSV file
 likert = ['Strongly Disagree', 'Disagree', 'Slightly Disagree',
           'Slightly Agree', 'Agree', 'Strongly Agree']
 quality = ['Very Poor', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent']
