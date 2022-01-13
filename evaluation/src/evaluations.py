@@ -270,14 +270,12 @@ for course in courses.index.unique(level='Course'):
         xs('count', axis='index', level=1)
     report = {
         'course': course,
-        'instructors': sections['Instructor'].unique(),
+        'instructors': len(sections['Instructor'].unique()),
         'semester': semester,
         'sections': len(sections),
         'enrollment': sections['Enrollment'].sum(),
         'responses': int(max(respondents)),
     }
-
-    aggregation = 'Instructors'  # TODO: Remove this variable
 
     for question, responses in closed.items():
         print('  ' + question)
@@ -287,18 +285,6 @@ for course in courses.index.unique(level='Course'):
             'prompt': prompts[question],
             'responses': responses,
         }
-
-        # instructor
-        responses = instructors[question]
-        context['Instructors'] = {}
-
-        names = [instructor for instructor in
-                 responses.index.unique(level='Instructor')]
-        names = sorted(names,
-                       key=lambda name: name.split(' ', maxsplit=1)[-1])
-        for instructor in names:
-            subset = instructors.loc[(instructor, department), question]
-            context['Instructors'][instructor] = get_context(subset)
 
         # course
         responses = courses.loc[(course,), question]
@@ -313,15 +299,13 @@ for course in courses.index.unique(level='Course'):
         context['academy'] = get_context(responses)
 
         # print summary
-        for entity in context[aggregation]:
-            values = context[aggregation][entity]
-
-            mean = values['mean']
-            ci = values['ci']
+        for aggregation in ['course', 'department', 'academy']:
+            mean = context[aggregation]['mean']
+            ci = context[aggregation]['ci']
             error = mean - ci[0]
 
-            print('    {:20s} {:.3f} +- {:.3f}'.format(entity,
-                                                       mean, error))
+            print('      {:12s} {:.3f} +- {:.3f}'.format(aggregation,
+                                                         mean, error))
 
         template = environment.get_template(
             os.path.join('course', 'question.tex'))
@@ -329,19 +313,9 @@ for course in courses.index.unique(level='Course'):
             template.render({**context,
                              **{'entities': context[aggregation]}})
 
-    comments = data.loc[data['Course'] == course,
-                        (aggregation[:-1], 'Comments')].dropna()
-    # https://stackoverflow.com/a/24370510
-    comments = {key: values['Comments'].tolist()
-                for key, values in comments.groupby(aggregation[:-1])}
-    if aggregation == 'Instructors':
-        names = [name.split(' ', maxsplit=1)[-1]
-                 for name in comments.keys()]
-        comments = [item for item in comments.items()]
-        comments = [item for name, item in sorted(zip(names, comments))]
-        comments = {key: values for key, values in comments}
-    report['comments'] = {key: [escape(value) for value in values]
-                          for key, values in comments.items()}
+    comments = data.loc[(data['Department'] == department) &
+                        (data['Course'] == course), 'Comments']
+    report['comments'] = [escape(comment) for comment in comments.dropna()]
 
     # create report
     template = environment.get_template(

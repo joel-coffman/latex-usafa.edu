@@ -15,8 +15,8 @@
 % evaluation
 \setevaluation{
   barplot/axis={
-    enlarge y limits=0.0375,
-    height=,
+    enlarge y limits=0.25,
+    symbolic y coords={Academy,Department,Course},
     typeset ticklabels with strut,
   },
 }
@@ -30,7 +30,7 @@
 \begin{minipage}{0.67\linewidth}
   \begin{tabular}{@{}>{\bfseries}ll}
     Course & {{ course }}\\
-    Instructors & {{ instructors | length }}\\
+    Instructors & {{ instructors }}\\
     Semester & {{ semester }}\\
   \end{tabular}
 \end{minipage}%
@@ -46,39 +46,27 @@
 
 {{ course_activities }}
 
-\clearpage  % FORMATTING
 {{ graded_events }}
 
-\clearpage  % FORMATTING
 {{ feedback }}
 
-\clearpage  % FORMATTING
 {{ course_overall }}
 
-\clearpage  % FORMATTING
 {{ effort }}
 
 \clearpage  % FORMATTING
 {{ workload }}
 
-\clearpage  % FORMATTING
 {{ climate }}
 
-\clearpage  % FORMATTING
 {{ instructor_effectiveness }}
 
-\clearpage  % FORMATTING
 \begin{question}{Additional Comments}
   Please provide any additional comments:
 
 {% if comments %}
   \begin{itemize}
-{% for key, values in comments.items() %}
-    \item {{ key }}
-    \begin{itemize}
-\item {{ values | join('\n\n\item ') }}
-    \end{itemize}
-{% endfor %}
+\item {{ comments | join('\n\n\item ') }}
   \end{itemize}
 {% endif %}
 \end{question}
