@@ -263,7 +263,7 @@ for course in courses.index.unique(level='Course'):
     department = department.item()
 
     sections = enrollments.loc[enrollments['Course'] == course]
-    instructors= data.loc[data['Course'] == course].\
+    instructors = data.loc[data['Course'] == course].\
         groupby(['Instructor', 'Department']).agg(funcs)
 
     respondents = courses.loc[(course, department)].\
@@ -395,7 +395,7 @@ for department in departments.index.unique(level='Department'):
                 error = mean - ci[0]
 
                 print('      {:20s} {:.3f} +- {:.3f}'.format(entity,
-                                                                 mean, error))
+                                                             mean, error))
 
             template = environment.get_template(
                 os.path.join('department', 'question.tex'))
