@@ -1,0 +1,86 @@
+\documentclass{article}
+
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{libertinus}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{nicefrac}
+
+\usepackage{evaluation}
+
+
+% evaluation
+\setevaluation{
+  barplot/axis={
+    enlarge y limits=0.0375,
+    height=,
+    typeset ticklabels with strut,
+  },
+}
+
+
+\begin{document}
+
+{\bfseries\large United States Air Force Academy}
+
+\smallskip  % FORMATTING
+\begin{minipage}{0.67\linewidth}
+  \begin{tabular}{@{}>{\bfseries}ll}
+    Course & {{ course }}\\
+    Instructors & {{ instructors | length }}\\
+    Semester & {{ semester }}\\
+  \end{tabular}
+\end{minipage}%
+\begin{minipage}{0.33\linewidth}
+  \hfill  % right-align tabular environment
+  \begin{tabular}{l rr@{}}
+    Sections & {{ sections }}\\
+    Enrollment & {{ enrollment }}\\
+    Responses & {{ responses }} & ({{ (100.0 * responses / enrollment) | round(1) }}\%)\\
+  \end{tabular}
+\end{minipage}
+\medskip  % FORMATTING
+
+{{ course_activities }}
+
+\clearpage  % FORMATTING
+{{ graded_events }}
+
+\clearpage  % FORMATTING
+{{ feedback }}
+
+\clearpage  % FORMATTING
+{{ course_overall }}
+
+\clearpage  % FORMATTING
+{{ effort }}
+
+\clearpage  % FORMATTING
+{{ workload }}
+
+\clearpage  % FORMATTING
+{{ climate }}
+
+\clearpage  % FORMATTING
+{{ instructor_effectiveness }}
+
+\clearpage  % FORMATTING
+\begin{question}{Additional Comments}
+  Please provide any additional comments:
+
+{% if comments %}
+  \begin{itemize}
+{% for key, values in comments.items() %}
+    \item {{ key }}
+    \begin{itemize}
+\item {{ values | join('\n\n\item ') }}
+    \end{itemize}
+{% endfor %}
+  \end{itemize}
+{% endif %}
+\end{question}
+
+\end{document}
