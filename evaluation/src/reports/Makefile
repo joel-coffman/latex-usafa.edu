@@ -10,3 +10,11 @@ all: $(reports)
 .PHONY: $(reports)
 $(reports):
 	$(MAKE) -C $@
+
+.PHONY: mostlyclean
+mostlyclean:
+	@for report in $(reports); do $(MAKE) --directory=$$report mostlyclean; done
+
+.PHONY: clean
+clean:
+	@for report in $(reports); do $(MAKE) --directory=$$report clean; done
