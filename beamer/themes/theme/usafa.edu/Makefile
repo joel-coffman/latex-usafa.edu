@@ -1,5 +1,5 @@
-.PHONY: default
-default: beamerthemeusafa.edu.sty example.pdf beamerthemeusafa.edu.pdf
+.PHONY: all
+all: beamerthemeusafa.edu.sty example.pdf beamerthemeusafa.edu.pdf
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi
@@ -9,4 +9,4 @@ beamerthemeusafa.edu.sty:
 
 example.pdf: beamerthemeusafa.edu.sty ../../beamerthemeexamplebase.tex
 
-include $(shell git rev-parse --show-toplevel)/Makefile.mk
+include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
