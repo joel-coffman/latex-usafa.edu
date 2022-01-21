@@ -10,6 +10,24 @@ import pandas
 import scipy.stats
 
 
+def create_report(path, template, context):
+    """Save a report to the specified path.
+
+    :param path: path for the report
+    :param template: Jinja2 template
+    :param context: Jinja2 context with variables for a template
+    """
+    directory = os.path.dirname(path)
+    if not os.path.isdir(directory):
+        os.makedirs(directory)
+
+    with open(path, 'w') as fp:
+        fp.write(template.render(context))
+
+    shutil.copy('./templates/Makefile',
+                os.path.join(directory, 'Makefile'))
+
+
 def get_confidence_interval(count, mean, std, level=0.95):
     if std == 0.0 or (count == 1 and numpy.isnan(std)):
         ci = (mean, mean)
@@ -243,18 +261,10 @@ for instructor in instructors.index.unique(level='Instructor'):
         template = environment.get_template(
             os.path.join('instructor', 'report.tex'))
 
-        directory = os.path.join('reports', 'instructors',
-                                 instructor.replace(' ', '_'))
-        if not os.path.isdir(directory):
-            os.makedirs(directory)
-
-        with open(os.path.join(directory,
-                               '{}.tex'.format(course.replace(' ', '_'))),
-                  'w') as fp:
-            fp.write(template.render(report))
-
-        shutil.copy('./templates/Makefile',
-                    os.path.join(directory, 'Makefile'))
+        report_path = os.path.join('reports', 'instructors',
+                                   instructor.replace(' ', '_'),
+                                   course.replace(' ', '_') + '.tex')
+        create_report(report_path, template, report)
 
 # course reports
 instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
@@ -324,16 +334,9 @@ for course in courses.index.unique(level='Course'):
     template = environment.get_template(
         os.path.join('course', 'report.tex'))
 
-    directory = os.path.join('reports', 'courses')
-    if not os.path.isdir(directory):
-        os.makedirs(directory)
-
-    with open(os.path.join(directory, '{}.tex'.format(course)),
-              'w') as fp:
-        fp.write(template.render(report))
-
-shutil.copy('./templates/Makefile',
-            os.path.join(directory, 'Makefile'))
+    report_path = os.path.join('reports', 'courses',
+                               course.replace(' ', '_') + '.tex')
+    create_report(report_path, template, report)
 
 # department reports
 instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
@@ -424,13 +427,6 @@ for department in departments.index.unique(level='Department'):
         template = environment.get_template(
             os.path.join('department', 'report.tex'))
 
-        directory = os.path.join('reports', 'departments', department)
-        if not os.path.isdir(directory):
-            os.makedirs(directory)
-
-        with open(os.path.join(directory, '{}.tex'.format(aggregation)),
-                  'w') as fp:
-            fp.write(template.render(report))
-
-        shutil.copy('./templates/Makefile',
-                    os.path.join(directory, 'Makefile'))
+        report_path = os.path.join('reports', 'departments', department,
+                                   aggregation + '.tex')
+        create_report(report_path, template, report)
