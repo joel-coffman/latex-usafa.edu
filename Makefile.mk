@@ -73,16 +73,13 @@ vpath %.sty $(CWD):$(addprefix $(CWD)/,$(packages))
 
 derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
 
-.PHONY: clean
-clean:
+.PHONY: mostlyclean
+mostlyclean:
 	$(RM) $(derivatives)
 
-.PHONY: veryclean
-veryclean: clean
+.PHONY: clean
+clean: mostlyclean
 	$(RM) *.pdf
-
-.PHONY: force
-force: veryclean default
 
 
 %:: %.url

@@ -1,5 +1,5 @@
-.PHONY: default
-default: graded-review.sty graded-review.pdf
+.PHONY: all
+all: graded-review.sty graded-review.pdf
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi

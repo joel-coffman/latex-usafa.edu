@@ -1,7 +1,7 @@
 documents := $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
-.PHONY: default
-default: $(documents)
+.PHONY: all
+all: $(documents)
 
 
 export TEXINPUTS := ../:${TEXINPUTS}

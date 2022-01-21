@@ -1,7 +1,7 @@
 documents := application.pdf
 
-.PHONY: default
-default: application.pdf
+.PHONY: all
+all: application.pdf
 
 
 subdirs := $(patsubst %/.,%,$(wildcard */.))

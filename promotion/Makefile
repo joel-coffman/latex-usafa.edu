@@ -1,5 +1,5 @@
-.PHONY: default
-default: packages documentation $(patsubst %.tex,%.pdf,$(wildcard *.tex))
+.PHONY: all
+all: packages documentation $(patsubst %.tex,%.pdf,$(wildcard *.tex))
 
 .PHONY: packages
 packages: $(patsubst %.dtx,%.sty,$(wildcard *.dtx))
