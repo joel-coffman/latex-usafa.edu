@@ -1,5 +1,5 @@
-.PHONY: default
-default: beamerthemeusafa.edu.sty example.pdf beamerthemeusafa.edu.pdf
+.PHONY: all
+all: beamerthemeusafa.edu.sty example.pdf beamerthemeusafa.edu.pdf
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi

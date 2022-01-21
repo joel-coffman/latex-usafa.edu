@@ -1,5 +1,5 @@
-.PHONY: default
-default: beamercolorthemefalcon.sty beamercolorthemefalcon.pdf
+.PHONY: all
+all: beamercolorthemefalcon.sty beamercolorthemefalcon.pdf
 
 derivatives += beamercolorthemefalcon.sty
 
