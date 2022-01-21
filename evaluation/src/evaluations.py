@@ -21,6 +21,11 @@ def create_report(path, template, context):
     if not os.path.isdir(directory):
         os.makedirs(directory)
 
+    # TODO: Do not overwrite existing report if unchanged
+    #   Overwriting an existing report updates the file's timestamp, which
+    # causes `make` to recompile the report. Recompiling the report isn't
+    # necessary, though, unless the report has changed. Thus, it would be
+    # better to write the file only if it differs from the existing report.
     with open(path, 'w') as fp:
         fp.write(template.render(context))
 
