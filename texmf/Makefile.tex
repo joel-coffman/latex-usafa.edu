@@ -1,3 +1,5 @@
+# vim: syntax=make
+
 # use Bash as the shell when interpreting the Makefile
 SHELL := /bin/bash
 
@@ -5,18 +7,17 @@ SHELL := /bin/bash
 where-am-i = $(word $(words $(MAKEFILE_LIST)), $(MAKEFILE_LIST))
 # location of this Makefile (presumably the root directory of a project)
 CWD := $(dir $(call where-am-i))
-CWD != realpath $(CWD) --relative-to=$(CURDIR)
+CWD != realpath $(CWD)/.. --relative-to=$(CURDIR)
 
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
-$(CWD)/Makefile.mk: ;
 
 # add texmf directory to TEXINPUTS environment variable to find included files
 # (e.g., packages)
-TEXINPUTS := .:$(CWD)/texmf//:${TEXINPUTS}
+TEXINPUTS := .:$(TEXINPUTS):$(CWD)/texmf//:
 
 # define TEX as pdflatex
-TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
+TEX = TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape
 
 # Define a "Canned Recipe" for compiling PDFs from *.{dtx,tex} files.
 #
@@ -24,16 +25,17 @@ TEX=TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape #-interaction batchmode
 #       after `define' (see https://goo.gl/tml4Zi). If omitted, make assumes
 #       it to be '='.
 define compile-doc
+@$(RM) $*.sta
 $(TEX) -draftmode $<
 if grep -E '^\\@istfilename' $*.aux; then \
-		makeglossaries $*; \
+		makeglossaries -d $(*D) $(*F) && $(TEX) -draftmode $<; \
 fi
 files=$$(sed -n 's/\\@input{\(.*\)}/\1/p' $*.aux); \
 		if grep --quiet -E '\\(citation)' $*.aux $$files; then \
-			bibtex $*; \
+			BIBINPUTS=$(TEXINPUTS) bibtex $*; \
 		fi
 $(TEX) -draftmode $<
-if [ -f $*.idx ]; then makeindex -s gind.ist -o $*.ind $*.idx; fi
+if [ -f $*.idx ]; then makeindex $$(if [[ $< == *.dtx ]]; then echo -s gind.ist; fi) -o $*.ind $*.idx; fi
 if [ -f $*.glo ]; then makeindex -s $$(if [[ $< == *.dtx ]]; then echo gglo; else echo $*; fi).ist -o $*.gls $*.glo; fi
 $(TEX) $<
 while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
@@ -41,9 +43,12 @@ while ( grep -q '^LaTeX Warning: Label(s) may have changed' $*.log ) do \
 done
 endef
 
-DEPENDENCIES = $(wildcard *.bib) \
-               $(wildcard $(CWD)/glossary.tex) \
-               $(wildcard $(CWD)/references.bib)
+external := $(basename $(shell find . -name "*.url"))
+.SECONDARY: $(external)
+
+DEPENDENCIES = $(wildcard *.bib) $(external) \
+               $(wildcard $(CWD)/texmf/include/*.bib) \
+               $(wildcard $(CWD)/texmf/include/*.tex)
 
 PACKAGES = $(wildcard *.cls) $(wildcard *.sty)
 
@@ -68,18 +73,19 @@ vpath %.dtx $(CWD):$(addprefix $(CWD)/,$(packages))
 vpath %.sty $(CWD):$(addprefix $(CWD)/,$(packages))
 
 
-derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.toc *.vrb
+derivatives += *.acn *.acr *.alg *.aux *.bbl *.blg *.dvi *.glb *.glx *.glg *.glo *.gls *.idx *.ind *.ilg *.ist *.log *.lof *.lot *.nav *.out *.pyg *.snm *.sta *.toc *.vrb
 
-.PHONY: clean
-clean:
+.PHONY: mostlyclean
+mostlyclean:
 	$(RM) $(derivatives)
 
-.PHONY: veryclean
-veryclean: clean
+.PHONY: clean
+clean: mostlyclean
 	$(RM) *.pdf
 
-.PHONY: force
-force: veryclean default
+
+%:: %.url
+	[ -s "$@" ] || curl --location --output "$@" "$$(cat "$<")"
 
 
 package ?= \
@@ -118,8 +124,9 @@ distcheck: dist
 _dist_derivatives += $(archive)
 
 .PHONY: distclean
-distclean:
-	$(RM) $(_dist_derivatives)
+distclean: clean
+	$(RM) $(patsubst %.url,%,$(shell find . -name "*.url"))
+	$(RM) -r $(_dist_derivatives)
 
 
 %:: %.url
@@ -127,12 +134,19 @@ distclean:
 
 
 ifneq ($(shell git rev-parse --show-toplevel 2> /dev/null),)
-VERSION:=$(shell git describe --abbrev=12 --always --dirty=+ | sed 's/.*/\\\\providecommand{\\\\version}{&}/')
+VERSION:=$(shell git describe --abbrev=12 --always --dirty=+)
 endif
+
+.PHONY: version
+version:
+	@echo $(VERSION)
 
 .PHONY: .version
 .version:
 	[ -f $@.tex ] || touch $@.tex
-	echo "$(VERSION)" | cmp -s $@.tex - || echo "$(VERSION)" > $@.tex
+	echo "$(VERSION)" \
+	        | sed 's/.*/\\providecommand{\\version}{&}/' > $@.tex~
+	cmp -s $@.tex $@.tex~ || mv $@.tex~ $@.tex
+	$(RM) $@.tex~
 
 .version.tex: .version

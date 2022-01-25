@@ -1,13 +1,15 @@
 curl
 ghostscript
 git
+inkscape
 make
-python-pip
+python3-pip
+python-is-python3
 texlive
 texlive-bibtex-extra
 texlive-font-utils
 texlive-fonts-extra
-texlive-generic-extra
 texlive-latex-extra
+texlive-plain-generic
 unzip
 zip
