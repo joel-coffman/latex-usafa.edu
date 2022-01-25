@@ -1,5 +1,5 @@
-.PHONY: default
-default: graded-review.sty graded-review.pdf
+.PHONY: all
+all: graded-review.sty graded-review.pdf
 
 minted:
 	if ! [ -d $@ ]; then mkdir --parents $@; fi
@@ -7,4 +7,4 @@ minted:
 graded-review.sty:
 graded-review.pdf: graded-review.sty | minted
 
-include $(shell git rev-parse --show-toplevel)/Makefile.mk
+include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex

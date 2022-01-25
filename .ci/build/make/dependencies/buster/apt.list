@@ -1,0 +1,14 @@
+curl
+ghostscript
+git
+inkscape
+make
+python3-pip
+texlive
+texlive-bibtex-extra
+texlive-font-utils
+texlive-fonts-extra
+texlive-generic-extra
+texlive-latex-extra
+unzip
+zip
