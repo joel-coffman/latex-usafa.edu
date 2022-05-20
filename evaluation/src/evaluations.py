@@ -96,25 +96,19 @@ semester = 'Fall 2021'
 
 data = {}
 
-# TODO: Read data from CSV file
-responses = {
-    'Course Activities': [109, 193, 273, 362, 1459, 4321, 3474],
-    'Graded Events': [315, 209, 255, 459, 1582, 4099, 3272],
-    'Feedback': [308, 209, 323, 558, 1748, 3726, 3319],
-    'Course Overall': [456, 190, 399, 1132, 2545, 2764, 2705],
-    'Effort': [483, 33, 152, 786, 2238, 3466, 3033],
-    'Workload': [477, 1463, 3051, 3529, 1256, 415],
-    'Climate': [628, 22, 56, 215, 684, 1493, 7093],
-    'Instructor Effectiveness': [634, 95, 217, 556, 1263, 2221, 5205],
-}
-for question, frequencies in responses.items():
+statistics = pandas.read_csv(os.path.join('dat', 'statistics.csv'),
+                             header=None, index_col=0)
+statistics = statistics.T.to_dict(orient='list')
+for question, frequencies in statistics.items():
     data[question] = []
     for value, frequency in enumerate(frequencies):
         if value == 0:
             value = numpy.nan
 
-        for i in range(frequency):
-            data[question].append(value)
+        if frequency.is_integer():
+            frequency = int(frequency)
+            for i in range(frequency):
+                data[question].append(value)
 
 academy = pandas.DataFrame(data)
 
