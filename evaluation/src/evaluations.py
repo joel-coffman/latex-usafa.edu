@@ -23,16 +23,26 @@ def create_report(path, template, context):
     if not os.path.isdir(directory):
         os.makedirs(directory)
 
-    # TODO: Do not overwrite existing report if unchanged
+    # NOTE: Do not overwrite existing report if unchanged
     #   Overwriting an existing report updates the file's timestamp, which
     # causes `make` to recompile the report. Recompiling the report isn't
     # necessary, though, unless the report has changed. Thus, it would be
     # better to write the file only if it differs from the existing report.
-    with open(path, 'w') as fp:
-        fp.write(template.render(context))
+    content = template.render(context)
+    write = True
 
-    shutil.copy('./templates/Makefile',
-                os.path.join(directory, 'Makefile'))
+    if os.path.exists(path):
+        with open(path, 'r') as fp:
+            existing = fp.read()
+
+        write = not (content == existing)
+
+    if write is True:
+        with open(path, 'w') as fp:
+            fp.write(content)
+
+        shutil.copy('./templates/Makefile',
+                    os.path.join(directory, 'Makefile'))
 
 
 def get_confidence_interval(count, mean, std, level=0.95):
