@@ -170,14 +170,14 @@ environment = jinja2.Environment(
 )
 
 # instructor reports
+print('Instructors')
+
 instructors = data.groupby(['Instructor', 'Course', 'Department']).agg(funcs)
 for instructor in instructors.index.unique(level='Instructor'):
-    print(instructor)
+    print('- ', instructor)
 
     subset = instructors.loc[(instructor,)]
     for course in subset.index.unique(level='Course'):
-        print('  {}'.format(course))
-
         department = subset.loc[(course,)].index.unique(level='Department')
         assert len(department) == 1
         department = department.item()
@@ -197,8 +197,6 @@ for instructor in instructors.index.unique(level='Instructor'):
             'responses': int(max(respondents)),
         }
         for question, responses in closed.items():
-            print('    ' + question)
-
             context = {
                 'label': question,
                 'prompt': prompts[question],
@@ -228,17 +226,6 @@ for instructor in instructors.index.unique(level='Instructor'):
             responses = academy[question]
             context['academy'] = get_context(responses)
 
-            # print summary
-            aggregations = ([] if single_instructor else ['instructor'] +
-                            ['course', 'department', 'academy'])
-            for aggregation in aggregations:
-                mean = context[aggregation]['mean']
-                ci = context[aggregation]['ci']
-                error = mean - ci[0]
-
-                print('      {:12s} {:.3f} +- {:.3f}'.format(aggregation,
-                                                             mean, error))
-
             template = environment.get_template(
                 os.path.join('instructor', 'question.tex'))
             report[question.replace(' ', '_').lower()] = \
@@ -258,11 +245,14 @@ for instructor in instructors.index.unique(level='Instructor'):
                                    instructor.replace(' ', '_'),
                                    course.replace(' ', '_') + '.tex')
         create_report(report_path, template, report)
+print()
 
 # course reports
+print('Course')
+
 instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
 for course in courses.index.unique(level='Course'):
-    print(course)
+    print('- ', course)
 
     department = courses.loc[(course,)].index.unique(level='Department')
     assert len(department) == 1
@@ -284,8 +274,6 @@ for course in courses.index.unique(level='Course'):
     }
 
     for question, responses in closed.items():
-        print('  ' + question)
-
         context = {
             'label': question,
             'prompt': prompts[question],
@@ -304,20 +292,11 @@ for course in courses.index.unique(level='Course'):
         responses = academy[question]
         context['academy'] = get_context(responses)
 
-        # print summary
-        for aggregation in ['course', 'department', 'academy']:
-            mean = context[aggregation]['mean']
-            ci = context[aggregation]['ci']
-            error = mean - ci[0]
-
-            print('      {:12s} {:.3f} +- {:.3f}'.format(aggregation,
-                                                         mean, error))
-
         template = environment.get_template(
             os.path.join('course', 'question.tex'))
         report[question.replace(' ', '_').lower()] = \
             template.render({**context,
-                             **{'entities': context[aggregation]}})
+                             **{'entities': context}})
 
     comments = data.loc[(data['Department'] == department) &
                         (data['Course'] == course), 'Comments']
@@ -330,15 +309,16 @@ for course in courses.index.unique(level='Course'):
     report_path = os.path.join('reports', 'courses',
                                course.replace(' ', '_') + '.tex')
     create_report(report_path, template, report)
+print()
 
 # department reports
+print('Department')
+
 instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
 for department in departments.index.unique(level='Department'):
-    print(department)
+    print('- ', department)
 
     for aggregation in ['Instructors', 'Courses']:
-        print('  ' + aggregation)
-
         report = {
             'courses': enrollments['Course'].unique(),
             'instructors': enrollments['Instructor'].unique(),
@@ -349,8 +329,6 @@ for department in departments.index.unique(level='Department'):
         }
 
         for question, responses in closed.items():
-            print('    ' + question)
-
             context = {
                 'label': question,
                 'prompt': prompts[question],
@@ -385,17 +363,6 @@ for department in departments.index.unique(level='Department'):
             responses = academy[question]
             context['academy'] = get_context(responses)
 
-            # print summary
-            for entity in context[aggregation]:
-                values = context[aggregation][entity]
-
-                mean = values['mean']
-                ci = values['ci']
-                error = mean - ci[0]
-
-                print('      {:20s} {:.3f} +- {:.3f}'.format(entity,
-                                                             mean, error))
-
             template = environment.get_template(
                 os.path.join('department', 'question.tex'))
             report[question.replace(' ', '_').lower()] = \
@@ -423,3 +390,4 @@ for department in departments.index.unique(level='Department'):
         report_path = os.path.join('reports', 'departments', department,
                                    aggregation + '.tex')
         create_report(report_path, template, report)
+print()
