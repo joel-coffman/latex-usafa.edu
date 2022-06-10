@@ -161,8 +161,21 @@ prompts = {
 
 
 funcs = ['mean', 'std', 'sem', 'count']
-courses = data.groupby(['Course', 'Department']).agg(funcs)
-departments = data.groupby(['Department']).agg(funcs)
+
+def aggregate(data, by, funcs=funcs):
+    invalid = set()
+    for column, dtype in zip(data.columns, data.dtypes):
+        if dtype in ['category', 'object', 'string']:
+            invalid.add(column)
+    invalid = invalid - set(by)
+
+    subset = data.drop(columns=invalid)
+    grouped = subset.groupby(by)
+    aggregated = grouped.agg(funcs)
+    return aggregated
+
+courses = aggregate(data, ['Course', 'Department'], funcs)
+departments = aggregate(data, ['Department'], funcs)
 academy = academy.apply(funcs)
 
 environment = jinja2.Environment(
@@ -172,7 +185,7 @@ environment = jinja2.Environment(
 # instructor reports
 print('Instructors')
 
-instructors = data.groupby(['Instructor', 'Course', 'Department']).agg(funcs)
+instructors = aggregate(data, ['Instructor', 'Course', 'Department'], funcs)
 for instructor in instructors.index.unique(level='Instructor'):
     print('- ', instructor)
 
@@ -250,7 +263,7 @@ print()
 # course reports
 print('Course')
 
-instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
+instructors = aggregate(data, ['Instructor', 'Department'], funcs)
 for course in courses.index.unique(level='Course'):
     print('- ', course)
 
@@ -259,8 +272,8 @@ for course in courses.index.unique(level='Course'):
     department = department.item()
 
     sections = enrollments.loc[enrollments['Course'] == course]
-    instructors = data.loc[data['Course'] == course].\
-        groupby(['Instructor', 'Department']).agg(funcs)
+    instructors = aggregate(data.loc[data['Course'] == course],
+                            ['Instructor', 'Department'], funcs)
 
     respondents = courses.loc[(course, department)].\
         xs('count', axis='index', level=1)
@@ -314,7 +327,7 @@ print()
 # department reports
 print('Department')
 
-instructors = data.groupby(['Instructor', 'Department']).agg(funcs)
+instructors = aggregate(data, ['Instructor', 'Department'], funcs)
 for department in departments.index.unique(level='Department'):
     print('- ', department)
 
