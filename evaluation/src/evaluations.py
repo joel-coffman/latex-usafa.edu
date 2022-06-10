@@ -11,8 +11,6 @@ import numpy
 import pandas
 import scipy.stats
 
-import tex
-
 
 def create_report(path, template, context):
     """Save a report to the specified path.
@@ -45,6 +43,26 @@ def create_report(path, template, context):
 
         shutil.copy('./templates/Makefile',
                     os.path.join(directory, 'Makefile'))
+
+
+def escape(value):
+    '''Replace special characters in LaTeX with "safe" substitution'''
+    escaped = value
+    for character in ['\\', '&', '#', '_', '$']:
+        escaped = escaped.replace(character, '\\' + character)
+
+    special = {
+        '<': '\\textless',
+        '>': '\\textgreater',
+        '\'': '\\textquotesingle',
+        '"': '\\textquotedbl',
+        '-': '-',
+    }
+    for character, replacement in special.items():
+        escaped = escaped.replace(character, replacement + '{}')
+
+    escaped = escaped.replace('\n', '\n\n')
+    return escaped
 
 
 def get_confidence_interval(count, mean, std, level=0.95):
@@ -260,7 +278,7 @@ for instructor in instructors.index.unique(level='Instructor'):
         comments = data.loc[(data['Department'] == department) &
                             (data['Course'] == course) &
                             (data['Instructor'] == instructor), 'Comments']
-        report['comments'] = [tex.escape(comment)
+        report['comments'] = [escape(comment)
                               for comment in comments.dropna()]
 
         # create report
@@ -330,7 +348,7 @@ for course in courses.index.unique(level='Course'):
 
     comments = data.loc[(data['Department'] == department) &
                         (data['Course'] == course), 'Comments']
-    report['comments'] = [tex.escape(comment) for comment in comments.dropna()]
+    report['comments'] = [escape(comment) for comment in comments.dropna()]
 
     # create report
     template = environment.get_template(
@@ -415,7 +433,7 @@ for department in departments.index.unique(level='Department'):
             comments = [item for item in comments.items()]
             comments = [item for name, item in sorted(zip(names, comments))]
             comments = {key: values for key, values in comments}
-        report['comments'] = {key: [tex.escape(value) for value in values]
+        report['comments'] = {key: [escape(value) for value in values]
                               for key, values in comments.items()}
 
         # create report
