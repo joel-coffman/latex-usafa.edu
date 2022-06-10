@@ -1,4 +1,5 @@
 jinja2  # BSD
 numpy  # BSD
+openpyxl  # MIT
 pandas  # BSD
 scipy  # BSD

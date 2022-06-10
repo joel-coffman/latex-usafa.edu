@@ -110,7 +110,7 @@ academy = pandas.DataFrame(data)
 enrollments = pandas.read_csv(os.path.join('dat', 'enrollments.csv'))
 
 
-data = pandas.read_csv(os.path.join('dat', 'evaluations.csv'))
+data = pandas.read_excel(os.path.join('dat', 'evaluations.xlsx'))
 
 # TODO: Read from CSV file
 columns = {
