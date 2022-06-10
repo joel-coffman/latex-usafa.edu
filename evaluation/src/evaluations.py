@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import math
 import os
 import shutil
@@ -85,8 +86,12 @@ def get_context(responses):
     }
 
 
-# TODO : Specify as argument to script
-semester = 'Spring 2022'
+parser = argparse.ArgumentParser(
+    description='Create course evaluation reports')
+parser.add_argument('term', action='store',
+                    help='term of evaluations (e.g., Spring 2022)')
+
+args = parser.parse_args()
 
 
 data = {}
@@ -211,7 +216,7 @@ for instructor in instructors.index.unique(level='Instructor'):
         report = {
             'instructor': instructor,
             'course': course,
-            'semester': semester,
+            'semester': args.term,
             'sections': len(sections),
             'enrollment': sections['Enrollment'].sum(),
             'responses': int(max(respondents)),
@@ -291,7 +296,7 @@ for course in courses.index.unique(level='Course'):
     report = {
         'course': course,
         'instructors': len(sections['Instructor'].unique()),
-        'semester': semester,
+        'semester': args.term,
         'sections': len(sections),
         'enrollment': sections['Enrollment'].sum(),
         'responses': int(max(respondents)),
@@ -350,7 +355,7 @@ for department in departments.index.unique(level='Department'):
         report = {
             'courses': enrollments['Course'].unique(),
             'instructors': enrollments['Instructor'].unique(),
-            'semester': semester,
+            'semester': args.term,
             'sections': len(enrollments),
             'enrollment': enrollments['Enrollment'].sum(),
             'responses': len(data),
