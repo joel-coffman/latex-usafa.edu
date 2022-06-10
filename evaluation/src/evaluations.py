@@ -51,16 +51,6 @@ def escape(value):
     for character in ['\\', '&', '#', '_', '$']:
         escaped = escaped.replace(character, '\\' + character)
 
-    special = {
-        '<': '\\textless',
-        '>': '\\textgreater',
-        '\'': '\\textquotesingle',
-        '"': '\\textquotedbl',
-        '-': '-',
-    }
-    for character, replacement in special.items():
-        escaped = escaped.replace(character, replacement + '{}')
-
     escaped = escaped.replace('\n', '\n\n')
     return escaped
 
