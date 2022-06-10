@@ -222,6 +222,8 @@ for instructor in instructors.index.unique(level='Instructor'):
 
         sections = enrollments.loc[(enrollments['Course'] == course) &
                                    (enrollments['Instructor'] == instructor)]
+        assert 1 <= len(sections) or 0 == len(enrollments), \
+            "Missing enrollment data for {}".format(course)
 
         respondents = instructors.loc[(instructor, course, department)].\
             xs('count', axis='index', level=1)
