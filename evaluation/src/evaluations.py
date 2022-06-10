@@ -84,7 +84,8 @@ def get_context(responses):
     }
 
 
-semester = 'Fall 2021'
+# TODO : Specify as argument to script
+semester = 'Spring 2022'
 
 
 data = {}
