@@ -182,10 +182,7 @@ def aggregate(data, by, funcs=funcs):
             invalid.add(column)
     invalid = invalid - set(by)
 
-    subset = data.drop(columns=invalid)
-    grouped = subset.groupby(by)
-    aggregated = grouped.agg(funcs)
-    return aggregated
+    return data.drop(columns=invalid).groupby(by).agg(funcs)
 
 courses = aggregate(data, ['Course', 'Department'], funcs)
 departments = aggregate(data, ['Department'], funcs)
