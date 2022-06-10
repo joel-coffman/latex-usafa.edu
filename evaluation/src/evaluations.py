@@ -96,6 +96,8 @@ def get_context(responses):
 
 parser = argparse.ArgumentParser(
     description='Create course evaluation reports')
+parser.add_argument('--debug', action='store_true',
+                    help='print debugging information')
 parser.add_argument('term', action='store',
                     help='term of evaluations (e.g., Spring 2022)')
 
@@ -119,6 +121,11 @@ for question, frequencies in statistics.items():
                 data[question].append(value)
 
 academy = pandas.DataFrame(data)
+if args.debug:
+    print('Academy statistics:')
+    with pandas.option_context('display.precision', 3):
+        print(academy.agg(['count', 'mean', 'std']).T)
+    print()
 
 
 enrollments = os.path.join('dat', 'enrollments.csv')
