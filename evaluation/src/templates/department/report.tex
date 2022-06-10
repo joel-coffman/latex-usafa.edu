@@ -38,8 +38,10 @@
   \hfill  % right-align tabular environment
   \begin{tabular}{l rr@{}}
     Sections & {{ sections }}\\
+    {% if enrollment is not none -%}
     Enrollment & {{ enrollment }}\\
-    Responses & {{ responses }} & ({{ (100.0 * responses / enrollment) | round(1) }}\%)\\
+    {%- endif -%}
+    Responses & {{ responses }}{%- if enrollment is not none -%} & ({{ (100.0 * responses / enrollment) | round(1) }}\%){%- endif -%}\\
   \end{tabular}
 \end{minipage}
 \medskip  % FORMATTING

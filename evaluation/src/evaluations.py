@@ -3,6 +3,7 @@
 import math
 import os
 import shutil
+import sys
 
 import jinja2
 import numpy
@@ -107,7 +108,13 @@ for question, frequencies in statistics.items():
 academy = pandas.DataFrame(data)
 
 
-enrollments = pandas.read_csv(os.path.join('dat', 'enrollments.csv'))
+enrollments = os.path.join('dat', 'enrollments.csv')
+if os.path.exists(enrollments):
+    enrollments = pandas.read_csv(os.path.join('dat', 'enrollments.csv'))
+else:
+    print('Missing enrollment data!\n', file=sys.stderr)
+    enrollments = pandas.DataFrame(columns=['Course', 'Instructor',
+                                            'Section', 'Enrollment'])
 
 
 data = pandas.read_excel(os.path.join('dat', 'evaluations.xlsx'))
@@ -198,7 +205,6 @@ for instructor in instructors.index.unique(level='Instructor'):
 
         sections = enrollments.loc[(enrollments['Course'] == course) &
                                    (enrollments['Instructor'] == instructor)]
-        assert 1 <= len(sections), "Missing enrollment data!"
 
         respondents = instructors.loc[(instructor, course, department)].\
             xs('count', axis='index', level=1)
@@ -210,6 +216,10 @@ for instructor in instructors.index.unique(level='Instructor'):
             'enrollment': sections['Enrollment'].sum(),
             'responses': int(max(respondents)),
         }
+        if len(enrollments) == 0:
+            report['sections'] = len(data.loc[(data['Course'] == course) &
+                                              (data['Instructor'] == instructor), 'Section'].unique())
+            report['enrollment'] = None
         for question, responses in closed.items():
             context = {
                 'label': question,
@@ -286,6 +296,10 @@ for course in courses.index.unique(level='Course'):
         'enrollment': sections['Enrollment'].sum(),
         'responses': int(max(respondents)),
     }
+    if len(sections) == 0:
+        report['instructors'] = len(instructors)
+        report['sections'] = len(data.loc[data['Course'] == course, 'Section'].unique())
+        report['enrollment'] = None
 
     for question, responses in closed.items():
         context = {
@@ -341,6 +355,11 @@ for department in departments.index.unique(level='Department'):
             'enrollment': enrollments['Enrollment'].sum(),
             'responses': len(data),
         }
+        if len(enrollments) == 0:
+            report['courses'] = data['Course'].unique()
+            report['instructors'] = data['Instructor'].unique()
+            report['sections'] = len(numpy.unique(data[['Course', 'Section', 'Instructor']]))
+            report['enrollment'] = None
 
         for question, responses in closed.items():
             context = {
