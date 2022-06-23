@@ -285,7 +285,7 @@ for instructor in instructors.index.unique(level='Instructor'):
         template = environment.get_template(
             os.path.join('instructor', 'report.tex'))
 
-        report_path = os.path.join('reports', 'instructors',
+        report_path = os.path.join('reports', department, 'instructors',
                                    instructor.replace(' ', '_'),
                                    course.replace(' ', '_') + '.tex')
         create_report(report_path, template, report)
@@ -354,7 +354,7 @@ for course in courses.index.unique(level='Course'):
     template = environment.get_template(
         os.path.join('course', 'report.tex'))
 
-    report_path = os.path.join('reports', 'courses',
+    report_path = os.path.join('reports', department, 'courses',
                                course.replace(' ', '_') + '.tex')
     create_report(report_path, template, report)
 print()
@@ -440,7 +440,6 @@ for department in departments.index.unique(level='Department'):
         template = environment.get_template(
             os.path.join('department', 'report.tex'))
 
-        report_path = os.path.join('reports', 'departments', department,
-                                   aggregation + '.tex')
+        report_path = os.path.join('reports', department, aggregation + '.tex')
         create_report(report_path, template, report)
 print()
