@@ -194,6 +194,7 @@ prompts = {
 
 funcs = ['mean', 'std', 'sem', 'count']
 
+
 def aggregate(data, by, funcs=funcs):
     invalid = set()
     for column, dtype in zip(data.columns, data.dtypes):
@@ -202,6 +203,7 @@ def aggregate(data, by, funcs=funcs):
     invalid = invalid - set(by)
 
     return data.drop(columns=invalid).groupby(by).agg(funcs)
+
 
 courses = aggregate(data, ['Course', 'Department'], funcs)
 departments = aggregate(data, ['Department'], funcs)
@@ -241,8 +243,10 @@ for instructor in instructors.index.unique(level='Instructor'):
             'responses': int(max(respondents)),
         }
         if len(enrollments) == 0:
-            report['sections'] = len(data.loc[(data['Course'] == course) &
-                                              (data['Instructor'] == instructor), 'Section'].unique())
+            report['sections'] = len(
+                data.loc[(data['Course'] == course) &
+                         (data['Instructor'] == instructor),
+                         'Section'].unique())
             report['enrollment'] = None
         for question, responses in closed.items():
             context = {
@@ -322,7 +326,8 @@ for course in courses.index.unique(level='Course'):
     }
     if len(sections) == 0:
         report['instructors'] = len(instructors)
-        report['sections'] = len(data.loc[data['Course'] == course, 'Section'].unique())
+        report['sections'] = len(data.loc[data['Course'] == course,
+                                          'Section'].unique())
         report['enrollment'] = None
 
     for question, responses in closed.items():
@@ -382,7 +387,8 @@ for department in departments.index.unique(level='Department'):
         if len(enrollments) == 0:
             report['courses'] = data['Course'].unique()
             report['instructors'] = data['Instructor'].unique()
-            report['sections'] = len(numpy.unique(data[['Course', 'Section', 'Instructor']]))
+            report['sections'] = len(numpy.unique(data[['Course', 'Section',
+                                                        'Instructor']]))
             report['enrollment'] = None
 
         for question, responses in closed.items():
