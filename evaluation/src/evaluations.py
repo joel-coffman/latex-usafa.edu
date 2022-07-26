@@ -6,6 +6,7 @@ import math
 import os
 import shutil
 import sys
+import zipfile
 
 import jinja2
 import numpy
@@ -100,6 +101,8 @@ if '__main__' == __name__:
         description='Create course evaluation reports')
     parser.add_argument('--debug', action='store_true',
                         help='print debugging information')
+    parser.add_argument('--overleaf', action='store_true',
+                        help='create a ZIP archive for Overleaf')
     parser.add_argument('term', action='store',
                         help='term of evaluations (e.g., spring or fall)')
     parser.add_argument('year', action='store',
@@ -456,3 +459,18 @@ if '__main__' == __name__:
                                        aggregation + '.tex')
             create_report(report_path, template, report)
     print()
+
+    if args.overleaf:
+        archive = '{}{}.zip'.format(args.term.capitalize(), args.year)
+        print('Creating ZIP archive ({})'.format(archive))
+
+        with zipfile.ZipFile(archive, 'x') as z:
+            # include the evaluation package
+            package = 'evaluation.sty'
+            z.write(os.path.join('..', package), arcname=package)
+
+            # recursively enumerate files in reports directory
+            for root, directories, filenames in os.walk('./reports/'):
+                for filename in filenames:
+                    path = os.path.join(root, filename)
+                    z.write(path, arcname=path.replace('./reports/', './'))
