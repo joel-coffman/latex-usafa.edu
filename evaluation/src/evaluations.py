@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+from datetime import date
 import math
 import os
 import shutil
@@ -99,7 +100,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--debug', action='store_true',
                     help='print debugging information')
 parser.add_argument('term', action='store',
-                    help='term of evaluations (e.g., Spring 2022)')
+                    help='term of evaluations (e.g., spring, summer, or fall)')
+parser.add_argument('year', action='store',
+                    help='year of evaluations (e.g., {})'.format(
+                        date.today().year))
 
 args = parser.parse_args()
 
@@ -231,7 +235,7 @@ for instructor in instructors.index.unique(level='Instructor'):
         report = {
             'instructor': instructor,
             'course': course,
-            'semester': args.term,
+            'semester': '{} {}'.format(args.term.capitalize(), args.year),
             'sections': len(sections),
             'enrollment': sections['Enrollment'].sum(),
             'responses': int(max(respondents)),
@@ -311,7 +315,7 @@ for course in courses.index.unique(level='Course'):
     report = {
         'course': course,
         'instructors': len(sections['Instructor'].unique()),
-        'semester': args.term,
+        'semester': '{} {}'.format(args.term.capitalize(), args.year),
         'sections': len(sections),
         'enrollment': sections['Enrollment'].sum(),
         'responses': int(max(respondents)),
@@ -370,7 +374,7 @@ for department in departments.index.unique(level='Department'):
         report = {
             'courses': enrollments['Course'].unique(),
             'instructors': enrollments['Instructor'].unique(),
-            'semester': args.term,
+            'semester': '{} {}'.format(args.term.capitalize(), args.year),
             'sections': len(enrollments),
             'enrollment': enrollments['Enrollment'].sum(),
             'responses': len(data),
