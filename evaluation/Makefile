@@ -1,18 +1,6 @@
-.PHONY: all
-all: packages documentation
+include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
 
-packages = $(patsubst %.dtx,%.sty,$(wildcard *.dtx))
-documentation = $(patsubst %.dtx,%.pdf,$(wildcard *.dtx))
-
-.PHONY: packages
-packages: $(packages)
-
-.PHONY: documentation
-documentation: $(documentation)
+$(documentation): email.sty theme-doc.sty | examples
 
 examples:
 	mkdir --parents $@
-
-$(documentation): | examples
-
-include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex

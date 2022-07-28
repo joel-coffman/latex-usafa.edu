@@ -1,11 +1,3 @@
-.PHONY: all
-all: beamercolorthemefalcon.sty beamercolorthemefalcon.pdf
-
-derivatives += beamercolorthemefalcon.sty
-
-beamercolorthemefalcon.sty:
-beamercolorthemefalcon.pdf: beamercolorthemefalcon.sty example.pdf
+include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
 
 example.pdf: beamercolorthemefalcon.sty ../../beamerthemeexamplebase.tex
-
-include $(shell git rev-parse --show-toplevel)/texmf/Makefile.tex
