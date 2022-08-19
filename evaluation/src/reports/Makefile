@@ -18,3 +18,12 @@ mostlyclean:
 .PHONY: clean
 clean:
 	@for report in $(reports); do $(MAKE) --directory=$$report clean; done
+
+.PHONY: dist
+dist: all
+	rsync --archive --prune-empty-dirs --verbose \
+	    --include="*/" --include="*.pdf" --exclude="*" . PDFs
+
+.PHONY: distclean
+distclean:
+	$(RM) --recursive PDFs
