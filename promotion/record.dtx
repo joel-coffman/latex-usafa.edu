@@ -49,9 +49,6 @@
   breaklines,
 }
 
-% multicol
-\setlength\IndexMin{120pt}  % https://tex.stackexchange.com/a/95893
-
 
 \input{.version}
 
@@ -385,7 +382,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{record}[%
     2023/01/17 %
-    v0.1.1 %
+    v0.1.2 %
     Package for scholarship and service records%
 ]
 %    \end{macrocode}
@@ -393,7 +390,9 @@
 % \subsection{Packages}
 % Load packages required by this one.
 %    \begin{macrocode}
-\RequirePackage{amssymb}
+\@ifpackageloaded{newtxmath}{}{% https://tex.stackexchange.com/q/564075
+  \RequirePackage{amssymb}
+}
 \RequirePackage{bibentry}
 \RequirePackage{booktabs}
 \RequirePackage{enumitem}[2018-11-30]
@@ -409,6 +408,9 @@
 
 \RequirePackage{hyperfix}
 %    \end{macrocode}
+% \changes{0.1.2}{2023/01/13}{
+%   Do not use amssymb if newtxmath loaded
+% }
 %
 % \subsection{Options}
 % Define the package options.
