@@ -49,6 +49,9 @@
   breaklines,
 }
 
+% multicol
+\setlength\IndexMin{120pt}  % https://tex.stackexchange.com/a/95893
+
 
 \input{.version}
 
@@ -381,8 +384,8 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{record}[%
-    2020/10/09 %
-    v0.1.0 %
+    2023/01/17 %
+    v0.1.1 %
     Package for scholarship and service records%
 ]
 %    \end{macrocode}
@@ -426,10 +429,9 @@
 % \subsection{Configuration}
 % This section describes the package configuration.
 %
-% Do not use monospace font for URLs.
-%    \begin{macrocode}
-\urlstyle{same}
-%    \end{macrocode}
+% \changes{0.1.1}{2023/01/17}{
+%   Do not change URL style
+% }
 %
 % Hook |\author| and |\rank| so that they define the defaults for the applicant name and academic rank.
 %    \begin{macrocode}
