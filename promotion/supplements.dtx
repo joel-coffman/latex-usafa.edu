@@ -205,8 +205,8 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{supplements}[%
-    2020/11/19 %
-    v0.1.1 %
+    2023/01/18 %
+    v0.1.2 %
     Package for supplemental material%
 ]
 %    \end{macrocode}
@@ -298,10 +298,10 @@
           \ifsupplements@supplement@list
             addtotoc={
               1,  % page number
-              \supplements@supplement@section,  % section
+              {\supplements@supplement@section},  % section
               -1,  % level (ignored if lower than specified section level?)
-              \supplements@supplement@tocentry,  % title
-              \supplements@supplement@path  % label
+              {\supplements@supplement@tocentry},  % title
+              {\supplements@supplement@path}  % label
             },
           \fi
           link,
@@ -316,6 +316,9 @@
 %    \end{macrocode}
 %     \changes{0.1.1}{2020/11/19}{%
 %       Remove section option (moved to \texttt{supplements} environment)
+%     }
+%     \changes{0.1.2}{2023/01/18}{%
+%       Enclose \texttt{addtotoc} arguments in groups
 %     }
 %   \end{macro}
 %
