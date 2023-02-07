@@ -382,7 +382,7 @@
 %    \begin{macrocode}
 \ProvidesPackage{record}[%
     2023/02/06 %
-    v0.1.2 %
+    v0.1.3 %
     Package for scholarship and service records%
 ]
 %    \end{macrocode}
@@ -415,14 +415,22 @@
 % \subsection{Options}
 % Define the package options.
 %    \begin{macrocode}
+\newif\ifrecord@message
 \pgfkeys{% definitions
   record/.cd,
   applicant/.store in=\record@applicant,
   applicant/.value required,
+  message/.store in=\record@message,
+  message/.value required,
   rank/.store in=\record@rank,
   rank/.value required,
+  % default
+  message={(since last promotion)},
 }
 %    \end{macrocode}
+% \changes{0.1.3}{2023/02/06}{
+%   Allow custom message in table header
+% }
 % Process the options using the name of the package (i.e., \texttt{record}) as the path.
 %    \begin{macrocode}
 \ProcessPgfOptions*
@@ -581,6 +589,7 @@
 %    \begin{macrocode}
 \newenvironment{publications}[1][]{%
   \pgfkeys{record/publications/.cd,#1}%
+  \ifdefstring{\record@message}{}{\record@messagefalse}{\record@messagetrue}
   \record@record{
     & Date, all contributing authors, title, publication, publisher
       name, location, pages, and URL if accessible online
@@ -626,11 +635,11 @@
       \bfseries\larger[3] Scholarship Record:\ Publications
       \par
     }\\\addlinespace
+    \ifrecord@message
     \multicolumn{8}{c}{%
-      \larger
-      (since last promotion)
-      \par
+      \larger\record@message\par
     }\\\addlinespace
+    \fi
     \toprule
       {\bfseries \#}
     & {\bfseries\parbox[b]{\linewidth}{\centering Citation}}
@@ -693,6 +702,7 @@
 
 \newenvironment{presentations/workshops}[1][]{%
   \pgfkeys{record/presentations--workshops/.cd,#1}%
+  \ifdefstring{\record@message}{}{\record@messagefalse}{\record@messagetrue}
   \record@record[#1]{
     & \begin{itemize}
         \item Date
@@ -740,11 +750,11 @@
       Scholarship Record:\ Presentations / Workshops
       \par
     }\\\addlinespace
+    \ifrecord@message
     \multicolumn{7}{c}{%
-      \larger
-      (since last promotion)
-      \par
+      \larger\record@message\par
     }\\\addlinespace
+    \fi
     \toprule
       {\bfseries \#}
     & {\bfseries\parbox[b]{\linewidth}{\centering Presentation / Workshop}}
@@ -802,6 +812,7 @@
 
 \newenvironment{service}[1][]{%
   \pgfkeys{record/service/.cd,#1}%
+  \ifdefstring{\record@message}{}{\record@messagefalse}{\record@messagetrue}
   \record@record{
     & \begin{itemize}
         \item Date(s) of service
@@ -858,11 +869,11 @@
       Academic Service Record
       \par
     }\\\addlinespace
+    \ifrecord@message
     \multicolumn{8}{c}{%
-      \larger
-      (since last promotion)
-      \par
+      \larger\record@message\par
     }\\\addlinespace
+    \fi
     \toprule
       {\bfseries \#}
     & {\bfseries\parbox[b]{\linewidth}{\centering Service}}
