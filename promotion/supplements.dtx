@@ -115,7 +115,7 @@
 %
 %     \item[type]
 %     A short description of the supplements to include before the list.
-%     Defaults to ``supplementary material.''
+%     Defaults to ``supplementary materials.''
 %   \end{description}
 %   \caption{
 %     Key-value options for the \texttt{supplements} environment
@@ -205,8 +205,8 @@
 % Identify package and version.
 %    \begin{macrocode}
 \ProvidesPackage{supplements}[%
-    2023/01/18 %
-    v0.1.2 %
+    2023/03/13 %
+    v0.1.3 %
     Package for supplemental material%
 ]
 %    \end{macrocode}
@@ -340,7 +340,7 @@
     directory=.,
     section=subsection,
     structure=itemize,
-    type=supplementary material,
+    type=supplementary materials,
   }%
 %    \end{macrocode}
 % Process the options.
@@ -369,6 +369,9 @@
 %    \end{macrocode}
 %   \changes{0.1.1}{2020/11/19}{%
 %     Add section option (moved from \texttt{supplement} macro)
+%   }
+%   \changes{0.1.3}{2023/03/13}{%
+%     Use ``supplementary materials'' as the default type
 %   }
 % \end{environment}
 %
