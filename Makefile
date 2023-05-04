@@ -17,6 +17,13 @@ promotion/template: | promotion
 	$(MAKE) -C $@ dist distcheck
 
 
+targets = $(filter-out $(packages) list,$(MAKECMDGOALS))
+
+.PHONY: $(targets)
+$(targets):
+	@for package in $(packages); do $(MAKE) -C $$package $@; done
+
+
 .PHONY: list
 list:
 	@for package in $(packages); do echo $$package; done
