@@ -12,12 +12,13 @@ CWD != realpath $(CWD)/.. --relative-to=$(CURDIR)
 # empty recipes to avoid rebuilding Makefiles via implicit rules
 Makefile: ;
 
-# add texmf directory to TEXINPUTS environment variable to find included files
-# (e.g., packages)
+# add texmf directory to TEXMFCNF and TEXINPUTS environment variables to find
+# TeX configuration and included files (e.g., packages)
+TEXMFCNF := $(CWD)/texmf/:
 TEXINPUTS := .:$(TEXINPUTS):$(CWD)/texmf//:
 
 # define TEX as pdflatex
-TEX = TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape
+TEX = TEXMFCNF=$(TEXMFCNF) TEXINPUTS=$(TEXINPUTS) pdflatex -shell-escape
 
 # Define a "Canned Recipe" for compiling PDFs from *.{dtx,tex} files.
 #
