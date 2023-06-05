@@ -1,3 +1,7 @@
-max_print_line = 10000
-error_line = 254
-half_error_line = 238
+%
+% TeX, Metafont, and MetaPost configuration (see `kpsewhich texmf.cnf`)
+%
+
+max_print_line = 10000  % 60 <= max_print_line
+error_line = 254  % 45 < error_line < 255
+half_error_line = 238  % 30 < half_error_line < error_line - 15
