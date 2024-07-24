@@ -18,12 +18,13 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamerthemeusafa.edu}
-%<package>  [2022/01/11 v0.2.0 Beamer theme for the United States Air Force Academy]
+%<package>  [2024/07/24 v0.2.1 Beamer theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{beamerarticle}
 
+\usepackage{glossaries}
 \usepackage{graphicx}
 \usepackage{minted}
 
@@ -31,6 +32,10 @@
 \usepackage{theme-doc}
 
 \usepackage{beamerthemeusafa.edu}
+
+
+% glossaries
+\loadglsentries{acronyms}
 
 
 \input{.version}
@@ -152,9 +157,19 @@
 %   Use Clear Sans as the typeface
 % }
 %
+% Require the \textsf{epstopdf} package for \gls{EPS} images.
+%    \begin{macrocode}
+\RequirePackage{epstopdf}
+%    \end{macrocode}
+%
 % Require the \textsf{microtype} package to adjust tracking (i.e., letter spacing).
 %    \begin{macrocode}
 \RequirePackage{microtype}
+%    \end{macrocode}
+%
+% Require the \textsf{xpatch} package to patch other packages.
+%    \begin{macrocode}
+\RequirePackage{xpatch}
 %    \end{macrocode}
 %
 % \subsubsection{Beamer themes}
@@ -175,6 +190,21 @@
 % }
 %
 % \subsection{Configuration}
+% Patch \textsf{epstopdf} to search for \gls{EPS} images using \texttt{TEXINPUTS} (courtesy of \texttt{kpsewhich}).  ^^A https://bit.ly/3uuC3EP
+%
+%    \begin{macrocode}
+\xpatchcmd{\ETE@epstopdf}{#1}{`kpsewhich \space "\SourceFile"`}{%
+  \PackageInfo{beamerthemeusafa.edu}%
+      {Patched epstopdf to search for EPS images}%
+}{%
+  \PackageWarning{beamerthemeusafa.edu}%
+      {Unable to patch epstopdf to search for EPS images; place EPS %
+       images provided by theme in same directory as the document}%
+}%
+%    \end{macrocode}
+% \changes{0.2.1}{2024/07/24}{%
+%   Patch epstopdf to search for images using kpsewhich
+% }
 %
 % \begin{macro}{institute}
 % Set the institute.
