@@ -193,7 +193,7 @@
 % Patch \textsf{epstopdf} to search for \gls{EPS} images using \texttt{TEXINPUTS} (courtesy of \texttt{kpsewhich}).  ^^A https://bit.ly/3uuC3EP
 %
 %    \begin{macrocode}
-\xpatchcmd{\ETE@epstopdf}{#1}{`kpsewhich \space "\SourceFile"}{%
+\xpatchcmd{\ETE@epstopdf}{#1}{`kpsewhich \space "\SourceFile"`}{%
   \PackageInfo{beamerthemeusafa.edu}%
       {Patched epstopdf to search for EPS images}%
 }{%
