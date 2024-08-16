@@ -104,19 +104,6 @@ I believe no special accounting of emphasis is necessary, and there are no omiss
 \chapter{Commitment to Sustained Professional Development}  %------------------
 \input{statements/professional-development}
 
-%------------------------------------------------------------------------------
-\chapter{Supplementary Materials}  %-------------------------------------------
-
-\begin{supplements}[
-    directory=./supplements/teaching/,
-    section=section,
-    type=\LaTeXe{} packages,
-]
-  \supplement[
-      tocentry={The graded-review package},
-  ]{graded-review.pdf}{The \textsf{graded-review} package}
-\end{supplements}
-
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
@@ -133,20 +120,6 @@ Prior publications and presentations are listed in my curriculum vitae (Section~
 
 \input{records/scholarship}
 
-%------------------------------------------------------------------------------
-\chapter{Supplementary Materials}  %-------------------------------------------
-
-\begin{supplements}[
-    directory=supplements/scholarship/,
-    section=section,
-    structure=enumerate,
-    type=publications,
-]
-  \supplement[
-      tocentry={Building a Pathway for Student Learning: A How-To Guide to Course Design},
-  ]{jones2014building.pdf}{\bibentry{jones2014building}}
-\end{supplements}
-
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
@@ -159,8 +132,40 @@ Prior academic service is listed in my curriculum vitae (Section~\ref{section:cv
 
 \input{records/service}
 
+
 %------------------------------------------------------------------------------
-\chapter{Supplementary Materials}  %-------------------------------------------
+%------------------------------------------------------------------------------
+\part{Supplementary Material}  %-----------------------------------------------
+
+%------------------------------------------------------------------------------
+\chapter{Teaching}  %----------------------------------------------------------
+
+\begin{supplements}[
+    directory=./supplements/teaching/,
+    section=section,
+    type=\LaTeXe{} packages,
+]
+  \supplement[
+      tocentry={The graded-review package},
+  ]{graded-review.pdf}{The \textsf{graded-review} package}
+\end{supplements}
+
+%------------------------------------------------------------------------------
+\chapter{Scholarship}  %-------------------------------------------------------
+
+\begin{supplements}[
+    directory=supplements/scholarship/,
+    section=section,
+    structure=enumerate,
+    type=publications,
+]
+  \supplement[
+      tocentry={Building a Pathway for Student Learning: A How-To Guide to Course Design},
+  ]{jones2014building.pdf}{\bibentry{jones2014building}}
+\end{supplements}
+
+%------------------------------------------------------------------------------
+\chapter{Service}  %-----------------------------------------------------------
 
 \begin{supplements}[
     directory=./supplements/service/,
