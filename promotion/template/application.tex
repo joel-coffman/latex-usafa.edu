@@ -1,5 +1,6 @@
 \documentclass[11pt,openany,oneside]{book}
 
+\usepackage{bibentry}
 \usepackage{glossaries}
 \usepackage{hyperref}
 \usepackage{pdfpages}
@@ -7,6 +8,11 @@
 
 \usepackage{application}
 
+
+% bibentry
+\AtBeginDocument{
+  \nobibliography*
+}
 
 % glossaries
 \loadglsentries{acronyms}
