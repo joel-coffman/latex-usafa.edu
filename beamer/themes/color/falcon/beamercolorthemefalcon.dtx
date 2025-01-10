@@ -18,7 +18,7 @@
 % \iffalse
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{beamercolorthemefalcon}
-%<package>  [2022/01/10 v0.2.0 Beamer color theme for the United States Air Force Academy]
+%<package>  [2025/01/10 v0.3.0 Beamer color theme for the United States Air Force Academy]
 %
 %<*driver>
 \documentclass{ltxdoc}
@@ -79,6 +79,9 @@
 % }
 % \changes{0.2.0}{2022/01/10}{%
 %   Update colors based on 2019 brand guidelines
+% }
+% \changes{0.3.0}{2025/01/10}{%
+%   Update colors based on current brand guidelines
 % }
 %
 % \GetFileInfo{beamercolorthemefalcon.sty}
@@ -154,20 +157,20 @@
 %
 % Define the Patone colors\footnote{\url{https://www.pantone.com/}} used by \gls{USAFA}.
 %    \begin{macrocode}
-\definecolor{Pantone 661}{cmyk/RGB}{1.00,0.75,0.00,0.20/0,69,140}
-\colorlet{Academy Blue}{Pantone 661}
+\definecolor{Pantone 661 C}{cmyk/RGB}{1.00,0.81,0.00,0.13/0,53,148}
+\colorlet{Academy Blue}{Pantone 661 C}
 
-\definecolor{Pantone 655}{cmyk/RGB}{1.00,0.75,0.10,0.50/0,43,92}
-\colorlet{Academy Dark Blue}{Pantone 655}
+\definecolor{Pantone 655 C}{cmyk/RGB}{1.00,0.73,0.00,0.61/0,37,84}
+\colorlet{Class Royal}{Pantone 655 C}
 
-\definecolor{Pantone 421}{cmyk/RGB}{0.15,0.10,0.11,0.30/178,180,178}
-\colorlet{Academy Gray}{Pantone 421}
+\definecolor{Pantone 421 C}{cmyk/RGB}{0.28,0.20,0.20,0.00/178,180,178}
+\colorlet{Academy Gray}{Pantone 421 C}
 
-\definecolor{Pantone 187}{cmyk/RGB}{0.27,1.00,0.84,0.17/166,25,46}
-\colorlet{Academy Red}{Pantone 187}
+\definecolor{Pantone 187 C}{cmyk/RGB}{0.00,1.00,0.74,0.26/166,25,46}
+\colorlet{Class Red}{Pantone 187 C}
 
-\definecolor{Pantone 123}{cmyk/RGB}{0.00,0.23,0.91,0.00/255,198,47}
-\colorlet{Academy Yellow}{Pantone 123}
+\definecolor{Pantone 123 C}{cmyk/RGB}{0.00,0.16,0.89,0.00/255,199,44}
+\colorlet{Class Yellow}{Pantone 123 C}
 %    \end{macrocode}
 %
 % Table~\ref{table:colors} lists the color names and samples of those colors defined by this theme.
@@ -182,11 +185,11 @@
 %     \toprule
 %     Color & Sample & Name\\
 %     \midrule
-%     Pantone 661 & \testcolor{Pantone 661} & Academy Blue\\
-%     Pantone 655 & \testcolor{Pantone 655} & Academy Dark Blue\\
-%     Pantone 421 & \testcolor{Pantone 421} & Academy Gray\\
-%     Pantone 187 & \testcolor{Pantone 187} & Academy Red\\
-%     Pantone 123 & \testcolor{Pantone 123} & Academy Yellow\\
+%     Pantone 661 C & \testcolor{Pantone 661 C} & Academy Blue\\
+%     Pantone 655 C & \testcolor{Pantone 655 C} & Class Royal\\
+%     Pantone 421 C & \testcolor{Pantone 421 C} & Academy Gray\\
+%     Pantone 187 C & \testcolor{Pantone 187 C} & Class Red\\
+%     Pantone 123 C & \testcolor{Pantone 123 C} & Class Yellow\\
 %     \bottomrule
 %   \end{tabular}
 % \end{table}
@@ -203,25 +206,25 @@
 }
 %    \end{macrocode}
 %
-% \mintinline{latex}{alerted text} is red. \testcolor{Academy Red}
+% \mintinline{latex}{alerted text} is red. \testcolor{Class Red}
 %    \begin{macrocode}
 \setbeamercolor{alerted text}{
-  fg=Academy Red,
+  fg=Class Red,
 }
 %    \end{macrocode}
 %
-% \mintinline{latex}{example text} is royal blue. \testcolor{Academy Blue}
+% \mintinline{latex}{example text} is royal blue. \testcolor{Class Royal}
 %    \begin{macrocode}
 \setbeamercolor{example text}{
   fg=Academy Blue,
 }
 %    \end{macrocode}
 %
-% The \mintinline{latex}{structure} color palette is derived from a dark blue. \testcolor{Academy Dark Blue}
+% The \mintinline{latex}{structure} color palette is derived from a dark blue. \testcolor{Class Royal}
 % Shades of this color are used for most elements in the presentation.
 %    \begin{macrocode}
 \setbeamercolor{structure}{
-  fg=Academy Dark Blue,
+  fg=Class Royal,
 }
 %    \end{macrocode}
 % \iffalse
