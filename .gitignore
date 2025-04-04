@@ -27,7 +27,8 @@
 *.toc
 
 *.synctex.gz
-_minted-*
+_minted/
+_minted-*/
 
 .version.tex
 
