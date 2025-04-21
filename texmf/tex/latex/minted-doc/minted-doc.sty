@@ -22,17 +22,17 @@
 %%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{minted-doc}[%
-    2022/06/29 %
-    v0.1.2 %
+    2025/04/03 %
+    v0.1.3 %
     Patches when using minted with docstrip%
 ]
 \RequirePackage{xpatch}
-\@ifpackageloaded{minted}{%
+\@ifpackagelater{minted}{2024/10/22}{}{%
   \xapptocmd{\inputminted}{%
     \noindent%
     \ignorespaces%
   }{}{}%
-}{}
+}
 \@ifpackagelater{minted}{2017/07/19}{}{%
   \AtBeginDocument{%
     \xpretocmd{\inputminted}{%
